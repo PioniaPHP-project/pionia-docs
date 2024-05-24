@@ -3,7 +3,7 @@
   
     <url>
       <loc>http://localhost:1313/docs/moonlight/</loc>
-      <lastmod>2024-05-24T23:56:39+03:00</lastmod>
+      <lastmod>2024-05-25T00:30:32+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
@@ -36,7 +36,7 @@
       </url>
       <url>
         <loc>http://localhost:1313/documentation/introduction/</loc>
-        <lastmod>2024-05-24T23:56:39+03:00</lastmod>
+        <lastmod>2024-05-25T00:24:28+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
