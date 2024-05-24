@@ -20,11 +20,11 @@ Welcome to the official documentation of pionia - `/ˌpʌɪəˈnɪə/` framework
 
 Documentation organisation.
 
-- [MoonLight Architecture](/docs/moonlight/)
-- [Tutorial](/documentation/api-tutorial/)
-- [Directory Structure](/documentation/structure/)
-- [Requests](/documentation/requests/)
-- [Responses](/docs/documentation/responses/)
+- [MoonLight Architecture](docs/moonlight/)
+- [Tutorial](documentation/api-tutorial/)
+- [Directory Structure](documentation/structure/)
+- [Requests](documentation/requests/)
+- [Responses](docs/documentation/responses/)
 - [Middleware](/docs/documentation/middleware/)
 - [Authentication and Authorization](/docs/documentation/authentication/)
 - [Validation](/docs/documentation/validation/)
