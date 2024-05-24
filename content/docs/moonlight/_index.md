@@ -183,7 +183,7 @@ Actions are methods in these classes like `login`, `register` in the `Authentica
 
 In moonlight architecture, querying the database is highly recommended over using an ORM. This is because querying the database directly is faster and more efficient than using an ORM. Also, querying the database directly gives the developer more control over the queries and the data being returned.
 
-Get started with the [Moonlight Implementation using Pionia](/docs/documentation/api-tutorial/).
+Get started with the [Moonlight Implementation using Pionia](/documentation/api-tutorial/).
 
 ##### 10. Separation of Concerns
 
@@ -209,7 +209,3 @@ In this architecture, the backend is meant to support, command and act as a sing
 3. The architecture being new, there might be a learning curve for new developers and a small community to get help from.
 
 The community is growing and we are looking forward to having you on board.
-
-{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
-  The car scenario is a good analogy for the MoonLight architecture. The driver is the controller, the conductor is the service switch, the passengers are the services and actions, the luggage is the data and the destination is the response.
-{{</callout>}}
