@@ -20,39 +20,16 @@
 <title>Pionia Framework</title>
 <meta name="description" content="PHP Rest Framework that is truly RESTful">
 
-    
-    <link rel="icon" href="/favicon.ico" sizes="32x32">
-    
-      <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-      <link
-        rel="apple-touch-icon"
-        href="/apple-touch-icon.png"
-        sizes="180x180"
-        type="image/png"
-      >
-      <link
-        rel="icon"
-        href="/favicon-192x192.png"
-        sizes="192x192"
-        type="image/png"
-      >
-      <link
-        rel="icon"
-        href="/favicon-512x512.png"
-        sizes="512x512"
-        type="image/png"
-      >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="Pionia Framework">
 <meta property="og:description" content="Official Documentation of Pionia Framework!">
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://localhost:1313/"><meta property="og:image" content="http://localhost:1313/cover.png"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/cover.png"><meta name="twitter:title" content="Pionia Framework">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Pionia Framework">
 <meta name="twitter:description" content="Official Documentation of Pionia Framework!">
-<meta name="twitter:site" content="@getdoks">
+<meta name="twitter:site" content="@pionia">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -74,14 +51,14 @@
     {
       "@type": "Organization",
       "url": "http://localhost:1313/",
-      "name": "Hyas",
+      "name": "Pionia",
       "image": [
         {
-          "@id": "http://localhost:1313/cover.png"
+          "@id": "http://localhost:1313/pionia.png"
         }
       ],
       "logo": {
-        "@id": "http://localhost:1313/favicon-512x512.png"
+        "@id": "http://localhost:1313/pionia.png"
       }
     }
   ]
@@ -98,8 +75,9 @@
   
   <body class="single home" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
     <div class="sticky-top">
+<div class="header-bar"></div>
 <header class="navbar navbar-expand-lg">
-  <div class="container-lg">
+  <div class="container-sm">
   
     <a class="navbar-brand me-auto me-lg-3" href="/">Pionia</a>
 
@@ -124,6 +102,7 @@
 
     
     <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
         <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -176,12 +155,12 @@
             </li>
           </ul>
         
-        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/docs/prologue/introduction/" role="button">Get started</a>
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/docs/documentation/introduction/#get-started" role="button">Get started</a>
         </div>
     </div>
 
     
-    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/docs/prologue/introduction/" role="button">Get started</a>
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/docs/documentation/introduction/#get-started" role="button">Get started</a>
     </div>
 </header>
 </div>
@@ -234,7 +213,7 @@
 </div>
 
 
-    <div class="wrap container-lg" role="document">
+    <div class="wrap container-sm" role="document">
       <div class="content">
       
         
@@ -278,7 +257,7 @@
     <div class="container">
       <div class="row justify-content-center text-center gap-2">
         <div class="col-lg-5 border">
-          <h2 class="h4">Speed</h2>
+          <h2 class="h4">Performance</h2>
           <p>Edit <code>content/_index.md</code> to see this page change.</p>
         </div>
         <div class="col-lg-5 border">
@@ -301,7 +280,7 @@
     
 
     <footer class="footer text-muted">
-  <div class="container-lg">
+  <div class="container-sm">
     <div class="row">
       <div class="col-lg-8 text-center text-lg-start">
         <ul class="list-inline">
@@ -336,6 +315,10 @@
   src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
   integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
 </script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
 
     
   </body>

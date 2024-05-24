@@ -7,6 +7,8 @@ lastmod: 2024-05-24T13:45:48.890Z
 draft: false
 weight: 800
 toc: false
+sidebar:
+  collapsed: true
 seo:
   title: "" # custom title (optional)
   description: "" # custom description (recommended)

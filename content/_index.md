@@ -20,7 +20,6 @@ composer create-project pionia/pionia-app my_beautiful_project #replace my_beaut
 
 ```
 
-
 ## Pionia Framework
 
 Pionia is the first PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.

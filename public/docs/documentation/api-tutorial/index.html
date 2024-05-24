@@ -19,41 +19,18 @@
 <title>API Tutorial  |  Pionia</title>
 <meta name="description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 
-    
-    <link rel="icon" href="/favicon.ico" sizes="32x32">
-    
-      <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-      <link
-        rel="apple-touch-icon"
-        href="/apple-touch-icon.png"
-        sizes="180x180"
-        type="image/png"
-      >
-      <link
-        rel="icon"
-        href="/favicon-192x192.png"
-        sizes="192x192"
-        type="image/png"
-      >
-      <link
-        rel="icon"
-        href="/favicon-512x512.png"
-        sizes="512x512"
-        type="image/png"
-      >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="API Tutorial">
 <meta property="og:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/docs/documentation/api-tutorial/"><meta property="og:image" content="http://localhost:1313/cover.png"><meta property="article:section" content="docs">
+<meta property="og:url" content="http://localhost:1313/docs/documentation/api-tutorial/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
 <meta property="article:modified_time" content="2024-05-24T13:45:48+00:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/cover.png"><meta name="twitter:title" content="API Tutorial">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="API Tutorial">
 <meta name="twitter:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
-<meta name="twitter:site" content="@getdoks">
+<meta name="twitter:site" content="@pionia">
 
     
     
@@ -98,8 +75,9 @@
   
   <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
     <div class="sticky-top">
+<div class="header-bar"></div>
 <header class="navbar navbar-expand-lg">
-  <div class="container-lg">
+  <div class="container-sm">
   
     <a class="navbar-brand me-auto me-lg-3" href="/">Pionia</a>
 
@@ -122,6 +100,7 @@
       </svg>
     </button>
     <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
         <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -196,6 +175,7 @@
 
     
     <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
         <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -248,12 +228,12 @@
             </li>
           </ul>
         
-        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/docs/prologue/introduction/" role="button">Get started</a>
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/docs/documentation/introduction/#get-started" role="button">Get started</a>
         </div>
     </div>
 
     
-    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/docs/prologue/introduction/" role="button">Get started</a>
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/docs/documentation/introduction/#get-started" role="button">Get started</a>
     </div>
 </header>
 </div>
@@ -306,12 +286,12 @@
 </div>
 
 
-    <div class="wrap container-lg" role="document">
+    <div class="wrap container-sm" role="document">
       <div class="content">
       
         
 	<div class="row flex-xl-nowrap">
-		<div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
 			
   
     
@@ -360,7 +340,7 @@
 
 		</div>
 		
-		<nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
 			<div class="page-links">
   <h3>On this page</h3>
     <nav id="toc">
@@ -378,6 +358,15 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item"><a href="/docs/">Docs</a></li>
+<li class="breadcrumb-item"><a href="/docs/documentation/">Documentation</a></li>
+<li class="breadcrumb-item active" aria-current="page">API Tutorial</li>
+					</ol>
+				</nav>
+			
 			<h1>API Tutorial</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
@@ -430,6 +419,32 @@
 <p>To connect to an existing database, you need to create a new service that will handle the database connection. You can create a new service by running the following command:</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/2_tutorial.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
 				</div>
 			<div class="page-nav d-flex flex-column flex-sm-row">
 	
@@ -462,7 +477,7 @@
     
     
     <footer class="footer text-muted">
-  <div class="container-lg">
+  <div class="container-sm">
     <div class="row">
       <div class="col-lg-8 text-center text-lg-start">
         <ul class="list-inline">
@@ -497,6 +512,10 @@
   src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
   integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
 </script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
 
     
   </body>

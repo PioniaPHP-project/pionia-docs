@@ -1,13 +1,13 @@
 # Hugo
 title = "Pionia Framework"
 description = "Official Documentation of Pionia Framework!"
-images = ["cover.png"]
+images = ["pionia.png"]
 
 # mainSections
 mainSections = ["docs", "moonlight"]
 
 [social]
-twitter = "getdoks"
+twitter = "pionia"
 
 # Doks (@hyas/doks-core)
 [doks]
@@ -17,11 +17,11 @@ colorModeToggler = true # true (default) or false (this setting is only relevant
 
 # Navbar
 navbarSticky = true        # true (default) or false
-containerBreakpoint = "lg" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
+containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
 
 ## Button
-navBarButton = true                              # false (default) or true
-navBarButtonUrl = "/docs/prologue/introduction/"
+navBarButton = true                                               # false (default) or true
+navBarButtonUrl = "/docs/documentation/introduction/#get-started"
 navBarButtonText = "Get started"
 
 # FlexSearch
@@ -49,9 +49,10 @@ bootstrapJavascript = false # false (default) or true
 # Nav
 sectionNav = [
   "docs",
+  "moonlight",
 ] # ["docs"] (default) or list of sections (e.g. ["docs", "guides"])
-toTopButton = false # false (default) or true
-breadcrumbTrail = false # false (default) or true
+toTopButton = true # false (default) or true
+breadcrumbTrail = true # false (default) or true
 headlineHash = true # true (default) or false
 scrollSpy = true # true (default) or false
 
@@ -64,7 +65,7 @@ docsVersioning = false # false (default) or true
 docsVersion = "1.0"
 
 # UX
-headerBar = false     # true (default) or false
+headerBar = true      # true (default) or false
 backgroundDots = true # true (default) or false
 
 # Homepage
@@ -76,12 +77,12 @@ imageList = true     # true (default) or false
 imageSingle = true   # true (default) or false
 
 # Repository
-editPage = false                           # false (default) or true
-lastMod = false                            # false (default) or true
-repoHost = "GitHub"                        # GitHub (default), Gitea, GitLab, Bitbucket, or BitbucketServer
-docsRepo = "https://github.com/h-enk/doks"
-docsRepoBranch = "main"                    # main (default), master, or <branch name>
-docsRepoSubPath = ""                       # "" (none, default) or <sub path>
+editPage = true                                               # false (default) or true
+lastMod = false                                               # false (default) or true
+repoHost = "GitHub"                                           # GitHub (default), Gitea, GitLab, Bitbucket, or BitbucketServer
+docsRepo = "https://github.com/PioniaPHP-project/pionia-docs"
+docsRepoBranch = "main"                                       # main (default), master, or <branch name>
+docsRepoSubPath = ""                                          # "" (none, default) or <sub path>
 
 # SCSS colors
 # backGround = "yellowgreen"
@@ -134,17 +135,17 @@ separator = " | "
 suffix = ""
 [seo.favicons]
 sizes = []
-icon = "favicon.png"       # favicon.png (default)
-svgIcon = "favicon.svg"    # favicon.svg (default)
-maskIcon = "mask-icon.svg" # mask-icon.svg (default)
-maskIconColor = "white"    # white (default)
+icon = "pionia.png"     # favicon.png (default)
+svgIcon = "pionia.svg"  # favicon.svg (default)
+maskIcon = "pionia.svg" # mask-icon.svg (default)
+maskIconColor = "white" # white (default)
 [seo.schemas]
 type = "Organization" # Organization (default) or Person
-logo = "favicon-512x512.png" # Logo of Organization — favicon-512x512.png (default)
-name = "Hyas" # Name of Organization or Person
+logo = "pionia.png" # Logo of Organization — favicon-512x512.png (default)
+name = "Pionia" # Name of Organization or Person
 sameAs = [
 ] # E.g. ["https://github.com/gethyas/hyas", "https://fosstodon.org/@hyas"]
-images = ["cover.png"] # ["cover.png"] (default)
+images = ["pionia.png"] # ["cover.png"] (default)
 article = [] # Article sections
 newsArticle = [] # NewsArticle sections
 blogPosting = ["blog"] # BlogPosting sections
