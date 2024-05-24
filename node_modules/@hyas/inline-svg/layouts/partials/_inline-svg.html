@@ -1,0 +1,62 @@
+{{/* .src could also be a resource */}}
+{{ $svg := .src }}
+{{ $srcIsString := eq (printf "%T" .src) "string" }}
+{{ $classes := slice }}
+{{ if $srcIsString }}
+  {{ $path := strings.TrimSuffix ".svg" .src }}
+  {{ $svg = resources.Get (printf "%s.svg" $path) }}
+  {{ $classes = slice (path.Base $path) }}
+{{ else }}
+  {{ $path := strings.TrimSuffix ".svg" .src.Name }}
+  {{ $classes = slice (path.Base $path) }}
+{{ end }}
+
+{{/* If src doesn't exist in the site, fallback to icon set */}}
+{{ if and (not $svg) $srcIsString }}
+  {{ $srcName := .src }}
+  {{ $classes = slice $srcName }}
+  {{ $iconSetDir := site.Params.inline_svg.iconSetDir | default "tabler-icons" }}
+
+  {{ $path := printf "svgs/%s/%s.svg" $iconSetDir $srcName }}
+  {{ $svg = resources.Get $path }}
+{{ end }}
+
+{{ $markup := "" }}
+{{ with $svg }}
+  {{ $svg = $svg | minify }}
+  {{ $markup = $svg.Content }}
+
+  {{ $classes = $classes | append "svg-inline" }}
+  {{ with $.class }}{{ $classes = $classes | append . }}{{ end }}
+
+  {{/* Fetch attributes from passed arguments */}}
+  {{ $s := newScratch }}
+  {{ range $k, $v := $ }}{{ $s.Set $k $v }}{{ end }}
+  {{ $s.Delete "src" }}
+  {{ $s.Delete "title" }}
+  {{ $s.Set "class" (delimit $classes " ") }}
+
+  {{/* Override markup with passed title */}}
+  {{ with $.title }}
+    {{ $markup = $markup | replaceRE "<title.*</title>" "" }}
+    {{ $markup = replace $markup "</svg>" (printf "<title>%s</title>" .) }}
+  {{ end }}
+
+  {{/* Override markup with passed attributes */}}
+  {{ $attributes := slice }}
+  {{ range $k, $v := $s.Values }}
+    {{ $matches := findRE (printf `%s=".*?"` $k) $markup 1 }}
+    {{ if len $matches }}
+      {{ $markup = replace $markup (index $matches 0) "" 1 }}
+    {{ end }}
+    {{ $attributes = $attributes | append (printf `%s="%s"` $k $v) }}
+  {{ end }}
+
+  {{ $pattern := `<svg([\s\S]*)?>` }}
+  {{ $replacement := printf `<svg %s ${1}>` (delimit $attributes " ") }}
+  {{ $markup = replaceRE $pattern $replacement $markup 1 | safeHTML }}
+{{ else }}
+  {{ warnf "Could not find src '%s'." .src }}
+{{ end }}
+
+{{ return $markup }}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pionia Framework on Pionia</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Pionia Framework on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Fri, 24 May 2024 13:45:48 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Example Post</title>
+      <link>http://localhost:1313/blog/example-post/</link>
+      <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
+      <guid>http://localhost:1313/blog/example-post/</guid>
+      <description>You can use blog posts for announcing product updates and features.</description>
+    </item>
+    <item>
+      <title>API Tutorial</title>
+      <link>http://localhost:1313/docs/documentation/api-tutorial/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/api-tutorial/</guid>
+      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.</description>
+    </item>
+    <item>
+      <title>Introduction</title>
+      <link>http://localhost:1313/docs/documentation/introduction/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/introduction/</guid>
+      <description>Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use.</description>
+    </item>
+    <item>
+      <title>Structure</title>
+      <link>http://localhost:1313/docs/documentation/structure/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/structure/</guid>
+      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.</description>
+    </item>
+    <item>
+      <title>Example Reference</title>
+      <link>http://localhost:1313/docs/reference/example-reference/</link>
+      <pubDate>Thu, 07 Sep 2023 16:13:18 +0200</pubDate>
+      <guid>http://localhost:1313/docs/reference/example-reference/</guid>
+      <description>Reference pages are ideal for outlining how things work in terse and clear terms. Less concerned with telling a story or addressing a specific use case, they should give a comprehensive outline of what your documenting.</description>
+    </item>
+    <item>
+      <title>Resources</title>
+      <link>http://localhost:1313/docs/resources/</link>
+      <pubDate>Tue, 27 Feb 2024 09:30:56 +0100</pubDate>
+      <guid>http://localhost:1313/docs/resources/</guid>
+      <description>Link to valuable, relevant resources.</description>
+    </item>
+    <item>
+      <title>Privacy Policy</title>
+      <link>http://localhost:1313/privacy/</link>
+      <pubDate>Thu, 07 Sep 2023 17:19:07 +0200</pubDate>
+      <guid>http://localhost:1313/privacy/</guid>
+      <description>Privacy Policy </description>
+    </item>
+  </channel>
+</rss>

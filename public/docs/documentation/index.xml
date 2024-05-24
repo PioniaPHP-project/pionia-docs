@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentation on Pionia</title>
+    <link>http://localhost:1313/docs/documentation/</link>
+    <description>Recent content in Documentation on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Fri, 24 May 2024 13:45:48 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API Tutorial</title>
+      <link>http://localhost:1313/docs/documentation/api-tutorial/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/api-tutorial/</guid>
+      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.</description>
+    </item>
+    <item>
+      <title>Introduction</title>
+      <link>http://localhost:1313/docs/documentation/introduction/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/introduction/</guid>
+      <description>Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use.</description>
+    </item>
+    <item>
+      <title>Structure</title>
+      <link>http://localhost:1313/docs/documentation/structure/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/docs/documentation/structure/</guid>
+      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.</description>
+    </item>
+  </channel>
+</rss>
