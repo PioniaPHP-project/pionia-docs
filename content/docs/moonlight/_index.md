@@ -22,7 +22,21 @@ MoonLight is a rather new architecture that is based on the commonly used archit
 
 Below are the new conventions that MoonLight architecture brings to the table:
 
+Architecture Overview
+
+{{<img src="image.png" autoplay="true" muted="true">}}
+
 <!-- add a video showing the same here -->
+
+{{<callout context="tip" title="The car scenario! -- 1" icon="outline/car">}}
+  Imagine a scenario of a car, the car can have passengers and multiple passengers. The job of the driver is to controll the rest of the car, and the passengers to behave themselves and not interfere with the driver. The driver has one steering wheel in the entire car. Some cars may have a conductor who is responsible for the passengers instead of the driver. This helps the driver to focus on the road and not the passengers.
+{{</callout>}}
+
+{{<callout context="tip" title="The traffic scenario! -- 2" icon="outline/traffic-lights">}}
+  Based on the scenario above, the driver is stopped by the traffic police man, the polica man moves to the driver's side and not the passengers side. The police man looks through the driver's window and checks if there are any issues with the passengers. He asks the first passenger to pass over their id, the passenger forwards the id to the driver who then hands it over to the police. He checks and gives it to the driver who then hands it over to the passenger.
+{{</callout>}}
+
+***NOTE*** Remember the above scenarios as we dive into the MoonLight architecture
 
 ##### 1. Single API endpoint/route
 
@@ -32,11 +46,18 @@ Assuming the application is running on `http://localhost:3000`, all requests wil
 
 On top of other advantages, now frontend devs don't have to worry about the base URL of the API. They can just make requests to the `/api/v1/` endpoint and the application will handle the rest.
 
-##### 2. POST Requests only.
+
+{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
+  This is our drivers window in the car scenario.
+
+  For anyone to interact with the application, they must go through this endpoint only.
+{{</callout>}}
+
+##### 2. POST Requests only
 
   All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the URL. Also, the application gets to benefit highly from ssl encryption and other security features that are available for POST requests.
 
-##### Single Request Format
+##### 3. Single Request Format
 
   In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be be of type JSON or form-data.
 
@@ -61,7 +82,7 @@ On top of other advantages, now frontend devs don't have to worry about the base
   And Actions should be methods in these classes like `login`, `register` in the `AuthenticationService` class.
 {{</callout>}}
 
-## Single Response Format
+##### 4. Single Response Format
 
   This architecture also calls for a single response format. This makes it way easier to understand and debug the responses. The response format is as follows:
 
@@ -74,8 +95,121 @@ On top of other advantages, now frontend devs don't have to worry about the base
   }
 ```
 
+With `statusCode`, it implies that the developer/business can define their own custom status codes. However, by convention, a status code of `0` implies success and is recommended to be kept for the same.
+
+
+##### 5. HTTP 200 OK for all.
+
+All requests in this architecture that reach the application server should/must return an http status of 200 OK. The only special case is 502 Gateway Error which is returned when the application server is down or unreachable.
+
+
 {{<callout context="note" title="Point To Ponder!" icon="outline/book" >}}
-All requests in this architecture that reach the application server should/must return an http status of 200 OK. Failure to reach the server implies the server is off which calls for a 502 Bad Geteway.
+  Think about it, the application server actually handled your request so whether the request raised an exception or successfully executed, the server actually handled.
+  And that's what we are actually looking for.
 {{</callout >}}
 
-With `statusCode`, it implies that the developer/business can define their own custom status codes. However, by convention, a status code of `0` implies success and is recommended to be kept for the same.
+{{<callout context="tip" title="Remember the traffic scenario!" icon="outline/traffic-lights">}}
+Every time our police man poses a question, he expects an answer. If the driver doesn't have an answer, he should say so(which is also an answer) and not just keep quiet.
+{{</callout>}}
+
+##### 6. Single Controller Per Application.
+
+In this architecture, there is only one controller that handles all the requests. This controller is responsible for routing the requests to the appropriate service and action. This makes it easier to maintain and debug the application. This must be one per application.
+
+To achieve api versioning, this controller can have multiple actions each pointing to a different version of the application. Each action can then route the request to the appropriate service switch. It is at this point that the app should handle all exceptions that might be raised by the services and then return a 200 OK response with the appropriate message.
+
+Example using php.
+
+```php {title="Controller"}
+  class ApiController extends Controller
+  {
+      public function v1()
+      {
+          try {
+              // point to the service switch for version one
+          } catch (\Exception $e) {
+              // handle the exception here
+          }
+      }
+
+      public function v2()
+      {
+          try {
+              // point to the service switch for version two
+          } catch (\Exception $e) {
+              // handle the exception here
+          }
+      }
+  }
+<?php
+```
+
+No logic should be in the controller, it should only be responsible for routing the requests to the appropriate service and action.
+
+{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
+  This is the driver in the car scenario. The driver is responsible for routing the police man questions to the appropriate passenger.
+
+  The steering wheel is the `controller action` of the version we are targeting!
+{{</callout>}}
+
+
+##### 7. Single Service Switch Per API Version.
+
+In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the `SERVICE` in the request and the call the responsible service passing it the action(`ACTION`) and the rest of the payload.
+
+The service switch is just a convention to make our controller clean and easy to maintain. It is not a must to have it, but it is recommended. Otherwise, the switching logic would be handled in the controller action responsible for the version.
+
+{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
+  This is the conductor in the car scenario. However much the driver can do everything the conductor can do, the conductor is their to reduce work load on the driver.
+
+  This implies the driver focuses on the road and the conductor focuses on the passengers.
+
+  The controller focuses on the mapping the request, the service switch focuses on mapping the service and the action.
+{{</callout>}}
+
+##### 8. Services and Actions
+
+In MoonLight architecture, services are classes or interfaces that combine together related business logic. For example, `AuthenticationService`, `ProductService`, `OrderService` etc.
+
+Actions are methods in these classes like `login`, `register` in the `AuthenticationService` class.
+
+{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
+  This is the passenger in the car scenario. The passenger is responsible for their own luggage and reaching their destination. They are also responsible for fullfiling the driver's requests.
+
+  Remember, the driver asks the passenger for the id, the passenger passed it over to the driver! Passing the id is the passenger's responsibility(action).
+{{</callout>}}
+
+##### 9. Database and Querying
+
+In moonlight architecture, querying the database is highly recommended over using an ORM. This is because querying the database directly is faster and more efficient than using an ORM. Also, querying the database directly gives the developer more control over the queries and the data being returned.
+
+Get started with the [Moonlight Implementation using Pionia](/docs/documentation/api-tutorial/).
+
+##### 10. Separation of Concerns
+
+In this architecture, the backend is meant to support, command and act as a single source of truth for the frontend. This implies that the architecture requires implementers to implement the frontend and backend separately.
+
+>>
+
+###### Advantages of MoonLight Architecture
+
+1. Scalability :- Since adding new services and actions is easy, the application can be scaled easily.
+2. Maintainability :- Small codebase and single-logic services make it easy to maintain the application. Even new developers can easily understand the codebase.
+3. Security :- Since all requests are made using POST, the data is secure and not exposed in the URL. Also, action level authentication makes it easy to secure the application.
+4. High Performance :- This is as a result of less abstraction and more direct database querying. Also, the architecture improves the developer performance since it reduces the codebase of the previously used architectures by almost 60%.
+5. Easy Debugging :- Since all requests and responses are made in a similar format, it is easy to debug the application.
+6. Frontend Integration :- One endpoint for all requests, one request format, one response format make it easy for frontend devs to integrate the api.
+
+>>
+
+###### Disadvantages of MoonLight Architecture
+
+1. Some languages may not support switching between form-data and json requests. This might dictate all uploads to be base64 encoded.
+2. Moonlight is only suitable for APIs and not for fullstack applications.
+3. The architecture being new, there might be a learning curve for new developers and a small community to get help from.
+
+The community is growing and we are looking forward to having you on board.
+
+{{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
+  The car scenario is a good analogy for the MoonLight architecture. The driver is the controller, the conductor is the service switch, the passengers are the services and actions, the luggage is the data and the destination is the response.
+{{</callout>}}

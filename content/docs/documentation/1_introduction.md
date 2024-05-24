@@ -14,14 +14,16 @@ seo:
   noindex: false # false (default) or true
 ---
 
+{{<picture src="pionia.png" alt="Pionia Logo">}}
+
 Welcome to the official documentation of pionia - `/ˌpʌɪəˈnɪə/` framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.
 
 Documentation organisation.
 
 - [MoonLight Architecture](/docs/moonlight/)
-- [Tutorial](/docs/documentation/tutorial/)
-- [Directory Structure](/docs/documentation/directory-structure/)
-- [Requests](/docs/documentation/requests/)
+- [Tutorial](/documentation/api-tutorial/)
+- [Directory Structure](/documentation/structure/)
+- [Requests](/documentation/requests/)
 - [Responses](/docs/documentation/responses/)
 - [Middleware](/docs/documentation/middleware/)
 - [Authentication and Authorization](/docs/documentation/authentication/)
@@ -35,9 +37,9 @@ Documentation organisation.
 
 ### Get Started
 
-{{<callout context="tip" title="Start with a TO-DO api tutorial" icon="outline/write">}}
+{{<callout context="tip" title="Start with a TO-DO api tutorial" icon="outline/pencil">}}
 
-You can quickly get started with our [To-Do API tutorial](/docs/documentation/tutorial/). This guide introduces you to the both the framework and the [Moonlight architecture](/docs/moonlight/). It is the recommended way to start your pionia jungle journey.
+You can quickly get started with our [To-Do API tutorial](/documentation/api-tutorial/). This guide introduces you to the both the framework and the [Moonlight architecture](/docs/moonlight/). It is the recommended way to start your pionia jungle journey.
 {{</callout>}}
 
 ## Why Pionia?

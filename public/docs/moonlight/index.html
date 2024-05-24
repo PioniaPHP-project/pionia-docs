@@ -19,6 +19,28 @@
 <title>MoonLight Architecture  |  Pionia</title>
 <meta name="description" content="This page describes the MoonLight Architecture.">
 
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="MoonLight Architecture">
 <meta property="og:description" content="This page describes the MoonLight Architecture.">
@@ -121,15 +143,15 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/docs/documentation/api-tutorial/">API Tutorial</a>
+      <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
   <li>
-      <a href="/docs/documentation/introduction/">Introduction</a>
+      <a href="/documentation/introduction/">Introduction</a>
   </li>
 
   <li>
-      <a href="/docs/documentation/structure/">Structure</a>
+      <a href="/documentation/structure/">Structure</a>
   </li>
       </ul>
     </details>
@@ -141,7 +163,7 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/docs/reference/example-reference/">Example Reference</a>
+      <a href="/reference/example-reference/">Example Reference</a>
   </li>
       </ul>
     </details>
@@ -180,13 +202,13 @@
       
       <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
         <ul class="navbar-nav flex-grow-1"><li class="nav-item">
-                <a class="nav-link" href="http://localhost:1313/docs/documentation/introduction/">Documentation</a>
+                <a class="nav-link" href="http://localhost:1313/documentation/introduction/">Documentation</a>
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="http://localhost:1313/docs/moonlight/">Moonlight</a>
               </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:1313/docs/tutorial/">Tutorial</a>
+                <a class="nav-link" href="http://localhost:1313/documentation/api-tutorial/">Tutorial</a>
               </li>
             </ul>
 
@@ -288,14 +310,73 @@
       <div class="text-center"><p>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic. It picks the best of all these architectures and combines them to create a new architecture that is more efficient and scalable.</p>
 <h2 id="the-moonlight-paradigm">The MoonLight paradigm</h2>
 <p>Below are the new conventions that MoonLight architecture brings to the table:</p>
+<p>Architecture Overview</p>
+
+<img
+  srcset="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAABwAQCdASoQAAsAAph8J7ACdAF1AAD&#43;7wnmsKNoKPqB28P7Rr4C9nw28BDAnfIAAAA="
+      data-srcset="/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_480x0_resize_q85_h2_lanczos_3.webp 480w,/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_576x0_resize_q85_h2_lanczos_3.webp 576w,/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_768x0_resize_q85_h2_lanczos_3.webp 768w,/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_1025x0_resize_q85_h2_lanczos_3.webp 1025w,/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_1162x0_resize_q85_h2_lanczos_3.webp 1162w"
+      data-sizes="auto"
+  src="/docs/moonlight/image_hu347d9461f0e4d09c5cede9aef9eb3918_245204_480x0_resize_q85_bgffffff_lanczos_3.jpg"
+  width="1162"
+  height="811"
+  decoding="async"
+  fetchpriority="auto"
+  loading="lazy"
+  alt=""
+  class="lazyload blur-up"
+>
 <!-- add a video showing the same here -->
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/car svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 17m-2 0a2 2 0 104 0 2 2 0 10-4 0"/><path d="M17 17m-2 0a2 2 0 104 0 2 2 0 10-4 0"/><path d="M5 17H3v-6l2-5h9l4 5h1a2 2 0 012 2v4h-2m-4 0H9m-6-6h15m-6 0V6"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>The car scenario! &ndash; 1</p>
+
+      </div>
+    <div class="callout-body">
+      <p>Imagine a scenario of a car, the car can have passengers and multiple passengers. The job of the driver is to controll the rest of the car, and the passengers to behave themselves and not interfere with the driver. The driver has one steering wheel in the entire car. Some cars may have a conductor who is responsible for the passengers instead of the driver. This helps the driver to focus on the road and not the passengers.</p>
+
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/traffic-lights svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 2m0 5a5 5 0 015-5h0a5 5 0 015 5v10a5 5 0 01-5 5h0a5 5 0 01-5-5z"/><path d="M12 7m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 12m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 17m-1 0a1 1 0 102 0 1 1 0 10-2 0"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>The traffic scenario! &ndash; 2</p>
+
+      </div>
+    <div class="callout-body">
+      <p>Based on the scenario above, the driver is stopped by the traffic police man, the polica man moves to the driver&rsquo;s side and not the passengers side. The police man looks through the driver&rsquo;s window and checks if there are any issues with the passengers. He asks the first passenger to pass over their id, the passenger forwards the id to the driver who then hands it over to the police. He checks and gives it to the driver who then hands it over to the passenger.</p>
+
+    </div>
+  </div>
+</div>
+
+<p><em><strong>NOTE</strong></em> Remember the above scenarios as we dive into the MoonLight architecture</p>
 <h5 id="1-single-api-endpointroute">1. Single API endpoint/route</h5>
 <p>In the moonlight, all requests target the same endpoint. This is to ensure that the application is scalable and easy to maintain. This also makes it easier to debug and monitor the application.</p>
 <p>Assuming the application is running on <code>http://localhost:3000</code>, all requests will be made to <code>http://localhost:3000/api/v1/</code>. This is the only endpoint that is exposed to the outside world.</p>
 <p>On top of other advantages, now frontend devs don&rsquo;t have to worry about the base URL of the API. They can just make requests to the <code>/api/v1/</code> endpoint and the application will handle the rest.</p>
-<h5 id="2-post-requests-only">2. POST Requests only.</h5>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>This is our drivers window in the car scenario.</p>
+<p>For anyone to interact with the application, they must go through this endpoint only.</p>
+
+    </div>
+  </div>
+</div>
+
+<h5 id="2-post-requests-only">2. POST Requests only</h5>
 <p>All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the URL. Also, the application gets to benefit highly from ssl encryption and other security features that are available for POST requests.</p>
-<h5 id="single-request-format">Single Request Format</h5>
+<h5 id="3-single-request-format">3. Single Request Format</h5>
 <p>In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be be of type JSON or form-data.</p>
 <p>Every request must define the <code>SERVICE</code> and <code>ACTION</code> to exacute in the request body plus the rest rest of the payload as required by the service.</p>
 
@@ -340,7 +421,7 @@ With this, <code>services</code> should/must be classes or interfaces(golang) th
   </div>
 </div>
 
-<h2 id="single-response-format">Single Response Format</h2>
+<h5 id="4-single-response-format">4. Single Response Format</h5>
 <p>This architecture also calls for a single response format. This makes it way easier to understand and debug the responses. The response format is as follows:</p>
 
 
@@ -358,6 +439,9 @@ With this, <code>services</code> should/must be classes or interfaces(golang) th
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<p>With <code>statusCode</code>, it implies that the developer/business can define their own custom status codes. However, by convention, a status code of <code>0</code> implies success and is recommended to be kept for the same.</p>
+<h5 id="5-http-200-ok-for-all">5. HTTP 200 OK for all.</h5>
+<p>All requests in this architecture that reach the application server should/must return an http status of 200 OK. The only special case is 502 Gateway Error which is returned when the application server is down or unreachable.</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
   <div class="callout-content">
@@ -366,13 +450,158 @@ With this, <code>services</code> should/must be classes or interfaces(golang) th
 
       </div>
     <div class="callout-body">
-      <p>All requests in this architecture that reach the application server should/must return an http status of 200 OK. Failure to reach the server implies the server is off which calls for a 502 Bad Geteway.</p>
+      <p>Think about it, the application server actually handled your request so whether the request raised an exception or successfully executed, the server actually handled.
+And that&rsquo;s what we are actually looking for.</p>
 
     </div>
   </div>
 </div>
 
-<p>With <code>statusCode</code>, it implies that the developer/business can define their own custom status codes. However, by convention, a status code of <code>0</code> implies success and is recommended to be kept for the same.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/traffic-lights svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 2m0 5a5 5 0 015-5h0a5 5 0 015 5v10a5 5 0 01-5 5h0a5 5 0 01-5-5z"/><path d="M12 7m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 12m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 17m-1 0a1 1 0 102 0 1 1 0 10-2 0"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Remember the traffic scenario!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>Every time our police man poses a question, he expects an answer. If the driver doesn&rsquo;t have an answer, he should say so(which is also an answer) and not just keep quiet.</p>
+
+    </div>
+  </div>
+</div>
+
+<h5 id="6-single-controller-per-application">6. Single Controller Per Application.</h5>
+<p>In this architecture, there is only one controller that handles all the requests. This controller is responsible for routing the requests to the appropriate service and action. This makes it easier to maintain and debug the application. This must be one per application.</p>
+<p>To achieve api versioning, this controller can have multiple actions each pointing to a different version of the application. Each action can then route the request to the appropriate service switch. It is at this point that the app should handle all exceptions that might be raised by the services and then return a 200 OK response with the appropriate message.</p>
+<p>Example using php.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame has-title not-content">
+  <figcaption class="header">
+    <span class="title">Controller</span>
+  </figcaption>
+  <div class="highlight" title="Controller"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">  <span class="k">class</span> <span class="nc">ApiController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">public</span> <span class="k">function</span> <span class="nf">v1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// point to the service switch for version one
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// handle the exception here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">public</span> <span class="k">function</span> <span class="nf">v2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// point to the service switch for version two
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// handle the exception here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>No logic should be in the controller, it should only be responsible for routing the requests to the appropriate service and action.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>This is the driver in the car scenario. The driver is responsible for routing the police man questions to the appropriate passenger.</p>
+<p>The steering wheel is the <code>controller action</code> of the version we are targeting!</p>
+
+    </div>
+  </div>
+</div>
+
+<h5 id="7-single-service-switch-per-api-version">7. Single Service Switch Per API Version.</h5>
+<p>In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the <code>SERVICE</code> in the request and the call the responsible service passing it the action(<code>ACTION</code>) and the rest of the payload.</p>
+<p>The service switch is just a convention to make our controller clean and easy to maintain. It is not a must to have it, but it is recommended. Otherwise, the switching logic would be handled in the controller action responsible for the version.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>This is the conductor in the car scenario. However much the driver can do everything the conductor can do, the conductor is their to reduce work load on the driver.</p>
+<p>This implies the driver focuses on the road and the conductor focuses on the passengers.</p>
+<p>The controller focuses on the mapping the request, the service switch focuses on mapping the service and the action.</p>
+
+    </div>
+  </div>
+</div>
+
+<h5 id="8-services-and-actions">8. Services and Actions</h5>
+<p>In MoonLight architecture, services are classes or interfaces that combine together related business logic. For example, <code>AuthenticationService</code>, <code>ProductService</code>, <code>OrderService</code> etc.</p>
+<p>Actions are methods in these classes like <code>login</code>, <code>register</code> in the <code>AuthenticationService</code> class.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>This is the passenger in the car scenario. The passenger is responsible for their own luggage and reaching their destination. They are also responsible for fullfiling the driver&rsquo;s requests.</p>
+<p>Remember, the driver asks the passenger for the id, the passenger passed it over to the driver! Passing the id is the passenger&rsquo;s responsibility(action).</p>
+
+    </div>
+  </div>
+</div>
+
+<h5 id="9-database-and-querying">9. Database and Querying</h5>
+<p>In moonlight architecture, querying the database is highly recommended over using an ORM. This is because querying the database directly is faster and more efficient than using an ORM. Also, querying the database directly gives the developer more control over the queries and the data being returned.</p>
+<p>Get started with the <a href="/docs/documentation/api-tutorial/">Moonlight Implementation using Pionia</a>.</p>
+<h5 id="10-separation-of-concerns">10. Separation of Concerns</h5>
+<p>In this architecture, the backend is meant to support, command and act as a single source of truth for the frontend. This implies that the architecture requires implementers to implement the frontend and backend separately.</p>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+<h6 id="advantages-of-moonlight-architecture">Advantages of MoonLight Architecture</h6>
+<ol>
+<li>Scalability :- Since adding new services and actions is easy, the application can be scaled easily.</li>
+<li>Maintainability :- Small codebase and single-logic services make it easy to maintain the application. Even new developers can easily understand the codebase.</li>
+<li>Security :- Since all requests are made using POST, the data is secure and not exposed in the URL. Also, action level authentication makes it easy to secure the application.</li>
+<li>High Performance :- This is as a result of less abstraction and more direct database querying. Also, the architecture improves the developer performance since it reduces the codebase of the previously used architectures by almost 60%.</li>
+<li>Easy Debugging :- Since all requests and responses are made in a similar format, it is easy to debug the application.</li>
+<li>Frontend Integration :- One endpoint for all requests, one request format, one response format make it easy for frontend devs to integrate the api.</li>
+</ol>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+<h6 id="disadvantages-of-moonlight-architecture">Disadvantages of MoonLight Architecture</h6>
+<ol>
+<li>Some languages may not support switching between form-data and json requests. This might dictate all uploads to be base64 encoded.</li>
+<li>Moonlight is only suitable for APIs and not for fullstack applications.</li>
+<li>The architecture being new, there might be a learning curve for new developers and a small community to get help from.</li>
+</ol>
+<p>The community is growing and we are looking forward to having you on board.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>The car scenario is a good analogy for the MoonLight architecture. The driver is the controller, the conductor is the service switch, the passengers are the services and actions, the luggage is the data and the destination is the response.</p>
+
+    </div>
+  </div>
+</div>
+
 </div>
 			<div class="card-list">
 				
@@ -407,7 +636,7 @@ With this, <code>services</code> should/must be classes or interfaces(golang) th
       </div>
       <div class="col-lg-8 text-center text-lg-end">
         <ul class="list-inline">
-          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://gethyas.com/">Hyas</a></li>
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
         </ul>
       </div>
     </div>

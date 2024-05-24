@@ -30,19 +30,19 @@ url = "/tutorial/lorem/"
 
 [[main]]
 name = "Documentation"
-url = "docs/documentation/introduction/"
+url = "documentation/introduction/"
 # url = "/docs/1.0/prologue/introduction/"
 weight = 10
 
 [[main]]
 name = "Tutorial"
-url = "/docs/tutorial/"
+url = "documentation/api-tutorial/"
 # url = "/docs/1.0/prologue/introduction/"
 weight = 10
 
 [[main]]
 name = "Moonlight"
-url = "/docs/moonlight/"
+url = "docs/moonlight/"
 # url = "/docs/1.0/prologue/introduction/"
 weight = 10
 
