@@ -16,7 +16,7 @@ seo:
 
 {{<callout tip>}}
 
-This section assumes that you have already setup your pinia framework project. If you haven't done done, please head over to [Installation](/docs/documentation/introduction/#installation).
+This section assumes that you have already setup your pinia framework project. If you haven't done done, please head over to [Installation](/documentation/introduction/#installation).
 
 This guide also introduces you to the implementation of the [Moonlight architecture](/docs/moonlight/), so you can check it out first to get familiar with the terminologies.
 {{</callout >}}
