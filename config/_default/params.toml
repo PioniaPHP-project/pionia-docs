@@ -20,8 +20,8 @@ navbarSticky = true        # true (default) or false
 containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
 
 ## Button
-navBarButton = true                                               # false (default) or true
-navBarButtonUrl = "/docs/documentation/introduction/#get-started"
+navBarButton = true                                         # false (default) or true
+navBarButtonUrl = "documentation/introduction/#get-started"
 navBarButtonText = "Get started"
 
 # FlexSearch
