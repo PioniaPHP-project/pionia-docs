@@ -1,6 +1,6 @@
 title = "Pionia"
 baseurl = "http://localhost/"
-canonifyURLs = true
+canonifyURLs = false
 relativeURLS = true
 disableAliases = true
 disableHugoGeneratorInject = true
@@ -11,7 +11,7 @@ enableRobotsTXT = true
 languageCode = "en-US"
 paginate = 10
 rssLimit = 10
-summarylength = 70     # 70 (default)
+summarylength = 10     # 70 (default)
 
 # Multilingual
 defaultContentLanguage = "en"

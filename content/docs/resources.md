@@ -14,4 +14,4 @@ seo:
   noindex: false # false (default) or true
 ---
 
-Link to valuable, relevant resources.
+We shall be updating this page with resources that will help you enhance your Pionia Framework journey.

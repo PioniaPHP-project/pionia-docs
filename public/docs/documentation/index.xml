@@ -7,28 +7,35 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Sat, 25 May 2024 00:24:28 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2024 01:07:28 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>API Tutorial</title>
       <link>http://localhost:1313/documentation/api-tutorial/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
       <guid>http://localhost:1313/documentation/api-tutorial/</guid>
-      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.&#xA;This guide also introduces you to the implementation of the Moonlight architecture, so you can check it out first to get familiar with the terminologies.&#xA;Out Target We should be able to accomplish the following tasks by the end of this tutorial:&#xA;Connect to an existing database. Create a new to-do item in the database.</description>
+      <description>This section assumes that you have already setup your pinia framework project.</description>
     </item>
     <item>
       <title>Introduction</title>
       <link>http://localhost:1313/documentation/introduction/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
       <guid>http://localhost:1313/documentation/introduction/</guid>
-      <description>Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.</description>
+      <description>About Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework.</description>
+    </item>
+    <item>
+      <title>Requests</title>
+      <link>http://localhost:1313/documentation/requests/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/requests/</guid>
+      <description>Handling Requests Coming soon&amp;hellip;</description>
     </item>
     <item>
       <title>Structure</title>
       <link>http://localhost:1313/documentation/structure/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
       <guid>http://localhost:1313/documentation/structure/</guid>
-      <description>This section assumes that you have already setup your pinia framework project. If you haven&amp;rsquo;t done done, please head over to Installation.&#xA;This guide also introduces you to the implementation of the Moonlight architecture, so you can check it out first to get familiar with the terminologies.&#xA;Out Target We should be able to accomplish the following tasks by the end of this tutorial:&#xA;Connect to an existing database. Create a new to-do item in the database.</description>
+      <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
   </channel>
 </rss>

@@ -16,7 +16,10 @@ seo:
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
+## About
 Welcome to the official documentation of pionia - `/ˌpʌɪəˈnɪə/` framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.
+
+This framework was born at Service Cops - East Africa by [JET](https://www.linkedin.com/in/jetezra/) and is maintained by the same team. The framework is open-source and is released under the MIT license.
 
 Documentation organisation.
 
