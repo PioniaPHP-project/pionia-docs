@@ -1,5 +1,6 @@
 title = "Pionia"
-baseurl = "http://localhost/"
+# baseurl = "http://localhost/"
+baseurl = "https://pionia.netlify.app/"
 canonifyURLs = false
 relativeURLS = false
 disableAliases = true
