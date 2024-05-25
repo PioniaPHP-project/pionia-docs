@@ -16,12 +16,12 @@ colorMode = "auto"      # auto (default), light or dark
 colorModeToggler = true # true (default) or false (this setting is only relevant when colorMode = auto)
 
 # Navbar
-navbarSticky = true        # true (default) or false
+navbarSticky = false       # true (default) or false
 containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
 
 ## Button
-navBarButton = true                                         # false (default) or true
-navBarButtonUrl = "documentation/introduction/#get-started"
+navBarButton = true                                          # false (default) or true
+navBarButtonUrl = "/documentation/introduction/#get-started"
 navBarButtonText = "Get started"
 
 # FlexSearch
