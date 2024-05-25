@@ -1,7 +1,7 @@
 title = "Pionia"
 baseurl = "http://localhost/"
 canonifyURLs = false
-relativeURLS = true
+relativeURLS = false
 disableAliases = true
 disableHugoGeneratorInject = true
 # disableKinds = ["taxonomy", "term"]

@@ -23,22 +23,22 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/api-tutorial/</loc>
-    <lastmod>2024-05-25T01:07:28+03:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/introduction/</loc>
-    <lastmod>2024-05-25T00:24:28+03:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/requests/</loc>
-    <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/structure/</loc>
-    <lastmod>2024-05-24T17:09:22+03:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -53,7 +53,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/resources/</loc>
-    <lastmod>2024-05-24T17:09:22+03:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -68,7 +68,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-05-24T21:32:38+03:00</lastmod>
+    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
