@@ -2,35 +2,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>http://localhost:1313/documentation/api-tutorial/</loc>
+      <loc>http://localhost:63449/documentation/api-tutorial/</loc>
+      <lastmod>2024-06-13T20:36:50+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:63449/documentation/introduction/</loc>
+      <lastmod>2024-06-13T20:36:50+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:63449/documentation/requests/</loc>
       <lastmod>2024-05-26T01:47:41+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
-      <loc>http://localhost:1313/documentation/introduction/</loc>
-      <lastmod>2024-05-26T01:47:41+03:00</lastmod>
+      <loc>http://localhost:63449/documentation/structure/</loc>
+      <lastmod>2024-06-13T20:36:50+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
-      <loc>http://localhost:1313/documentation/requests/</loc>
-      <lastmod>2024-05-26T01:47:41+03:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
-      <loc>http://localhost:1313/documentation/structure/</loc>
-      <lastmod>2024-05-26T01:47:41+03:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
-      <loc>http://localhost:1313/documentation/database/</loc>
+      <loc>http://localhost:63449/documentation/database/</loc>
+      <lastmod>2024-06-13T20:36:50+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>

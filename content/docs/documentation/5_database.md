@@ -8,10 +8,10 @@ draft: false
 weight: 810
 toc: true
 seo:
-  title: "" # custom title (optional)
-  description: "" # custom description (recommended)
+  title: "Ponia Porm Database" # custom title (optional)
+  description: "Querying the database using the PORM - Pionia ORM." # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  noindex: true # false (default) or true
 ---
 
 {{<callout context="tip"  icon="outline/pencil">}}
