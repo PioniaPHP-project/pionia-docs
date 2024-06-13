@@ -31,10 +31,8 @@ Documentation organisation.
 - [Middleware](/docs/documentation/middleware/)
 - [Authentication and Authorization](/docs/documentation/authentication/)
 - [Validation](/docs/documentation/validation/)
-- [Error Handling](/docs/documentation/error-handling/)
-- [Service Swapping](/docs/documentation/service-swapping/)
 - [The Controller](/docs/documentation/controllers/)
-- [Services and Actions](/docs/documentation/services/)
+- [Services and Actions](/documentation/services/)
 - [Database and Querying](/documentation/database/)
 - [API Reference](/docs/documentation/api-reference/)
 
@@ -98,7 +96,7 @@ This is just a sample configuration. You can modify it to suit your needs. But m
       }
 
 
-    location @camera_track {
+    location @project_name {
          rewrite /project_name/(.*)$ /project_name/index.php?/$1 last;
 
    }

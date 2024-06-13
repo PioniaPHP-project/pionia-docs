@@ -14,10 +14,10 @@
 
 <link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
 
-<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/reference/example-reference/">
-  <link rel="canonical" href="http://localhost:1313/reference/example-reference/">
-<title>Example Reference  |  Pionia</title>
-<meta name="description" content="Reference pages are ideal for outlining how things work in terse and clear terms.">
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/">
+  <link rel="canonical" href="http://localhost:1313/documentation/">
+<title>  |  Pionia</title>
+<meta name="description" content="Official Documentation of Pionia Framework!">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -42,16 +42,16 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Example Reference">
-<meta property="og:description" content="Reference pages are ideal for outlining how things work in terse and clear terms.">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/reference/example-reference/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2023-09-07T16:13:18+02:00">
-<meta property="article:modified_time" content="2024-05-24T17:09:22+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/documentation/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+
+<meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Example Reference">
-<meta name="twitter:description" content="Reference pages are ideal for outlining how things work in terse and clear terms.">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -75,13 +75,13 @@
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/docs/reference/",
-       "name": "Reference",
+       "item": "http://localhost:1313/docs/documentation/",
+       "name": "Documentation",
        "position": 3
      },
      {
        "@type": "ListItem",
-       "name": "Example Reference",
+       "name": "",
        "position": 4
      }
    ]
@@ -96,8 +96,7 @@
 
   
   <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
-    <div class="sticky-top">
-<div class="header-bar"></div>
+    <div class="header-bar"></div>
 <header class="navbar navbar-expand-lg">
   <div class="container-sm">
   
@@ -147,7 +146,7 @@
   </li>
 
   <li>
-    <details open>
+    <details open open>
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
 
@@ -164,27 +163,23 @@
   </li>
 
   <li>
-      <a href="/documentation/services/">Services</a>
-  </li>
-
-  <li>
       <a href="/documentation/structure/">Structure</a>
   </li>
 
-  <li>
-      <a href="/documentation/database/">Database</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/"></a>
   </li>
       </ul>
     </details>
   </li>
 
   <li>
-    <details open>
+    <details>
       <summary>Reference</summary>
       <ul class="list-unstyled list-nested">
 
-  <li class="active" >
-      <a aria-current="page" href="/reference/example-reference/">Example Reference</a>
+  <li>
+      <a href="/reference/example-reference/">Example Reference</a>
   </li>
       </ul>
     </details>
@@ -270,7 +265,6 @@
     <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
     </div>
 </header>
-</div>
 
 <div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
@@ -299,7 +293,7 @@
               <div class="card-body">
                 <header>
                   <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
-                  <div class="submitted"><time class="created-date">Date here</time></div>
+                  <div class="submitted d-none"><time class="created-date">Date here</time></div>
                 </header>
                 <div class="content">Summary here</div>
               </div>
@@ -325,7 +319,7 @@
       
         
 	<div class="row flex-xl-nowrap">
-		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-top docs-sidebar-offset d-none d-lg-block">
 			
   
     
@@ -337,7 +331,7 @@
   </li>
 
   <li>
-    <details open>
+    <details open open>
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
 
@@ -354,27 +348,23 @@
   </li>
 
   <li>
-      <a href="/documentation/services/">Services</a>
-  </li>
-
-  <li>
       <a href="/documentation/structure/">Structure</a>
   </li>
 
-  <li>
-      <a href="/documentation/database/">Database</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/"></a>
   </li>
       </ul>
     </details>
   </li>
 
   <li>
-    <details open>
+    <details>
       <summary>Reference</summary>
       <ul class="list-unstyled list-nested">
 
-  <li class="active" >
-      <a aria-current="page" href="/reference/example-reference/">Example Reference</a>
+  <li>
+      <a href="/reference/example-reference/">Example Reference</a>
   </li>
       </ul>
     </details>
@@ -386,48 +376,21 @@
 
 		</div>
 		
-		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+		<nav class="docs-toc docs-toc-top docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
 			<div class="page-links">
-  <h3>On this page</h3>
-    <nav id="toc">
-  <ul>
-    <li><a href="#further-reading">Further reading</a></li>
-  </ul>
-</nav>
+  
 </div>
 
 		</nav>
-		<main class="docs-content col-lg-11 col-xl-9">
+		<main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
 		
-			<h1>Example Reference</h1>
+			<h1></h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
-				<details>
-    <summary>On this page</summary>
-    <div class="page-links">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#further-reading">Further reading</a></li>
-  </ul>
-</nav>
-    </div>
-  </details>
-
+				
 			</nav>
-			<p>Reference pages are ideal for outlining how things work in terse and clear terms. Less concerned with telling a story or addressing a specific use case, they should give a comprehensive outline of what your documenting.</p>
-<h2 id="further-reading">Further reading<a href="#further-reading" class="anchor" aria-hidden="true">#</a> </h2>
-<ul>
-<li>Read <a href="https://diataxis.fr/reference/">about reference</a> in the Diátaxis framework</li>
-</ul>
-
+			
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/cee2e62d7eaaae9aba58b5b3d4ef06cf622b6384">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on May 24, 2024
-    </a>
-  </div>
-
 				
 
 
@@ -446,7 +409,7 @@
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/reference/example.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/5_database.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -469,24 +432,7 @@
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/database/" class="stretched-link text-reset text-decoration-none">Database</a>
-				</div>
-			</div>
-		</div>
-	<div class="m-2"></div>
-	<div class="card text-end w-100">
-			<div class="card-body d-flex justify-content-end">
-				<div class="d-flex flex-column">
-					<div class="text-body-secondary">Next</div>
 					<a href="/resources/" class="stretched-link text-reset text-decoration-none">Resources</a>
-				</div>
-				<div class="d-flex flex-column justify-content-center">
-					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-						<path d="M5 12l14 0"></path>
-						<path d="M13 18l6 -6"></path>
-						<path d="M13 6l6 6"></path>
-					</svg>
 				</div>
 			</div>
 		</div>
@@ -519,11 +465,7 @@
   </div>
 </footer>
 
-    <script async
-  src="/js/bootstrap.d5ae61923b84be624d1c0d9329b69d550a65fb7ffc68ab373bda5d50574e77ac.js"
-  integrity="sha256-1a5hkjuEvmJNHA2TKbadVQpl&#43;3/8aKs3O9pdUFdOd6w=">
-</script>
-
+    
 
 <script async
   src="/js/app.6ce274b2411410f3193de528a44804d3776457fc634899431b6ae5949bbdf643.js"

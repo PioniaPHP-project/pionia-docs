@@ -8,6 +8,7 @@ mainSections = ["docs", "moonlight"]
 
 [social]
 twitter = "pionia"
+discord = "https://discord.com/invite/ZybCcpMP"
 
 # Doks (@hyas/doks-core)
 [doks]
@@ -16,7 +17,7 @@ colorMode = "auto"      # auto (default), light or dark
 colorModeToggler = true # true (default) or false (this setting is only relevant when colorMode = auto)
 
 # Navbar
-navbarSticky = false       # true (default) or false
+navbarSticky = true        # true (default) or false
 containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
 
 ## Button
@@ -35,7 +36,7 @@ showSearch = [
 indexSummary = false # true or false (default); whether to index only the `.Summary` instead of the full `.Content`; limits the respective JSON field size and thus increases loading time
 
 ## Search results
-showDate = false   # false (default) or true
+showDate = true    # false (default) or true
 showSummary = true # true (default) or false
 searchLimit = 99   # 0 (no limit, default) or natural number
 
@@ -44,7 +45,7 @@ alert = false           # false (default) or true
 alertDismissable = true # true (default) or false
 
 # Bootstrap
-bootstrapJavascript = false # false (default) or true
+bootstrapJavascript = true # false (default) or true
 
 # Nav
 sectionNav = [
@@ -57,8 +58,8 @@ headlineHash = true # true (default) or false
 scrollSpy = true # true (default) or false
 
 # Multilingual
-multilingualMode = false    # false (default) or true
-showMissingLanguages = true # whether or not to show untranslated languages in the language menu; true (default) or false
+multilingualMode = false     # false (default) or true
+showMissingLanguages = false # whether or not to show untranslated languages in the language menu; true (default) or false
 
 # Versioning
 docsVersioning = false # false (default) or true
@@ -78,7 +79,7 @@ imageSingle = true   # true (default) or false
 
 # Repository
 editPage = true                                               # false (default) or true
-lastMod = false                                               # false (default) or true
+lastMod = true                                                # false (default) or true
 repoHost = "GitHub"                                           # GitHub (default), Gitea, GitLab, Bitbucket, or BitbucketServer
 docsRepo = "https://github.com/PioniaPHP-project/pionia-docs"
 docsRepoBranch = "main"                                       # main (default), master, or <branch name>
@@ -144,6 +145,7 @@ type = "Organization" # Organization (default) or Person
 logo = "pionia.png" # Logo of Organization — favicon-512x512.png (default)
 name = "Pionia" # Name of Organization or Person
 sameAs = [
+  "https://discord.com/invite/ZybCcpMP",
 ] # E.g. ["https://github.com/gethyas/hyas", "https://fosstodon.org/@hyas"]
 images = ["pionia.png"] # ["cover.png"] (default)
 article = [] # Article sections
