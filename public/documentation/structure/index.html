@@ -165,6 +165,10 @@
   <li class="active" >
       <a aria-current="page" href="/documentation/structure/">Structure</a>
   </li>
+
+  <li>
+      <a href="/documentation/database/">Database</a>
+  </li>
       </ul>
     </details>
   </li>
@@ -346,6 +350,10 @@
   <li class="active" >
       <a aria-current="page" href="/documentation/structure/">Structure</a>
   </li>
+
+  <li>
+      <a href="/documentation/database/">Database</a>
+  </li>
       </ul>
     </details>
   </li>
@@ -400,9 +408,9 @@
 <p>
 
 <img
-  src="/docs/documentation/image-1_hu2ad1d559ce78f0e2990654d25ee98fe8_191952_998x1040_resize_q85_h2_lanczos_3.webp"
-  width="998"
-  height="1040"
+  src="/docs/documentation/image-1_hu812ae49a763ebe8e48545f4ca541540d_55232_458x632_resize_q85_h2_lanczos_3.webp"
+  width="458"
+  height="632"
   decoding="async"
   fetchpriority="auto"
   loading="lazy"
@@ -411,14 +419,52 @@
 <h2 id="directory-structure-breakdown">Directory Structure Breakdown<a href="#directory-structure-breakdown" class="anchor" aria-hidden="true">#</a> </h2>
 <p><em><strong>app</strong></em><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>:-
 This is the main directory of the project. It is where all the application logic is stored. It contains the following subdirectories and scripts:</p>
-<ol>
-<li><em><strong>Controller.php</strong></em> :- This file contains the only controller our project needs and runs. Controllers are responsible for mapping traffic to the responsible service switcher.</li>
-<li><em><strong>routes.php</strong></em> :- This file contains the route(s) that our apps will use to access the controller. In normal curcumstances, it should be always one route.</li>
-<li><em><strong>MainApiSwitch.php</strong></em> :- This is where all our services are registered and called. It is where we switch between services basing on the request made.</li>
-<li><em><strong>services</strong></em> :- This is where all our services are stored. This is where you should focus most. All business logic resides here.</li>
-<li><em><strong>authenticationBackends</strong></em> :- This is where we store our authentication backends reside. Add your authentication logic here.</li>
-<li><em><strong>middlewares</strong></em> :- Usually this folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the controller and after they leave the controller.</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td>Contains our controllers. In normal circumstances, only one controller is what our project needs to run. Controllers are responsible for mapping traffic to the responsible service switcher</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
+</tr>
+<tr>
+<td>switches</td>
+<td>Every request that comes through the controller is passed to an associated switch. The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough.</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg> Folder</td>
+</tr>
+<tr>
+<td>services</td>
+<td>This is where all our services are stored. This is where you should focus most. All business logic resides here.</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
+</tr>
+<tr>
+<td>authenticationBackends</td>
+<td>This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
+</tr>
+<tr>
+<td>middlewares</td>
+<td>This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the controller and after they leave the controller.</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
+</tr>
+<tr>
+<td>commands</td>
+<td>This is where we store our console commands. Add your console commands here.</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
+</tr>
+<tr>
+<td>routes.php</td>
+<td>This file contains the route(s) that our apps will use to access the controller. In normal circumstances, it should be always one route.</td>
+<td><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
+</tr>
+</tbody>
+</table>
 <p><em><strong>vendor</strong></em><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>:-
 This is where all the dependencies of the project are stored. It is created by composer when you run <code>composer install</code> or <code>composer update</code>.</p>
 <p><em><strong>.gitignore</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
@@ -432,7 +478,7 @@ This is the entry point of the project. It is where the project starts running. 
 <p><em><strong>pionia</strong></em><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
 This is our console interface. It helps us to run pionia-specific commands.</p>
 <p><em><strong>README.md</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This is the file that contains the documentation of the project. It is the first file that is opened when you open the project.</p>
+A simple getting started guide for the project.</p>
 <p><em><strong>settings.ini</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
 This is the file that contains the settings of the project. It is where you store the settings of the project.</p>
 <p>As you can see, pionia maintains the least number of files and directories to make it easy for you to understand and maintain your project. You can always add more directories and files as you see fit. But remember to keep the project as simple as possible.</p>
@@ -488,7 +534,7 @@ This is the file that contains the settings of the project. It is where you stor
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/reference/example-reference/" class="stretched-link text-reset text-decoration-none">Example Reference</a>
+					<a href="/documentation/database/" class="stretched-link text-reset text-decoration-none">Database</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

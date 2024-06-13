@@ -165,6 +165,10 @@
   <li>
       <a href="/documentation/structure/">Structure</a>
   </li>
+
+  <li>
+      <a href="/documentation/database/">Database</a>
+  </li>
       </ul>
     </details>
   </li>
@@ -346,6 +350,10 @@
   <li>
       <a href="/documentation/structure/">Structure</a>
   </li>
+
+  <li>
+      <a href="/documentation/database/">Database</a>
+  </li>
       </ul>
     </details>
   </li>
@@ -377,14 +385,14 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#step-1-initialize-the-project">Step 1: Initialize the project</a></li>
-        <li><a href="#step-2-connect-to-the-database">Step 2: Connect to the database</a></li>
+        <li><a href="#step-2-connect-to-a-database">Step 2: Connect to a database</a></li>
         <li><a href="#step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code></a></li>
-        <li><a href="#step-4-create-a-new-to-do-item-in-the-database---1st-action">Step 4: Create a new to-do item in the database - 1st action.</a></li>
+        <li><a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.</a></li>
         <li><a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.</a></li>
         <li><a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.</a></li>
-        <li><a href="#step-7-update-a-to-do-item-in-the-database---4th-action">Step 7: Update a to-do item in the database - 4th action.</a></li>
+        <li><a href="#step-7-grab-n-random-to-do-items-from-the-database---7th-action">Step 7: Grab n random to-do item[s] from the database - 7th action.</a></li>
         <li><a href="#step-8-delete-a-to-do-item-from-the-database---5th-action">Step 8: Delete a to-do item from the database - 5th action.</a></li>
-        <li><a href="#tutorial-source-code">Tutorial Source Code</a></li>
+        <li><a href="#full-service-source-code">Full Service Source Code</a></li>
       </ul>
     </li>
     <li><a href="#post-tutorial----what-next">Post Tutorial &ndash; What Next?</a></li>
@@ -407,14 +415,14 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#step-1-initialize-the-project">Step 1: Initialize the project</a></li>
-        <li><a href="#step-2-connect-to-the-database">Step 2: Connect to the database</a></li>
+        <li><a href="#step-2-connect-to-a-database">Step 2: Connect to a database</a></li>
         <li><a href="#step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code></a></li>
-        <li><a href="#step-4-create-a-new-to-do-item-in-the-database---1st-action">Step 4: Create a new to-do item in the database - 1st action.</a></li>
+        <li><a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.</a></li>
         <li><a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.</a></li>
         <li><a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.</a></li>
-        <li><a href="#step-7-update-a-to-do-item-in-the-database---4th-action">Step 7: Update a to-do item in the database - 4th action.</a></li>
+        <li><a href="#step-7-grab-n-random-to-do-items-from-the-database---7th-action">Step 7: Grab n random to-do item[s] from the database - 7th action.</a></li>
         <li><a href="#step-8-delete-a-to-do-item-from-the-database---5th-action">Step 8: Delete a to-do item from the database - 5th action.</a></li>
-        <li><a href="#tutorial-source-code">Tutorial Source Code</a></li>
+        <li><a href="#full-service-source-code">Full Service Source Code</a></li>
       </ul>
     </li>
     <li><a href="#post-tutorial----what-next">Post Tutorial &ndash; What Next?</a></li>
@@ -439,14 +447,14 @@
 <h2 id="out-target">Out Target<a href="#out-target" class="anchor" aria-hidden="true">#</a> </h2>
 <p>We should be able to accomplish the following tasks by the end of this tutorial:</p>
 <ol>
-<li>Intialise the project.</li>
-<li>Connect to an existing database.</li>
-<li>Create a todo service.</li>
-<li>Create a new to-do item in the database.</li>
-<li>Retrieve all to-do items from the database.</li>
-<li>Retrieve a single to-do item from the database.</li>
-<li>Update a to-do item in the database.</li>
-<li>Delete a to-do item from the database.</li>
+<li><input disabled="" type="checkbox"> Intialise the project.</li>
+<li><input disabled="" type="checkbox"> Connect to a database.</li>
+<li><input disabled="" type="checkbox"> Create a service.</li>
+<li><input disabled="" type="checkbox"> Create or update a to-do item in the database.</li>
+<li><input disabled="" type="checkbox"> Retrieve all to-do items from the database.</li>
+<li><input disabled="" type="checkbox"> Retrieve a single to-do item from the database.</li>
+<li><input disabled="" type="checkbox"> Retrieve n random to-do item[s] from the database.</li>
+<li><input disabled="" type="checkbox"> Delete a to-do item from the database.</li>
 </ol>
 <h3 id="prerequisites">Prerequisites<a href="#prerequisites" class="anchor" aria-hidden="true">#</a> </h3>
 <ul>
@@ -469,22 +477,18 @@
 </div>
 <p>We can open the project in our favorite code editor or IDE, for this tutorial we will be using PhPStorm IDE.</p>
 <blockquote>
-<p>All IDEs and IDEs should be okay to use since Pionia is powered by PHP that is supported by most of the IDEs.</p>
+<p>All IDEs and Editors should be okay to use since Pionia is powered by PHP that is supported by most of the IDEs.</p>
 </blockquote>
-<p>Directory structure of the project should look like this:</p>
-<p>
-
-<img
-  src="/docs/documentation/image_hub3253b3854c278702b519c12db90a98e_82920_998x674_resize_q85_h2_lanczos_3.webp"
-  width="998"
-  height="674"
-  decoding="async"
-  fetchpriority="auto"
-  loading="lazy"
-  alt="alt text"id="h-rh-i-0"
-/></p>
 <p>For explanation of the directories and scripts, please refer to the <a href="/documentation/structure/">Structure Section of this documentation</a>.</p>
-<h3 id="step-2-connect-to-the-database">Step 2: Connect to the database<a href="#step-2-connect-to-the-database" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Intialise the project(Completed)</li>
+</ul>
+<h3 id="step-2-connect-to-a-database">Step 2: Connect to a database<a href="#step-2-connect-to-a-database" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Pionia removes the section of models and migrations and instead uses a simple and lightweight query builder to <a href="/documentation/database">interact with the database - PORM</a>.</p>
+<p>At its heart, PORM is a wrapper on top of <a href="https://medoo.in/">medoo</a>, a lightweight database framework that makes interacting with the database easy and fun.</p>
+<blockquote>
+<p>You can create a new database or use an existing one as you see fit!</p>
+</blockquote>
 <p>Assuming you have already setup your MySQL database.</p>
 <p>Let&rsquo;s first create our MySQL database as below:</p>
 
@@ -529,7 +533,7 @@
   decoding="async"
   fetchpriority="auto"
   loading="lazy"
-  alt="alt text"id="h-rh-i-1"
+  alt="alt text"id="h-rh-i-0"
 /></p>
 <p>Open <code>settings.ini</code> file and update the database settings as below:</p>
 
@@ -541,27 +545,41 @@
     <span class="title">settings.ini</span>
   </figcaption>
   <div class="highlight" title="settings.ini"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[db]</span>
-</span></span><span class="line"><span class="cl"><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;todo_db&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="na">user</span> <span class="o">=</span> <span class="s">&#34;root&#34; # your database user</span>
-</span></span><span class="line"><span class="cl"><span class="na">driver</span> <span class="o">=</span> <span class="s">&#34;mysql&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span> <span class="s">&#34;todo_db&#34; # your database name</span>
+</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">&#34;root&#34; # your database user</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">&#34;mysql&#34; # your database type</span>
 </span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">&#34;&#34; # your database password</span>
 </span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">3306</span></span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code><a href="#step-3-create-the-service---todoservice" class="anchor" aria-hidden="true">#</a> </h3>
-<p>Since all our business logic is related to To-do items, we only need one service called <code>TodoService</code>. Head over to services directory and add the following code to <code>TodoService.php</code>: All our services should extend <code>BaseRestService</code> class.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Connect to a database(Completed)</li>
+</ul>
+<p>Throughout this tutorial, we will be creating everything manually, however, pionia cli can be used to create most of the staff for you.</p>
+<p>Just run the following command in your terminal to see the available commands.</p>
 
 
 
 <div class="expressive-code">
-  <figure class="frame not-content">
+  <figure class="frame is-terminal not-content">
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="p">{</span><span class="nx">title</span><span class="o">=</span><span class="s2">&#34;TodoService.php&#34;</span><span class="p">}</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia</span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code><a href="#step-3-create-the-service---todoservice" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Since all our business logic is related to To-do items, we only need one service called <code>TodoService</code>. Head over to services directory and add the following code to <code>TodoService.php</code>. All our services should extend <code>BaseRestService</code> class.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame has-title not-content">
+  <figcaption class="header">
+    <span class="title">TodoService.php</span>
+  </figcaption>
+  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\services</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -593,8 +611,11 @@
   </figure>
 </div>
 <p>Now our service is discoverable by the framework.</p>
-<h3 id="step-4-create-a-new-to-do-item-in-the-database---1st-action">Step 4: Create a new to-do item in the database - 1st action.<a href="#step-4-create-a-new-to-do-item-in-the-database---1st-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>We create our first action in our service called &lsquo;create&rsquo;. This action will be responsible for creating a new to-do item in the database.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Create the service(Completed)</li>
+</ul>
+<h3 id="step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.<a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action" class="anchor" aria-hidden="true">#</a> </h3>
+<p>We create our first action in our service called &lsquo;createOrUpdate&rsquo;. This action will be responsible for creating a new to-do item in the database or update an existing one if an id is provided.</p>
 
 
 
@@ -610,24 +631,31 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdate</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// here we can create
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// here we can update
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span> <span class="nv">$id</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;INSERT INTO todos(title, description) VALUES(:title, :description)&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:description&#39;</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$lastInserted</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$inserted</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">one</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos WHERE id = :id&#34;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$lastInserted</span> <span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$inserted-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$inserted</span><span class="p">,</span> <span class="nv">$lastInserted</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$saved-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$saved</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -739,7 +767,8 @@
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;ACTION&#34;</span><span class="o">:</span> <span class="s2">&#34;create&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;Become an avenger&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;description&#34;</span><span class="o">:</span> <span class="s2">&#34;Make sure you become an avenger at 10!&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="mi">2</span> <span class="c1">// this is optional, only pass it to update.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">xhr</span><span class="p">.</span><span class="nx">withCredentials</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
@@ -789,7 +818,7 @@
   decoding="async"
   fetchpriority="auto"
   loading="lazy"
-  alt="Database record insertation"id="h-rh-i-2"
+  alt="Database record insertation"id="h-rh-i-1"
 /></p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
@@ -813,10 +842,10 @@
   </figcaption>
   <div class="highlight" title="routes.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">$router</span><span class="o">-&gt;</span><span class="na">addGroup</span><span class="p">(</span><span class="s1">&#39;application\Controller&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;api_v1&#39;</span><span class="p">,</span> <span class="s1">&#39;api_version_one&#39;</span><span class="p">);</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;apiV1&#39;</span><span class="p">,</span> <span class="s1">&#39;api_version_one&#39;</span><span class="p">);</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The above route implies that all post requests to our only controller should be handled by an action(method) named &lsquo;api_v1&rsquo;.</p>
+<p>The above route implies that all post requests to our only controller should be handled by an action(method) named &lsquo;apiV1&rsquo;.</p>
 <p>Therefore, in our controller, the following method was executed:</p>
 
 
@@ -827,7 +856,7 @@
     <span class="title">Controller.php</span>
   </figcaption>
   <div class="highlight" title="Controller.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">api_v1</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">apiV1</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">MainApiSwitch</span><span class="o">::</span><span class="na">processServices</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
@@ -839,10 +868,13 @@
 </div>
 <p>The above does two things:</p>
 <blockquote>
-<p>Maps the whole request to the <code>MainApiSwitch</code> class which is responsible for mapping the request to the service mentioned.</p>
+<p>Maps the whole request to the <code>MainApiSwitch</code> class which is our service registry for v1. It helps to map the request to the service mentioned.</p>
 </blockquote>
 <blockquote>
 <p>Catches any exception that might be thrown during the process and returns a 200 OK response with a returnCode of 400.</p>
+</blockquote>
+<blockquote>
+<p>You can also add logic here as you see fit. But we recommend you keep it as clean as possible.</p>
 </blockquote>
 <p>The main api switch checks in the request body for the <code>SERVICE</code> and <code>ACTION</code> keys. If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. Therefore, for your service to be discovered, you must register it <a href="#step-3-create-the-service---todoservice">as we did here</a>.</p>
 
@@ -863,6 +895,9 @@
   </figure>
 </div>
 <p>So, after here, the service needed is loaded and the entire request in forwarded to it. When the service receives the request, it checks for the action mentioned in the request body. If the action is not found, it throws an exception. If the action is found, it executes the action and returns a response back to the MainApiSwitch which then returns the response to the controller which then returns the response to the kernel that does final processing and returns the response to the client.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Create or update a to-do item in the database(Completed)</li>
+</ul>
 <h3 id="step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.<a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action" class="anchor" aria-hidden="true">#</a> </h3>
 <p>We created our todo from the above step, please first take time to create as many as you want.</p>
 <p>Now, let&rsquo;s create an action called <code>all</code> in our service to retrieve all to-do items from the database.</p>
@@ -877,9 +912,7 @@
   <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">## ..rest of the service code
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">all</span><span class="p">()</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$data</span> <span class="o">=</span> <span class="nx">Por</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -947,6 +980,9 @@
   </div>
 </div>
 
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Retrieve all to-do items from the database(Completed)</li>
+</ul>
 <h3 id="step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.<a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action" class="anchor" aria-hidden="true">#</a> </h3>
 <p>We will create an action called <code>one</code> in our service to retrieve a single to-do item from the database.</p>
 
@@ -965,10 +1001,9 @@
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">one</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos WHERE id = :id&#34;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span> <span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nv">$res</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;todos&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// or Porm::from(&#39;todos&#39;)-&gt;get([&#39;id&#39; =&gt; $id]);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1062,8 +1097,10 @@
   </div>
 </div>
 
-<h3 id="step-7-update-a-to-do-item-in-the-database---4th-action">Step 7: Update a to-do item in the database - 4th action.<a href="#step-7-update-a-to-do-item-in-the-database---4th-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>However much this would endup being an independent action of its own, we are going to use the same action <code>create</code> to update our to-do item.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Retrieve a single to-do item from the database(Completed)</li>
+</ul>
+<h3 id="step-7-grab-n-random-to-do-items-from-the-database---7th-action">Step 7: Grab n random to-do item[s] from the database - 7th action.<a href="#step-7-grab-n-random-to-do-items-from-the-database---7th-action" class="anchor" aria-hidden="true">#</a> </h3>
 
 
 
@@ -1072,42 +1109,21 @@
   <figcaption class="header">
     <span class="title">TodoService.php</span>
   </figcaption>
-  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">## ..rest of the service code
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
-</span></span><span class="line hl"><span class="ln">10</span><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">
-</span></span><span class="line hl"><span class="ln">12</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$id</span><span class="p">){</span>
-</span></span><span class="line hl"><span class="ln">13</span><span class="cl">            <span class="c1">// here we are updating
-</span></span></span><span class="line hl"><span class="ln">14</span><span class="cl"><span class="c1"></span>            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;UPDATE todos SET title = :title, description = :description WHERE id = :id&#34;</span><span class="p">);</span>
-</span></span><span class="line hl"><span class="ln">15</span><span class="cl">            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line hl"><span class="ln">16</span><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line hl"><span class="ln">17</span><span class="cl">            <span class="c1">// here we are creating
-</span></span></span><span class="line hl"><span class="ln">18</span><span class="cl"><span class="c1"></span>            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;INSERT INTO todos(title, description) VALUES(:title, :description)&#34;</span><span class="p">);</span>
-</span></span><span class="line hl"><span class="ln">19</span><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">
-</span></span><span class="line"><span class="ln">21</span><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:description&#39;</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">
-</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-</span></span><span class="line"><span class="ln">25</span><span class="cl">
-</span></span><span class="line hl"><span class="ln">26</span><span class="cl">        <span class="nv">$lastInserted</span> <span class="o">=</span> <span class="nv">$id</span> <span class="o">??</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="ln">27</span><span class="cl">
-</span></span><span class="line"><span class="ln">28</span><span class="cl">        <span class="nv">$inserted</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">one</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos WHERE id = :id&#34;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$lastInserted</span> <span class="p">]);</span>
-</span></span><span class="line"><span class="ln">29</span><span class="cl">
-</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$inserted-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$inserted</span><span class="p">,</span> <span class="nv">$lastInserted</span><span class="p">);</span>
-</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="c1">## ..rest of the service code
-</span></span></span></code></pre></div>
+  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## ..rest of the service code
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">random</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nv">$porm</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$porm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>Changed/Added lines are highlighted. The above should be returning the following:</p>
+<p>You can keep hitting this action and on each hit, you should get a different to-do item. You can also play with the <code>length</code> parameter to get more or less to-do items.</p>
 
 
 
@@ -1117,18 +1133,15 @@
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Todo Become an avenger-updated created.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Become an avenger-updated&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Make sure you become an avenger at 10!&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2024-05-26 00:11:23&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;2&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;random&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;length&#34;</span><span class="p">:</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Grab n random to-do item[s] from the database(Completed)</li>
+</ul>
 <h3 id="step-8-delete-a-to-do-item-from-the-database---5th-action">Step 8: Delete a to-do item from the database - 5th action.<a href="#step-8-delete-a-to-do-item-from-the-database---5th-action" class="anchor" aria-hidden="true">#</a> </h3>
 <p>If you followed along upto this far, you should be able to implement this on your own. If you get stuck, you can refer to the code below.</p>
 
@@ -1142,11 +1155,9 @@
   <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;DELETE FROM todos WHERE id = :id&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// you can now hit &#39;all&#39; to see if this worked,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// you should notice item with this id disappears.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -1183,6 +1194,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Delete a to-do item from the database(Completed)</li>
+</ul>
 <div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
@@ -1196,16 +1210,16 @@
 <li>All our requests have similar body structure, they have a <code>SERVICE</code>, <code>ACTION</code>, and other param keys.</li>
 <li>All our responses have the same response format, <code>returnCode</code>, <code>returnMessage</code>, <code>returnData</code>, and <code>extraData</code> keys.</li>
 <li>We are hitting the same endpoint <code>http://localhost:8000/api/v1/</code> for all our requests.</li>
-<li>We did not touch the controller, routes, or the kernel. but we only focused on the service.</li>
+<li>We did not touch the controller, routes, or the kernel. but we only focused on the service!</li>
 </ol>
-<p>This is the beaty of the Moonlight architecture. It makes it easy to understand and maintain your code.</p>
-<p>Imagine how fast you would pull off a new feature with Pionia.</p>
+<p>This is the beauty of the Moonlight architecture. It makes it easy to understand and maintain your code.</p>
+<p>Imagine how fast you would pull off a new service with Pionia.</p>
 
     </div>
   </div>
 </div>
 
-<h3 id="tutorial-source-code">Tutorial Source Code<a href="#tutorial-source-code" class="anchor" aria-hidden="true">#</a> </h3>
+<h3 id="full-service-source-code">Full Service Source Code<a href="#full-service-source-code" class="anchor" aria-hidden="true">#</a> </h3>
 <details>
   <summary>Details</summary>
   
@@ -1221,61 +1235,66 @@
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\services</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\database\QueryBuilder</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Exception</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\exceptions\DatabaseException</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\request\BaseRestService</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\response\BaseResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\exceptions\BaseDatabaseException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdate</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$id</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we are updating
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;UPDATE todos SET title = :title, description = :description WHERE id = :id&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// here we can create
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we are creating
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;INSERT INTO todos(title, description) VALUES(:title, :description)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// here we can update
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span> <span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;:description&#39;</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$lastInserted</span> <span class="o">=</span> <span class="nv">$id</span> <span class="o">??</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$inserted</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">one</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos WHERE id = :id&#34;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$lastInserted</span> <span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$inserted-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$inserted</span><span class="p">,</span> <span class="nv">$lastInserted</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$saved-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$saved</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">all</span><span class="p">()</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws DatabaseException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
 </span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">one</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">one</span><span class="p">(</span><span class="s2">&#34;SELECT * from todos WHERE id = :id&#34;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span> <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$res</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;todos&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
@@ -1284,15 +1303,30 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryBuilder</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;DELETE FROM todos WHERE id = :id&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// you can now hit all to see if this worked,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// you should notice item with this id disappears.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">random</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$porm</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$porm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>

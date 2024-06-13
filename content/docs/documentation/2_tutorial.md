@@ -26,14 +26,14 @@ This guide also introduces you to the implementation of the [Moonlight architect
 
 We should be able to accomplish the following tasks by the end of this tutorial:
 
-1. Intialise the project.
-2. Connect to an existing database.
-3. Create a todo service.
-4. Create a new to-do item in the database.
-5. Retrieve all to-do items from the database.
-6. Retrieve a single to-do item from the database.
-7. Update a to-do item in the database.
-8. Delete a to-do item from the database.
+1. [ ] Intialise the project.
+2. [ ] Connect to a database.
+3. [ ] Create a service.
+4. [ ] Create or update a to-do item in the database.
+5. [ ] Retrieve all to-do items from the database.
+6. [ ] Retrieve a single to-do item from the database.
+7. [ ] Retrieve n random to-do item[s] from the database.
+8. [ ] Delete a to-do item from the database.
 
 ### Prerequisites
 
@@ -51,15 +51,19 @@ composer create-project pionia/pionia-app todo_api
 
 We can open the project in our favorite code editor or IDE, for this tutorial we will be using PhPStorm IDE.
 
-> All IDEs and IDEs should be okay to use since Pionia is powered by PHP that is supported by most of the IDEs.
-
-Directory structure of the project should look like this:
-
-![alt text](image.png)
+> All IDEs and Editors should be okay to use since Pionia is powered by PHP that is supported by most of the IDEs.
 
 For explanation of the directories and scripts, please refer to the [Structure Section of this documentation](/documentation/structure/).
 
-### Step 2: Connect to the database
+- [x] Intialise the project(Completed)
+
+### Step 2: Connect to a database
+
+Pionia removes the section of models and migrations and instead uses a simple and lightweight query builder to [interact with the database - PORM](/documentation/database).
+
+At its heart, PORM is a wrapper on top of [medoo](https://medoo.in/), a lightweight database framework that makes interacting with the database easy and fun.
+
+> You can create a new database or use an existing one as you see fit!
 
 Assuming you have already setup your MySQL database.
 
@@ -93,22 +97,30 @@ Open `settings.ini` file and update the database settings as below:
 
 ```ini {title="settings.ini"}
 [db]
-name = "todo_db"
-user = "root" # your database user
-driver = "mysql"
+database = "todo_db" # your database name
+username = "root" # your database user
+type = "mysql" # your database type
 host = "localhost"
 password = "" # your database password
 port = 3306
 ```
 
+- [x] Connect to a database(Completed)
+
+Throughout this tutorial, we will be creating everything manually, however, pionia cli can be used to create most of the staff for you.
+
+Just run the following command in your terminal to see the available commands.
+
+```bash
+php pionia
+```
+
 ### Step 3: Create the service - `TodoService`
 
-Since all our business logic is related to To-do items, we only need one service called `TodoService`. Head over to services directory and add the following code to `TodoService.php`: All our services should extend `BaseRestService` class.
+Since all our business logic is related to To-do items, we only need one service called `TodoService`. Head over to services directory and add the following code to `TodoService.php`. All our services should extend `BaseRestService` class.
 
-```php
+```php {title="TodoService.php"}
 <?php
-
-<?php {title="TodoService.php"}
 
 namespace application\services;
 
@@ -135,10 +147,11 @@ public function registerServices(): array
 
 Now our service is discoverable by the framework.
 
+- [x] Create the service(Completed)
 
-### Step 4: Create a new to-do item in the database - 1st action.
+### Step 4: Create or update a to-do item in the database - 1st action.
 
-We create our first action in our service called 'create'. This action will be responsible for creating a new to-do item in the database.
+We create our first action in our service called 'createOrUpdate'. This action will be responsible for creating a new to-do item in the database or update an existing one if an id is provided.
 
 ```php {title="TodoService.php"}
 namespace application\services;
@@ -148,24 +161,31 @@ use Pionia\request\BaseRestService;
 
 class TodoService extends BaseRestService
 {
-  public function create($data) : BaseResponse
+  public function createOrUpdate($data) : BaseResponse
     {
         $title = $data['title'];
         $description = $data['description'];
+        $id = $data['id'] ?? null;
 
-        $builder = new QueryBuilder();
+        if (!$id) {
+            // here we can create
+            $saved = Porm::from("todos")
+                ->save([
+                    'title' => $title,
+                    'description' => $description,
+                ]);
+        } else {
+            // here we can update
+            Porm::from("todos")
+                ->update([
+                    'title' => $title,
+                    'description' => $description,
+                ], $id);
 
-        $stmt = $builder->connection->prepare("INSERT INTO todos(title, description) VALUES(:title, :description)");
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':description', $description);
-
-        $stmt->execute();
-
-        $lastInserted = $builder->connection->lastInsertId('id');
-
-        $inserted = $builder->one("SELECT * from todos WHERE id = :id", [ 'id' => $lastInserted ]);
-
-        return BaseResponse::JsonResponse(0, "Todo $inserted->title created.", $inserted, $lastInserted);
+            $saved = Porm::from("todos")
+                ->get($id);
+        }
+        return BaseResponse::JsonResponse(0, "Todo $saved->title created.", $saved);
     }
 }
 ```
@@ -243,6 +263,7 @@ Sending the request using any client of choice.
     "ACTION": "create",
     "title": "Become an avenger",
     "description": "Make sure you become an avenger at 10!"
+    "id": 2 // this is optional, only pass it to update.
   });
 
   var xhr = new XMLHttpRequest();
@@ -290,17 +311,17 @@ When you hit the endpoint `http://localhost:8000/api/v1/` with the data as shown
 ```php {title="routes.php"}
 
 $router->addGroup('application\Controller')
-    ->post('api_v1', 'api_version_one');
+    ->post('apiV1', 'api_version_one');
 
 ```
 
-The above route implies that all post requests to our only controller should be handled by an action(method) named 'api_v1'.
+The above route implies that all post requests to our only controller should be handled by an action(method) named 'apiV1'.
 
 Therefore, in our controller, the following method was executed:
 
 ```php {title="Controller.php"}
 
-  public function api_v1(Request $request): BaseResponse
+  public function apiV1(Request $request): BaseResponse
     {
         try {
             return MainApiSwitch::processServices($request);
@@ -311,9 +332,11 @@ Therefore, in our controller, the following method was executed:
 ```
 
 The above does two things:
- > Maps the whole request to the `MainApiSwitch` class which is responsible for mapping the request to the service mentioned.
+ > Maps the whole request to the `MainApiSwitch` class which is our service registry for v1. It helps to map the request to the service mentioned.
 
  > Catches any exception that might be thrown during the process and returns a 200 OK response with a returnCode of 400.
+
+ > You can also add logic here as you see fit. But we recommend you keep it as clean as possible.
 
 The main api switch checks in the request body for the `SERVICE` and `ACTION` keys. If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. Therefore, for your service to be discovered, you must register it [as we did here](#step-3-create-the-service---todoservice).
 
@@ -329,6 +352,8 @@ The main api switch checks in the request body for the `SERVICE` and `ACTION` ke
 
 So, after here, the service needed is loaded and the entire request in forwarded to it. When the service receives the request, it checks for the action mentioned in the request body. If the action is not found, it throws an exception. If the action is found, it executes the action and returns a response back to the MainApiSwitch which then returns the response to the controller which then returns the response to the kernel that does final processing and returns the response to the client.
 
+- [x] Create or update a to-do item in the database(Completed)
+
 ### Step 5: Retrieve all to-do items from the database - 2nd action.
 
 We created our todo from the above step, please first take time to create as many as you want.
@@ -339,9 +364,7 @@ Now, let's create an action called `all` in our service to retrieve all to-do it
 ## ..rest of the service code
 public function all() : BaseResponse
   {
-      $builder = new QueryBuilder();
-
-      $data = $builder->all("SELECT * from todos");
+      $data = Por::from("todos")->all();
       return BaseResponse::JsonResponse(0, "Todos found.", $data);
   }
 
@@ -391,6 +414,8 @@ You can also omit the message by setting it to null which should be logical for 
 
 {{</callout>}}
 
+- [x] Retrieve all to-do items from the database(Completed)
+
 ### Step 6: Retrieve a single to-do item from the database - 3rd action.
 
 We will create an action called `one` in our service to retrieve a single to-do item from the database.
@@ -404,9 +429,8 @@ We will create an action called `one` in our service to retrieve a single to-do 
   {
       $id = $data['id'];
 
-      $builder = new QueryBuilder();
-
-      $res = $builder->one("SELECT * from todos WHERE id = :id", [ 'id' => $id ]);
+      $res = Porm::from('todos')
+            ->get($id); // or Porm::from('todos')->get(['id' => $id]);
 
       if ($res) {
           return BaseResponse::JsonResponse(0, null, $data);
@@ -465,61 +489,38 @@ But in the second scenario, we still get a status code of 200 OK but with the fo
 Notice how the exception message becomes our `returnMessage`. This exception was caught by our controller. Therefore, wherever you're in the services, feel free to throw any exceptions with clean messages.
 {{</callout>}}
 
+- [x] Retrieve a single to-do item from the database(Completed)
 
-### Step 7: Update a to-do item in the database - 4th action.
+### Step 7: Grab n random to-do item[s] from the database - 7th action.
 
-However much this would endup being an independent action of its own, we are going to use the same action `create` to update our to-do item.
+```php {title="TodoService.php"}
 
-```php {title="TodoService.php", linenos=true, hl_lines=[10,"12-19", 26]}
 ## ..rest of the service code
 
-public function create($data) : BaseResponse
-    {
-        $title = $data['title'];
-        $description = $data['description'];
+public function random($data) : BaseResponse
+  {
+      $length = $data['length'] ?? 1;
 
-        $builder = new QueryBuilder();
+      $porm = Porm::from("todos")
+          ->random($length);
 
-        $id = $data['id'] ?? null;
+      return BaseResponse::JsonResponse(0, "Todos found.", $porm);
+  }
 
-        if ($id){
-            // here we are updating
-            $stmt = $builder->connection->prepare("UPDATE todos SET title = :title, description = :description WHERE id = :id");
-            $stmt->bindParam(':id', $id);
-        } else {
-            // here we are creating
-            $stmt = $builder->connection->prepare("INSERT INTO todos(title, description) VALUES(:title, :description)");
-        }
 
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':description', $description);
-
-        $stmt->execute();
-
-        $lastInserted = $id ?? $builder->connection->lastInsertId('id');
-
-        $inserted = $builder->one("SELECT * from todos WHERE id = :id", [ 'id' => $lastInserted ]);
-
-        return BaseResponse::JsonResponse(0, "Todo $inserted->title created.", $inserted, $lastInserted);
-    }
-    ## ..rest of the service code
 ```
 
-Changed/Added lines are highlighted. The above should be returning the following:
+You can keep hitting this action and on each hit, you should get a different to-do item. You can also play with the `length` parameter to get more or less to-do items.
 
 ```json
 {
-    "returnCode": 0,
-    "returnMessage": "Todo Become an avenger-updated created.",
-    "returnData": {
-        "id": 2,
-        "title": "Become an avenger-updated",
-        "description": "Make sure you become an avenger at 10!",
-        "created_at": "2024-05-26 00:11:23"
-    },
-    "extraData": "2"
+    "SERVICE": "todo",
+    "ACTION": "random",
+    "length": 1
 }
 ```
+
+- [x] Grab n random to-do item[s] from the database(Completed)
 
 ### Step 8: Delete a to-do item from the database - 5th action.
 
@@ -529,10 +530,8 @@ If you followed along upto this far, you should be able to implement this on you
 public function delete($data) : BaseResponse
   {
       $id = $data['id'];
-      $builder = new QueryBuilder();
-      $res = $builder->connection->prepare("DELETE FROM todos WHERE id = :id");
-      $res->bindParam(':id', $id);
-      $res->execute();
+      Porm::from("todos")->delete($id); // you can now hit 'all' to see if this worked,
+      // you should notice item with this id disappears.
       return BaseResponse::JsonResponse(0, "Todo deleted.");
   }
 ```
@@ -558,21 +557,24 @@ If you did everything right, you should get your response as follows
 }
 ```
 
+- [x] Delete a to-do item from the database(Completed)
+
 {{<callout context="tip" title="Point To Ponder" icon="outline/pencil">}}
 
 1. All our requests are made via POST method.
 2. All our requests have similar body structure, they have a `SERVICE`, `ACTION`, and other param keys.
 3. All our responses have the same response format, `returnCode`, `returnMessage`, `returnData`, and `extraData` keys.
 4. We are hitting the same endpoint `http://localhost:8000/api/v1/` for all our requests.
-5. We did not touch the controller, routes, or the kernel. but we only focused on the service.
+5. We did not touch the controller, routes, or the kernel. but we only focused on the service!
 
-This is the beaty of the Moonlight architecture. It makes it easy to understand and maintain your code.
+This is the beauty of the Moonlight architecture. It makes it easy to understand and maintain your code.
 
-Imagine how fast you would pull off a new feature with Pionia.
+Imagine how fast you would pull off a new service with Pionia.
 
 {{</callout>}}
 
-### Tutorial Source Code
+
+### Full Service Source Code
 
 {{<details "Details" >}}
 
@@ -582,61 +584,66 @@ Imagine how fast you would pull off a new feature with Pionia.
 namespace application\services;
 
 
-use Pionia\database\QueryBuilder;
+use Exception;
 use Pionia\exceptions\DatabaseException;
 use Pionia\request\BaseRestService;
 use Pionia\response\BaseResponse;
+use Porm\exceptions\BaseDatabaseException;
+use Porm\Porm;
 
 class TodoService extends BaseRestService
 {
-    public function create($data) : BaseResponse
+    /**
+     * @throws BaseDatabaseException
+     * @throws Exception
+     */
+    public function createOrUpdate($data) : BaseResponse
     {
         $title = $data['title'];
         $description = $data['description'];
-
-        $builder = new QueryBuilder();
-
         $id = $data['id'] ?? null;
 
-        if ($id){
-            // here we are updating
-            $stmt = $builder->connection->prepare("UPDATE todos SET title = :title, description = :description WHERE id = :id");
-            $stmt->bindParam(':id', $id);
+        if (!$id) {
+            // here we can create
+            $saved = Porm::from("todos")
+                ->save([
+                    'title' => $title,
+                    'description' => $description,
+                ]);
         } else {
-            // here we are creating
-            $stmt = $builder->connection->prepare("INSERT INTO todos(title, description) VALUES(:title, :description)");
+            // here we can update
+            Porm::from("todos")
+                ->update([
+                    'title' => $title,
+                    'description' => $description,
+                ], $id);
+
+            $saved = Porm::from("todos")
+                ->get($id);
         }
-
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':description', $description);
-
-        $stmt->execute();
-
-        $lastInserted = $id ?? $builder->connection->lastInsertId('id');
-
-        $inserted = $builder->one("SELECT * from todos WHERE id = :id", [ 'id' => $lastInserted ]);
-
-        return BaseResponse::JsonResponse(0, "Todo $inserted->title created.", $inserted, $lastInserted);
+        return BaseResponse::JsonResponse(0, "Todo $saved->title created.", $saved);
     }
 
+    /**
+     * @throws BaseDatabaseException
+     * @throws Exception
+     */
     public function all() : BaseResponse
     {
-        $builder = new QueryBuilder();
-
-        $data = $builder->all("SELECT * from todos");
+        $data = Porm::from("todos")
+            ->all();
         return BaseResponse::JsonResponse(0, "Todos found.", $data);
     }
 
     /**
-     * @throws DatabaseException
+     * @throws Exception
      */
     public function one($data) : BaseResponse
     {
         $id = $data['id'];
 
-        $builder = new QueryBuilder();
-
-        $res = $builder->one("SELECT * from todos WHERE id = :id", [ 'id' => $id ]);
+        $res = Porm::from('todos')
+            ->get($id);
 
         if ($res) {
             return BaseResponse::JsonResponse(0, null, $data);
@@ -645,15 +652,30 @@ class TodoService extends BaseRestService
         }
     }
 
+    /**
+     * @throws BaseDatabaseException
+     */
     public function delete($data) : BaseResponse
     {
         $id = $data['id'];
-        $builder = new QueryBuilder();
-        $res = $builder->connection->prepare("DELETE FROM todos WHERE id = :id");
-        $res->bindParam(':id', $id);
-        $res->execute();
+        Porm::from("todos")->delete($id); // you can now hit all to see if this worked,
+        // you should notice item with this id disappears.
         return BaseResponse::JsonResponse(0, "Todo deleted.");
     }
+
+    /**
+     * @throws Exception
+     */
+    public function random($data) : BaseResponse
+    {
+        $length = $data['length'] ?? 1;
+
+        $porm = Porm::from("todos")
+            ->random($length);
+
+        return BaseResponse::JsonResponse(0, "Todos found.", $porm);
+    }
+
 }
 ```
 

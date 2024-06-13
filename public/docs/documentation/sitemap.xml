@@ -28,4 +28,10 @@
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/database/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
     </urlset>

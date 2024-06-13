@@ -35,7 +35,7 @@ Documentation organisation.
 - [Service Swapping](/docs/documentation/service-swapping/)
 - [The Controller](/docs/documentation/controllers/)
 - [Services and Actions](/docs/documentation/services/)
-- [Database and Querying](/docs/documentation/database/)
+- [Database and Querying](/documentation/database/)
 - [API Reference](/docs/documentation/api-reference/)
 
 ### Get Started

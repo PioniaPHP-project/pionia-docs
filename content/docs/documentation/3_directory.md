@@ -1,7 +1,9 @@
 ---
 title: "Structure"
+parent: "documentation"
 description: "Guides lead a user through a specific task they want to accomplish, often with a sequence of steps."
 summary: ""
+navTitle: "Directory Structure"
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
@@ -24,12 +26,15 @@ Taking our directory structure from the [API Tutorial we created here](/document
 ***app***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
     This is the main directory of the project. It is where all the application logic is stored. It contains the following subdirectories and scripts:
 
-  1. ***Controller.php*** :- This file contains the only controller our project needs and runs. Controllers are responsible for mapping traffic to the responsible service switcher.
-  2. ***routes.php*** :- This file contains the route(s) that our apps will use to access the controller. In normal curcumstances, it should be always one route.
-  3. ***MainApiSwitch.php*** :- This is where all our services are registered and called. It is where we switch between services basing on the request made.
-  4. ***services*** :- This is where all our services are stored. This is where you should focus most. All business logic resides here.
-  5. ***authenticationBackends*** :- This is where we store our authentication backends reside. Add your authentication logic here.
-  6. ***middlewares*** :- Usually this folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the controller and after they leave the controller.
+| Name    | Role | Type |
+| --------- | ----------- | ----------- |
+| controller    | Contains our controllers. In normal circumstances, only one controller is what our project needs to run. Controllers are responsible for mapping traffic to the responsible service switcher       |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| switches | Every request that comes through the controller is passed to an associated switch. The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
+| services | This is where all our services are stored. This is where you should focus most. All business logic resides here. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| authenticationBackends | This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| middlewares | This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the controller and after they leave the controller. | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| commands | This is where we store our console commands. Add your console commands here. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder |
+| routes.php | This file contains the route(s) that our apps will use to access the controller. In normal circumstances, it should be always one route. |{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}File |
 
 ***vendor***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
     This is where all the dependencies of the project are stored. It is created by composer when you run `composer install` or `composer update`.
@@ -50,7 +55,7 @@ Taking our directory structure from the [API Tutorial we created here](/document
     This is our console interface. It helps us to run pionia-specific commands.
 
 ***README.md***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This is the file that contains the documentation of the project. It is the first file that is opened when you open the project.
+    A simple getting started guide for the project.
 
 ***settings.ini***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
     This is the file that contains the settings of the project. It is where you store the settings of the project.

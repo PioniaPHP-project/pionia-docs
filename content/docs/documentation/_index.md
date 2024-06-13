@@ -15,6 +15,4 @@ seo:
 ---
 
 
-## Installation
-
-## Composer
+{{<picture src="pionia.png" alt="Pionia Logo">}}
