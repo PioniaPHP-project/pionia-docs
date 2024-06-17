@@ -41,13 +41,6 @@
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
-    
-    <url>
-      <loc>http://localhost:1313/documentation/</loc>
-      <lastmod>2024-06-14T00:37:19+03:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
     <url>
         <loc>http://localhost:1313/documentation/database/configuration-getting-started/</loc>
         <changefreq>monthly</changefreq>

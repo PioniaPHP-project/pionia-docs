@@ -44,12 +44,5 @@
       <guid>http://localhost:1313/documentation/structure/</guid>
       <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/documentation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/</guid>
-      <description>Custom Queries PORM also allows you to run custom queries.</description>
-    </item>
   </channel>
 </rss>
