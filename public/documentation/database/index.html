@@ -174,6 +174,22 @@
   <li class="active" >
       <a aria-current="page" href="/documentation/database/">Database</a>
   </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration/">Configuration</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+      </ul>
+    </details>
+  </li>
       </ul>
     </details>
   </li>
@@ -364,6 +380,22 @@
   <li class="active" >
       <a aria-current="page" href="/documentation/database/">Database</a>
   </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration/">Configuration</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+      </ul>
+    </details>
+  </li>
       </ul>
     </details>
   </li>
@@ -391,31 +423,6 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#introduction">Introduction.</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#configuration">Configuration</a>
-      <ul>
-        <li><a href="#multiple-database-connections">Multiple Database Connections</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a>
-      <ul>
-        <li><a href="#determining-the-target-table">Determining the target table</a></li>
-        <li><a href="#defining-the-columns">Defining the columns</a></li>
-      </ul>
-    </li>
-    <li><a href="#making-queries">Making Queries</a>
-      <ul>
-        <li><a href="#selecting-all-data">Selecting All Data</a></li>
-        <li><a href="#selecting-specific-columns">Selecting Specific Columns</a></li>
-        <li><a href="#filtering-data-on-all-method">Filtering Data on &lsquo;all&rsquo; method</a></li>
-        <li><a href="#get-one-item-from-the-table">Get one item from the table</a></li>
-        <li><a href="#getting-random-data">Getting random data</a></li>
-        <li><a href="#inserting-data">Inserting Data</a></li>
-        <li><a href="#updating-data">Updating Data</a></li>
-        <li><a href="#deleting-data">Deleting Data</a></li>
-      </ul>
-    </li>
     <li><a href="#custom-queries">Custom Queries</a></li>
     <li><a href="#transactions">Transactions</a>
       <ul>
@@ -449,31 +456,6 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction.</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#configuration">Configuration</a>
-      <ul>
-        <li><a href="#multiple-database-connections">Multiple Database Connections</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a>
-      <ul>
-        <li><a href="#determining-the-target-table">Determining the target table</a></li>
-        <li><a href="#defining-the-columns">Defining the columns</a></li>
-      </ul>
-    </li>
-    <li><a href="#making-queries">Making Queries</a>
-      <ul>
-        <li><a href="#selecting-all-data">Selecting All Data</a></li>
-        <li><a href="#selecting-specific-columns">Selecting Specific Columns</a></li>
-        <li><a href="#filtering-data-on-all-method">Filtering Data on &lsquo;all&rsquo; method</a></li>
-        <li><a href="#get-one-item-from-the-table">Get one item from the table</a></li>
-        <li><a href="#getting-random-data">Getting random data</a></li>
-        <li><a href="#inserting-data">Inserting Data</a></li>
-        <li><a href="#updating-data">Updating Data</a></li>
-        <li><a href="#deleting-data">Deleting Data</a></li>
-      </ul>
-    </li>
     <li><a href="#custom-queries">Custom Queries</a></li>
     <li><a href="#transactions">Transactions</a>
       <ul>
@@ -498,471 +480,7 @@
   </details>
 
 			</nav>
-			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>This section assumes you have already set up your project and have already gone through the <a href="/documentation/api-tutorial/">Api Tutorial</a> guide atleast.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="introduction">Introduction.<a href="#introduction" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the <a href="https://medoo.in/">medoo framework</a>. PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.</p>
-<h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true">#</a> </h2>
-<p>If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer require pionia/porm</span></span></code></pre></div>
-  </figure>
-</div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>If you are using Pionia, you do not need to install PORM separately. PORM is already included in the Pionia framework.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="configuration">Configuration<a href="#configuration" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Configuring PORM is simple. All you need is the settings.ini file in the root of your project. The settings.ini file should contain the following:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[db]</span>
-</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>See the <a href="https://medoo.in/api/new">medoo database configuration</a> for all the available options.</p>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework.</p>
-
-    </div>
-  </div>
-</div>
-
-<h3 id="multiple-database-connections">Multiple Database Connections<a href="#multiple-database-connections" class="anchor" aria-hidden="true">#</a> </h3>
-<p>If you want to connect to multiple databases, you can do so by adding the database connection settings to the <code>settings.ini</code> file. You can then specify the database connection to use when querying the database.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">; other settings</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">[db]</span>
-</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">[db2]</span>
-</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">; other settings</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can then specify the database connection to use when querying the database.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">using</span><span class="p">(</span><span class="s1">&#39;db2&#39;</span><span class="p">);</span> <span class="c1">// will connect to the db2 database
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>By default, PORM will use the default database connection(db) to query the database.</p>
-<h2 id="usage">Usage<a href="#usage" class="anchor" aria-hidden="true">#</a> </h2>
-<p>PORM does not rely on models to interact with the database. Instead, you get to interact with the database directly. This comes with a lot of flexibility and simplicity. Porm also interacts with both new and existing databases.</p>
-<p>All Queries originate from the <code>Porm</code> instance. Here is an example of how to interact with the database using PORM.</p>
-<h3 id="determining-the-target-table">Determining the target table<a href="#determining-the-target-table" class="anchor" aria-hidden="true">#</a> </h3>
-<p>All queries start by determining the target table. This is done by calling the <code>from</code> method on the <code>Porm</code> instance. The <code>from</code> method takes the table name as the first argument. The table name must match the table name in the database.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">);</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also alias the table name by passing the alias as the second argument.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also define the connection to use at this point.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># will connect to the db2 database
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">);</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="defining-the-columns">Defining the columns<a href="#defining-the-columns" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To select specific columns from the table, you can use the <code>columns</code> method. This method should be called after the <code>from</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">);</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>This method can be used with all the other methods below.</p>
-<h2 id="making-queries">Making Queries<a href="#making-queries" class="anchor" aria-hidden="true">#</a> </h2>
-<p>All the above methods do not return any data. They only set the query parameters. To get the data, you need to continue chaining the methods below.</p>
-<p>Under this section we will look at how to select data from the database. We can select all data, specific columns, or even filter the data.</p>
-<h3 id="selecting-all-data">Selecting All Data<a href="#selecting-all-data" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To select all data from the table, you can use the <code>all</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="selecting-specific-columns">Selecting Specific Columns<a href="#selecting-specific-columns" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To select specific columns from the table, you can use the <code>columns</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="filtering-data-on-all-method">Filtering Data on &lsquo;all&rsquo; method<a href="#filtering-data-on-all-method" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can filter the data by providing the array of conditions as an array to the <code>all</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span> <span class="c1">// select * from posts where id = 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Passing an array of multiple items will filter the data based on the <code>AND</code> condition.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">]);</span> <span class="c1">// select * from posts where id = 1 and title = &#39;Hello&#39;
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>All the above methods can be used with the <code>get</code> method. The <code>get</code> method is used to get one item from the table.</p>
-<h3 id="get-one-item-from-the-table">Get one item from the table<a href="#get-one-item-from-the-table" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To get one item from the table, you can use the <code>get</code> method. <code>get</code> unlike <code>all</code> returns an object of data.</p>
-<p>If a string or interger is passed, the <code>get</code> method will filter the data based on the primary key. In most cases this is the <code>id</code> column.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// select * from posts where id = 1;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// object of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>However, you might want to define the column to filter the data on. You can do this by passing the second argument to the <code>get</code> method as the name of the column to filter the data on.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">);</span> <span class="c1">// select * from posts where code = 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// object of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also pass an array of <code>AND</code> conditions to the <code>get</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">]);</span> <span class="c1">// select * from posts where id = 1 and title = &#39;Hello&#39; limit 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// object of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getting-random-data">Getting random data<a href="#getting-random-data" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To get random data from the table, you can use the <code>random</code> method. The <code>random</code> method takes the number of results to return as the first argument.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also pass an array of conditions to the <code>random</code> method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pionia&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>To get just one random item, you can pass 1 or ignore the length.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">random</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// object of data
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="inserting-data">Inserting Data<a href="#inserting-data" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To insert data into the table, you can use the <code>save</code> method. The <code>save</code> method takes an array of data to insert into the table and returns the saved object.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// the saved object
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="updating-data">Updating Data<a href="#updating-data" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To update data in the table, you can use the <code>update</code> method. The <code>update</code> method takes an array of data to update in the table and the condition to filter the data on.</p>
-<p>This method returns a <code>PDOStatement</code> object. You can get the number of rows affected by calling the <code>rowCount</code> method on the returned object.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">rowCount</span><span class="p">());</span> <span class="c1">// the number of rows affected
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="deleting-data">Deleting Data<a href="#deleting-data" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To delete data from the table, you can use the <code>delete</code> method. The <code>delete</code> method takes the condition to filter the data on.</p>
-<p>This method returns a <code>PDOStatement</code> object. You can get the number of rows affected by calling the <code>rowCount</code> method on the returned object.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">rowCount</span><span class="p">());</span> <span class="c1">// the number of rows affected
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>This method can also be used to delete all data from the table.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">deleteAll</span><span class="p">([]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">rowCount</span><span class="p">());</span> <span class="c1">// the number of rows affected
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The two methods <code>delete</code> and <code>deleteAll</code> do exactly the same thing.</p>
-<p>You can also delete data based on the primary key.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">deleteById</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">rowCount</span><span class="p">());</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h2 id="custom-queries">Custom Queries<a href="#custom-queries" class="anchor" aria-hidden="true">#</a> </h2>
+			<h2 id="custom-queries">Custom Queries<a href="#custom-queries" class="anchor" aria-hidden="true">#</a> </h2>
 <p>PORM also allows you to run custom queries. You can do this by calling the <code>raw</code> method. The <code>raw</code> method takes the SQL query as the first argument and the bindings as the second argument.</p>
 
 
@@ -1462,7 +980,7 @@
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/structure/" class="stretched-link text-reset text-decoration-none">Structure</a>
+					<a href="/documentation/database/configuration/" class="stretched-link text-reset text-decoration-none">Configuration</a>
 				</div>
 			</div>
 		</div>
@@ -1471,7 +989,7 @@
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/reference/example-reference/" class="stretched-link text-reset text-decoration-none">Example Reference</a>
+					<a href="/documentation/database/making-queries/" class="stretched-link text-reset text-decoration-none">Making Queries</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

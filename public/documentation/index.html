@@ -43,15 +43,15 @@
       >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="">
-<meta property="og:description" content="">
+<meta property="og:description" content="Custom Queries PORM also allows you to run custom queries.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 
-<meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-06-14T00:37:19+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="Custom Queries PORM also allows you to run custom queries.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -96,7 +96,8 @@
 
   
   <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
-    <div class="header-bar"></div>
+    <div class="sticky-top">
+<div class="header-bar"></div>
 <header class="navbar navbar-expand-lg">
   <div class="container-sm">
   
@@ -163,7 +164,35 @@
   </li>
 
   <li>
+      <a href="/documentation/services/">Services</a>
+  </li>
+
+  <li>
       <a href="/documentation/structure/">Structure</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li class="active" >
@@ -265,6 +294,7 @@
     <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
     </div>
 </header>
+</div>
 
 <div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
@@ -293,7 +323,7 @@
               <div class="card-body">
                 <header>
                   <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
-                  <div class="submitted d-none"><time class="created-date">Date here</time></div>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
                 </header>
                 <div class="content">Summary here</div>
               </div>
@@ -319,7 +349,7 @@
       
         
 	<div class="row flex-xl-nowrap">
-		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-top docs-sidebar-offset d-none d-lg-block">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
 			
   
     
@@ -348,7 +378,35 @@
   </li>
 
   <li>
+      <a href="/documentation/services/">Services</a>
+  </li>
+
+  <li>
       <a href="/documentation/structure/">Structure</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li class="active" >
@@ -376,9 +434,31 @@
 
 		</div>
 		
-		<nav class="docs-toc docs-toc-top docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
 			<div class="page-links">
-  
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#custom-queries">Custom Queries</a></li>
+    <li><a href="#transactions">Transactions</a>
+      <ul>
+        <li><a href="#using-the-intransaction-method">Using the <code>inTransaction</code> method</a></li>
+        <li><a href="#using-the-pdo-transactions">Using the pdo transactions</a></li>
+      </ul>
+    </li>
+    <li><a href="#advanced-filtering">Advanced Filtering</a>
+      <ul>
+        <li><a href="#using-the-where-method">Using the <code>where</code> method</a></li>
+        <li><a href="#using-the-filter-method">Using the <code>filter</code> method</a></li>
+        <li><a href="#using-the-where-instance">Using the <code>Where</code> Instance</a></li>
+      </ul>
+    </li>
+    <li><a href="#limit-and-offset---pagination">Limit and Offset - Pagination</a></li>
+    <li><a href="#order-by">Order By</a></li>
+    <li><a href="#grouping">Grouping</a></li>
+    <li><a href="#having">Having</a></li>
+  </ul>
+</nav>
 </div>
 
 		</nav>
@@ -387,10 +467,509 @@
 			<h1></h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
-				
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#custom-queries">Custom Queries</a></li>
+    <li><a href="#transactions">Transactions</a>
+      <ul>
+        <li><a href="#using-the-intransaction-method">Using the <code>inTransaction</code> method</a></li>
+        <li><a href="#using-the-pdo-transactions">Using the pdo transactions</a></li>
+      </ul>
+    </li>
+    <li><a href="#advanced-filtering">Advanced Filtering</a>
+      <ul>
+        <li><a href="#using-the-where-method">Using the <code>where</code> method</a></li>
+        <li><a href="#using-the-filter-method">Using the <code>filter</code> method</a></li>
+        <li><a href="#using-the-where-instance">Using the <code>Where</code> Instance</a></li>
+      </ul>
+    </li>
+    <li><a href="#limit-and-offset---pagination">Limit and Offset - Pagination</a></li>
+    <li><a href="#order-by">Order By</a></li>
+    <li><a href="#grouping">Grouping</a></li>
+    <li><a href="#having">Having</a></li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
 			</nav>
-			
+			<!-- ---
+title: "Database"
+description: "Database querying using PORM - Pionia ORM"
+summary: ""
+date: 024-06-13 14:32:03.100 +0300
+lastmod: 024-06-13 14:32:03.100 +0300
+draft: false
+weight: 810
+toc: true
+seo:
+  title: "Ponia Porm Database" # custom title (optional)
+  description: "Querying the database using the PORM - Pionia ORM." # custom description (recommended)
+  canonical: "" # custom canonical URL (optional)
+  noindex: true # false (default) or true
+--- -->
+<h2 id="custom-queries">Custom Queries<a href="#custom-queries" class="anchor" aria-hidden="true">#</a> </h2>
+<p>PORM also allows you to run custom queries. You can do this by calling the <code>raw</code> method. The <code>raw</code> method takes the SQL query as the first argument and the bindings as the second argument.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">raw</span><span class="p">(</span><span class="s1">&#39;select * from posts where id = :id&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>In this raw queries, <code>from</code> is required to initialise the query but the passed table name is not used in the query.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="transactions">Transactions<a href="#transactions" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Handling transactions here can be done in two ways.</p>
+<h3 id="using-the-intransaction-method">Using the <code>inTransaction</code> method<a href="#using-the-intransaction-method" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can start a transaction by calling the <code>inTransaction</code> method. The <code>inTransaction</code> method takes a closure as the first argument. The closure should contain the queries to run in the transaction.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="ln">1</span><span class="cl">
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;posts&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inTransaction</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">});</span></span></span></code></pre></div>
+  </figure>
+</div>
+<blockquote>
+<p>Line <code>4</code> defines the table name but this is just a formality. The table name is not used in the transaction queries.</p>
+</blockquote>
+<p>To access the data from the transaction outside the transaction, you can use the <code>use</code> keyword on the closure.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="ln"> 1</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;posts&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inTransaction</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="k">use</span> <span class="p">(</span><span class="o">&amp;</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// the saved object
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This takes care of committing and rolling back of the transactions automatically.</p>
+<h3 id="using-the-pdo-transactions">Using the pdo transactions<a href="#using-the-pdo-transactions" class="anchor" aria-hidden="true">#</a> </h3>
+<p>While the above method will do everything for you, we understand that you might want to have more control over the transactions. You can do this by using the <code>pdo</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">getDatabase</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">beginTransaction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// your queries here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">getDatabase</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">commit</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If you want to rollback the transaction, you can call the <code>rollBack</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">getDatabase</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">beginTransaction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// your queries here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$posts</span><span class="o">-&gt;</span><span class="na">getDatabase</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">rollBack</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="advanced-filtering">Advanced Filtering<a href="#advanced-filtering" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="using-the-where-method">Using the <code>where</code> method<a href="#using-the-where-method" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can perform advanced filters using the <code>where</code> method. You can chain as many of these as you want. You can use this method with both <code>all</code> and <code>get</code> methods.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">([</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">([</span><span class="nx">age</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">([</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pionia&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>All conditions that passed as array conditions are treated as <code>AND</code> conditions.</p>
+<h3 id="using-the-filter-method">Using the <code>filter</code> method<a href="#using-the-filter-method" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In Porm, whenever you call the <code>filter</code> you teleport to a new query builder that enables you to perform more complex queries.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">([</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="using-the-where-instance">Using the <code>Where</code> Instance<a href="#using-the-where-instance" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can also use the <code>Where</code> instance to perform more complex queries.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// add more conditions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Where.add() method can be used to add more conditions to the query.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Pionia&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The <code>add()</code> method can also take up an entire <code>Where</code> instance.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pionia&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2023-06-13&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// select * from posts where id = 10 and name = &#39;Pionia&#39; and (age = 10 and time = &#39;2023-06-13&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also use <code>or()</code> method to add <code>OR</code> conditions.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pionia&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">or</span><span class="p">(</span><span class="nx">Where</span><span class="o">::</span><span class="na">builder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">or</span><span class="p">(</span><span class="s1">&#39;time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2023-06-13&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// select * from posts where id = 10 and name = &#39;Pionia&#39; or (age = 10 or time = &#39;2023-06-13&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>If you notice the return type of the build() method, it is an <code>array</code>. This makes this more powerful as you can pass the <code>Where</code> instance to other methods that accept an array of conditions.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="limit-and-offset---pagination">Limit and Offset - Pagination<a href="#limit-and-offset---pagination" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can limit the number of results returned by using the <code>limit</code> method. The <code>limit</code> method takes the number of results to return as the first argument.</p>
+<p>These are available on the <code>filter</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also use the <code>startAt</code> method to skip the first <code>n</code> results.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">startAt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="order-by">Order By<a href="#order-by" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can order the results by using the <code>orderBy</code> method. The <code>orderBy</code> method takes the column to order by as the first argument and the order as the second argument.</p>
+<p>You can order in two ways:</p>
+<p>By column name :-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>By one or more columns and the order :-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;DESC&#39;</span><span class="p">])</span> <span class="c1">// any number of columns can be passed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="grouping">Grouping<a href="#grouping" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can group the results by using the <code>group</code> method. The <code>group</code> method takes the column(s) to group by as the first argument.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also group by multiple columns.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">group</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="having">Having<a href="#having" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can filter the grouped results by using the <code>having</code> method. The <code>having</code> method takes the column to filter by as the first argument and the condition as the second argument.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also use any of the operators as the third argument.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="c1">// array of data
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/72d385e8dd67ceaec75b9350f4b8fadb8ea4e544">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on June 14, 2024
+    </a>
+  </div>
+
 				
 
 
@@ -465,7 +1044,11 @@
   </div>
 </footer>
 
-    
+    <script async
+  src="/js/bootstrap.d5ae61923b84be624d1c0d9329b69d550a65fb7ffc68ab373bda5d50574e77ac.js"
+  integrity="sha256-1a5hkjuEvmJNHA2TKbadVQpl&#43;3/8aKs3O9pdUFdOd6w=">
+</script>
+
 
 <script async
   src="/js/app.6ce274b2411410f3193de528a44804d3776457fc634899431b6ae5949bbdf643.js"

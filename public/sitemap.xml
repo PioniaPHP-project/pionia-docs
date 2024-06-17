@@ -28,7 +28,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/introduction/</loc>
-    <lastmod>2024-06-13T20:36:50+03:00</lastmod>
+    <lastmod>2024-06-14T01:25:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -38,7 +38,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/services/</loc>
-    <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+    <lastmod>2024-06-14T01:25:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -74,6 +74,11 @@
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2024-05-26T01:47:41+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/documentation/</loc>
+    <lastmod>2024-06-14T00:37:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>

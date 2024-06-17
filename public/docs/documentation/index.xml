@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Fri, 14 Jun 2024 00:37:19 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 14 Jun 2024 01:25:18 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>API Tutorial</title>
@@ -45,11 +45,11 @@
       <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
     <item>
-      <title>Database</title>
-      <link>http://localhost:1313/documentation/database/</link>
+      <title></title>
+      <link>http://localhost:1313/documentation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/database/</guid>
-      <description>This section assumes you have already set up your project and have already gone through the Api Tutorial guide atleast.</description>
+      <guid>http://localhost:1313/documentation/</guid>
+      <description>Custom Queries PORM also allows you to run custom queries.</description>
     </item>
   </channel>
 </rss>
