@@ -431,7 +431,16 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#creating-a-service">Creating a service</a></li>
+    <li><a href="#service-registration">Service Registration</a></li>
+    <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
+    <li><a href="#targeting-a-service-action">Targeting a service action</a></li>
+    <li><a href="#action-protection">Action protection</a>
+      <ul>
+        <li><a href="#globally">Globally</a></li>
+        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </div>
@@ -447,16 +456,23 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#creating-a-service">Creating a service</a></li>
+    <li><a href="#service-registration">Service Registration</a></li>
+    <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
+    <li><a href="#targeting-a-service-action">Targeting a service action</a></li>
+    <li><a href="#action-protection">Action protection</a>
+      <ul>
+        <li><a href="#globally">Globally</a></li>
+        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<h2 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Services in Pionia are central to the framework. They are used to encapsulate business logic and are used to interact with the database. Most of your time in Pionia will be spent working with services. This is so because services are the backbone of your application.</p>
-<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
     
@@ -467,6 +483,211 @@
   </div>
 </div>
 
+<h1 id="introduction">Introduction</h1>
+<p>Services in Pionia Framework are central holders of business logic. This is where most of the work happens. Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area. Services are in actual PHP code, just php classes that extend the <code>BaseRestService</code>. As you might already know, a class can have multiple methods. In Pionia we cann these <code>Actions</code>. Therefore, henceforth, the terms <code>service</code> and <code>actions</code> will be used for the same meaning throughout the same guide.</p>
+<h2 id="creating-a-service">Creating a service<a href="#creating-a-service" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can create a service using our pionia console or manually. All services, as a convention, must be located in the <code>services</code> folder.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>We recommend to name your services after your database tables. Example, if your table is called &lsquo;users&rsquo;, you can name your service &lsquo;UserService&rsquo;.</p>
+<p>If you are using our &lsquo;pionia console&rsquo;, then you can just name your service &lsquo;user&rsquo;. These are just conventions!</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <button data-toggle-tab="pionia command" class="nav-link active" id="tabs-create-new-service-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-0" type="button" role="tab" aria-controls="tabs-create-new-service-0" aria-selected="true">
+      pionia command</button>
+  <button data-toggle-tab="manually" class="nav-link" id="tabs-create-new-service-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-1" type="button" role="tab" aria-controls="tabs-create-new-service-1" aria-selected="true">
+      Manually</button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div data-pane="pionia command" class="tab-pane fade show active" id="tabs-create-new-service-0" role="tabpanel" aria-labelledby="tabs-create-new-service-0-tab" tabindex="0">
+      <p>Let&rsquo;s create a service called <code>TodoService</code>. In the terminal run the following command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice todo</span></span></code></pre></div>
+  </figure>
+</div>
+<p>By defualt, running the above command alone create a service called <code>TodoService</code> in <code>services</code> folder with four actions.</p>
+<ol>
+<li><code>getTodo</code> - For getting one todo item.</li>
+<li><code>listTodo</code> - For getting all available (paginated) todos.</li>
+<li><code>deleteTodo</code> - For deleting a todo item.</li>
+<li><code>createTodo</code> - For creating a todo item.</li>
+</ol>
+<p>You can delete or add more actions as you see fit.</p>
+<p>If you want to override the above behaviour, you can define your actions with the <code>addservice</code> command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice auth login register reset</span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above will add actions <code>loginAuth</code>, <code>registerAuth</code> and <code>resetAuth</code>.</p>
+<p>Note that everything that is listed after the service name is an action.</p>
+</div>
+  <div data-pane="manually" class="tab-pane fade" id="tabs-create-new-service-1" role="tabpanel" aria-labelledby="tabs-create-new-service-1-tab" tabindex="0">
+      <blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ol>
+<li>Head over to your services folder.</li>
+<li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
+<li>Extend BaseRestService</li>
+<li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(ff your service is expecting files) and returning <code>BaseResponse</code>.</li>
+<li>Add your logic</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</div>
+  </div>
+
+<h2 id="service-registration">Service Registration<a href="#service-registration" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel. Service registration happens in the associated switch.</p>
+<p>In the switches folder, find the switch you want to use for this service. You can add your service as below.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">TodoService</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">AuthService</span><span class="p">(),</span> <span class="c1">// like this.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The <code>key</code> of this method is the name you shall use in your proceeding requests to access this service. Therefore it must be unique!</p>
+<h2 id="targeting-a-service-in-the-request">Targeting a service in the request<a href="#targeting-a-service-in-the-request" class="anchor" aria-hidden="true">#</a> </h2>
+<p>In the request, you can target a service by determining the <code>SERVICE</code> key with your service name as the <code>key</code> defined in the <code>registerServices</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your request data.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="targeting-a-service-action">Targeting a service action<a href="#targeting-a-service-action" class="anchor" aria-hidden="true">#</a> </h2>
+<p>To target an action in a certain service, you need to define both the service and action as below.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ACTION</span><span class="o">:</span> <span class="s1">&#39;loginAuth&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your service data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every requered data needed for the request.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="action-protection">Action protection<a href="#action-protection" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can protect your actions by determining that they require only authenticated requests(users) to be accessed. You can do this in three ways.</p>
+<h3 id="globally">Globally<a href="#globally" class="anchor" aria-hidden="true">#</a> </h3>
+<p>At the service level, you can use the <code>$actionsRequiringAuth</code> parameter and add those method names of actions that should be reached by authenticated users only.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$actionsRequiringAuth</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="internally-in-the-action">Internally in the action<a href="#internally-in-the-action" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can also call the <code>mustAuthenticate</code> method anywhere in your action, preferably the first line in the action method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

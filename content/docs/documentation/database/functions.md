@@ -43,12 +43,24 @@ This section convers database functions that can be used to aggregate data in th
     - [notLike](#notlike)
     - [div](#div)
     - [between](#between)
+    - [notBetween](#notbetween)
     - [jsonified](#jsonified)
     - [of](#of)
     - [minus](#minus)
     - [plus](#plus)
     - [eq](#eq)
     - [neq](#neq)
+    - [now](#now)
+    - [lt](#lt)
+    - [lte](#lte)
+    - [gt](#gt)
+    - [gte](#gte)
+    - [uuid](#uuid)
+    - [max()](#max-1)
+    - [min()](#min-1)
+    - [sum()](#sum-1)
+    - [regex](#regex)
+  - [Chaining multiple](#chaining-multiple)
 
 ## Inbuilt Aggregation Functions
 
@@ -293,12 +305,12 @@ $user = Porm::from("todos")
 
 ### between
 
-Used to get all values of a column that are between the given values
+Adds a between check on a column. It checks if the value of the given column is between two given points.
 
 ```php
 
 $results = Porm::from("todos")
-    ->filter(Agg::builder()
+    ->where(Agg::builder()
         ->between('id', [1, 10])
         ->build()
     )->all();
@@ -306,9 +318,22 @@ $results = Porm::from("todos")
 // select * from todos where id between 1 and 10
 ```
 
+### notBetween
+
+Checks if the value of the given column is `not between` the given points.
+
+```php
+$results = Porm::from("todos")
+    ->where(Agg::builder()
+        ->notBetween('id', [1, 10])
+        ->build()
+    )->all();
+
+```
+
 ### jsonified
 
-Jsonify a column in the database as a alias given
+Jsonify the given value and assigns it to the given column.
 
 ```php
 
@@ -330,7 +355,7 @@ Multiplies a column by a certain value in the database
 
 Porm::from("todos")
             ->filter(Agg::builder()
-                ->of('someAlias', 10)
+                ->of('age', 10)
                 ->build()
             )->all();
 
@@ -346,7 +371,7 @@ Subtracts a column by a certain value in the database
 
 Porm::from("todos")
             ->filter(Agg::builder()
-                ->minus('someAlias', 10)
+                ->minus('age', 10)
                 ->build()
             )->all();
 
@@ -362,7 +387,7 @@ Adds a column by a certain value in the database
 
 Porm::from("todos")
             ->filter(Agg::builder()
-                ->plus('someAlias', 10)
+                ->plus('age', 10)
                 ->build()
             )->all();
 
@@ -372,13 +397,13 @@ Porm::from("todos")
 
 ### eq
 
-Compares a column to a certain value in the database.
+Opposite of eq. Checks if the value of the given column is `equal` to the given value.
 
 ```php
 
 Porm::from("todos")
             ->filter(Agg::builder()
-                ->eq('someAlias', 10)
+                ->eq('age', 10)
                 ->build()
             )->all();
 
@@ -388,13 +413,13 @@ Porm::from("todos")
 
 ### neq
 
-Opposite of eq. Compares a value to a column in the database.
+Opposite of eq. Checks if the value of the given is `not equal` to the given value.
 
 ```php
 
 Porm::from("todos")
             ->filter(Agg::builder()
-                ->neq('someAlias', 10)
+                ->neq('age', 10)
                 ->build()
             )->all();
 
@@ -402,10 +427,126 @@ Porm::from("todos")
 
 ```
 
-<!-- ### now
+### now
 
-Assigns the current timestamp to the given column.
+Assigns the current timestamp to the given alias or column.
 
 ```php
- -->
 
+Porm::from("todos")
+        ->update(Agg::builder()->now("updated_at")->build(), 1); // update todos set updated_at = now() where id =1
+
+```
+
+### lt
+
+Check if the column value is `less than` the given value.
+
+```php
+Porm::from("todos")
+    ->where(Agg::builder()->lt('age', 20)->build())
+    ->all();
+```
+
+### lte
+
+Checks if the column value is `less than or equal` to the given value.
+
+```php
+
+Porm::from("todos")
+    ->where(Agg::builder()->lte('age', 20)->build())
+    ->all();
+
+```
+
+### gt
+
+Checks if the column value is `greater than` the given value.
+
+```php
+
+Porm::from("todos")
+            ->where(Agg::builder()->gt('age', 20)->build())
+            ->all();
+```
+
+### gte
+
+Checks if the column value is `greater than or equal` the given value.
+
+```php
+
+Porm::from("todos")
+            ->where(Agg::builder()->gte('age', 20)->build())
+            ->all();
+```
+
+### uuid
+
+This can be used in two ways. The first way is where a uuid is provided and the other way is where you want to sign a unique random uuid to a column.
+
+```php
+
+$agg = Agg::builder()->uuid('code')->build() // code = uuid()
+
+// or with an existing one.
+
+$agg = Agg::builder()->uuid('code', $myCoolUuid)->build() // code = '$myCoolUuid'
+
+```
+
+### max()
+
+Gets the maximum value of the given column and assigns it to the given alias
+
+```php
+
+$agg = Agg::builder()->max('maxAge', 'age')->build() // MAX(age) as maxAge
+
+```
+
+### min()
+
+Gets the minimum value of the given column and assigns it to the given alias
+
+```php
+
+$agg = Agg::builder()->min('maxAge', 'age')->build() // MIN(age) as maxAge
+
+```
+
+### sum()
+
+Gets the sum of the given column and assigns it to the given alias.
+
+```php
+
+$agg = Agg::builder()->sum('maxAge', 'age')->build() // SUM(age) as maxAge
+
+```
+
+### regex
+
+If all above don't work for you, you can use this aggregation function to provide your own regular expression that the db should check against.
+
+```php
+
+$agg = Agg::builder()->regex('name', '^d')->build() // name ~ '^d'
+
+```
+
+
+## Chaining multiple
+
+You can chain as many aggregations as you with till you call the `build()` method.
+
+```php
+
+$agg = Agg::builder()
+    ->regex('name', '^d')
+    ->gte('age', 10)
+    ->build();
+
+    // name ~ '^d' and age >= 10
+```
