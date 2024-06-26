@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Mon, 17 Jun 2024 22:39:51 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2024 22:49:48 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Example Post</title>
@@ -15,6 +15,27 @@
       <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
       <guid>http://localhost:1313/blog/example-post/</guid>
       <description>You can use blog posts for announcing product updates and features.</description>
+    </item>
+    <item>
+      <title>MoonLight Architecture</title>
+      <link>http://localhost:1313/moonlight-architecture/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/moonlight-architecture/</guid>
+      <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
+    </item>
+    <item>
+      <title>Security in moonlight</title>
+      <link>http://localhost:1313/security-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/security-in-moonlight/</guid>
+      <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
+    </item>
+    <item>
+      <title>Versioning in moonlight</title>
+      <link>http://localhost:1313/versioning-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/versioning-in-moonlight/</guid>
+      <description>Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning.</description>
     </item>
     <item>
       <title>API Tutorial</title>
@@ -52,32 +73,11 @@
       <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
     <item>
-      <title>Configuration - Getting Started</title>
-      <link>http://localhost:1313/documentation/database/configuration-getting-started/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/database/configuration-getting-started/</guid>
-      <description>This section assumes you have already set up your project and have already gone through the Api Tutorial guide atleast.</description>
-    </item>
-    <item>
-      <title>Making Queries</title>
-      <link>http://localhost:1313/documentation/database/making-queries/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/database/making-queries/</guid>
-      <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
-    </item>
-    <item>
-      <title>Queries with Filtering</title>
-      <link>http://localhost:1313/documentation/database/queries-with-filtering/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/database/queries-with-filtering/</guid>
-      <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
-    </item>
-    <item>
-      <title>Using Functions - Aggregation</title>
-      <link>http://localhost:1313/documentation/database/using-functions-aggregation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/database/using-functions-aggregation/</guid>
-      <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
+      <title>Why Pionia?</title>
+      <link>http://localhost:1313/documentation/why-pionia/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/why-pionia/</guid>
+      <description>Pionia all the beautiful parts of Moonlight paradigm. But as the framework, it also has its own unique features.</description>
     </item>
   </channel>
 </rss>

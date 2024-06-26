@@ -10,6 +10,27 @@
     <lastBuildDate>Sun, 26 May 2024 01:47:41 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>MoonLight Architecture</title>
+      <link>http://localhost:1313/moonlight-architecture/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/moonlight-architecture/</guid>
+      <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
+    </item>
+    <item>
+      <title>Security in moonlight</title>
+      <link>http://localhost:1313/security-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/security-in-moonlight/</guid>
+      <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
+    </item>
+    <item>
+      <title>Versioning in moonlight</title>
+      <link>http://localhost:1313/versioning-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/versioning-in-moonlight/</guid>
+      <description>Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning.</description>
+    </item>
+    <item>
       <title>Resources</title>
       <link>http://localhost:1313/resources/</link>
       <pubDate>Tue, 27 Feb 2024 09:30:56 +0100</pubDate>

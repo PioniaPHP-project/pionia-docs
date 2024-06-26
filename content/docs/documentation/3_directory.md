@@ -18,23 +18,37 @@ seo:
 
 Taking our directory structure from the [API Tutorial we created here](/documentation/api-tutorial/).
 
-![alt text](image-1.png)
-
+```md
+app
+├── switches
+├── services
+├── authenticationBackends
+├── commands
+├── middlewares
+├── routes.php
+vendor
+.gitignore
+composer.json
+composer.lock
+index.php
+pionia
+README.md
+settings.ini
+```
 
 ## Directory Structure Breakdown
 
 ***app***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
     This is the main directory of the project. It is where all the application logic is stored. It contains the following subdirectories and scripts:
 
-| Name    | Role | Type |
-| --------- | ----------- | ----------- |
-| controller    | Contains our controllers. In normal circumstances, only one controller is what our project needs to run. Controllers are responsible for mapping traffic to the responsible service switcher       |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| switches | Every request that comes through the controller is passed to an associated switch. The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
-| services | This is where all our services are stored. This is where you should focus most. All business logic resides here. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| authenticationBackends | This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| middlewares | This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the controller and after they leave the controller. | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| commands | This is where we store our console commands. Add your console commands here. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder |
-| routes.php | This file contains the route(s) that our apps will use to access the controller. In normal circumstances, it should be always one route. |{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}File |
+| Name    | Role                                                                                                                                                                                                                                                                                   | Type |
+| --------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------- |
+| switches | The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
+| services | This is where all our services are stored. This is where you should focus most. All business logic resides here.                                                                                                                                                                       |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| authenticationBackends | This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini                                                                                                                                                               | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| middlewares | This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the switches and after they leave the switches.                                                                     | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
+| commands | This is where we store our console commands. Add your console commands here.                                                                                                                                                                                                           |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder |
+| routes.php | Our routes behave different, their job is not to not route but to register the switches that should be auto-dicovered.                                                                                                                                                                 |{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}File |
 
 ***vendor***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
     This is where all the dependencies of the project are stored. It is created by composer when you run `composer install` or `composer update`.

@@ -42,7 +42,7 @@ weight = 10
 
 [[main]]
 name = "Moonlight"
-url = "/docs/moonlight/"
+url = "/moonlight/moonlight-architecture/"
 # url = "/docs/1.0/prologue/introduction/"
 weight = 10
 

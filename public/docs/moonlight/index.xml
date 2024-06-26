@@ -7,7 +7,21 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Fri, 24 May 2024 13:45:48 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/moonlight/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MoonLight Architecture</title>
+      <link>http://localhost:1313/moonlight/moonlight-architecture/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/moonlight/moonlight-architecture/</guid>
+      <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
+    </item>
+    <item>
+      <title>Security in moonlight</title>
+      <link>http://localhost:1313/moonlight/security-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/moonlight/security-in-moonlight/</guid>
+      <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
+    </item>
   </channel>
 </rss>

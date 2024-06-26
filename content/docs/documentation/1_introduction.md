@@ -11,7 +11,7 @@ seo:
   title: "" # custom title (optional)
   description: "" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  noindex: true # false (default) or true
 ---
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
@@ -23,7 +23,7 @@ This framework was born at Service Cops - East Africa by [JET](https://www.linke
 
 Documentation organisation.
 
-- [MoonLight Architecture](/docs/moonlight/)
+- [MoonLight Architecture](/moonlight/moonlight-architecture/)
 - [Tutorial](/documentation/api-tutorial/)
 - [Directory Structure](/documentation/structure/)
 - [Requests](/documentation/requests/)
@@ -47,7 +47,7 @@ You can quickly get started with our [To-Do API tutorial](/documentation/api-tut
 
 There are various reasons why pionia stands out from other PHP frameworks. From program performance, developer performance, to maintainability, pionia has got you covered.
 
-You can read more about [why pionia](/docs/documentation/why-pionia/).
+You can read more about [Why Pionia here](/documentation/why-pionia/).
 
 ## Installation
 

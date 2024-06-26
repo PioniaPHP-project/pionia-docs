@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Fri, 14 Jun 2024 01:25:18 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2024 22:49:48 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>API Tutorial</title>
@@ -43,6 +43,13 @@
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
       <guid>http://localhost:1313/documentation/structure/</guid>
       <description>Taking our directory structure from the API Tutorial we created here.</description>
+    </item>
+    <item>
+      <title>Why Pionia?</title>
+      <link>http://localhost:1313/documentation/why-pionia/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/why-pionia/</guid>
+      <description>Pionia all the beautiful parts of Moonlight paradigm. But as the framework, it also has its own unique features.</description>
     </item>
   </channel>
 </rss>

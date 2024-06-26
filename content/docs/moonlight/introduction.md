@@ -24,8 +24,8 @@ Below are the new conventions that MoonLight architecture brings to the table:
 
 Architecture Overview
 
-{{<img src="image.png" autoplay="true" muted="true">}}
 
+<img src="image.png" alt="Moonlight Architecture Overview">
 <!-- add a video showing the same here -->
 
 {{<callout context="tip" title="The car scenario! -- 1" icon="outline/car">}}
@@ -55,7 +55,7 @@ On top of other advantages, now frontend devs don't have to worry about the base
 
 ##### 2. POST Requests only
 
-  All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the URL. Also, the application gets to benefit highly from ssl encryption and other security features that are available for POST requests.
+  All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the server logs or in the URL. This also makes it easier to debug and monitor the application. [Read more on security](/moonlight/security-in-moonlight/).
 
 ##### 3. Single Request Format
 

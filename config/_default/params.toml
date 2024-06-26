@@ -137,8 +137,8 @@ suffix = ""
 [seo.favicons]
 sizes = []
 icon = "pionia.png"     # favicon.png (default)
-svgIcon = "pionia.svg"  # favicon.svg (default)
-maskIcon = "pionia.svg" # mask-icon.svg (default)
+svgIcon = "pionia.png"  # favicon.svg (default)
+maskIcon = "pionia.png" # mask-icon.svg (default)
 maskIconColor = "white" # white (default)
 [seo.schemas]
 type = "Organization" # Organization (default) or Person

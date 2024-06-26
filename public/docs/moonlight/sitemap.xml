@@ -1,3 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  </urlset>
+  
+    <url>
+      <loc>http://localhost:1313/moonlight/moonlight-architecture/</loc>
+      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/moonlight/security-in-moonlight/</loc>
+      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    </urlset>
