@@ -21,7 +21,10 @@ This section assumes that you have a basic understanding of the Pionia framework
 
 # Introduction
 
-Services in Pionia Framework are central holders of business logic. This is where most of the work happens. Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area. Services are in actual PHP code, just php classes that extend the `BaseRestService`. As you might already know, a class can have multiple methods. In Pionia we cann these `Actions`. Therefore, henceforth, the terms `service` and `actions` will be used for the same meaning throughout the same guide.
+Services in Pionia Framework are central holders of business logic. This is where most of the work happens. 
+Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area. 
+Services are in actual PHP code, just php classes that extend the `BaseRestService`. 
+As you might already know, a class can have multiple methods. In Pionia we call these `Actions`. Therefore, henceforth, the terms `service` and `actions` will be used for the same meaning throughout the same guide.
 
 ## Creating a service
 
@@ -42,7 +45,7 @@ Let's create a service called `TodoService`. In the terminal run the following c
 php pionia addservice todo
 ```
 
-By defualt, running the above command alone create a service called `TodoService` in `services` folder with four actions.
+By default, running the above command alone creates a service called `TodoService` in `services` folder with four actions.
 
 1. `getTodo` - For getting one todo item.
 2. `listTodo` - For getting all available (paginated) todos.
@@ -91,8 +94,11 @@ In the switches folder, find the switch you want to use for this service. You ca
     }
 ```
 
-The `key` of this method is the name you shall use in your proceeding requests to access this service. Therefore it must be unique!
+The `key` of this method is the name you shall use in your proceeding requests to access this service. Therefore, it must be unique!
 
+{{<callout note>}}
+A single service can be registered in multiple switches. This is useful when you want to use the same service in different api versions.
+{{</callout>}}
 ## Targeting a service in the request
 
 In the request, you can target a service by determining the `SERVICE` key with your service name as the `key` defined in the `registerServices` method.
@@ -119,8 +125,104 @@ To target an action in a certain service, you need to define both the service an
 
 {{<callout note>}}
 
-The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every requered data needed for the request.
+The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every required data needed for the request.
 
+The keys `SERVICE` and `ACTION` are reserved and should not be used for any other purpose in the request data.
+
+The same keys are case-sensitive and should be in uppercase.
+
+{{</callout>}}
+
+## Request Data and Response
+
+### Accessing the Request object in the services
+
+You can access the request object in your service by calling the `$this->request` method on the service object. This returns the `Pionia\Request\Request` object.
+You can use this to access anything on the request.
+
+```php
+
+class TodoService extends BaseRestService
+{
+    // your other actions here
+
+    protected functon getTodo($data): BaseResponse
+    {
+        $request = $this->request;
+        
+        $uri = $this->request->getUri();
+
+        // rest of actions logic
+
+    }
+}
+```
+
+### Request Data
+
+#### JSON and Form Request Data
+An action takes `$data` as the first parameter which is an array of the request data. You can access you post data from this parameter.
+
+This consists of both JSON and form data. Therefore, you can access your data as below.
+```php 
+    $username = $data["username"];
+    $email = $data["email"];
+```
+
+You can also access your request data from the `$this->request` object.
+
+```php
+    $allData = $this->request->getData();
+```
+
+You can also access the request method, headers, and other request data from the `$this->request` object.
+
+```php
+    $method = $this->request->getMethod();
+    $headers = $this->request->getHeaders();
+```
+
+#### Multipart Data(Uploads)
+
+If your action expects multipart upload files, then you can get these from the second action parameter called `$files`.
+This is an associative array of all uploads.
+
+```php
+
+protected function profileUpdates(array $data, ?array $files)
+{
+        $profilePic = $files['profile_pik'];
+}
+```
+
+> NOTE: This does not consist of base64 encoded uploads, for those, they'll be part of the `$data`.
+
+### Action Response.
+
+All actions must return a `Pionia\Response\BaseResponse` object. This is the object that is sent back to the client. You can use the `BaseResponse` object to send back a response with a status code, message, and data.
+
+A helper method `BaseResponse::JsonResponse` is provided to help you create a response object that is ready to be serialized to JSON.
+
+```php
+use Pionia\Response\BaseResponse;
+
+class TodoService extends BaseRestService
+{
+    // your other actions here
+
+    protected functon getTodo($data): BaseResponse
+    {
+        $this->mustAuthenticate();
+
+        // rest of actions logic
+
+        return BaseResponse::JsonResponse(200, 'Todo fetched successfully', $todo);
+    }
+}
+```
+
+{{<callout note>}}
+For details about request and responses, you can check the [request and response section](/documentation/request-response/).
 {{</callout>}}
 
 ## Action protection
@@ -179,83 +281,6 @@ class TodoService extends BaseRestService
 
 {{<callout note>}}
 Details of how Pionia achieves authentication and authorization can be found in the [authentication section](/documentation/authentication/).
-{{</callout>}}
-## Request Data and Response
-
-### Accessing the Request object in the services
-
-You can access the request object in your service by calling the `$this->request` method on the service object. This returns the `Pionia\Request\Request` object.
-You can use this to access anything on the request.
-
-```php
-
-class TodoService extends BaseRestService
-{
-    // your other actions here
-
-    protected functon getTodo($data): BaseResponse
-    {
-        $request = $this->request;
-        
-        $uri = $this->request->getUri();
-
-        // rest of actions logic
-
-    }
-}
-```
-
-### Request Data
-
-#### JSON and Form Request Data
-An action takes `$data` as the first parameter which is an array of the request data. You can access you post data from this parameter.
-
-```php 
-    $username = $data["username"];
-    $email = $data["email"];
-```
-
-#### Multipart Data(Uploads)
-
-If your action expects multipart upload files, then you can get these from the second action parameter called `$files`.
-This is an associative array of all uploads.
-
-```php
-
-protected function profileUpdates(array $data, ?array $files)
-{
-        $profilePic = $files['profile_pik'];
-}
-```
-
-> NOTE: This does not consist of base64 encoded uploads, for those, they'll be part of the `$data`.
-
-### Action Response.
-
-All actions must return a `Pionia\Response\BaseResponse` object. This is the object that is sent back to the client. You can use the `BaseResponse` object to send back a response with a status code, message, and data.
-
-A helper method `BaseResponse::JsonResponse` is provided to help you create a response object that is ready to be serialized to JSON.
-
-```php
-use Pionia\Response\BaseResponse;
-
-class TodoService extends BaseRestService
-{
-    // your other actions here
-
-    protected functon getTodo($data): BaseResponse
-    {
-        $this->mustAuthenticate();
-
-        // rest of actions logic
-
-        return BaseResponse::JsonResponse(200, 'Todo fetched successfully', $todo);
-    }
-}
-```
-
-{{<callout note>}}
-For details about request and responses, you can check the [request and response section](/documentation/request-response/).
 {{</callout>}}
 
 ## Error Handling

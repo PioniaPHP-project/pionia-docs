@@ -238,7 +238,7 @@ In Pionia, authorization is done using permissions. Permissions are authorizatio
 
 ### Permissions - Authorities
 
-There is are three ways to check if a user has a certain permission/authority.
+There are three ways to check if a user has a certain permission[s]/authority[ies].
 
 #### Using the `can` method
 
