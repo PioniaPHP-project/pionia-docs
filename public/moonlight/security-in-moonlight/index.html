@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/moonlight/security-in-moonlight/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
-<meta property="article:modified_time" content="2024-05-24T13:45:48+00:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-06-26T23:09:24+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Security in moonlight">
@@ -77,7 +77,7 @@
      {
        "@type": "ListItem",
        "item": "http://localhost:1313/docs/moonlight/",
-       "name": "Moon Light Architecture",
+       "name": "Moonlight Architecture",
        "position": 3
      },
      {
@@ -145,43 +145,31 @@
 
   <li>
     <details open>
-      <summary>MoonLight Architecture</summary>
-      <ul class="list-unstyled list-nested">
-
-  <li>
-      <a href="/moonlight/moonlight-architecture/">MoonLight Architecture</a>
-  </li>
-
-  <li class="active" >
-      <a aria-current="page" href="/moonlight/security-in-moonlight/">Security in moonlight</a>
-  </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-    <details open>
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
-
-  <li>
-      <a href="/documentation/api-tutorial/">API Tutorial</a>
-  </li>
 
   <li>
       <a href="/documentation/introduction/">Introduction</a>
   </li>
 
   <li>
-      <a href="/documentation/requests/">Requests</a>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
-      <a href="/documentation/services/">Services</a>
+      <a href="/documentation/application-structure/">Application Structure</a>
   </li>
 
   <li>
-      <a href="/documentation/structure/">Structure</a>
+      <a href="/documentation/api-tutorial/">API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-services/">Pionia Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
@@ -212,12 +200,20 @@
   </li>
 
   <li>
-    <details>
-      <summary>Reference</summary>
+    <details open open>
+      <summary>Moonlight Architecture</summary>
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/reference/example-reference/">Example Reference</a>
+      <a href="/moonlight/introduction-to-moonlight-architecture/">Introduction to MoonLight Architecture</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/moonlight/security-in-moonlight/">Security in moonlight</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
   </li>
       </ul>
     </details>
@@ -367,43 +363,31 @@
 
   <li>
     <details open>
-      <summary>MoonLight Architecture</summary>
-      <ul class="list-unstyled list-nested">
-
-  <li>
-      <a href="/moonlight/moonlight-architecture/">MoonLight Architecture</a>
-  </li>
-
-  <li class="active" >
-      <a aria-current="page" href="/moonlight/security-in-moonlight/">Security in moonlight</a>
-  </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-    <details open>
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
-
-  <li>
-      <a href="/documentation/api-tutorial/">API Tutorial</a>
-  </li>
 
   <li>
       <a href="/documentation/introduction/">Introduction</a>
   </li>
 
   <li>
-      <a href="/documentation/requests/">Requests</a>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
-      <a href="/documentation/services/">Services</a>
+      <a href="/documentation/application-structure/">Application Structure</a>
   </li>
 
   <li>
-      <a href="/documentation/structure/">Structure</a>
+      <a href="/documentation/api-tutorial/">API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-services/">Pionia Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
@@ -434,12 +418,20 @@
   </li>
 
   <li>
-    <details>
-      <summary>Reference</summary>
+    <details open open>
+      <summary>Moonlight Architecture</summary>
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/reference/example-reference/">Example Reference</a>
+      <a href="/moonlight/introduction-to-moonlight-architecture/">Introduction to MoonLight Architecture</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/moonlight/security-in-moonlight/">Security in moonlight</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
   </li>
       </ul>
     </details>
@@ -512,7 +504,7 @@
 <p>As a result, the architecture encourages to perform all requests over POST. This is because POST requests&rsquo; body is not logged in the web server level. This ensures that the data is secure.</p>
 <p>This is a supplement to the single endpoit approach of MoonLight architecture.</p>
 <h2 id="http-level-security---post-requests-only">HTTP level security - POST Requests only<a href="#http-level-security---post-requests-only" class="anchor" aria-hidden="true">#</a> </h2>
-<p>With this in mind, the architecture encourages to perform all requests over POST. This is because POST requests&rsquo; body is not logged in the web server level. This ensures that the data is secure.</p>
+<p>With the above in mind, the architecture encourages to perform all requests over POST. This is because POST requests&rsquo; body is not logged in the web server level. This ensures that the data is secure.</p>
 <p>Sample moonlight request:</p>
 
 
@@ -565,7 +557,13 @@
 As observed, the action itself determines whether the request is authenticated or not.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/c96cf2531966e97080827366f812a22f57839b61">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on June 26, 2024
+    </a>
+  </div>
+
 				
 
 
@@ -584,7 +582,7 @@ As observed, the action itself determines whether the request is authenticated o
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/moonlight/_security.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/moonlight/security.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -607,7 +605,7 @@ As observed, the action itself determines whether the request is authenticated o
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/moonlight/moonlight-architecture/" class="stretched-link text-reset text-decoration-none">MoonLight Architecture</a>
+					<a href="/moonlight/introduction-to-moonlight-architecture/" class="stretched-link text-reset text-decoration-none">Introduction to MoonLight Architecture</a>
 				</div>
 			</div>
 		</div>
@@ -616,7 +614,7 @@ As observed, the action itself determines whether the request is authenticated o
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/api-tutorial/" class="stretched-link text-reset text-decoration-none">API Tutorial</a>
+					<a href="/documentation/why-pionia/" class="stretched-link text-reset text-decoration-none">Why Pionia?</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

@@ -5,7 +5,7 @@ summary: ""
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 810
+weight: 1
 toc: true
 seo:
   title: "" # custom title (optional)
@@ -26,10 +26,9 @@ Documentation organisation.
 - [MoonLight Architecture](/moonlight/moonlight-architecture/)
 - [Tutorial](/documentation/api-tutorial/)
 - [Directory Structure](/documentation/structure/)
-- [Requests](/documentation/requests/)
-- [Responses](/docs/documentation/responses/)
+- [Requests And Responss](/documentation/requests-and-responses/)
 - [Middleware](/docs/documentation/middleware/)
-- [Authentication and Authorization](/docs/documentation/authentication/)
+- [Security - Authentication and Authorization](/docs/documentation/authentication/)
 - [Validation](/docs/documentation/validation/)
 - [The Controller](/docs/documentation/controllers/)
 - [Services and Actions](/documentation/services/)
@@ -88,25 +87,21 @@ This is just a sample configuration. You can modify it to suit your needs. But m
 
 # ...rest of your configurations
 #  projet_name [replace this with your project name]
-   location /projet_name {
-
+    location /projet_name {
         alias /var/www/html/project_name;
-        try_files $uri $uri/ @project_name;
-
-      }
-
-
+        try_files $uri $uri/ @project_name; 
+    }
+    
     location @project_name {
-         rewrite /project_name/(.*)$ /project_name/index.php?/$1 last;
-
+        rewrite /project_name/(.*)$ /project_name/index.php?/$1 last;
    }
 
-## ...rest of your configurations
+# ... rest of your configurations
 ```
 
 ## Contributing
 
-Currently the framework is maintained at [Service Cops - East Africa](https://servicecops.com/) but we welcome contributors from all walks of life.
+However, the framework is maintained at [Service Cops - East Africa,](https://servicecops.com/) but we welcome contributors from all walks of life.
 
 You can contribute to the framework, documentation or by helping us grow the community through writing articles, tutorials, and sharing your experience with the framework on any media platform.
 

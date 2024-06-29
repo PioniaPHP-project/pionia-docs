@@ -1,17 +1,15 @@
 ---
-title: "Structure"
+title: "Application Structure"
 parent: "documentation"
 description: "Guides lead a user through a specific task they want to accomplish, often with a sequence of steps."
-summary: ""
-navTitle: "Directory Structure"
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 810
+weight: 3
 toc: true
 seo:
-  title: "" # custom title (optional)
-  description: "" # custom description (recommended)
+  title: "Application Structure in Pionia" # custom title (optional)
+  description: "This sections describes how a Pionia application is organised" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
   noindex: false # false (default) or true
 ---

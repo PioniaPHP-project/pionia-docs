@@ -2,15 +2,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>http://localhost:1313/moonlight/moonlight-architecture/</loc>
-      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+      <loc>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</loc>
+      <lastmod>2024-06-26T23:09:24+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
       <loc>http://localhost:1313/moonlight/security-in-moonlight/</loc>
-      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+      <lastmod>2024-06-26T23:09:24+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/moonlight/api-versioning-in-moonlight/</loc>
+      <lastmod>2024-06-26T23:09:24+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>

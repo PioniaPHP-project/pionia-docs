@@ -2,27 +2,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>http://localhost:1313/moonlight-architecture/</loc>
-      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
-      <loc>http://localhost:1313/security-in-moonlight/</loc>
-      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
-      <loc>http://localhost:1313/versioning-in-moonlight/</loc>
-      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
       <loc>http://localhost:1313/docs/documentation/</loc>
       <lastmod>2024-06-13T20:36:50+03:00</lastmod>
       <changefreq>monthly</changefreq>
@@ -30,8 +9,8 @@
     </url>
     
     <url>
-      <loc>http://localhost:1313/docs/reference/</loc>
-      <lastmod>2024-05-24T17:09:22+03:00</lastmod>
+      <loc>http://localhost:1313/docs/moonlight/</loc>
+      <lastmod>2024-06-26T23:09:24+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
@@ -43,37 +22,37 @@
       <priority>0.5</priority>
     </url>
     <url>
-        <loc>http://localhost:1313/documentation/api-tutorial/</loc>
-        <lastmod>2024-06-13T20:36:50+03:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-      </url>
-      <url>
         <loc>http://localhost:1313/documentation/introduction/</loc>
-        <lastmod>2024-06-14T01:25:18+03:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-      </url>
-      <url>
-        <loc>http://localhost:1313/documentation/requests/</loc>
-        <lastmod>2024-05-26T01:47:41+03:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-      </url>
-      <url>
-        <loc>http://localhost:1313/documentation/services/</loc>
-        <lastmod>2024-06-18T22:49:48+03:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-      </url>
-      <url>
-        <loc>http://localhost:1313/documentation/structure/</loc>
-        <lastmod>2024-06-13T20:36:50+03:00</lastmod>
+        <lastmod>2024-06-26T23:09:24+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
         <loc>http://localhost:1313/documentation/why-pionia/</loc>
+        <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/application-structure/</loc>
+        <lastmod>2024-06-26T23:09:24+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/api-tutorial/</loc>
+        <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/pionia-services/</loc>
+        <lastmod>2024-06-29T19:57:09+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/security-authentication-and-authorization/</loc>
         <lastmod>2024-05-24T13:45:48+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
@@ -85,8 +64,20 @@
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/reference/example-reference/</loc>
-        <lastmod>2024-05-24T17:09:22+03:00</lastmod>
+        <loc>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</loc>
+        <lastmod>2024-06-26T23:09:24+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/moonlight/security-in-moonlight/</loc>
+        <lastmod>2024-06-26T23:09:24+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/moonlight/api-versioning-in-moonlight/</loc>
+        <lastmod>2024-06-26T23:09:24+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>

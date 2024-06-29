@@ -7,35 +7,49 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Tue, 18 Jun 2024 22:49:48 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jun 2024 19:57:09 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Example Post</title>
-      <link>http://localhost:1313/blog/example-post/</link>
-      <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
-      <guid>http://localhost:1313/blog/example-post/</guid>
-      <description>You can use blog posts for announcing product updates and features.</description>
+      <title>Introduction</title>
+      <link>http://localhost:1313/documentation/introduction/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/introduction/</guid>
+      <description>About Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework.</description>
     </item>
     <item>
-      <title>MoonLight Architecture</title>
-      <link>http://localhost:1313/moonlight-architecture/</link>
+      <title>Introduction to MoonLight Architecture</title>
+      <link>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight-architecture/</guid>
+      <guid>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</guid>
       <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
     </item>
     <item>
       <title>Security in moonlight</title>
-      <link>http://localhost:1313/security-in-moonlight/</link>
+      <link>http://localhost:1313/moonlight/security-in-moonlight/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/security-in-moonlight/</guid>
+      <guid>http://localhost:1313/moonlight/security-in-moonlight/</guid>
       <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
     </item>
     <item>
-      <title>Versioning in moonlight</title>
-      <link>http://localhost:1313/versioning-in-moonlight/</link>
+      <title>Why Pionia?</title>
+      <link>http://localhost:1313/documentation/why-pionia/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/versioning-in-moonlight/</guid>
+      <guid>http://localhost:1313/documentation/why-pionia/</guid>
+      <description>Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary complexities that come with most common traditional frameworks.</description>
+    </item>
+    <item>
+      <title>API Versioning in Moonlight</title>
+      <link>http://localhost:1313/moonlight/api-versioning-in-moonlight/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/moonlight/api-versioning-in-moonlight/</guid>
       <description>Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning.</description>
+    </item>
+    <item>
+      <title>Application Structure</title>
+      <link>http://localhost:1313/documentation/application-structure/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/application-structure/</guid>
+      <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
     <item>
       <title>API Tutorial</title>
@@ -45,39 +59,25 @@
       <description>This section assumes that you have already setup your pinia framework project.</description>
     </item>
     <item>
-      <title>Introduction</title>
-      <link>http://localhost:1313/documentation/introduction/</link>
-      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/introduction/</guid>
-      <description>About Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework.</description>
+      <title>Pionia Services</title>
+      <link>http://localhost:1313/documentation/pionia-services/</link>
+      <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/pionia-services/</guid>
+      <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
     <item>
-      <title>Requests</title>
-      <link>http://localhost:1313/documentation/requests/</link>
-      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/requests/</guid>
-      <description>Handling Requests Coming soon&amp;hellip;</description>
+      <title>Security - Authentication and Authorization</title>
+      <link>http://localhost:1313/documentation/security-authentication-and-authorization/</link>
+      <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/security-authentication-and-authorization/</guid>
+      <description>Authentication and Authorization are two important aspects of security in any application. This guide will show you how to secure your application using pionia.</description>
     </item>
     <item>
-      <title>Services</title>
-      <link>http://localhost:1313/documentation/services/</link>
-      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/services/</guid>
-      <description>This section assumes that you have a basic understanding of the Pionia framework.</description>
-    </item>
-    <item>
-      <title>Structure</title>
-      <link>http://localhost:1313/documentation/structure/</link>
-      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/structure/</guid>
-      <description>Taking our directory structure from the API Tutorial we created here.</description>
-    </item>
-    <item>
-      <title>Why Pionia?</title>
-      <link>http://localhost:1313/documentation/why-pionia/</link>
-      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/why-pionia/</guid>
-      <description>Pionia all the beautiful parts of Moonlight paradigm. But as the framework, it also has its own unique features.</description>
+      <title>Example Post</title>
+      <link>http://localhost:1313/blog/example-post/</link>
+      <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
+      <guid>http://localhost:1313/blog/example-post/</guid>
+      <description>You can use blog posts for announcing product updates and features.</description>
     </item>
   </channel>
 </rss>

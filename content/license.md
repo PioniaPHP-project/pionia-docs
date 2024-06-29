@@ -1,17 +1,17 @@
 ---
-title: "Reference"
+title: "License"
 description: ""
 summary: ""
-date: 2023-09-07T16:12:37+02:00
-lastmod: 2023-09-07T16:12:37+02:00
-draft: true
-weight: 900
-toc: true
-sidebar:
-  collapsed: true
+date: 2023-09-07T17:19:07+02:00
+lastmod: 2023-09-07T17:19:07+02:00
+draft: false
+type: "legal"
 seo:
   title: "" # custom title (optional)
   description: "" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
   noindex: false # false (default) or true
 ---
+
+
+## License

@@ -5,7 +5,7 @@ summary: "All requests sent to the server get encrypted and decrypted on the web
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 800
+weight: 2
 toc: false
 sidebar:
   collapsed: true
@@ -53,7 +53,7 @@ This is a supplement to the single endpoit approach of MoonLight architecture.
 
 ## HTTP level security - POST Requests only
 
-With this in mind, the architecture encourages to perform all requests over POST. This is because POST requests' body is not logged in the web server level. This ensures that the data is secure.
+With the above in mind, the architecture encourages to perform all requests over POST. This is because POST requests' body is not logged in the web server level. This ensures that the data is secure.
 
 Sample moonlight request:
 

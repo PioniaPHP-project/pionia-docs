@@ -5,10 +5,10 @@ summary: ""
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 810
+weight: 4
 toc: true
 seo:
-  title: "" # custom title (optional)
+  title: "Sample API tutorial" # custom title (optional)
   description: "" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
   noindex: false # false (default) or true
