@@ -59,9 +59,9 @@ On top of other advantages, now frontend devs don't have to worry about the base
 
 ### 3. Single Request Format
 
-  In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be be of type JSON or form-data.
+  In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be of type JSON or form-data.
 
-  Every request must define the `SERVICE` and `ACTION` to exacute in the request body plus the rest rest of the payload as required by the service.
+  Every request must define the `SERVICE` and `ACTION` to execute in the request body plus the rest of the payload as required by the service.
 
   ```json {title="POST http://localhost:3000/api/v1/", hl_lines=[2,3]}
   {
@@ -159,7 +159,7 @@ This is the driver in the car scenario. The driver is responsible with handling 
 
 ##### 7. Single Service Switch Per API Version.
 
-In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the `SERVICE` in the request and the call the responsible service passing it the action(`ACTION`) and the rest of the payload.
+In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the `SERVICE` in the request and call the responsible service passing it the action(`ACTION`) and the rest of the payload.
 
 The service switch is just a convention to make our controller clean and easy to maintain. It is not a must to have it, but it is recommended. Otherwise, the switching logic would be handled in the controller action responsible for the version.
 
@@ -180,7 +180,7 @@ Actions are methods in these classes like `login`, `register` in the `Authentica
 {{<callout context="tip" title="Point To Ponder!" icon="outline/book">}}
   This is the passenger in the car scenario. The passenger is responsible for their own luggage and reaching their destination. They are also responsible with fulfilling the driver's requests.
 
-  Remember, the driver asks the passenger for the id, the passenger passed it over to the driver! Passing the id is the passenger's responsibility(action).
+  Remember, the driver asks the passenger for the id, the passenger passes it over to the driver! Passing the id is the passenger's responsibility(action).
 {{</callout>}}
 
 ##### 9. Database and Querying
@@ -213,7 +213,7 @@ This way every tool will be maximised to its full potential.
 4. High Performance :- Architecture stresses on querying the database directly and not using ORMs. This makes the application faster and more efficient. 
 5. Developer Performance:- Since the architecture is simple and easy to understand, developers can roll out new features quickly without having to write a lot of boilerplate code.
 6. Easy Debugging :- Since all requests and responses are made in a similar format, it is easy to debug the application. Also, the single endpoint makes it easy to monitor the application.
-7. Frontend Integration :- One endpoint for all requests, one request format, one response format make it easy for frontend devs to integrate the api.
+7. Frontend Integration :- One endpoint for all requests, one request format, one response format makes it easy for frontend devs to integrate the api.
 
 
 ###### Disadvantages of MoonLight Architecture
