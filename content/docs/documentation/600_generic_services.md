@@ -14,326 +14,453 @@ seo:
     canonical: '' # custom canonical URL (optional)
     noindex: true # false (default) or true
 ---
-
 {{<callout tip>}}
-This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/api-tutorial/).
+This section assumes that you have a basic understanding how Services work in Pionia. If you haven't, you can check the [Services section](/documentation/services/) first.
 {{</callout >}}
 
 # Introduction
 
-Services in Pionia Framework are central holders of business logic. This is where most of the work happens. 
-Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area. 
-Services are in actual PHP code, just php classes that extend the `BaseRestService`. 
-As you might already know, a class can have multiple methods. In Pionia we call these `Actions`. Therefore, henceforth, the terms `service` and `actions` will be used for the same meaning throughout the same guide.
+Pionia Generic Services get their inspiration from Django Rest Framework's Generic Views. They provide a set of actions that are common in most CRUD applications.
+This is to help you focus on the complex business logic and not the repetitive CRUD work.
+But it is not just CRUD, you can query random and paginated data too. You can also add your own actions as you see fit.
+This feature is available starting from the core version of v1.1.2.
 
-## Creating a service
+## The Mixins
 
-You can create a service using our pionia console or manually. All services, as a convention, must be located in the `services` folder.
+There a few mixins that have been provided to help you with the CRUD operations. These mixins are:
 
-{{<callout tip >}}
-We recommend to name your services after your database tables. Example, if your table is called 'users', you can name your service 'UserService'.
+### CreateMixin
 
-If you are using our 'pionia console', then you can just name your service 'user'. These are just conventions!
-{{</callout>}}
+This mixin adds the `create` action to whatever generic service you have added. It is used to create a new record in the database.
+You can specify the columns to create in the table by providing the `$createColumns` array property in the service.
 
-{{< tabs "create-new-service" >}}
-{{< tab "pionia command" >}}
+### DeleteMixin
 
-Let's create a service called `TodoService`. In the terminal run the following command.
+This mixin adds the `delete` action to whatever generic service you have added.
+It is used to delete a record from the database by `pk_field` defined in the service.
 
-```bash
-php pionia addservice todo
+### ListMixin
+
+This mixin adds the `list` action to whatever generic service you have added. It also detects if the request is paginated
+and applies the pagination to the data accordingly. You can customise the columns to return by defining the
+`$listColumns` array property in the service.
+
+### RetrieveMixin
+
+This mixins adds two actions which actually perform the same operation. The `retrieve` and the `details` action.
+They are used to get a single record from the database by the `pk_field` defined in the service.
+If the `$listColumns` property is defined, it will return only those columns.
+
+### RandomMixin
+
+This mixin adds the `random` action to whatever generic service you have added. The number of records returned is by default `1`.
+But this can be overridden by defining the `size` or `limit` parameter in the request. If the size is finally one, it will return
+an object otherwise an array of objects.
+
+### UpdateMixin
+
+This mixin adds the `update` action to whatever generic service you have added. It is used to update a record in the database.
+You can specify the columns to update in the table by providing the `$updateColumns` array property in the service. If these are not defined,
+then all/only the table columns that are defined in the request will be updated(partial update). Also, the item to update will depend on the
+`pk_field` defined in the service. By default this is `id`.
+
+{{<callout note>}}
+The mixins are not to be used outside services that extend the `GenericService` class. They are already included in the generic services.
+But if you want to use them, make sure you're extending the `GenericService` class or any of the generic services defined below.
+{{</callout >}}
+
+## The GenericService
+
+This is the core class that provides the basis for all the actions. It is a class that extends the `BaseRestService` class so you no longer need to do that.
+All available methods can [be found here in the api reference](https://pioniaphp-project.github.io/PioniaCore/classes/Pionia-Generics-Base-GenericService.html).
+
+You don't need to interact with this class directly but through the following generic services.
+
+1. [RetrieveCreateUpdateService](#RetrieveCreateUpdateService)
+2. [RetrieveListCreateService](#RetrieveListCreateService)
+3. [RetrieveListCreateUpdateDeleteService](#RetrieveListCreateUpdateDeleteService)
+4. [RetrieveListDeleteService](#RetrieveListDeleteService)
+5. [RetrieveListRandomService](#RetrieveListRandomService)
+6. [RetrieveListUpdateDeleteService](#RetrieveListUpdateDeleteService)
+7. [RetrieveListUpdateService](#RetrieveListUpdateService)
+8. [UniversalGenericService](#UniversalGenericService)
+
+Creating you custom generic service can be done as follows:
+
+```php
+use Pionia\Generics\Base\GenericService;
+
+class CreateRandomService extends GenericService
+{
+    use CreateMixin, RandomMixin;
+}
 ```
 
-By default, running the above command alone creates a service called `TodoService` in `services` folder with four actions.
-
-1. `getTodo` - For getting one todo item.
-2. `listTodo` - For getting all available (paginated) todos.
-3. `deleteTodo` - For deleting a todo item.
-4. `createTodo` - For creating a todo item.
-
-You can delete or add more actions as you see fit.
-
-If you want to override the above behaviour, you can define your actions with the `addservice` command.
-
-```bash
-php pionia addservice auth login register reset
-```
-
-The above will add actions `loginAuth`, `registerAuth` and `resetAuth`.
-
-Note that everything that is listed after the service name is an action.
-
-{{< /tab >}}
-{{< tab "Manually" >}}
->>>
-1. Head over to your services folder.
-2. Create a new service with a clear name, such as UserService, AuthService, CartService
-3. Extend BaseRestService
-4. Add your own actions each taking in `data`(post request data), `files`(ff your service is expecting files) and returning `BaseResponse`.
-5. Add your logic
->>>
-{{< /tab >}}
-{{< /tabs >}}
-
-## Service Registration
-
-Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel. Service registration happens in the associated switch.
-
-In the switches folder, find the switch you want to use for this service. You can add your service as below.
+Now you can let you services extend this class and you will have the `create` and `random` actions available.
 
 ```php
 
- public function registerServices(): array
-    {
-        return [
-            'user' => new UserService(),
-            "todo" => new TodoService(),
-            'auth' => new AuthService(), // like this.
-        ];
-    }
-```
+use application\services\CreateRandomService;
 
-The `key` of this method is the name you shall use in your proceeding requests to access this service. Therefore, it must be unique!
-
-{{<callout note>}}
-A single service can be registered in multiple switches. This is useful when you want to use the same service in different api versions.
-{{</callout>}}
-## Targeting a service in the request
-
-In the request, you can target a service by determining the `SERVICE` key with your service name as the `key` defined in the `registerServices` method.
-
-```js
+class MyService extends CreateRandomService
 {
-    SERVICE: 'user'
-    // rest of your request data.
+    public string $table = 'users';
+    
+    public array $createColumns = ['name', 'age', 'gender']
 }
 ```
 
-## Targeting a service action
+Remember you still need to register all these service as usual. In your request you can now call the `create` and `random` actions.
 
-To target an action in a certain service, you need to define both the service and action as below.
-
-```js
-
+```json
 {
-    SERVICE: "user",
-    ACTION: "loginAuth",
-    // rest of your service data
+  "SERVICE": "create_random",
+  "ACTION": "random",
+  "size": 3
 }
 ```
 
+The above request will return 3 random records from the `users` table.
+
 {{<callout note>}}
+`GenericService` inherits from `BaseRestService` which means that all the methods in the `BaseRestService` are available in the `GenericService`.
+{{</callout >}}
 
-The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every required data needed for the request.
+## RetrieveCreateUpdateService
 
-The keys `SERVICE` and `ACTION` are reserved and should not be used for any other purpose in the request data.
+This generic service provides the `retrieve`, `create` and `update` actions.
 
-The same keys are case-sensitive and should be in uppercase.
+```php
+use Pionia\Generics\Base\RetrieveCreateUpdateService;
 
-{{</callout>}}
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public array $createColumns = [];
+}
+```
 
-## Request Data and Response
+## RetrieveListCreateService
 
-### Accessing the Request object in the services
-
-You can access the request object in your service by calling the `$this->request` method on the service object. This returns the `Pionia\Request\Request` object.
-You can use this to access anything on the request.
+This generic service provides the `retrieve`, `list` and `create` actions.
 
 ```php
 
-class TodoService extends BaseRestService
+use Pionia\Generics\Base\RetrieveListCreateService;
+
+class StudentService extends RetrieveListCreateService
 {
-    // your other actions here
-
-    protected functon getTodo($data): BaseResponse
-    {
-        $request = $this->request;
-        
-        $uri = $this->request->getUri();
-
-        // rest of actions logic
-
-    }
+    public string $table = 'students';
+    public array $createColumns = [];
 }
 ```
 
-### Request Data
+## RetrieveListCreateUpdateDeleteService
 
-#### JSON and Form Request Data
-An action takes `$data` as the first parameter which is an array of the request data. You can access you post data from this parameter.
+This generic service provides the `retrieve`, `list`, `create`, `update` and `delete` actions.
 
-This consists of both JSON and form data. Therefore, you can access your data as below.
+```php
+
+use Pionia\Generics\Base\RetrieveListCreateUpdateDeleteService;
+
+class StudentService extends RetrieveListCreateUpdateDeleteService
+{
+    public string $table = 'students';
+    public array $createColumns = [];
+    public ?array $updateColumns = null;
+}
+```
+
+## RetrieveListDeleteService
+
+This generic service provides the `retrieve`, `list` and `delete` actions.
+
+```php
+
+use Pionia\Generics\Base\RetrieveListDeleteService;
+
+class StudentService extends RetrieveListDeleteService
+{
+    public string $table = 'students';
+}
+```
+
+## RetrieveListRandomService
+
+This generic service provides the `retrieve`, `list` and `random` actions.
+
+```php
+
+use Pionia\Generics\Base\RetrieveListRandomService;
+
+class StudentService extends RetrieveListRandomService
+{
+    public string $table = 'students';
+}
+```
+
+## RetrieveListUpdateDeleteService
+
+This generic service provides the `retrieve`, `list`, `update` and `delete` actions.
+
+```php
+
+use Pionia\Generics\Base\RetrieveListUpdateDeleteService;
+
+class StudentService extends RetrieveListUpdateDeleteService
+{
+    public string $table = 'students';
+    public ?array $updateColumns = null;
+}
+```
+
+## RetrieveListUpdateService
+
+This generic service provides the `retrieve`, `list` and `update` actions.
+
+```php
+
+use Pionia\Generics\Base\RetrieveListUpdateService;
+
+class StudentService extends RetrieveListUpdateService
+{
+    public string $table = 'students';
+    public ?array $updateColumns = null;
+}
+```
+
+## UniversalGenericService
+
+This generic service provides all the actions. It is the most generic of all the generic services.
+
+```php
+
+use Pionia\Generics\Base\UniversalGenericService;
+
+class StudentService extends UniversalGenericService
+{
+    public string $table = 'students';
+    public array $createColumns = [];
+    public ?array $updateColumns = null;
+    public ?array $listColumns = ['id', 'name'];
+    public string $pk_field = 'id';
+}
+```
+
+{{<callout note>}}
+All cases of `retrieve` can be replaced with `details` thus setting `ACCTON` in
+your request as `details` will still work the same as setting it to `retrieve`.
+{{</callout >}}
+
+## Customization
+
+### $table
+
+This defines for us the table we are going to be interacting with. It is a required option.
+
 ```php 
-    $username = $data["username"];
-    $email = $data["email"];
-```
-
-You can also access your request data from the `$this->request` object.
-
-```php
-    $allData = $this->request->getData();
-```
-
-You can also access the request method, headers, and other request data from the `$this->request` object.
-
-```php
-    $method = $this->request->getMethod();
-    $headers = $this->request->getHeaders();
-```
-
-#### Multipart Data(Uploads)
-
-If your action expects multipart upload files, then you can get these from the second action parameter called `$files`.
-This is an associative array of all uploads.
-
-```php
-
-protected function profileUpdates(array $data, ?array $files)
+class StudentService extends RetrieveCreateUpdateService
 {
-        $profilePic = $files['profile_pik'];
+    public string $table = 'students';
+}
+```
+All the other services will require you to define this. This is the table that the service will be interacting with.
+
+### $pk_field
+
+This defines the primary key field of the table. By default it is `id`. But you can override it to be any other field.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public string $pk_field = 'student_id';
 }
 ```
 
-> NOTE: This does not consist of base64 encoded uploads, for those, they'll be part of the `$data`.
+### $createColumns
 
-### Action Response.
-
-All actions must return a `Pionia\Response\BaseResponse` object. This is the object that is sent back to the client. You can use the `BaseResponse` object to send back a response with a status code, message, and data.
-
-A helper method `BaseResponse::JsonResponse` is provided to help you create a response object that is ready to be serialized to JSON.
+This defines the columns that will be created when the `create` action is called. It is an array of strings.
 
 ```php
-use Pionia\Response\BaseResponse;
 
-class TodoService extends BaseRestService
+class StudentService extends RetrieveCreateUpdateService
 {
-    // your other actions here
+    public string $table = 'students';
+    public ?array $createColumns = ['name', 'age', 'gender'];
+}
+```
+Any other columns that are not defined in this array shall be ignored. This is requred for all create services.
 
-    protected functon getTodo($data): BaseResponse
+### $updateColumns
+
+This defines the columns that will be updated when the `update` action is called. It is an array of strings.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public ?array $updateColumns = ['name', 'age', 'gender'];
+}
+```
+If this is not defined, then all the columns that are defined in the request will be updated. This param is optional.
+
+### $listColumns
+
+This defines the columns that will be returned for all actions that return data back to the end user. It is an array of strings.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public ?array $listColumns = ['id', 'name'];
+}
+```
+
+The above implies that whether we are hitting `list`, `retrieve`, `random` or any other action that returns data,
+only the `id` and `name` columns will be returned. This is optional and defaults to `*` if not defined.
+
+### $limit
+
+This default the initial limit of the number of records to return. It is an integer. It will henceforth be replaced
+by the `LIMIT` or `limit` on the request if it is defined or in the `PAGINATION` or `pagination` key in the request.
+
+By default, this is set to 10 records.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public int $limit = 10;
+}
+```
+
+### $offset
+
+This default the initial offset of the number of records to return. It is an integer. It will henceforth be replaced
+by the `OFFSET` or `offset` on the request if it is defined or in the `PAGINATION` or `pagination` key in the request.
+
+By default, this is set to 0 records.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    public int $offset = 0;
+}
+```
+
+{{<callout note>}}
+`limit` or `LIMIT` and `offset` or `OFFSET` must be defined on the request or in the `PAGINATION` or `pagination` key in the request
+for pagination to kick in, otherwise, `list` will return all records.
+{{</callout >}}
+
+## Overriding Actions
+
+You can override any of the actions provided by the generic services. This is done by defining the action in the service.
+
+```php
+
+class StudentService extends RetrieveCreateUpdateService
+{
+    public string $table = 'students';
+    
+    public function create(): BaseResponse
     {
-        $this->mustAuthenticate();
-
-        // rest of actions logic
-
-        return BaseResponse::JsonResponse(200, 'Todo fetched successfully', $todo);
+        // Your custom logic here
+        $data = $this->request->getData();
+        
+        // perform your own way of creating the record
+        
+        return BaseResponse::JsonResponse(0, "your message", $data);
     }
 }
 ```
 
-{{<callout note>}}
-For details about request and responses, you can check the [request and response section](/documentation/request-response/).
-{{</callout>}}
+The fact that Pionia is structured in an OOP way, you can override any of the actions provided by the generic services.
+This is just normal PHP OOP inheritance.
 
-## Action protection
+## Adding Custom Actions
 
-You can protect your actions by determining that they require only authenticated requests(users) to be accessed. You can do this in three ways.
-
-### Globally in the service
-
-#### Entire service
-You can mark an entire service as requiring authentication by setting the `$serviceRequiresAuth` parameter to `true`.
+You can add your own custom actions to the generic services. This is done by defining the action in the service.
 
 ```php
 
-class TodoService extends BaseRestService
+class StudentService extends RetrieveCreateUpdateService
 {
-    public bool $serviceRequiresAuth = true; // all actions in this service require authentication.
-
-    // your other actions here
-}
-```
-
-#### Specific actions
-You can also mark specific actions in a service as requiring authentication. Use the `$actionsRequiringAuth` parameter and add action names of actions that should be reached by authenticated users only.
-
-This, unlike `$serviceRequiresAuth`, will only protect the actions listed in the array not the entire service.
-
-```php
-
-class TodoService extends BaseRestService
-{
-    public bool $actionsRequiringAuth = ['getTodo'];
-
-    // your other actions here
-}
-```
-
-### Internally in the action
-
-You can also call the `mustAuthenticate` method anywhere in your action, preferably the first line in the action method.
-
-```php
-
-class TodoService extends BaseRestService
-{
-    // your other actions here
-
-    protected functon getTodo($data): BaseResponse
+    public string $table = 'students';
+    
+    public function customAction(): BaseResponse
     {
-        $this->mustAuthenticate(); // only authenticated will exceed this point.
-
-        // rest of actions logic
-
+        // Your custom logic here
+        $data = $this->request->getData();
+        
+        // perform your own custom action
+        
+        return BaseResponse::JsonResponse(0, "your message", $data);
     }
 }
 ```
 
+You can now call this action in your request by setting the `ACTION` key to `custom_action`.
+
+```json
+{
+  "SERVICE": "student",
+  "ACTION": "custom_action"
+}
+```
+
 {{<callout note>}}
-Details of how Pionia achieves authentication and authorization can be found in the [authentication section](/documentation/authentication/).
-{{</callout>}}
+The name of your custom action must not conflict with any of the actions provided by the generic services.
+Otherwise you stand a chance of overriding the generic action.
+{{</callout >}}
 
-## Error Handling
+## Overriding getters
 
-According to Moonlight architecture, all requests should return a 200 Ok status code. This is because the client should 
-be able to know if the request was successful or not by checking the `returnCode` in the response body.
+You can also tell the service `how to query one` item and `how to list multiple` items. This is can be handy where
+for example you want to add complex where clauses to your queries.
 
-All normal responses set this internally and are always returning a 200 status code. By convention and by default, all requests 
-that are successful return 0 as the `returnCode`. This implies that the server can define multiple other return codes 
-for other scenarios.
-
-In Pionia, we have a global exception handler that catches all exceptions thrown anywhere in the code. This is to ensure that
-the client always gets the same response format.
-
-All exceptions thrown are caught will raise a 500 status code and the message of the exception will be sent back to the client
-as the `returnMessage`.
-
-Therefore, in your services and actions, you can throw exceptions as you see fit. And you don't need to catch them at all!
+For this cause, you can override the `getItem` and `getItems` methods in service.
 
 ```php
 
-protected function getTodo($data): BaseResponse
+class StudentService extends RetrieveCreateUpdateService
 {
-    $this->mustAuthenticate();
-
-    if($data['id'] == null){
-        throw new \Exception('Todo id is required'); // will be caught globally!
+    public string $table = 'students';
+    
+    /**
+     * Override this in your service to define the basis to return single item details
+     * @return null|object
+     */
+    public function getItem(): ?object
+    {
+        return null;
     }
 
-    // rest of actions logic
-
-    return BaseResponse::JsonResponse(200, 'Todo fetched successfully', $todo);
+    /**
+     * Override this in your service to define the basis to return multiple items from the database
+     * @return null|object
+     */
+    public function getItems(): ?array
+    {
+        return null;
+    }
 }
 ```
 
-Please note that all exceptions are caught globally and sent back to the client. Therefore, you do not need to catch exceptions in your services.
-Developers need to set clean, descriptive exception messages in their exceptions to help the client understand what went wrong. 
+## Conclusion
 
-## Deactivating actions in a service
+The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.
 
-BaseRestService provides a parameter `$deactivatedActions` that can be used to register all deactivated actions in a service. 
-This is useful when you want to deactivate an action in a service without deleting it.
+You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.
 
-```php
-class TodoService extends BaseRestService
-{
-    public array $deactivatedActions = ['getTodo']; // one or more actions to deactivate.
-   
-}
-```
+This is all to turbo charge your development process which is the main goal of Pionia.
 
-{{<callout note>}}
-Deactivated actions will not be called by the switcher. Therefore, they will not be accessible by the client.
-{{</callout>}}
 
 

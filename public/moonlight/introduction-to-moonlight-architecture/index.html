@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/moonlight/introduction-to-moonlight-architecture/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
-<meta property="article:modified_time" content="2024-06-29T22:18:35+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-07-01T10:38:31+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Introduction to MoonLight Architecture">
@@ -554,8 +554,8 @@
 <h3 id="2-post-requests-only">2. POST Requests only<a href="#2-post-requests-only" class="anchor" aria-hidden="true">#</a> </h3>
 <p>All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the server logs or in the URL. This also makes it easier to debug and monitor the application. <a href="/moonlight/security-in-moonlight/">Read more on security</a>.</p>
 <h3 id="3-single-request-format">3. Single Request Format<a href="#3-single-request-format" class="anchor" aria-hidden="true">#</a> </h3>
-<p>In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be be of type JSON or form-data.</p>
-<p>Every request must define the <code>SERVICE</code> and <code>ACTION</code> to exacute in the request body plus the rest rest of the payload as required by the service.</p>
+<p>In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be of type JSON or form-data.</p>
+<p>Every request must define the <code>SERVICE</code> and <code>ACTION</code> to execute in the request body plus the rest of the payload as required by the service.</p>
 
 
 
@@ -705,7 +705,7 @@ Each action can then route the request to the appropriate service switch.</p>
 </div>
 
 <h5 id="7-single-service-switch-per-api-version">7. Single Service Switch Per API Version.<a href="#7-single-service-switch-per-api-version" class="anchor" aria-hidden="true">#</a> </h5>
-<p>In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the <code>SERVICE</code> in the request and the call the responsible service passing it the action(<code>ACTION</code>) and the rest of the payload.</p>
+<p>In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the <code>SERVICE</code> in the request and call the responsible service passing it the action(<code>ACTION</code>) and the rest of the payload.</p>
 <p>The service switch is just a convention to make our controller clean and easy to maintain. It is not a must to have it, but it is recommended. Otherwise, the switching logic would be handled in the controller action responsible for the version.</p>
 <div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
@@ -735,7 +735,7 @@ Each action can then route the request to the appropriate service switch.</p>
       </div>
     <div class="callout-body">
       <p>This is the passenger in the car scenario. The passenger is responsible for their own luggage and reaching their destination. They are also responsible with fulfilling the driver&rsquo;s requests.</p>
-<p>Remember, the driver asks the passenger for the id, the passenger passed it over to the driver! Passing the id is the passenger&rsquo;s responsibility(action).</p>
+<p>Remember, the driver asks the passenger for the id, the passenger passes it over to the driver! Passing the id is the passenger&rsquo;s responsibility(action).</p>
 
     </div>
   </div>
@@ -762,7 +762,7 @@ PHP, Python and others.</p>
 <li>High Performance :- Architecture stresses on querying the database directly and not using ORMs. This makes the application faster and more efficient.</li>
 <li>Developer Performance:- Since the architecture is simple and easy to understand, developers can roll out new features quickly without having to write a lot of boilerplate code.</li>
 <li>Easy Debugging :- Since all requests and responses are made in a similar format, it is easy to debug the application. Also, the single endpoint makes it easy to monitor the application.</li>
-<li>Frontend Integration :- One endpoint for all requests, one request format, one response format make it easy for frontend devs to integrate the api.</li>
+<li>Frontend Integration :- One endpoint for all requests, one request format, one response format makes it easy for frontend devs to integrate the api.</li>
 </ol>
 <h6 id="disadvantages-of-moonlight-architecture">Disadvantages of MoonLight Architecture<a href="#disadvantages-of-moonlight-architecture" class="anchor" aria-hidden="true">#</a> </h6>
 <ol>
@@ -774,9 +774,9 @@ PHP, Python and others.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/980b06d230c13b216be9ede5a6e911a9445bc3fa">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/ee800def5902b674c2eb4c80f6b58609b8860f83">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on June 29, 2024
+      Last updated on July 1, 2024
     </a>
   </div>
 
