@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f14b3e296de1d0b69e75af684b62a4a912a2cadab04e36123407cd8388204f1d.js"
+  integrity="sha256-8Us&#43;KW3h0Laeda9oS2KkqRKiytqwTjYSNAfNg4ggTx0=">
+</script>
+
+
+<link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/security-authentication-and-authorization/">
+  <link rel="canonical" href="http://localhost:1313/documentation/security-authentication-and-authorization/">
+<title>Requests and Responses</title>
+<meta name="description" content="Guides us through the process of handling requests and responses in pionia.">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/png">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="Security - Authentication and Authorization">
+<meta property="og:description" content="Authentication and Authorization are two important aspects of security in any application. This guide will show you how to secure your application using pionia.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/documentation/security-authentication-and-authorization/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-06-29T21:06:45+03:00">
+<meta property="article:modified_time" content="2024-05-24T13:45:48+00:00"><meta property="og:site_name" content="Pionia Framework">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Security - Authentication and Authorization">
+<meta name="twitter:description" content="Authentication and Authorization are two important aspects of security in any application. This guide will show you how to secure your application using pionia.">
+<meta name="twitter:site" content="@pionia">
+
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Pionia Framework",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/documentation/",
+       "name": "Documentation",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "name": "Security Authentication and Authorization",
+       "position": 4
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<div class="header-bar"></div>
+<header class="navbar navbar-expand-lg">
+  <div class="container-sm">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">Pionia</a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/application-structure/">Application Structure</a>
+  </li>
+
+  <li>
+      <a href="/documentation/api-tutorial/">API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/generic-services/">Generic Services</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Moonlight Architecture</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/moonlight/introduction-to-moonlight-architecture/">Introduction to MoonLight Architecture</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/security-in-moonlight/">Security in moonlight</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/documentation/introduction/">Documentation</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/moonlight/moonlight-architecture/">Moonlight</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/documentation/api-tutorial/">Tutorial</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/PioniaPHP-project/pionia-docs"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          </ul>
+        
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-sm" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+			
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/application-structure/">Application Structure</a>
+  </li>
+
+  <li>
+      <a href="/documentation/api-tutorial/">API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/generic-services/">Generic Services</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Moonlight Architecture</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/moonlight/introduction-to-moonlight-architecture/">Introduction to MoonLight Architecture</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/security-in-moonlight/">Security in moonlight</a>
+  </li>
+
+  <li>
+      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+		</div>
+		
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#authentication---authentication-backends">Authentication - Authentication Backends.</a>
+      <ul>
+        <li><a href="#about-authentication-backends">About Authentication Backends</a></li>
+        <li><a href="#creating-an-authentication-backend">Creating an Authentication Backend</a></li>
+        <li><a href="#registering-your-authentication-backend">Registering your Authentication Backend</a></li>
+        <li><a href="#rbac---service-level-authorization">RBAC - Service Level Authorization</a></li>
+        <li><a href="#protecting-your-services">Protecting your Services</a></li>
+        <li><a href="#protecting-your-actions">Protecting your Actions</a></li>
+      </ul>
+    </li>
+    <li><a href="#authorization">Authorization</a>
+      <ul>
+        <li><a href="#permissions---authorities">Permissions - Authorities</a></li>
+        <li><a href="#custom-authorization-messages">Custom Authorization Messages</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9">
+		
+			<h1>Security - Authentication and Authorization</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#authentication---authentication-backends">Authentication - Authentication Backends.</a>
+      <ul>
+        <li><a href="#about-authentication-backends">About Authentication Backends</a></li>
+        <li><a href="#creating-an-authentication-backend">Creating an Authentication Backend</a></li>
+        <li><a href="#registering-your-authentication-backend">Registering your Authentication Backend</a></li>
+        <li><a href="#rbac---service-level-authorization">RBAC - Service Level Authorization</a></li>
+        <li><a href="#protecting-your-services">Protecting your Services</a></li>
+        <li><a href="#protecting-your-actions">Protecting your Actions</a></li>
+      </ul>
+    </li>
+    <li><a href="#authorization">Authorization</a>
+      <ul>
+        <li><a href="#permissions---authorities">Permissions - Authorities</a></li>
+        <li><a href="#custom-authorization-messages">Custom Authorization Messages</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			
+<picture>
+      <source type="image/webp" data-srcset="/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_480x0_resize_q85_h2_lanczos_3.webp 480w,/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_576x0_resize_q85_h2_lanczos_3.webp 576w,/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_602x0_resize_q85_h2_lanczos_3.webp 602w"
+        data-sizes="auto">
+  <img
+    src="data:image/webp;base64,UklGRrgAAABXRUJQVlA4WAoAAAAQAAAADwAABQAAQUxQSGEAAAAAAE6XuGgDBQQCAgQCAwIEAz2gdjLaoRYAAAAAAIBCAACYX8F8uGgvlR5EcEhmG3ZhmXnaa06YkaXa2N2Dj3SmupeYkgA5xrqfhK5&#43;vr7BtaA5y0IEBDAdOwAUEzApJzQcAFZQOCAwAAAA0AEAnQEqEAAGAAKYfCewAnQA9E5Di/AA/mQNGp8u5XkQdcb9yTf0qO05YY9qwAAA"
+    data-src="/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_480x0_resize_q85_bgffffff_lanczos_3.jpg"
+    width="602"
+    height="232"
+    decoding="async"
+    fetchpriority="auto"
+    loading="lazy"
+    alt="Pionia Logo"
+    class="lazyload blur-up"
+  >
+</picture>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>This guide assumes you have a basic understanding of how Pionia works. If you are new to Pionia, you can start by going through the <a href="/documentation/api-tutorial">API Tutorial</a> guide.</p>
+
+    </div>
+  </div>
+</div>
+
+<p>Security is a very important aspect of any application. In Pionia, Security is approached in two ways.</p>
+<ul>
+<li>Authentication</li>
+<li>Authorization</li>
+</ul>
+<h2 id="authentication---authentication-backends">Authentication - Authentication Backends.<a href="#authentication---authentication-backends" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Authentication is the process of verifying the identity of a user. Currently Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.</p>
+<h3 id="about-authentication-backends">About Authentication Backends<a href="#about-authentication-backends" class="anchor" aria-hidden="true">#</a> </h3>
+<p>These are classes that are responsible for authenticating the user. They are responsible for verifying the user&rsquo;s identity and returning the user object.</p>
+<p>All authentication backends must extend the <code>Pionia\Core\Interceptions\BaseAuthenticationBackend</code> class and implement the <code>authenticate</code> method.
+This method receives the request object, this also implies that you have access to your headers, request body, and therefore you can implement any authentication mechanism you want.</p>
+<p>Authentication backends must return the <code>Pionia\Core\Helpers\ContextUserObject</code> object if the user is authenticated, otherwise, they should return <code>null</code>.</p>
+<p>You can have multiple authentication backends in the same application. Pionia will iterate through all the authentication backends until one of them returns a user object.</p>
+<p>Otherwise, it will proceed to process the request without authenticating the user. And as a result, <code>this-&gt;mustAuthenticate</code> will be failing if the user is not authenticated.</p>
+<h3 id="creating-an-authentication-backend">Creating an Authentication Backend<a href="#creating-an-authentication-backend" class="anchor" aria-hidden="true">#</a> </h3>
+<p>To quickly bootstrap your authentication backend, you can use the following command.</p>
+<p>Example below creates an authentication backend called <code>JwtAuthBackend</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addauth jwt</span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Notice that we only define <code>jwt</code> as the authentication backend name. This is because Pionia will automatically append <code>AuthBackend</code> to the name.</p>
+
+    </div>
+  </div>
+</div>
+
+<p>Upon running the above command, Pionia will create a new authentication backend in the <code>app/authenticationBackends</code> directory.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This authentication backend is auto-generated from pionia cli.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Remember to register your backend in settings.ini
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\authenticationBackends</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Core\Helpers\ContextUserObject</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Core\Interceptions\BaseAuthenticationBackend</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Request\Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">JwtAuthBackend</span> <span class="k">extends</span> <span class="nx">BaseAuthenticationBackend</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">	 * Implement this method and return your &#39;ContextUserObject&#39;. You can use Porm here too!
+</span></span></span><span class="line"><span class="cl"><span class="sd">	 */</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">ContextUserObject</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$userObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ContextUserObject</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">		<span class="c1"># your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nv">$userObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can now implement your authentication logic in the <code>authenticate</code> method.</p>
+<p>To access the headers, you can get them from the <code>headers</code> key on the request like <code>$authHeader = $request-&gt;headers-&gt;get('Authorization');</code>.</p>
+<p>The ContextUserObject is a simple object that holds the user&rsquo;s information. You can add any information you want to this object.</p>
+<p>It contains the following properties:</p>
+<ul>
+<li><code>user</code> - The object from your db.</li>
+<li><code>authenticated</code> - A boolean value that indicates whether the user is authenticated or not.</li>
+<li><code>permissions</code> - An array of permissions that the user has.</li>
+<li><code>authExtra</code> - Any other extra data you want to set on the user context. This can store staff like role, user id, etc. You will be able to access this data in your services.</li>
+</ul>
+<h3 id="registering-your-authentication-backend">Registering your Authentication Backend<a href="#registering-your-authentication-backend" class="anchor" aria-hidden="true">#</a> </h3>
+<p>After creating your authentication backend, you need to register it in the <code>settings.ini</code> file under the <code>authentications</code> section.
+Every backend must be given a unique name. Also, you to note that the order of registration matters. Pionia will iterate through the authentications in the order they are registered.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[authentications]</span>
+</span></span><span class="line"><span class="cl"><span class="na">jwt_auth</span> <span class="o">=</span> <span class="s">application\authenticationBackends\JwtAuthBackend</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>And that&rsquo;s it! Your authentication backend is now ready to be used in your application.</p>
+<h3 id="rbac---service-level-authorization">RBAC - Service Level Authorization<a href="#rbac---service-level-authorization" class="anchor" aria-hidden="true">#</a> </h3>
+<h4 id="accessing-the-set-context-object">Accessing the set Context Object<a href="#accessing-the-set-context-object" class="anchor" aria-hidden="true">#</a> </h4>
+<p>To access the context object in your services, you can access it from the  <code>$this-&gt;auth();</code>.</p>
+<p>This returns the <code>ContextUserObject</code> object that you set in your authentication backend.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$permissions</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">permissions</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$authExtra</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">authExtra</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h4 id="accessing-the-authextras">Accessing the AuthExtras<a href="#accessing-the-authextras" class="anchor" aria-hidden="true">#</a> </h4>
+<p>AuthExtras are an associative array that you can use to store any extra data you want to access in your services. To access a single item from this array,
+you can use <code>$this-&gt;getAuthExtraByKey($key)</code>.</p>
+<p>You can also check if a certain extra key was set on the extras array by using <code>$this-&gt;authExtraHas($key)</code>. This will return a boolean value.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$role</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAuthExtraByKey</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$userId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAuthExtraByKey</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="protecting-your-services">Protecting your Services<a href="#protecting-your-services" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The entire service can be protected by setting the <code>$serviceRequiresAuth</code> property to <code>true</code>. This will ensure that all actions in the service are secure and only authenticated users can access them.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$serviceRequiresAuth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="protecting-your-actions">Protecting your Actions<a href="#protecting-your-actions" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can also protect individual actions in two ways.</p>
+<h4 id="setting-the-actionsrequiringauth-property">Setting the <code>$actionsRequiringAuth</code> property<a href="#setting-the-actionsrequiringauth-property" class="anchor" aria-hidden="true">#</a> </h4>
+<p>You can set the <code>$actionsRequiringAuth</code> property to an array of actions that require authentication.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$actionsRequiringAuth</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span> <span class="c1">// accessing this action will require authentication
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h4 id="using-the-mustauthenticate-method">Using the <code>mustAuthenticate</code> method<a href="#using-the-mustauthenticate-method" class="anchor" aria-hidden="true">#</a> </h4>
+<p>You can also use the <code>mustAuthenticate</code> method in your action to check if the user is authenticated. This method will throw an exception if the user is not authenticated.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span> <span class="c1">// user must be authenticated to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Setting the <code>$authMessage</code> property will set a custom message that will be thrown if the user is not authenticated.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$authMessage</span> <span class="o">=</span> <span class="s1">&#39;You must be authenticated to use any service in the todo context.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span> <span class="c1">// user must be authenticated to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// your logic here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="authorization">Authorization<a href="#authorization" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Authorization is the process of determining whether a user has the necessary permissions to access a certain resource.</p>
+<p>In Pionia, authorization is done using permissions. Permissions are authorization rules that you can set on your context object in your authentication backend.</p>
+<h3 id="permissions---authorities">Permissions - Authorities<a href="#permissions---authorities" class="anchor" aria-hidden="true">#</a> </h3>
+<p>There are three ways to check if a user has a certain permission[s]/authority[ies].</p>
+<h4 id="using-the-can-method">Using the <code>can</code> method<a href="#using-the-can-method" class="anchor" aria-hidden="true">#</a> </h4>
+<p>You can check if a user has a certain permission by using the <code>can</code> method that is available on the service.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">can</span><span class="p">(</span><span class="s1">&#39;view-todo&#39;</span><span class="p">);</span> <span class="c1">// user must have the permission to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If the user does not have the permission, the <code>can</code> method will throw an exception and the action will not be executed.</p>
+<h4 id="using-the-canall-method">Using the <code>canAll</code> method<a href="#using-the-canall-method" class="anchor" aria-hidden="true">#</a> </h4>
+<p><code>can</code> checks only one permission, however, you can check multiple permissions by using the <code>canAll</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">canAll</span><span class="p">([</span><span class="s1">&#39;view-todo&#39;</span><span class="p">,</span> <span class="s1">&#39;edit-todo&#39;</span><span class="p">]);</span> <span class="c1">// user must have both permissions to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h4 id="using-the-canany-method">Using the <code>canAny</code> method<a href="#using-the-canany-method" class="anchor" aria-hidden="true">#</a> </h4>
+<p>The two methods mentioned earlier check if the user has the permission. However, you might want to check if the user <code>has any one</code> of the permissions. You can do this by using the <code>canAny</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">canAny</span><span class="p">([</span><span class="s1">&#39;view-todo&#39;</span><span class="p">,</span> <span class="s1">&#39;edit-todo&#39;</span><span class="p">]);</span> <span class="c1">// user must have any of the permissions to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="custom-authorization-messages">Custom Authorization Messages<a href="#custom-authorization-messages" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The above methods take a second parameter <code>$message</code> which is a custom message that will be thrown if the user does not have the permission.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">can</span><span class="p">(</span><span class="s1">&#39;view-todo&#39;</span><span class="p">,</span> <span class="s1">&#39;You do not have permission to view todo&#39;</span><span class="p">);</span> <span class="c1">// user must have the permission to go beyond this point
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>All the authentication and authorization should happen early in the an action. This is because, if the user is not authenticated or does not have the necessary permissions, the action should not be executed.</p>
+
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Remember, all authentication backends run after middlewares. This is because middlewares can be used to sanatize the request, and therefore, it is important to run them before the authentication backends.</p>
+
+    </div>
+  </div>
+</div>
+
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/800_security.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/documentation/generic-services/" class="stretched-link text-reset text-decoration-none">Generic Services</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/database/configuration-getting-started/" class="stretched-link text-reset text-decoration-none">Configuration - Getting Started</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="text-muted" href="/privacy/">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script async
+  src="/js/bootstrap.d5ae61923b84be624d1c0d9329b69d550a65fb7ffc68ab373bda5d50574e77ac.js"
+  integrity="sha256-1a5hkjuEvmJNHA2TKbadVQpl&#43;3/8aKs3O9pdUFdOd6w=">
+</script>
+
+
+<script async
+  src="/js/app.6ce274b2411410f3193de528a44804d3776457fc634899431b6ae5949bbdf643.js"
+  integrity="sha256-bOJ0skEUEPMZPeUopEgE03dkV/xjSJlDG2rllJu99kM=">
+</script>
+
+
+
+
+
+<script async
+  src="/js/flexsearch.a43ad3e9453067320ab808b85ef437fc65518a219cfea8499e744b7b6f0b6924.js"
+  integrity="sha256-pDrT6UUwZzIKuAi4XvQ3/GVRiiGc/qhJnnRLe28LaSQ=">
+</script>
+<script async
+  src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
+  integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
+</script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
+
+    
+  </body>
+</html>

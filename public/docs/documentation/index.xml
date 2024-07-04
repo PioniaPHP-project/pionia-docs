@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Sat, 29 Jun 2024 19:57:09 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jul 2024 01:06:18 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction</title>
@@ -38,10 +38,17 @@
       <description>This section assumes that you have already setup your pinia framework project.</description>
     </item>
     <item>
-      <title>Pionia Services</title>
-      <link>http://localhost:1313/documentation/pionia-services/</link>
+      <title>Services</title>
+      <link>http://localhost:1313/documentation/services/</link>
+      <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/services/</guid>
+      <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
+    </item>
+    <item>
+      <title>Generic Services</title>
+      <link>http://localhost:1313/documentation/generic-services/</link>
       <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/pionia-services/</guid>
+      <guid>http://localhost:1313/documentation/generic-services/</guid>
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
     <item>

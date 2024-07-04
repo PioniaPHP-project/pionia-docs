@@ -1,12 +1,12 @@
 ---
-title: 'Pionia Services'
+title: 'Generic Services'
 parent: 'documentation'
 description: 'Guides you through services processing in Pionia Framework.'
 summary: 'All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.'
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2024-06-29 19:57:09.923 +0300
 draft: false
-weight: 5
+weight: 600
 toc: true
 seo:
     title: 'Pionia Services' # custom title (optional)

@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f14b3e296de1d0b69e75af684b62a4a912a2cadab04e36123407cd8388204f1d.js"
+  integrity="sha256-8Us&#43;KW3h0Laeda9oS2KkqRKiytqwTjYSNAfNg4ggTx0=">
+</script>
+
+
+<link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/iv.-services/">
+  <link rel="canonical" href="http://localhost:1313/documentation/iv.-services/">
+<title>iv). Services  |  Pionia</title>
+<meta name="description" content="Guides you through processing of using services in Pionia">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/png">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="iv). Services">
+<meta property="og:description" content="Guides you through processing of using services in Pionia">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/documentation/iv.-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
+<meta property="article:modified_time" content="2024-05-24T13:45:48+00:00"><meta property="og:site_name" content="Pionia Framework">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="iv). Services">
+<meta name="twitter:description" content="Guides you through processing of using services in Pionia">
+<meta name="twitter:site" content="@pionia">
+
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Pionia Framework",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/documentation/",
+       "name": "Documentation",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "name": "Iv). Services",
+       "position": 4
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<div class="header-bar"></div>
+<header class="navbar navbar-expand-lg">
+  <div class="container-sm">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">Pionia</a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/1.-introduction/">1. Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/2.-api-tutorial/">2. API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/3.-structure/">3. Structure</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/iv.-services/">iv). Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/v.-requests-and-responses/">v. Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Reference</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/reference/example-reference/">Example Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/documentation/introduction/">Documentation</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/moonlight/moonlight-architecture/">Moonlight</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/documentation/api-tutorial/">Tutorial</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/PioniaPHP-project/pionia-docs"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          </ul>
+        
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/documentation/introduction/#get-started" role="button">Get started</a>
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-sm" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+			
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/1.-introduction/">1. Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/2.-api-tutorial/">2. API Tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/3.-structure/">3. Structure</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/iv.-services/">iv). Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/v.-requests-and-responses/">v. Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Reference</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/reference/example-reference/">Example Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+		</div>
+		
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#creating-a-service">Creating a service</a></li>
+    <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
+    <li><a href="#targeting-a-service-action">Targeting a service action</a>
+      <ul>
+        <li><a href="#globally-in-the-service">Globally in the service</a></li>
+        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+        <li><a href="#accessing-the-request-object-in-the-services">Accessing the Request object in the services</a></li>
+        <li><a href="#request-data">Request Data</a></li>
+        <li><a href="#action-response">Action Response.</a></li>
+      </ul>
+    </li>
+    <li><a href="#deactivating-actions-in-a-service">Deactivating actions in a service</a></li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9">
+		
+			<h1>iv). Services</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#creating-a-service">Creating a service</a></li>
+    <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
+    <li><a href="#targeting-a-service-action">Targeting a service action</a>
+      <ul>
+        <li><a href="#globally-in-the-service">Globally in the service</a></li>
+        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+        <li><a href="#accessing-the-request-object-in-the-services">Accessing the Request object in the services</a></li>
+        <li><a href="#request-data">Request Data</a></li>
+        <li><a href="#action-response">Action Response.</a></li>
+      </ul>
+    </li>
+    <li><a href="#deactivating-actions-in-a-service">Deactivating actions in a service</a></li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			<p>&lt;<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the <a href="/documentation/api-tutorial/">tutorial</a>.</p>
+
+    </div>
+  </div>
+</div>
+ Introduction</p>
+<p>Services in Pionia Framework are central holders of business logic. This is where most of the work happens. Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area. Services are in actual PHP code, just php classes that extend the <code>BaseRestService</code>. As you might already know, a class can have multiple methods. In Pionia we cann these <code>Actions</code>. Therefore, henceforth, the terms <code>service</code> and <code>actions</code> will be used for the same meaning throughout the same guide.</p>
+<h2 id="creating-a-service">Creating a service<a href="#creating-a-service" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can create a service using our pionia console or manually. All services, as a convention, must be located in the <code>services</code> folder.</p>
+<p>{{&lt;<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>We recommend to name your services after your database tables. Example, if your table is called &lsquo;users&rsquo;, you can name your service &lsquo;UserService&rsquo;.</p>
+<p>If you are using our &lsquo;pionia console&rsquo;, then you can just name your service &lsquo;user&rsquo;. These are just conventions!</p>
+
+    </div>
+  </div>
+</div>
+{&lt;
+
+
+
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <button data-toggle-tab="pionia command" class="nav-link active" id="tabs-create-new-service-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-0" type="button" role="tab" aria-controls="tabs-create-new-service-0" aria-selected="true">
+      pionia command</button>
+  <button data-toggle-tab="manually" class="nav-link" id="tabs-create-new-service-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-1" type="button" role="tab" aria-controls="tabs-create-new-service-1" aria-selected="true">
+      Manually</button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div data-pane="pionia command" class="tab-pane fade show active" id="tabs-create-new-service-0" role="tabpanel" aria-labelledby="tabs-create-new-service-0-tab" tabindex="0">
+      <p>Let&rsquo;s create a service called <code>TodoService</code>. In the terminal run the following command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice todo</span></span></code></pre></div>
+  </figure>
+</div>
+<p>By defualt, running the above command alone create a service called <code>TodoService</code> in <code>services</code> folder with four actions.</p>
+<ol>
+<li><code>getTodo</code> - For getting one todo item.</li>
+<li><code>listTodo</code> - For getting all available (paginated) todos.</li>
+<li><code>deleteTodo</code> - For deleting a todo item.</li>
+<li><code>createTodo</code> - For creating a todo item.</li>
+</ol>
+<p>You can delete or add more actions as you see fit.</p>
+<p>If you want to override the above behaviour, you can define your actions with the <code>addservice</code> command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice auth login register reset</span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above will add actions <code>loginAuth</code>, <code>registerAuth</code> and <code>resetAuth</code>.</p>
+<p>Note that everything that is listed after the service name is an action.</p>
+</div>
+  <div data-pane="manually" class="tab-pane fade" id="tabs-create-new-service-1" role="tabpanel" aria-labelledby="tabs-create-new-service-1-tab" tabindex="0">
+      <blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ol>
+<li>Head over to your services folder.</li>
+<li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
+<li>Extend BaseRestService</li>
+<li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(ff your service is expecting files) and returning <code>BaseResponse</code>.</li>
+<li>Add your logic</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</div>
+  </div>
+# Service Registration</p>
+<p>Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel. Service registration happens in the associated switch.</p>
+<p>In the switches folder, find the switch you want to use for this service. You can add your service as below.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">TodoService</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">AuthService</span><span class="p">(),</span> <span class="c1">// like this.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The <code>key</code> of this method is the name you shall use in your proceeding requests to access this service. Therefore it must be unique!</p>
+<h2 id="targeting-a-service-in-the-request">Targeting a service in the request<a href="#targeting-a-service-in-the-request" class="anchor" aria-hidden="true">#</a> </h2>
+<p>In the request, you can target a service by determining the <code>SERVICE</code> key with your service name as the <code>key</code> defined in the <code>registerServices</code> method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your request data.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="targeting-a-service-action">Targeting a service action<a href="#targeting-a-service-action" class="anchor" aria-hidden="true">#</a> </h2>
+<p>To target an action in a certain service, you need to define both the service and action as below.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ACTION</span><span class="o">:</span> <span class="s2">&#34;loginAuth&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your service data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>{{&lt;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every requered data needed for the request.</p>
+
+    </div>
+  </div>
+</div>
+# Action protection</p>
+<p>You can protect your actions by determining that they require only authenticated requests(users) to be accessed. You can do this in three ways.</p>
+<h3 id="globally-in-the-service">Globally in the service<a href="#globally-in-the-service" class="anchor" aria-hidden="true">#</a> </h3>
+<h4 id="entire-service">Entire service<a href="#entire-service" class="anchor" aria-hidden="true">#</a> </h4>
+<p>You can mark an entire service as requiring authentication by setting the <code>$serviceRequiresAuth</code> parameter to <code>true</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$serviceRequiresAuth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">// all actions in this service require authentication.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h4 id="specific-actions">Specific actions<a href="#specific-actions" class="anchor" aria-hidden="true">#</a> </h4>
+<p>You can also mark specific actions in a service as requiring authentication. Use the <code>$actionsRequiringAuth</code> parameter and add action names of actions that should be reached by authenticated users only.</p>
+<p>This, unlike <code>$serviceRequiresAuth</code>, will only protect the actions listed in the array not the entire service.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$actionsRequiringAuth</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="internally-in-the-action">Internally in the action<a href="#internally-in-the-action" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can also call the <code>mustAuthenticate</code> method anywhere in your action, preferably the first line in the action method.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span> <span class="c1">// only authenticated will exceed this point.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>{{&lt;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Details of how Pionia achieves authentication and authorization can be found in the <a href="/documentation/authentication/">authentication section</a>.</p>
+
+    </div>
+  </div>
+</div>
+ Request Data and Response</p>
+<h3 id="accessing-the-request-object-in-the-services">Accessing the Request object in the services<a href="#accessing-the-request-object-in-the-services" class="anchor" aria-hidden="true">#</a> </h3>
+<p>You can access the request object in your service by calling the <code>$this-&gt;request</code> method on the service object. This returns the <code>Pionia\Request\Request</code> object.
+You can use this to access anything on the request.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="request-data">Request Data<a href="#request-data" class="anchor" aria-hidden="true">#</a> </h3>
+<h4 id="json-and-form-request-data">JSON and Form Request Data<a href="#json-and-form-request-data" class="anchor" aria-hidden="true">#</a> </h4>
+<p>An action takes <code>$data</code> as the first parameter which is an array of the request data. You can access you post data from this parameter.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$email</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h4 id="multipart-datauploads">Multipart Data(Uploads)<a href="#multipart-datauploads" class="anchor" aria-hidden="true">#</a> </h4>
+<p>If your action expects multipart upload files, then you can get these from the second action parameter called <code>$files</code>.
+This is an associative array of all uploads.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">profileUpdates</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">,</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$files</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$profilePic</span> <span class="o">=</span> <span class="nv">$files</span><span class="p">[</span><span class="s1">&#39;profile_pik&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<blockquote>
+<p>NOTE: This does not consist of base64 encoded uploads, for those, they&rsquo;ll be part of the <code>$data</code>.</p>
+</blockquote>
+<h3 id="action-response">Action Response.<a href="#action-response" class="anchor" aria-hidden="true">#</a> </h3>
+<p>All actions must return a <code>Pionia\Response\BaseResponse</code> object. This is the object that is sent back to the client. You can use the <code>BaseResponse</code> object to send back a response with a status code, message, and data.</p>
+<p>A helper method <code>BaseResponse::JsonResponse</code> is provided to help you create a response object that is ready to be serialized to JSON.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Response\BaseResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Todo fetched successfully&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>{{&lt;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>For details about request and responses, you can check the <a href="/documentation/request-response/">request and response section</a>.</p>
+
+    </div>
+  </div>
+</div>
+# Error Handling</p>
+<p>According to Moonlight architecture, all requests should return a 200 Ok status code. This is because the client should
+be able to know if the request was successful or not by checking the <code>returnCode</code> in the response body.</p>
+<p>All normal responses set this internally and are always returning a 200 status code. By convention and by default, all requests
+that are successful return 0 as the <code>returnCode</code>. This implies that the server can define multiple other return codes
+for other scenarios.</p>
+<p>In Pionia, we have a global exception handler that catches all exceptions thrown anywhere in the code. This is to ensure that
+the client always gets the same response format.</p>
+<p>All exceptions thrown are caught will raise a 500 status code and the message of the exception will be sent back to the client
+as the <code>returnMessage</code>.</p>
+<p>Therefore, in your services and actions, you can throw exceptions as you see fit. And you don&rsquo;t need to catch them at all!</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="k">null</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s1">&#39;Todo id is required&#39;</span><span class="p">);</span> <span class="c1">// will be caught globally!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// rest of actions logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Todo fetched successfully&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Please note that all exceptions are caught globally and sent back to the client. Therefore, you do not need to catch exceptions in your services.
+Developers need to set clean, descriptive exception messages in their exceptions to help the client understand what went wrong.</p>
+<h2 id="deactivating-actions-in-a-service">Deactivating actions in a service<a href="#deactivating-actions-in-a-service" class="anchor" aria-hidden="true">#</a> </h2>
+<p>BaseRestService provides a parameter <code>$deactivatedActions</code> that can be used to register all deactivated actions in a service.
+This is useful when you want to deactivate an action in a service without deleting it.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$deactivatedActions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span> <span class="c1">// one or more actions to deactivate.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>{{&lt;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Deactivated actions will not be called by the switcher. Therefore, they will not be accessible by the client.</p>
+
+    </div>
+  </div>
+</div>
+���</p>
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/4_services.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/documentation/3.-structure/" class="stretched-link text-reset text-decoration-none">3. Structure</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/v.-requests-and-responses/" class="stretched-link text-reset text-decoration-none">v. Requests and Responses</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="text-muted" href="/privacy/">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script async
+  src="/js/bootstrap.d5ae61923b84be624d1c0d9329b69d550a65fb7ffc68ab373bda5d50574e77ac.js"
+  integrity="sha256-1a5hkjuEvmJNHA2TKbadVQpl&#43;3/8aKs3O9pdUFdOd6w=">
+</script>
+
+
+<script async
+  src="/js/app.6ce274b2411410f3193de528a44804d3776457fc634899431b6ae5949bbdf643.js"
+  integrity="sha256-bOJ0skEUEPMZPeUopEgE03dkV/xjSJlDG2rllJu99kM=">
+</script>
+
+
+
+
+
+<script async
+  src="/js/flexsearch.a43ad3e9453067320ab808b85ef437fc65518a219cfea8499e744b7b6f0b6924.js"
+  integrity="sha256-pDrT6UUwZzIKuAi4XvQ3/GVRiiGc/qhJnnRLe28LaSQ=">
+</script>
+<script async
+  src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
+  integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
+</script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
+
+    
+  </body>
+</html>

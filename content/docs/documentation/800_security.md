@@ -5,7 +5,7 @@ summary: "Authentication and Authorization are two important aspects of security
 date: 2024-06-29 21:06:45.763 +0300
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 7
+weight: 800
 toc: true
 seo:
   title: "Requests and Responses" # custom title (optional)

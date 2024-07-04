@@ -5,7 +5,7 @@ description: "Guides lead a user through a specific task they want to accomplish
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 3
+weight: 300
 toc: true
 seo:
   title: "Application Structure in Pionia" # custom title (optional)
