@@ -76,14 +76,14 @@ All available methods can [be found here in the api reference](https://pioniaphp
 
 You don't need to interact with this class directly but through the following generic services.
 
-1. [RetrieveCreateUpdateService](#RetrieveCreateUpdateService)
-2. [RetrieveListCreateService](#RetrieveListCreateService)
-3. [RetrieveListCreateUpdateDeleteService](#RetrieveListCreateUpdateDeleteService)
-4. [RetrieveListDeleteService](#RetrieveListDeleteService)
-5. [RetrieveListRandomService](#RetrieveListRandomService)
-6. [RetrieveListUpdateDeleteService](#RetrieveListUpdateDeleteService)
-7. [RetrieveListUpdateService](#RetrieveListUpdateService)
-8. [UniversalGenericService](#UniversalGenericService)
+1. [RetrieveCreateUpdateService](#retrievecreateupdateservice)
+2. [RetrieveListCreateService](#retrievelistcreateservice)
+3. [RetrieveListCreateUpdateDeleteService](#retrievelistcreateupdatedeleteservice)
+4. [RetrieveListDeleteService](#retrievelistdeleteservice)
+5. [RetrieveListRandomService](#retrievelistrandomservice)
+6. [RetrieveListUpdateDeleteService](#retrievelistupdatedeleteservice)
+7. [RetrieveListUpdateService](#retrievelistupdateservice)
+8. [UniversalGenericService](#universalgenericservice)
 
 Creating you custom generic service can be done as follows:
 
