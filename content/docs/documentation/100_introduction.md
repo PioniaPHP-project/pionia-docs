@@ -39,7 +39,7 @@ Documentation organisation.
 
 {{<callout context="tip" title="Start with a TO-DO api tutorial" icon="outline/pencil">}}
 
-You can quickly get started with our [To-Do API tutorial](/documentation/api-tutorial/). This guide introduces you to the both the framework and the [Moonlight architecture](/docs/moonlight/). It is the recommended way to start your pionia jungle journey.
+You can quickly get started with our [To-Do API tutorial](/documentation/api-tutorial/). This guide introduces you to the both the framework and the [Moonlight architecture](/moonlight/introduction-to-moonlight-architecture/). It is the recommended way to start your pionia jungle journey.
 {{</callout>}}
 
 ## Why Pionia?
