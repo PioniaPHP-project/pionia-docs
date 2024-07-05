@@ -22,45 +22,8 @@ Also, for basic knowledge and understanding, please first look at the  [Making Q
 
 # Introduction
 
-This section convers database functions that can be used to aggregate data in the database. Aggregation functions are used to perform calculations on the data in the database. These functions can be used to calculate the sum, average, minimum, maximum, and count of the data in the database.
-
-## Shortcuts
-
-- [Introduction](#introduction)
-  - [Shortcuts](#shortcuts)
-  - [Inbuilt Aggregation Functions](#inbuilt-aggregation-functions)
-    - [count](#count)
-    - [sum](#sum)
-    - [avg](#avg)
-    - [max](#max)
-    - [min](#min)
-  - [Using the Agg Builder](#using-the-agg-builder)
-    - [Initializing the Agg Builder](#initializing-the-agg-builder)
-    - [random](#random)
-    - [avg](#avg-1)
-    - [compare](#compare)
-    - [like](#like)
-    - [notLike](#notlike)
-    - [div](#div)
-    - [between](#between)
-    - [notBetween](#notbetween)
-    - [jsonified](#jsonified)
-    - [of](#of)
-    - [minus](#minus)
-    - [plus](#plus)
-    - [eq](#eq)
-    - [neq](#neq)
-    - [now](#now)
-    - [lt](#lt)
-    - [lte](#lte)
-    - [gt](#gt)
-    - [gte](#gte)
-    - [uuid](#uuid)
-    - [max()](#max-1)
-    - [min()](#min-1)
-    - [sum()](#sum-1)
-    - [regex](#regex)
-  - [Chaining multiple](#chaining-multiple)
+This section covers database functions that can be used to aggregate data in the database. Aggregation functions are used to perform calculations on the data in the database. 
+These functions can be used to calculate the sum, average, minimum, maximum, and count of the data in the database.
 
 ## Inbuilt Aggregation Functions
 

@@ -8,8 +8,8 @@ draft: false
 weight: 800
 toc: true
 seo:
-  title: "Requests and Responses" # custom title (optional)
-  description: "Guides us through the process of handling requests and responses in pionia." # custom description (recommended)
+  title: "Security" # custom title (optional)
+  description: "Guides us through Pionia's approach to authentication" # custom description (recommended)
   noindex: true # false (default) or true
 ---
 
@@ -27,7 +27,17 @@ Security is a very important aspect of any application. In Pionia, Security is a
 
 ## Authentication - Authentication Backends.
 
-Authentication is the process of verifying the identity of a user. Currently Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.
+Currently Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.
+
+{{<callout note >}}
+Pionia keeps an open mind on how you want to secure your apis. Most commonly, you will find JWT, OAuth, Basic Auth, and many more helpful.
+You can implement any of these in Pionia. All Pionia is seeking out is context user object that gets returned in your authentication backends.
+
+With this approach, you can make authentication backends that handle mobile, web, and other platforms separately.
+
+Packages like [firebase/php-jwt](https://github.com/firebase/php-jwt) can be used to implement JWT authentication.
+
+{{</callout>}}
 
 ### About Authentication Backends
 

@@ -26,19 +26,6 @@ Sometimes, you need more than just fetching data from the database. You may need
 
 In this section, we will look at how to filter data when querying the database using PORM.
 
-## Shortcuts
-
-- [Introduction](#introduction)
-  - [Shortcuts](#shortcuts)
-  - [where](#where)
-  - [filter](#filter)
-  - [Where Builder](#where-builder)
-    - [Bulding](#bulding)
-    - [AND Conditions](#and-conditions)
-    - [OR Conditions](#or-conditions)
-    - [AND and OR](#and-and-or)
-    - [Complex Relativity](#complex-relativity)
-
 ## where
 
 This method can be used to filter data based on a single 'AND' condition. This method can be used with all the other methods in the query builder.
