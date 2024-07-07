@@ -17,14 +17,14 @@
     
     <url>
       <loc>http://localhost:1313/documentation/database/queries-with-filtering/</loc>
-      <lastmod>2024-06-17T22:39:51+03:00</lastmod>
+      <lastmod>2024-07-05T21:47:49+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
       <loc>http://localhost:1313/documentation/database/using-functions-aggregation/</loc>
-      <lastmod>2024-06-18T22:49:48+03:00</lastmod>
+      <lastmod>2024-07-05T21:47:49+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>

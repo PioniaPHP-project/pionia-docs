@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/generic-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-06-29T19:57:09+03:00">
-<meta property="article:modified_time" content="2024-07-05T02:25:34+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-07-05T21:51:11+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Generic Services">
@@ -489,6 +489,17 @@
     <li><a href="#overriding-actions">Overriding Actions</a></li>
     <li><a href="#adding-custom-actions">Adding Custom Actions</a></li>
     <li><a href="#overriding-getters">Overriding getters</a></li>
+    <li><a href="#generic-services-signalshooks">Generic Services Signals(Hooks)</a>
+      <ul>
+        <li><a href="#precreate">preCreate</a></li>
+        <li><a href="#postcreate">postCreate</a></li>
+        <li><a href="#preupdate">preUpdate</a></li>
+        <li><a href="#postupdate">postUpdate</a></li>
+        <li><a href="#predelete">preDelete</a></li>
+        <li><a href="#postdelete">postDelete</a></li>
+        <li><a href="#why-would-you-need-these-hooks">Why would you need these hooks?</a></li>
+      </ul>
+    </li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -538,6 +549,17 @@
     <li><a href="#overriding-actions">Overriding Actions</a></li>
     <li><a href="#adding-custom-actions">Adding Custom Actions</a></li>
     <li><a href="#overriding-getters">Overriding getters</a></li>
+    <li><a href="#generic-services-signalshooks">Generic Services Signals(Hooks)</a>
+      <ul>
+        <li><a href="#precreate">preCreate</a></li>
+        <li><a href="#postcreate">postCreate</a></li>
+        <li><a href="#preupdate">preUpdate</a></li>
+        <li><a href="#postupdate">postUpdate</a></li>
+        <li><a href="#predelete">preDelete</a></li>
+        <li><a href="#postdelete">postDelete</a></li>
+        <li><a href="#why-would-you-need-these-hooks">Why would you need these hooks?</a></li>
+      </ul>
+    </li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -1116,6 +1138,152 @@ for example you want to add complex where clauses to your queries.</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<h2 id="generic-services-signalshooks">Generic Services Signals(Hooks)<a href="#generic-services-signalshooks" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Generic Services come baked with hooks that enable you to run custom code before or after the CRUD operations.
+The following are some of these hooks:</p>
+<h3 id="precreate">preCreate<a href="#precreate" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called before the <code>create</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">preCreate</span><span class="p">(</span><span class="o">?</span><span class="k">array</span> <span class="nv">$createItem</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="k">array</span><span class="o">|</span><span class="nx">bool</span><span class="o">|</span><span class="k">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$createItem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$createItem</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$createItem</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34; - &#34;</span> <span class="o">.</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;Y-m-d H:i:s&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$createItem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If this hook returns <code>null</code> or a false value, the <code>create</code> action will abort.</p>
+<p>Also, this hook has access to the <code>createItem</code> that is about to be created. You can mutate data as you see fit at this point or add extra data.</p>
+<p>On success, hooks must return the <code>createItem</code> that will be used to create the record.</p>
+<h3 id="postcreate">postCreate<a href="#postcreate" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called after the <code>create</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">postCreate</span><span class="p">(</span><span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span> <span class="nv">$createdItem</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$createdItem</span><span class="o">-&gt;</span><span class="na">created</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$createdItem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>It gives you access to the currently create record. You can mutate the return data as you see fit, but this won&rsquo;t affect
+the object that has already been saved. This is just for the response.</p>
+<p>Whatever object or array you return from here is what shall be sent back to the user.</p>
+<h3 id="preupdate">preUpdate<a href="#preupdate" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called before the <code>update</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">preUpdate</span><span class="p">(</span><span class="o">?</span><span class="k">array</span> <span class="nv">$updateItem</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="k">array</span><span class="o">|</span><span class="nx">bool</span><span class="o">|</span><span class="k">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$updateItem</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$updateItem</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$updateItem</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34; - &#34;</span> <span class="o">.</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;Y-m-d H:i:s&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$updateItem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If this hook returns <code>null</code> or a false value, the <code>update</code> action will abort.</p>
+<p>Also, this hook has access to the <code>updateItem</code> that is about to be updated. You can mutate data as you see fit at this point or add extra data.</p>
+<p>The object that is returned from this hook is what shall be used to update the record.</p>
+<h3 id="postupdate">postUpdate<a href="#postupdate" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called after the <code>update</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">postUpdate</span><span class="p">(</span><span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span> <span class="nv">$updatedItem</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$updatedItem</span><span class="o">-&gt;</span><span class="na">updated</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$updatedItem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>It gives you access to the currently updated record. You can mutate the return data as you see fit, but this won&rsquo;t affect
+the object that has already been saved. This is just for the response.</p>
+<p>Whatever object or array you return from here is what shall be sent back to the user.</p>
+<h3 id="predelete">preDelete<a href="#predelete" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called before the <code>delete</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">preDelete</span><span class="p">(</span><span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span> <span class="nv">$itemToDelete</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="k">array</span><span class="o">|</span><span class="k">null</span><span class="o">|</span><span class="nx">object</span><span class="o">|</span><span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$itemToDelete</span><span class="o">-&gt;</span><span class="na">id</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$itemToDelete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If this hook returns <code>null</code> or a false value, the <code>delete</code> action will abort. Otherwise, the <code>$itemToDelete</code> will be deleted.</p>
+<p>The hook also gives you access to the item to be deleted. You can perform any conditions or any other logic you see fit.</p>
+<h3 id="postdelete">postDelete<a href="#postdelete" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This hook is called after the <code>delete</code> action is executed.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">postDelete</span><span class="p">(</span><span class="nx">PDOStatement</span> <span class="nv">$deleteInstance</span><span class="p">,</span> <span class="nx">object</span><span class="o">|</span><span class="k">array</span><span class="o">|</span><span class="k">null</span> <span class="nv">$deletedItem</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$deletedItem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>However much the record is nolonger in the db, this hook gives you access to the record that was deleted.
+You can use it as you see fit. The object that is returned from this hook is what shall be sent back to the user.</p>
+<h3 id="why-would-you-need-these-hooks">Why would you need these hooks?<a href="#why-would-you-need-these-hooks" class="anchor" aria-hidden="true">#</a> </h3>
+<ol>
+<li>Hooks can be used to mutate data before it is saved to the database.</li>
+<li>Hooks can be used to transform the response back to the user to meet your needs.</li>
+<li>It is in these hooks where you have a chance to log, send emails or do any other action that is not directly related to the CRUD operation.</li>
+<li>You can also use these hooks to add extra data to the response.</li>
+</ol>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>The hooks are not to be used outside services that extend the <code>GenericService</code> class. They are already included in the generic services.</p>
+
+    </div>
+  </div>
+</div>
+
 <h2 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true">#</a> </h2>
 <p>The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.</p>
 <p>You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.</p>
@@ -1123,7 +1291,7 @@ for example you want to add complex where clauses to your queries.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/5fec3913785a82c814c04fe3e600549b391ed6c1">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/61830636e3a826d24300e75d87c06fc1c8c244d3">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Last updated on July 5, 2024
     </a>
@@ -1221,14 +1389,14 @@ for example you want to add complex where clauses to your queries.</p>
 </footer>
 
     <script async
-  src="/js/bootstrap.d5ae61923b84be624d1c0d9329b69d550a65fb7ffc68ab373bda5d50574e77ac.js"
-  integrity="sha256-1a5hkjuEvmJNHA2TKbadVQpl&#43;3/8aKs3O9pdUFdOd6w=">
+  src="/js/bootstrap.a80f6cd626ebb0372303dbcf8cd63554a8318ec0e522aad52aa9ce03ae406756.js"
+  integrity="sha256-qA9s1ibrsDcjA9vPjNY1VKgxjsDlIqrVKqnOA65AZ1Y=">
 </script>
 
 
 <script async
-  src="/js/app.6ce274b2411410f3193de528a44804d3776457fc634899431b6ae5949bbdf643.js"
-  integrity="sha256-bOJ0skEUEPMZPeUopEgE03dkV/xjSJlDG2rllJu99kM=">
+  src="/js/app.fee9f8ec7475f74b15d2b2c76604e00670c577ef11ab1b2c92344ab979b9ace4.js"
+  integrity="sha256-/un47HR190sV0rLHZgTgBnDFd&#43;8RqxsskjRKuXm5rOQ=">
 </script>
 
 
@@ -1236,12 +1404,12 @@ for example you want to add complex where clauses to your queries.</p>
 
 
 <script async
-  src="/js/flexsearch.a43ad3e9453067320ab808b85ef437fc65518a219cfea8499e744b7b6f0b6924.js"
-  integrity="sha256-pDrT6UUwZzIKuAi4XvQ3/GVRiiGc/qhJnnRLe28LaSQ=">
+  src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
+  integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">
 </script>
 <script async
-  src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
-  integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
+  src="/js/search-modal.bbdea845b287fc7f22a081c11a25b5bbfa96e74e43b36be5733f16439caf46be.js"
+  integrity="sha256-u96oRbKH/H8ioIHBGiW1u/qW505Ds2vlcz8WQ5yvRr4=">
 </script>
 
     <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">

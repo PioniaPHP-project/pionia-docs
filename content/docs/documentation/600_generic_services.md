@@ -454,6 +454,128 @@ class StudentService extends RetrieveCreateUpdateService
 }
 ```
 
+## Generic Services Signals(Hooks)
+
+Generic Services come baked with hooks that enable you to run custom code before or after the CRUD operations.
+The following are some of these hooks:
+
+### preCreate
+
+This hook is called before the `create` action is executed.
+
+```php
+    public function preCreate(?array $createItem = null): array|bool|null
+    {
+        if ($createItem) {
+            $createItem['title'] = $createItem['title'] . " - " . date('Y-m-d H:i:s');
+        }
+
+        return $createItem;
+    }
+```
+If this hook returns `null` or a false value, the `create` action will abort.
+
+Also, this hook has access to the `createItem` that is about to be created. You can mutate data as you see fit at this point or add extra data.
+
+On success, hooks must return the `createItem` that will be used to create the record.
+
+### postCreate
+
+This hook is called after the `create` action is executed.
+
+```php
+    public function postCreate(object|array|null $createdItem = null): object|array|null
+    {
+        $createdItem->created = true;
+        return $createdItem;
+    }
+```
+
+It gives you access to the currently create record. You can mutate the return data as you see fit, but this won't affect 
+the object that has already been saved. This is just for the response.
+
+Whatever object or array you return from here is what shall be sent back to the user.
+
+### preUpdate
+
+This hook is called before the `update` action is executed.
+
+```php
+    public function preUpdate(?array $updateItem = null): array|bool|null
+    {
+        if ($updateItem) {
+            $updateItem['title'] = $updateItem['title'] . " - " . date('Y-m-d H:i:s');
+        }
+
+        return $updateItem;
+    }
+```
+
+If this hook returns `null` or a false value, the `update` action will abort.
+
+Also, this hook has access to the `updateItem` that is about to be updated. You can mutate data as you see fit at this point or add extra data.
+
+The object that is returned from this hook is what shall be used to update the record.
+
+### postUpdate
+
+This hook is called after the `update` action is executed.
+```php
+    public function postUpdate(object|array|null $updatedItem = null): object|array|null
+    {
+        $updatedItem->updated = true;
+        return $updatedItem;
+    }
+```
+
+It gives you access to the currently updated record. You can mutate the return data as you see fit, but this won't affect
+the object that has already been saved. This is just for the response.
+
+Whatever object or array you return from here is what shall be sent back to the user.
+
+### preDelete
+
+This hook is called before the `delete` action is executed.
+
+```php
+    public function preDelete(object|array|null $itemToDelete = null): array|null|object|bool
+    {
+        if ($itemToDelete->id > 10){
+            return false;
+        }
+        return $itemToDelete;
+    }
+```
+
+If this hook returns `null` or a false value, the `delete` action will abort. Otherwise, the `$itemToDelete` will be deleted.
+
+The hook also gives you access to the item to be deleted. You can perform any conditions or any other logic you see fit.
+
+### postDelete
+
+This hook is called after the `delete` action is executed.
+
+```php
+    public function postDelete(PDOStatement $deleteInstance, object|array|null $deletedItem = null): mixed
+    {
+        return $deletedItem;
+    }
+```
+
+However much the record is nolonger in the db, this hook gives you access to the record that was deleted.
+You can use it as you see fit. The object that is returned from this hook is what shall be sent back to the user.
+
+### Why would you need these hooks?
+
+1. Hooks can be used to mutate data before it is saved to the database.
+2. Hooks can be used to transform the response back to the user to meet your needs.
+3. It is in these hooks where you have a chance to log, send emails or do any other action that is not directly related to the CRUD operation.
+4. You can also use these hooks to add extra data to the response.
+
+{{<callout note>}}
+The hooks are not to be used outside services that extend the `GenericService` class. They are already included in the generic services.
+{{</callout >}}
+
 ## Conclusion
 
 The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.

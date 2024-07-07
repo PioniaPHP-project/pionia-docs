@@ -23,7 +23,7 @@
     </url>
     <url>
         <loc>http://localhost:1313/documentation/introduction/</loc>
-        <lastmod>2024-07-05T02:12:14+03:00</lastmod>
+        <lastmod>2024-07-05T22:00:36+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
@@ -53,13 +53,13 @@
       </url>
       <url>
         <loc>http://localhost:1313/documentation/generic-services/</loc>
-        <lastmod>2024-07-05T02:25:34+03:00</lastmod>
+        <lastmod>2024-07-05T21:51:11+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
         <loc>http://localhost:1313/documentation/security-authentication-and-authorization/</loc>
-        <lastmod>2024-07-05T02:12:14+03:00</lastmod>
+        <lastmod>2024-07-05T21:47:49+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
