@@ -570,7 +570,6 @@ You can use it as you see fit. The object that is returned from this hook is wha
 1. Hooks can be used to mutate data before it is saved to the database.
 2. Hooks can be used to transform the response back to the user to meet your needs.
 3. It is in these hooks where you have a chance to log, send emails or do any other action that is not directly related to the CRUD operation.
-4. You can also use these hooks to add extra data to the response.
 
 {{<callout note>}}
 The hooks are not to be used outside services that extend the `GenericService` class. They are already included in the generic services.
