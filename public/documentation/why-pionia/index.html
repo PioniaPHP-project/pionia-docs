@@ -492,6 +492,12 @@ get after installing most frameworks? Pionia doesn&rsquo;t have even quarter of 
 are not here. You just need to write your services and you are good to go.</p>
 </li>
 <li>
+<p><strong>Query Builder</strong>: Pionia comes with a powerful query builder that makes it easy to interact with the database. We know you&rsquo;re
+already used to models and ORM. This has both pros and cons. Models usually undergo a process called model hydration while populating the resultset
+into your model class. This can really be more expensive especially when you&rsquo;re dealing with large datasets. Pionia uses a query builder
+that returns everything as <code>arrays</code> and <code>objects</code>. This is more efficient and faster. You can read more about <a href="/documentation/database/configuration-getting-started/">Pionia Query Builder here</a>.</p>
+</li>
+<li>
 <p><strong>Performance</strong>: Pionia is built with performance in mind. It is lightweight and fast, making it ideal for building
 high-performance api applications. It is also designed to be scalable, so you can easily add more resources as your
 application grows. You will be surprised how fast your api will be.</p>
