@@ -457,6 +457,7 @@
       "rbac---service-level-authorization",
       "regex",
       "registering-your-authentication-backend",
+      "renaming-the-logs",
       "request-data",
       "request-data-and-response",
       "retrievecreateupdateservice",

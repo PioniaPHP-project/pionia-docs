@@ -474,6 +474,7 @@
         <li><a href="#securing-log-entries">Securing Log Entries</a></li>
         <li><a href="#turning-off-logs">Turning off logs</a></li>
         <li><a href="#logging-requests">Logging Requests</a></li>
+        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
       </ul>
     </li>
     <li><a href="#log-rotation">Log Rotation</a></li>
@@ -502,6 +503,7 @@
         <li><a href="#securing-log-entries">Securing Log Entries</a></li>
         <li><a href="#turning-off-logs">Turning off logs</a></li>
         <li><a href="#logging-requests">Logging Requests</a></li>
+        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
       </ul>
     </li>
     <li><a href="#log-rotation">Log Rotation</a></li>
@@ -717,7 +719,22 @@ By default, this attempts to log both the requests and responses. However, Respo
   </figure>
 </div>
 <p>By default, no processor is added to the logger.</p>
-<p>With the above above, you app now logs the process id and memory usage in the logs.</p>
+<p>With the above, you app now logs the process id and memory usage in the logs.</p>
+<h3 id="renaming-the-logs">Renaming the logs.<a href="#renaming-the-logs" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Currently, all logs indicate the <code>pionia</code> prefix. You can change this by defining the <code>APP_NAME</code> setting in the <code>settings.ini</code> file:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
+</span></span><span class="line"><span class="cl"><span class="na">APP_NAME</span><span class="o">=</span><span class="s">blog</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above will change the prefix to <code>blog</code>.</p>
 <h2 id="log-rotation">Log Rotation<a href="#log-rotation" class="anchor" aria-hidden="true">#</a> </h2>
 <p>Pionia avoids dictating how you should handle log rotation. You can use the <code>logrotate</code> utility to rotate logs. Here is an example configuration for log rotation:</p>
 

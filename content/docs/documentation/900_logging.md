@@ -151,7 +151,17 @@ LOG_PROCESSORS=Monolog\Processor\ProcessIdProcessor, Monolog\Processor\MemoryUsa
 ```
 By default, no processor is added to the logger.
 
-With the above above, you app now logs the process id and memory usage in the logs.
+With the above, you app now logs the process id and memory usage in the logs.
+
+### Renaming the logs.
+
+Currently, all logs indicate the `pionia` prefix. You can change this by defining the `APP_NAME` setting in the `settings.ini` file:
+
+```ini
+[SERVER]
+APP_NAME=blog
+```
+The above will change the prefix to `blog`.
 
 ## Log Rotation
 
