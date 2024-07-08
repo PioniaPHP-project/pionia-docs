@@ -2,81 +2,81 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pionia Framework on Pionia</title>
-    <link>http://localhost:1313/</link>
+    <link>http://localhost:50459/</link>
     <description>Recent content in Pionia Framework on Pionia</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Sun, 07 Jul 2024 22:46:26 +0300</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Jul 2024 15:39:07 +0300</lastBuildDate>
+    <atom:link href="http://localhost:50459/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to MoonLight Architecture</title>
-      <link>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</link>
+      <link>http://localhost:50459/moonlight/introduction-to-moonlight-architecture/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</guid>
+      <guid>http://localhost:50459/moonlight/introduction-to-moonlight-architecture/</guid>
       <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
     </item>
     <item>
       <title>Security in moonlight</title>
-      <link>http://localhost:1313/moonlight/security-in-moonlight/</link>
+      <link>http://localhost:50459/moonlight/security-in-moonlight/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/security-in-moonlight/</guid>
+      <guid>http://localhost:50459/moonlight/security-in-moonlight/</guid>
       <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
     </item>
     <item>
       <title>API Versioning in Moonlight</title>
-      <link>http://localhost:1313/moonlight/api-versioning-in-moonlight/</link>
+      <link>http://localhost:50459/moonlight/api-versioning-in-moonlight/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/api-versioning-in-moonlight/</guid>
+      <guid>http://localhost:50459/moonlight/api-versioning-in-moonlight/</guid>
       <description>Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning.</description>
     </item>
     <item>
       <title>Example Post</title>
-      <link>http://localhost:1313/blog/example-post/</link>
+      <link>http://localhost:50459/blog/example-post/</link>
       <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
-      <guid>http://localhost:1313/blog/example-post/</guid>
+      <guid>http://localhost:50459/blog/example-post/</guid>
       <description>You can use blog posts for announcing product updates and features.</description>
     </item>
     <item>
       <title>Introduction</title>
-      <link>http://localhost:1313/documentation/introduction/</link>
+      <link>http://localhost:50459/documentation/introduction/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/introduction/</guid>
+      <guid>http://localhost:50459/documentation/introduction/</guid>
       <description>About Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework.</description>
     </item>
     <item>
       <title>Why Pionia?</title>
-      <link>http://localhost:1313/documentation/why-pionia/</link>
+      <link>http://localhost:50459/documentation/why-pionia/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/why-pionia/</guid>
+      <guid>http://localhost:50459/documentation/why-pionia/</guid>
       <description>Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary complexities that come with most common traditional frameworks.</description>
     </item>
     <item>
       <title>Application Structure</title>
-      <link>http://localhost:1313/documentation/application-structure/</link>
+      <link>http://localhost:50459/documentation/application-structure/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/application-structure/</guid>
+      <guid>http://localhost:50459/documentation/application-structure/</guid>
       <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
     <item>
       <title>API Tutorial</title>
-      <link>http://localhost:1313/documentation/api-tutorial/</link>
+      <link>http://localhost:50459/documentation/api-tutorial/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/api-tutorial/</guid>
+      <guid>http://localhost:50459/documentation/api-tutorial/</guid>
       <description>This section assumes that you have already setup your pinia framework project.</description>
     </item>
     <item>
       <title>Services</title>
-      <link>http://localhost:1313/documentation/services/</link>
+      <link>http://localhost:50459/documentation/services/</link>
       <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/services/</guid>
+      <guid>http://localhost:50459/documentation/services/</guid>
       <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
     </item>
     <item>
       <title>Generic Services</title>
-      <link>http://localhost:1313/documentation/generic-services/</link>
+      <link>http://localhost:50459/documentation/generic-services/</link>
       <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/generic-services/</guid>
+      <guid>http://localhost:50459/documentation/generic-services/</guid>
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
   </channel>

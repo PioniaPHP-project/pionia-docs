@@ -2,60 +2,60 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Documentation on Pionia</title>
-    <link>http://localhost:1313/docs/documentation/</link>
+    <link>http://localhost:50459/docs/documentation/</link>
     <description>Recent content in Documentation on Pionia</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Sun, 07 Jul 2024 22:46:26 +0300</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Jul 2024 15:39:07 +0300</lastBuildDate>
+    <atom:link href="http://localhost:50459/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction</title>
-      <link>http://localhost:1313/documentation/introduction/</link>
+      <link>http://localhost:50459/documentation/introduction/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/introduction/</guid>
+      <guid>http://localhost:50459/documentation/introduction/</guid>
       <description>About Welcome to the official documentation of pionia - /ˌpʌɪəˈnɪə/ framework.</description>
     </item>
     <item>
       <title>Why Pionia?</title>
-      <link>http://localhost:1313/documentation/why-pionia/</link>
+      <link>http://localhost:50459/documentation/why-pionia/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/why-pionia/</guid>
+      <guid>http://localhost:50459/documentation/why-pionia/</guid>
       <description>Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary complexities that come with most common traditional frameworks.</description>
     </item>
     <item>
       <title>Application Structure</title>
-      <link>http://localhost:1313/documentation/application-structure/</link>
+      <link>http://localhost:50459/documentation/application-structure/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/application-structure/</guid>
+      <guid>http://localhost:50459/documentation/application-structure/</guid>
       <description>Taking our directory structure from the API Tutorial we created here.</description>
     </item>
     <item>
       <title>API Tutorial</title>
-      <link>http://localhost:1313/documentation/api-tutorial/</link>
+      <link>http://localhost:50459/documentation/api-tutorial/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/documentation/api-tutorial/</guid>
+      <guid>http://localhost:50459/documentation/api-tutorial/</guid>
       <description>This section assumes that you have already setup your pinia framework project.</description>
     </item>
     <item>
       <title>Services</title>
-      <link>http://localhost:1313/documentation/services/</link>
+      <link>http://localhost:50459/documentation/services/</link>
       <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/services/</guid>
+      <guid>http://localhost:50459/documentation/services/</guid>
       <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
     </item>
     <item>
       <title>Generic Services</title>
-      <link>http://localhost:1313/documentation/generic-services/</link>
+      <link>http://localhost:50459/documentation/generic-services/</link>
       <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/generic-services/</guid>
+      <guid>http://localhost:50459/documentation/generic-services/</guid>
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
     <item>
       <title>Security - Authentication and Authorization</title>
-      <link>http://localhost:1313/documentation/security-authentication-and-authorization/</link>
+      <link>http://localhost:50459/documentation/security-authentication-and-authorization/</link>
       <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/security-authentication-and-authorization/</guid>
+      <guid>http://localhost:50459/documentation/security-authentication-and-authorization/</guid>
       <description>Authentication and Authorization are two important aspects of security in any application. This guide will show you how to secure your application using pionia.</description>
     </item>
   </channel>

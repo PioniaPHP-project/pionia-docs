@@ -23,9 +23,8 @@ Pionia is all the beautiful parts of Moonlight paradigm. But as the framework, i
 are some of the reasons why you should consider using Pionia:
 
 1. **Simplicity**: Pionia is designed to be simple and easy to use. It has a clean and intuitive API that makes it easy 
-to get started with. Remember that boiler plate code you usually have get.
-get after installing most frameworks? Pionia doesn't have even quarter of that. Staff like controllers, routes, models 
-are not here. You just need to write your services and you are good to go.
+to get started with. Remember that boilerplate code you usually get after installing most frameworks? Pionia doesn't have even quarter of that. Staff like controllers, routes, models 
+are not here. You just need to write your services, and you are good to go.
 
 2. **Query Builder**: Pionia comes with a powerful query builder that makes it easy to interact with the database. We know you're
 already used to models and ORM. This has both pros and cons. Models usually undergo a process called model hydration while populating the resultset

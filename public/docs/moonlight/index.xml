@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Moonlight Architecture on Pionia</title>
-    <link>http://localhost:1313/docs/moonlight/</link>
+    <link>http://localhost:50459/docs/moonlight/</link>
     <description>Recent content in Moonlight Architecture on Pionia</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
     <lastBuildDate>Mon, 01 Jul 2024 10:38:31 +0300</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/moonlight/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:50459/docs/moonlight/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to MoonLight Architecture</title>
-      <link>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</link>
+      <link>http://localhost:50459/moonlight/introduction-to-moonlight-architecture/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</guid>
+      <guid>http://localhost:50459/moonlight/introduction-to-moonlight-architecture/</guid>
       <description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description>
     </item>
     <item>
       <title>Security in moonlight</title>
-      <link>http://localhost:1313/moonlight/security-in-moonlight/</link>
+      <link>http://localhost:50459/moonlight/security-in-moonlight/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/security-in-moonlight/</guid>
+      <guid>http://localhost:50459/moonlight/security-in-moonlight/</guid>
       <description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description>
     </item>
     <item>
       <title>API Versioning in Moonlight</title>
-      <link>http://localhost:1313/moonlight/api-versioning-in-moonlight/</link>
+      <link>http://localhost:50459/moonlight/api-versioning-in-moonlight/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
-      <guid>http://localhost:1313/moonlight/api-versioning-in-moonlight/</guid>
+      <guid>http://localhost:50459/moonlight/api-versioning-in-moonlight/</guid>
       <description>Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning.</description>
     </item>
   </channel>
