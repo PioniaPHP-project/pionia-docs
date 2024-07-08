@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Database on Pionia</title>
-    <link>http://localhost:50459/docs/documentation/database/</link>
+    <link>http://localhost:1313/docs/documentation/database/</link>
     <description>Recent content in Database on Pionia</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <atom:link href="http://localhost:50459/docs/documentation/database/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/docs/documentation/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Configuration - Getting Started</title>
-      <link>http://localhost:50459/documentation/database/configuration-getting-started/</link>
+      <link>http://localhost:1313/documentation/database/configuration-getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:50459/documentation/database/configuration-getting-started/</guid>
+      <guid>http://localhost:1313/documentation/database/configuration-getting-started/</guid>
       <description>This section assumes you have already set up your project and have already gone through the Api Tutorial guide atleast.</description>
     </item>
     <item>
       <title>Making Queries</title>
-      <link>http://localhost:50459/documentation/database/making-queries/</link>
+      <link>http://localhost:1313/documentation/database/making-queries/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:50459/documentation/database/making-queries/</guid>
+      <guid>http://localhost:1313/documentation/database/making-queries/</guid>
       <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
     </item>
     <item>
       <title>Queries with Filtering</title>
-      <link>http://localhost:50459/documentation/database/queries-with-filtering/</link>
+      <link>http://localhost:1313/documentation/database/queries-with-filtering/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:50459/documentation/database/queries-with-filtering/</guid>
+      <guid>http://localhost:1313/documentation/database/queries-with-filtering/</guid>
       <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
     </item>
     <item>
       <title>Using Functions - Aggregation</title>
-      <link>http://localhost:50459/documentation/database/using-functions-aggregation/</link>
+      <link>http://localhost:1313/documentation/database/using-functions-aggregation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:50459/documentation/database/using-functions-aggregation/</guid>
+      <guid>http://localhost:1313/documentation/database/using-functions-aggregation/</guid>
       <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
     </item>
   </channel>
