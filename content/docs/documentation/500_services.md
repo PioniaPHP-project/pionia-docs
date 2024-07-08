@@ -223,7 +223,7 @@ class TodoService extends BaseRestService
 ```
 
 {{<callout note>}}
-For details about request and responses, you can check the [request and response section](/documentation/request-response/).
+For details about request and responses, you can check the [request and response section](/documentation/requests-and-responses).
 {{</callout>}}
 
 ## Action protection
@@ -281,7 +281,7 @@ class TodoService extends BaseRestService
 ```
 
 {{<callout note>}}
-Details of how Pionia achieves authentication and authorization can be found in the [authentication section](/documentation/authentication/).
+Details of how Pionia achieves authentication and authorization can be found in the [authentication section](/documentation/security-authentication-and-authorization/).
 {{</callout>}}
 
 ## Error Handling

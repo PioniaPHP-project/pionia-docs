@@ -469,9 +469,11 @@
     <li><a href="#authorization">Authorization</a>
       <ul>
         <li><a href="#permissions---authorities">Permissions - Authorities</a></li>
+        <li><a href="#using-the-actionpermission-service-property">Using the <code>$actionPermission</code> service property.</a></li>
         <li><a href="#custom-authorization-messages">Custom Authorization Messages</a></li>
       </ul>
     </li>
+    <li><a href="#custom-return-codes">Custom Return Codes.</a></li>
   </ul>
 </nav>
 </div>
@@ -500,9 +502,11 @@
     <li><a href="#authorization">Authorization</a>
       <ul>
         <li><a href="#permissions---authorities">Permissions - Authorities</a></li>
+        <li><a href="#using-the-actionpermission-service-property">Using the <code>$actionPermission</code> service property.</a></li>
         <li><a href="#custom-authorization-messages">Custom Authorization Messages</a></li>
       </ul>
     </li>
+    <li><a href="#custom-return-codes">Custom Return Codes.</a></li>
   </ul>
 </nav>
     </div>
@@ -803,6 +807,43 @@ you can use <code>$this-&gt;getAuthExtraByKey($key)</code>.</p>
 <p>In Pionia, authorization is done using permissions. Permissions are authorization rules that you can set on your context object in your authentication backend.</p>
 <h3 id="permissions---authorities">Permissions - Authorities<a href="#permissions---authorities" class="anchor" aria-hidden="true">#</a> </h3>
 <p>There are three ways to check if a user has a certain permission[s]/authority[ies].</p>
+<h3 id="using-the-actionpermission-service-property">Using the <code>$actionPermission</code> service property.<a href="#using-the-actionpermission-service-property" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This can be used both in the normal and in generic services. It defines an associative array that defines permission list per action.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$actionPermissions</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;create&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;create_todo&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;update_todo&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;delete&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;delete_todo&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p><em>From Version 1.1.4, this can also take up strings like below</em></p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$actionPermissions</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;create&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;create_todo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;update_todo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;delete&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete_todo&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Permissions <code>create_todo</code>, <code>update_todo</code> are permissions you set on the context user object from your authentication backends.
+If these are not defined, the service won&rsquo;t be accessed.</p>
+<p>The above implies that to access</p>
 <h4 id="using-the-can-method">Using the <code>can</code> method<a href="#using-the-can-method" class="anchor" aria-hidden="true">#</a> </h4>
 <p>You can check if a user has a certain permission by using the <code>can</code> method that is available on the service.</p>
 
@@ -908,6 +949,26 @@ you can use <code>$this-&gt;getAuthExtraByKey($key)</code>.</p>
   </div>
 </div>
 
+<h2 id="custom-return-codes">Custom Return Codes.<a href="#custom-return-codes" class="anchor" aria-hidden="true">#</a> </h2>
+<p>By default, Pionia will return a <code>401</code> return code if the user is not authenticated and a <code>403</code> return code if the user does not have the necessary permissions.</p>
+<p>You can override these permissions by defining the <code>UNAUTHENTICATED_CODE</code> and the <code>UNAUTHORIZED_CODE</code> in the <code>settings.ini</code> under the <code>SERVER</code> section.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[SERVER]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; other settings</span>
+</span></span><span class="line"><span class="cl"><span class="na">UNAUTHENTICATED_CODE</span> <span class="o">=</span> <span class="s">10</span>
+</span></span><span class="line"><span class="cl"><span class="na">UNAUTHORIZED_CODE</span> <span class="o">=</span> <span class="s">11</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; other settings</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Using the above example, <code>10</code> and <code>11</code> will override the default <code>401</code> and <code>403</code> return codes respectively.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/generic-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-06-29T19:57:09+03:00">
-<meta property="article:modified_time" content="2024-07-07T22:45:06+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-07-07T22:46:26+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Generic Services">
@@ -500,6 +500,7 @@
         <li><a href="#why-would-you-need-these-hooks">Why would you need these hooks?</a></li>
       </ul>
     </li>
+    <li><a href="#securing-generic-services">Securing Generic Services.</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -560,6 +561,7 @@
         <li><a href="#why-would-you-need-these-hooks">Why would you need these hooks?</a></li>
       </ul>
     </li>
+    <li><a href="#securing-generic-services">Securing Generic Services.</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -1283,6 +1285,59 @@ You can use it as you see fit. The object that is returned from this hook is wha
   </div>
 </div>
 
+<h2 id="securing-generic-services">Securing Generic Services.<a href="#securing-generic-services" class="anchor" aria-hidden="true">#</a> </h2>
+<p>The fact that Generic Services extend <code>BaseRestService</code> means that all authentication and authorization checks are still in place.</p>
+<p>You can still use <code>$serviceRequiresAuth</code> to protect the entire service from unauthenticated access.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$serviceRequiresAuth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also define a few actions that will require authentication like below.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$actionsRequiringAuth</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;create&#39;</span><span class="p">,</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can also protect actions by permissions using the <code>$actionPermissions</code> property.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$actionPermissions</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;create&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;create_student&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;update_student&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This will ensure that only users with the listed permissions can access the action.</p>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Please note that the permissions are represented as an <code>array</code> not a <code>string</code>.</p>
+
+    </div>
+  </div>
+</div>
+
 <h2 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true">#</a> </h2>
 <p>The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.</p>
 <p>You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.</p>
@@ -1290,7 +1345,7 @@ You can use it as you see fit. The object that is returned from this hook is wha
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/f81bea364298ed05cd668ca3a84fe41dfdadced1">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/a018c7f41238ccaedacef0420113217ef2f58c86">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Last updated on July 7, 2024
     </a>

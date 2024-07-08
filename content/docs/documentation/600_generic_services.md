@@ -575,6 +575,36 @@ You can use it as you see fit. The object that is returned from this hook is wha
 The hooks are not to be used outside services that extend the `GenericService` class. They are already included in the generic services.
 {{</callout >}}
 
+## Securing Generic Services.
+
+The fact that Generic Services extend `BaseRestService` means that all authentication and authorization checks are still in place.
+
+You can still use `$serviceRequiresAuth` to protect the entire service from unauthenticated access.
+
+```php
+public bool $serviceRequiresAuth = true;
+```
+
+You can also define a few actions that will require authentication like below.
+```php
+public ?array $actionsRequiringAuth = ['create', 'update', 'delete'];
+```
+
+You can also protect actions by permissions using the `$actionPermissions` property.
+
+```php
+public ?array $actionPermissions = [
+    'create' => ['create_student'],
+    'update' => ['update_student'],
+];
+```
+
+This will ensure that only users with the listed permissions can access the action.
+
+{{<callout note>}}
+Please note that the permissions are represented as an `array` not a `string`.
+{{</callout >}}
+
 ## Conclusion
 
 The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.

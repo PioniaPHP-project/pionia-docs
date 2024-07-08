@@ -250,6 +250,35 @@ In Pionia, authorization is done using permissions. Permissions are authorizatio
 
 There are three ways to check if a user has a certain permission[s]/authority[ies].
 
+### Using the `$actionPermission` service property.
+
+This can be used both in the normal and in generic services. It defines an associative array that defines permission list per action.
+
+```php 
+
+public array $actionPermissions = [
+    'create' => ['create_todo'],
+    'update' => ['update_todo'],
+    'delete' => ['delete_todo']
+];
+```
+
+*From Version 1.1.4, this can also take up strings like below*
+
+```php
+public array $actionPermissions = [
+    'create' => 'create_todo',
+    'update' => 'update_todo',
+    'delete' => 'delete_todo'
+];
+```
+
+Permissions `create_todo`, `update_todo` are permissions you set on the context user object from your authentication backends. 
+If these are not defined, the service won't be accessed.
+
+
+The above implies that to access 
+
 #### Using the `can` method
 
 You can check if a user has a certain permission by using the `can` method that is available on the service.
@@ -320,3 +349,21 @@ All the authentication and authorization should happen early in the an action. T
 {{<callout  tip>}}
 Remember, all authentication backends run after middlewares. This is because middlewares can be used to sanatize the request, and therefore, it is important to run them before the authentication backends.
 {{</callout>}}
+
+
+## Custom Return Codes.
+
+By default, Pionia will return a `401` return code if the user is not authenticated and a `403` return code if the user does not have the necessary permissions.
+
+You can override these permissions by defining the `UNAUTHENTICATED_CODE` and the `UNAUTHORIZED_CODE` in the `settings.ini` under the `SERVER` section.
+
+```ini
+
+[SERVER]
+; other settings
+UNAUTHENTICATED_CODE = 10
+UNAUTHORIZED_CODE = 11
+; other settings
+
+```
+Using the above example, `10` and `11` will override the default `401` and `403` return codes respectively.
