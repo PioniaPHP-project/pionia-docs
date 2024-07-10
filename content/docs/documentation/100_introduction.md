@@ -101,11 +101,12 @@ This is just a sample configuration. You can modify it to suit your needs. But m
 
 ## Contributing
 
-However, the framework is maintained at [Service Cops - East Africa,](https://servicecops.com/) but we welcome contributors from all walks of life.
+However, the framework is maintained by a dedicated team and welcomes you as our next contributor on any of our related projects.
 
 You can contribute to the framework, documentation or by helping us grow the community through writing articles, tutorials, and sharing your experience with the framework on any media platform.
 
-> The framework itself strips off all the unnecessary features that are found in other frameworks and leaves you with only what you need to build a RESTful API. This means you can also contribute by building plugins and extensions that can be used with the framework.
+> The framework itself strips off all the unnecessary features that are found in other frameworks and leaves you with only what you need to build a RESTful API.
+> This means you can also contribute by building plugins and extensions that can be used with the framework.
 
 If you want to contribute to this documentation, you can find the source code on [GitHub](https://github.com/PioniaPHP-project/Pionia-App).
 
