@@ -13,7 +13,6 @@ seo:
   noindex: false # false (default) or true
 ---
 
-
 ## License
 
 MIT License

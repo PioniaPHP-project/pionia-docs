@@ -14,10 +14,10 @@
 
 <link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
 
-<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/logging-in-pionia/">
-  <link rel="canonical" href="http://localhost:1313/documentation/logging-in-pionia/">
-<title>Logging in Pionia</title>
-<meta name="description" content="Guides us through the process of logging in pionia.">
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/data-validation/">
+  <link rel="canonical" href="http://localhost:1313/documentation/data-validation/">
+<title>Validation of data in Pionia</title>
+<meta name="description" content="Data validation is a critical part of any application. This guide will show you how to validate data in pionia.">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -43,16 +43,16 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Logging in Pionia">
-<meta property="og:description" content="Guides us through the process of logging in pionia.">
+<meta property="og:title" content="Data Validation">
+<meta property="og:description" content="Guides you through the process of validating data in pionia.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/logging-in-pionia/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2024-06-29T21:06:45+03:00">
-<meta property="article:modified_time" content="2024-07-08T19:34:38+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/documentation/data-validation/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-07-11T10:37:12+03:00">
+<meta property="article:modified_time" content="2024-07-11T10:37:12+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Logging in Pionia">
-<meta name="twitter:description" content="Guides us through the process of logging in pionia.">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Data Validation">
+<meta name="twitter:description" content="Guides you through the process of validating data in pionia.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -82,7 +82,7 @@
      },
      {
        "@type": "ListItem",
-       "name": "Logging in Pionia",
+       "name": "Data Validation",
        "position": 4
      }
    ]
@@ -201,7 +201,11 @@
   </li>
 
   <li class="active" >
-      <a aria-current="page" href="/documentation/logging-in-pionia/">Logging in Pionia</a>
+      <a aria-current="page" href="/documentation/data-validation/">Data Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
       </ul>
     </details>
@@ -427,7 +431,11 @@
   </li>
 
   <li class="active" >
-      <a aria-current="page" href="/documentation/logging-in-pionia/">Logging in Pionia</a>
+      <a aria-current="page" href="/documentation/data-validation/">Data Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
       </ul>
     </details>
@@ -464,20 +472,7 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#initialization">Initialization</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#customization">Customization</a>
-      <ul>
-        <li><a href="#log-file">Log File</a></li>
-        <li><a href="#log-format">Log Format</a></li>
-        <li><a href="#logging-settings">Logging Settings</a></li>
-        <li><a href="#securing-log-entries">Securing Log Entries</a></li>
-        <li><a href="#turning-off-logs">Turning off logs</a></li>
-        <li><a href="#logging-requests">Logging Requests</a></li>
-        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
-      </ul>
-    </li>
-    <li><a href="#log-rotation">Log Rotation</a></li>
+    <li><a href="#introduction">Introduction</a></li>
   </ul>
 </nav>
 </div>
@@ -485,7 +480,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>Logging in Pionia</h1>
+			<h1>Data Validation</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -493,271 +488,17 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#initialization">Initialization</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#customization">Customization</a>
-      <ul>
-        <li><a href="#log-file">Log File</a></li>
-        <li><a href="#log-format">Log Format</a></li>
-        <li><a href="#logging-settings">Logging Settings</a></li>
-        <li><a href="#securing-log-entries">Securing Log Entries</a></li>
-        <li><a href="#turning-off-logs">Turning off logs</a></li>
-        <li><a href="#logging-requests">Logging Requests</a></li>
-        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
-      </ul>
-    </li>
-    <li><a href="#log-rotation">Log Rotation</a></li>
+    <li><a href="#introduction">Introduction</a></li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<p>At its core, Pionia uses the <a href="https://github.com/Seldaek/monolog">Monolog</a> library to handle logging.</p>
-<h2 id="initialization">Initialization<a href="#initialization" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Logging is inbuilt in Pionia. To view the logs in real-time, you can run the following command in a different terminal window pointing to your log file, which is by default <code>server.log</code>:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tail -f server.log <span class="c1"># replace server.log with your log file</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h2 id="usage">Usage<a href="#usage" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Anywhere in your app, just call the <code>logger</code> constant to log messages. The following log levels are available:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getItem</span><span class="p">()</span><span class="o">:</span> <span class="o">?</span><span class="nx">object</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">debug</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">critical</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">warning</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">notice</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">alert</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">emergency</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">([</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pk_field</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pk_field</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$item</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">listColumns</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s2">&#34;Gotten item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$item</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above code will log messages at different levels. You can then view the logs in the <code>server.log</code> file.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[2024-07-08T15:29:28.809573+00:00] pionia.INFO &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809623+00:00] pionia.DEBUG &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809654+00:00] pionia.CRITICAL &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809680+00:00] pionia.ERROR &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809706+00:00] pionia.WARNING &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809728+00:00] pionia.NOTICE &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809751+00:00] pionia.ALERT &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809773+00:00] pionia.EMERGENCY &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.811627+00:00] pionia.INFO &gt;&gt; Gotten item :: </span></span></code></pre></div>
-  </figure>
-</div>
-<h2 id="customization">Customization<a href="#customization" class="anchor" aria-hidden="true">#</a> </h2>
-<h3 id="log-file">Log File<a href="#log-file" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can change the file to log to by defining the log destination in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_DESTINATION</span><span class="o">=</span><span class="s">server.log</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>If you want to log to php://stdout, you can define the log destination as <code>stdout</code>.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_DESTINATION</span><span class="o">=</span><span class="s">stdout</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="log-format">Log Format<a href="#log-format" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can also change the log format by defining the log format in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_FORMAT</span><span class="o">=</span><span class="s">TEXT</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Log formats can be <code>TEXT</code> or <code>JSON</code>.</p>
-<h3 id="logging-settings">Logging Settings<a href="#logging-settings" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can define the sections of <code>settings.ini</code> you want to log along:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[LOGGER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOGGED_SETTINGS</span><span class="o">=</span><span class="s">db,SERVER</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="securing-log-entries">Securing Log Entries<a href="#securing-log-entries" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can hide sensitive information from the logs by defining the sensitive fields in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">HIDE_IN_LOGS</span><span class="o">=</span><span class="s">password,pin,acc</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above means that whenever a log entry contains any of the fields <code>password</code>, <code>pin</code>, or <code>acc</code>, the value will be replaced with <code>*******</code>.</p>
-<p>You can also define the string to replace the sensitive fields with:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">HIDE_SUB</span><span class="o">=</span><span class="s">**********</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="turning-off-logs">Turning off logs<a href="#turning-off-logs" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can simply turn off <code>DEBUG</code> mode in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">DEBUG</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>However much this is okay, but sometimes, if not most times, we would want to leave the logs on even when we are not in <code>DEBUG</code> mode.</p>
-<p>The following settings can be defined in the <code>settings.ini</code> file:</p>
-<h3 id="logging-requests">Logging Requests<a href="#logging-requests" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can log requests by defining the <code>LOG_REQUESTS</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_REQUESTS</span><span class="o">=</span><span class="s">true</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Whether in <code>DEBUG</code> or not, if the above is turned on, all requests will be logged.
-By default, this attempts to log both the requests and responses. However, Responses are sometimes heavy and you may choose to omit them. You can do so by defining the <code>LOG_RESPONSES</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_RESPONSES</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Also, defining the <code>LOG_RESPONSES</code> setting as <code>true</code> will log only the responses without the requests.</p>
-<p>With version 1.1.4, you can also define which Monolog processors you would like to include.</p>
-<p>You can achieve this by defining the <code>LOG_PROCESSORS</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_PROCESSORS</span><span class="o">=</span><span class="s">Monolog\Processor\ProcessIdProcessor, Monolog\Processor\MemoryUsageProcessor</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>By default, no processor is added to the logger.</p>
-<p>With the above, you app now logs the process id and memory usage in the logs.</p>
-<h3 id="renaming-the-logs">Renaming the logs.<a href="#renaming-the-logs" class="anchor" aria-hidden="true">#</a> </h3>
-<p>By default, all logs indicate the <code>pionia</code> prefix. You can change this by defining the <code>APP_NAME</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">APP_NAME</span><span class="o">=</span><span class="s">blog</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above will change the prefix to <code>blog</code>.</p>
-<h2 id="log-rotation">Log Rotation<a href="#log-rotation" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia avoids dictating how you should handle log rotation. You can use the <code>logrotate</code> utility to rotate logs. Here is an example configuration for log rotation:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/path/to/your/log/file <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    daily
-</span></span><span class="line"><span class="cl">    rotate <span class="m">7</span>
-</span></span><span class="line"><span class="cl">    compress
-</span></span><span class="line"><span class="cl">    delaycompress
-</span></span><span class="line"><span class="cl">    missingok
-</span></span><span class="line"><span class="cl">    notifempty
-</span></span><span class="line"><span class="cl">    create
-</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>There is a cool <a href="https://www.digitalocean.com/community/tutorials/how-to-manage-logfiles-with-logrotate-on-ubuntu-16-04">article about handling log rotation here</a>.</p>
-<p>That&rsquo;s it! You now know how to log in Pionia.</p>
+			<h2 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Data validation is a critical part of any application. It ensures that the data you receive is in the correct format and meets the required criteria.
+In Pionia, data validation is done using the <a href="https://respect-validation.readthedocs.io/en/2.0/">Respect Validation</a> library.
+This library provides a set of rules that you can use to validate data.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				
@@ -779,7 +520,7 @@ By default, this attempts to log both the requests and responses. However, Respo
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/1000_logging.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/900_data_validators.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -802,7 +543,24 @@ By default, this attempts to log both the requests and responses. However, Respo
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/resources/" class="stretched-link text-reset text-decoration-none">Resources</a>
+					<a href="/documentation/database/using-functions-aggregation/" class="stretched-link text-reset text-decoration-none">Using Functions - Aggregation</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/reference/example-reference/" class="stretched-link text-reset text-decoration-none">Example Reference</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
 				</div>
 			</div>
 		</div>

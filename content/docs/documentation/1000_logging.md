@@ -5,7 +5,7 @@ summary: "As a developer, you need to log information about the application's st
 date: 2024-06-29 21:06:45.763 +0300
 lastmod: 2024-07-08 19:34:38.885 +0300
 draft: false
-weight: 900
+weight: 1000
 toc: true
 seo:
   title: "Logging in Pionia" # custom title (optional)
@@ -112,14 +112,14 @@ HIDE_SUB=**********
 ```
 
 ### Turning off logs
-You can simple turn off `DEBUG` mode in the `settings.ini` file:
+You can simply turn off `DEBUG` mode in the `settings.ini` file:
 
 ```ini
 [SERVER]
 DEBUG=false
 ```
 
-However, this is okay, but sometimes, if not most times, we would with to leave the logs on even when we are not in `DEBUG` mode.
+However much this is okay, but sometimes, if not most times, we would want to leave the logs on even when we are not in `DEBUG` mode.
 
 The following settings can be defined in the `settings.ini` file:
 
@@ -155,7 +155,7 @@ With the above, you app now logs the process id and memory usage in the logs.
 
 ### Renaming the logs.
 
-Currently, all logs indicate the `pionia` prefix. You can change this by defining the `APP_NAME` setting in the `settings.ini` file:
+By default, all logs indicate the `pionia` prefix. You can change this by defining the `APP_NAME` setting in the `settings.ini` file:
 
 ```ini
 [SERVER]
