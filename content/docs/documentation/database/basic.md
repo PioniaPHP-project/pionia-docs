@@ -251,3 +251,27 @@ $data = Porm::from('posts')->has($id);
 
 var_dump($data); // true or false
 ```
+
+## Raw Queries
+
+Before we dive into complex database querying, Let's first look at a basic raw query mechanism that porm presents to us. This can be 
+handy especially when you think that the query you need, is not supported by porm by default. However, overusing this feature can
+somehow mean you are not using porm well.
+
+```php
+
+use Porm\Porm;
+
+$data = Porm::rawQuery('select * from posts where id = 1');
+```
+
+If the `$data` above comprises one item, then the result will be an object. If it comprises of multiple items, then the result will be an array.
+
+You can also pass conditions to the `rawQuery` method.
+
+```php
+
+use Porm\Porm;
+
+$data = Porm::rawQuery('select * from posts where id = :id', ['id' => 1]);
+```

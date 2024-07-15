@@ -454,6 +454,7 @@
       "random",
       "random-records",
       "randommixin",
+      "raw-queries",
       "rbac---service-level-authorization",
       "regex",
       "registering-your-authentication-backend",

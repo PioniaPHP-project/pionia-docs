@@ -23,10 +23,10 @@ identifier = "lorem"
 url = "/guide/lorem/"
 
 [[tutorial]]
-name = "Lorem"
+name = "Tutorial"
 weight = 10
-identifier = "lorem"
-url = "/tutorial/lorem/"
+identifier = "tutorial"
+url = "/tutorial/"
 
 [[main]]
 name = "Documentation"
@@ -42,7 +42,7 @@ weight = 10
 
 [[main]]
 name = "Moonlight"
-url = "/moonlight/moonlight-architecture/"
+url = "/moonlight/introduction-to-moonlight-architecture/"
 # url = "/docs/1.0/prologue/introduction/"
 weight = 10
 

@@ -45,7 +45,7 @@ alert = false           # false (default) or true
 alertDismissable = true # true (default) or false
 
 # Bootstrap
-bootstrapJavascript = true # false (default) or true
+bootstrapJavascript = false # false (default) or true
 
 # Nav
 sectionNav = [

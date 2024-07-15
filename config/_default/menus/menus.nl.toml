@@ -6,7 +6,7 @@ url = "/docs/prologue/"
 
 [[docs]]
 name = "Help"
-weight = 60
+weight = 10
 identifier = "help"
 url = "/docs/help/"
 
