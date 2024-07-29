@@ -325,7 +325,7 @@ only the `id` and `name` columns will be returned. This is optional and defaults
 
 ### $limit
 
-This default the initial limit of the number of records to return. It is an integer. It will henceforth be replaced
+This defines the size of records to return. It is an integer. It will henceforth be replaced
 by the `LIMIT` or `limit` on the request if it is defined or in the `PAGINATION` or `pagination` key in the request.
 
 By default, this is set to 10 records.
@@ -341,7 +341,7 @@ class StudentService extends RetrieveCreateUpdateService
 
 ### $offset
 
-This default the initial offset of the number of records to return. It is an integer. It will henceforth be replaced
+This defines the offset where to start querying from. It is an integer. It will henceforth to be replaced
 by the `OFFSET` or `offset` on the request if it is defined or in the `PAGINATION` or `pagination` key in the request.
 
 By default, this is set to 0 records.
@@ -356,8 +356,8 @@ class StudentService extends RetrieveCreateUpdateService
 ```
 
 {{<callout note>}}
-`limit` or `LIMIT` and `offset` or `OFFSET` must be defined on the request or in the `PAGINATION` or `pagination` key in the request
-for pagination to kick in, otherwise, `list` will return all records.
+`limit` or `LIMIT` and `offset` or `OFFSET` must both be defined on the request or in the `PAGINATION` or `pagination` or in the `SEARCH` or `search` key in the request
+for pagination to kick in, otherwise, each will perform its respective duty without pagination.
 {{</callout >}}
 
 ## Overriding Actions

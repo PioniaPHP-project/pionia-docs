@@ -27,7 +27,7 @@ Security is a very important aspect of any application. In Pionia, Security is a
 
 ## Authentication - Authentication Backends.
 
-Currently Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.
+Currently, Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.
 
 {{<callout note >}}
 Pionia keeps an open mind on how you want to secure your apis. Most commonly, you will find JWT, OAuth, Basic Auth, and many more helpful.
@@ -88,7 +88,7 @@ class JwtAuthBackend extends BaseAuthenticationBackend
 	/**
 	 * Implement this method and return your 'ContextUserObject'. You can use Porm here too!
 	 */
-	public function authenticate(Request $request): ContextUserObject
+	public function authenticate(Request $request):? ContextUserObject
 	{
 		$userObj = new ContextUserObject();
         

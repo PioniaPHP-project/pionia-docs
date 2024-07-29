@@ -14,10 +14,10 @@
 
 <link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
 
-<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/logging-in-pionia/">
-  <link rel="canonical" href="http://localhost:1313/documentation/logging-in-pionia/">
-<title>Logging in Pionia</title>
-<meta name="description" content="Guides us through the process of logging in pionia.">
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/advanced-generic-services/">
+  <link rel="canonical" href="http://localhost:1313/documentation/advanced-generic-services/">
+<title>Pionia Generic Services- Advanced</title>
+<meta name="description" content="Handling Advanced Generic Services in Pionia">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -43,16 +43,16 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Logging in Pionia">
-<meta property="og:description" content="Guides us through the process of logging in pionia.">
+<meta property="og:title" content="Advanced Generic Services">
+<meta property="og:description" content="Guides the developer in the advanced usages on Pionia Generic Services.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/logging-in-pionia/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2024-06-29T21:06:45+03:00">
-<meta property="article:modified_time" content="2024-07-15T19:46:21+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/documentation/advanced-generic-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-06-29T19:57:09+03:00">
+<meta property="article:modified_time" content="2024-06-29T19:57:09+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Logging in Pionia">
-<meta name="twitter:description" content="Guides us through the process of logging in pionia.">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Advanced Generic Services">
+<meta name="twitter:description" content="Guides the developer in the advanced usages on Pionia Generic Services.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -82,7 +82,7 @@
      },
      {
        "@type": "ListItem",
-       "name": "Logging in Pionia",
+       "name": "Advanced Generic Services",
        "position": 4
      }
    ]
@@ -172,8 +172,8 @@
       <a href="/documentation/generic-services/">Generic Services</a>
   </li>
 
-  <li>
-      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
   </li>
 
   <li>
@@ -188,8 +188,8 @@
       <a href="/documentation/jwt-authentication/">JWT Authentication</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/logging-in-pionia/">Logging in Pionia</a>
+  <li>
+      <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
 
   <li>
@@ -410,8 +410,8 @@
       <a href="/documentation/generic-services/">Generic Services</a>
   </li>
 
-  <li>
-      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
   </li>
 
   <li>
@@ -426,8 +426,8 @@
       <a href="/documentation/jwt-authentication/">JWT Authentication</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/logging-in-pionia/">Logging in Pionia</a>
+  <li>
+      <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
 
   <li>
@@ -488,20 +488,21 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#initialization">Initialization</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#customization">Customization</a>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#properties-and-methods">Properties and Methods</a>
       <ul>
-        <li><a href="#log-file">Log File</a></li>
-        <li><a href="#log-format">Log Format</a></li>
-        <li><a href="#logging-settings">Logging Settings</a></li>
-        <li><a href="#securing-log-entries">Securing Log Entries</a></li>
-        <li><a href="#turning-off-logs">Turning off logs</a></li>
-        <li><a href="#logging-requests">Logging Requests</a></li>
-        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
+        <li><a href="#joins">$joins</a></li>
+        <li><a href="#jointypes">$joinTypes</a></li>
+        <li><a href="#as-clause">AS Clause</a></li>
       </ul>
     </li>
-    <li><a href="#log-rotation">Log Rotation</a></li>
+    <li><a href="#creation">Creation</a></li>
+    <li><a href="#uploading-files">Uploading Files</a>
+      <ul>
+        <li><a href="#custom-upload-handler">Custom upload handler</a></li>
+      </ul>
+    </li>
+    <li><a href="#querying-relationships">Querying Relationships</a></li>
   </ul>
 </nav>
 </div>
@@ -509,7 +510,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>Logging in Pionia</h1>
+			<h1>Advanced Generic Services</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -517,42 +518,49 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#initialization">Initialization</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#customization">Customization</a>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#properties-and-methods">Properties and Methods</a>
       <ul>
-        <li><a href="#log-file">Log File</a></li>
-        <li><a href="#log-format">Log Format</a></li>
-        <li><a href="#logging-settings">Logging Settings</a></li>
-        <li><a href="#securing-log-entries">Securing Log Entries</a></li>
-        <li><a href="#turning-off-logs">Turning off logs</a></li>
-        <li><a href="#logging-requests">Logging Requests</a></li>
-        <li><a href="#renaming-the-logs">Renaming the logs.</a></li>
+        <li><a href="#joins">$joins</a></li>
+        <li><a href="#jointypes">$joinTypes</a></li>
+        <li><a href="#as-clause">AS Clause</a></li>
       </ul>
     </li>
-    <li><a href="#log-rotation">Log Rotation</a></li>
+    <li><a href="#creation">Creation</a></li>
+    <li><a href="#uploading-files">Uploading Files</a>
+      <ul>
+        <li><a href="#custom-upload-handler">Custom upload handler</a></li>
+      </ul>
+    </li>
+    <li><a href="#querying-relationships">Querying Relationships</a></li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<p>At its core, Pionia uses the <a href="https://github.com/Seldaek/monolog">Monolog</a> library to handle logging.</p>
-<h2 id="initialization">Initialization<a href="#initialization" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Logging is inbuilt in Pionia. To view the logs in real-time, you can run the following command in a different terminal window pointing to your log file, which is by default <code>server.log</code>:</p>
+			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven&rsquo;t, you can check the <a href="/documentation/generic-services/">Generic Services section</a> first.</p>
 
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tail -f server.log <span class="c1"># replace server.log with your log file</span></span></span></code></pre></div>
-  </figure>
+    </div>
+  </div>
 </div>
-<h2 id="usage">Usage<a href="#usage" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Anywhere in your app, just call the <code>logger</code> constant to log messages. The following log levels are available:</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>Pionia Generic Services can be used to do more than just CRUD operations.
+This section is also still growing immensely as we discover more ways to use Generic Services.
+In this section, we will look at how to use Generic Services for more advanced operations.</p>
+<h2 id="relationships">Relationships<a href="#relationships" class="anchor" aria-hidden="true">#</a> </h2>
+<p>The first advanced operation we will look at is relationships. Pionia Generic Services can not query relationships directly.</p>
+<p>Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.</p>
+<h2 id="properties-and-methods">Properties and Methods<a href="#properties-and-methods" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="joins">$joins<a href="#joins" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The <code>$joins</code> property is an array defining each table we are connecting to and the relationship between them.</p>
+<p>Remember, that we still need our base table to be defined in the <code>$table</code> property.</p>
 
 
 
@@ -561,26 +569,200 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getItem</span><span class="p">()</span><span class="o">:</span> <span class="o">?</span><span class="nx">object</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">debug</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">critical</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">warning</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">notice</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">alert</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">emergency</span><span class="p">(</span><span class="s2">&#34;Getting item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">([</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pk_field</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pk_field</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$item</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">listColumns</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s2">&#34;Gotten item&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$item</span><span class="p">;</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;products&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$joins</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;category_id&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above implies that we have a <code>products</code> table and a <code>category</code> table.
+The <code>products</code> table has a <code>category_id</code> column that relates to the <code>id</code> column in the <code>category</code> table.</p>
+<h3 id="jointypes">$joinTypes<a href="#jointypes" class="anchor" aria-hidden="true">#</a> </h3>
+<p>For each table in the <code>$joins</code> property, we can define the type of join to use.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$joinTypes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="nx">JoinType</span><span class="o">::</span><span class="na">INNER</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If you had defined an alias on your table, you can define the <code>$joinAlias</code> property to use the alias in the query.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinAliases</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This implies that the <code>category</code> table will be aliased as <code>cat</code> in the query. This has to be reflected in all queries that use the <code>category</code> table including
+in the <code>$listColumns</code> property.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$listColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;product.id(id)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;product.name(product_name)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;cat.created_at(category_created_at)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;product.created_at(product_created_at)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;active&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="as-clause">AS Clause<a href="#as-clause" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In the entire Porm including even in the above <code>listColumns</code> property, you can achieve the <code>AS</code> clause to alias columns
+by using the <code>()</code> syntax.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$listColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;product.id(id)&#39;</span><span class="p">,</span> <span class="c1">// product.id AS id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;product.name(product_name)&#34;</span><span class="p">,</span> <span class="c1">// product.name AS product_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">,</span> <span class="c1">// cat.name AS category_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;cat.created_at(category_created_at)&#34;</span><span class="p">,</span> <span class="c1">// cat.created_at AS category_created_at
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;product.created_at(product_created_at)&#34;</span><span class="p">,</span> <span class="c1">// product.created_at AS product_created_at
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;active&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This is applicable to all use cases of Porm.</p>
+<h2 id="creation">Creation<a href="#creation" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not allowed.</p>
+<h2 id="uploading-files">Uploading Files<a href="#uploading-files" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Pionia Generic Services have a built-in file upload feature. This is done by defining the <code>$fileColumns</code> property.</p>
+<p>Imagining the following <code>$createColumns</code>:-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$createColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;active&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;icon_image&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If you want the <code>icon_image</code> to be treated as a file upload, you can define the <code>$fileColumns</code> property as follows:-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$fileColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;icon_image&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This will automatically upload the file and save the file path in the database.</p>
+<p>By default, this behaviour uploads the file to the <code>media</code> directory in the root of your project.
+But you can change this in your <code>settings.ini</code> file by defining the <code>uploads</code> section.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[uploads]</span>
+</span></span><span class="line"><span class="cl"><span class="na">media_dir</span><span class="o">=</span><span class="s">/media</span>
+</span></span><span class="line"><span class="cl"><span class="na">media_url</span><span class="o">=</span><span class="s">/media</span>
+</span></span><span class="line"><span class="cl"><span class="na">max_size</span><span class="o">=</span><span class="s">20000000</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>From the above, the <code>media_dir</code> is the directory where the files will be uploaded to.
+The <code>media_url</code> is the URL to access the files.
+The <code>max_size</code> is the maximum size of the file to be uploaded.</p>
+<h3 id="custom-upload-handler">Custom upload handler<a href="#custom-upload-handler" class="anchor" aria-hidden="true">#</a> </h3>
+<p>If you don&rsquo;t want to upload files to the media directory, you can define a custom upload handler by overriding the <code>handleUpload</code> method.</p>
+<p>This method receives the <code>UploadedFile</code> object as the first argument and the <code>fileName</code> as the second argument.</p>
+<p>The <code>fileName</code> matches the parameter that was used to receive the file in your action, in the example above it would be <code>icon_image</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Provides the default upload behaviour for the service.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can override this method in your service to provide custom upload behaviour.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param UploadedFile $file The file to upload
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $fileName The name to save the file as
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handleUpload</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$file</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fileName</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultUpload</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nv">$fileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This is the core default implementation of the <code>handleUpload</code> method.
+Once this is defined in your service, all files will be uploaded using your custom handler.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>The <code>handleUpload</code> method should return the path to the file to be saved in the database.
+Whatever it returns, we will attempt to save it in the database.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="querying-relationships">Querying Relationships<a href="#querying-relationships" class="anchor" aria-hidden="true">#</a> </h2>
+<p>This is the part where generic services shine the most. The frontend now has access to all the related data.
+So they can even define the columns across relationships defined above to return from the db.</p>
+<p>If the frontend want to withdraw from querying relationships back to querying the base table, they can define the
+<code>dontRelate</code> request parameter as <code>true</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;dontRelate&#34;</span><span class="p">:</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The above code will log messages at different levels. You can then view the logs in the <code>server.log</code> file.</p>
+<p>The frontend can also define the <code>COLUMNS</code> parameter to define the columns to return from the base table.</p>
 
 
 
@@ -589,20 +771,13 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[2024-07-08T15:29:28.809573+00:00] pionia.INFO &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809623+00:00] pionia.DEBUG &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809654+00:00] pionia.CRITICAL &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809680+00:00] pionia.ERROR &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809706+00:00] pionia.WARNING &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809728+00:00] pionia.NOTICE &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809751+00:00] pionia.ALERT &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.809773+00:00] pionia.EMERGENCY &gt;&gt; Getting item ::  
-</span></span><span class="line"><span class="cl">[2024-07-08T15:29:28.811627+00:00] pionia.INFO &gt;&gt; Gotten item :: </span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<h2 id="customization">Customization<a href="#customization" class="anchor" aria-hidden="true">#</a> </h2>
-<h3 id="log-file">Log File<a href="#log-file" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can change the file to log to by defining the log destination in the <code>settings.ini</code> file:</p>
+<p>If your tables are aliased, you can use the alias in the <code>COLUMNS</code> parameter.</p>
 
 
 
@@ -611,11 +786,13 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_DESTINATION</span><span class="o">=</span><span class="s">server.log</span></span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;cat.name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>If you want to log to php://stdout, you can define the log destination as <code>stdout</code>.</p>
+<p>Also, the frontend can achieve the <code>AS</code> clause by using the <code>()</code> syntax.</p>
 
 
 
@@ -624,173 +801,28 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_DESTINATION</span><span class="o">=</span><span class="s">stdout</span></span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;product.id(id)&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">]</span> <span class="c1">// product.id AS id, name, cat.name AS category_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="log-format">Log Format<a href="#log-format" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can also change the log format by defining the log format in the <code>settings.ini</code> file:</p>
+<p>All the other functionalities of the Generic Services are still available in the advanced operations.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>When switching from relationships back to querying the base table alone, Pionia takes care of converting the <code>listColumns</code>
+however, if you had aliased your tables, you need to remember how you named your <code>pk_field</code> as it might no longer be <code>id</code>.</p>
 
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_FORMAT</span><span class="o">=</span><span class="s">TEXT</span></span></span></code></pre></div>
-  </figure>
+    </div>
+  </div>
 </div>
-<p>Log formats can be <code>TEXT</code> or <code>JSON</code>.</p>
-<h3 id="logging-settings">Logging Settings<a href="#logging-settings" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can define the sections of <code>settings.ini</code> you want to log along:</p>
 
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[LOGGER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOGGED_SETTINGS</span><span class="o">=</span><span class="s">db,SERVER</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="securing-log-entries">Securing Log Entries<a href="#securing-log-entries" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can hide sensitive information from the logs by defining the sensitive fields in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">HIDE_IN_LOGS</span><span class="o">=</span><span class="s">password,pin,acc</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above means that whenever a log entry contains any of the fields <code>password</code>, <code>pin</code>, or <code>acc</code>, the value will be replaced with <code>*******</code>.</p>
-<p>You can also define the string to replace the sensitive fields with:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">HIDE_SUB</span><span class="o">=</span><span class="s">**********</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="turning-off-logs">Turning off logs<a href="#turning-off-logs" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can simply turn off <code>DEBUG</code> mode in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">DEBUG</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>However much this is okay, but sometimes, if not most times, we would want to leave the logs on even when we are not in <code>DEBUG</code> mode.</p>
-<p>The following settings can be defined in the <code>settings.ini</code> file:</p>
-<h3 id="logging-requests">Logging Requests<a href="#logging-requests" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can log requests by defining the <code>LOG_REQUESTS</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_REQUESTS</span><span class="o">=</span><span class="s">true</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Whether in <code>DEBUG</code> or not, if the above is turned on, all requests will be logged.
-By default, this attempts to log both the requests and responses. However, Responses are sometimes heavy and you may choose to omit them. You can do so by defining the <code>LOG_RESPONSES</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_RESPONSES</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Also, defining the <code>LOG_RESPONSES</code> setting as <code>true</code> will log only the responses without the requests.</p>
-<p>With version 1.1.4, you can also define which Monolog processors you would like to include.</p>
-<p>You can achieve this by defining the <code>LOG_PROCESSORS</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">LOG_PROCESSORS</span><span class="o">=</span><span class="s">Monolog\Processor\ProcessIdProcessor, Monolog\Processor\MemoryUsageProcessor</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>By default, no processor is added to the logger.</p>
-<p>With the above, you app now logs the process id and memory usage in the logs.</p>
-<h3 id="renaming-the-logs">Renaming the logs.<a href="#renaming-the-logs" class="anchor" aria-hidden="true">#</a> </h3>
-<p>By default, all logs indicate the <code>pionia</code> prefix. You can change this by defining the <code>APP_NAME</code> setting in the <code>settings.ini</code> file:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[SERVER]</span>
-</span></span><span class="line"><span class="cl"><span class="na">APP_NAME</span><span class="o">=</span><span class="s">blog</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above will change the prefix to <code>blog</code>.</p>
-<h2 id="log-rotation">Log Rotation<a href="#log-rotation" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia avoids dictating how you should handle log rotation. You can use the <code>logrotate</code> utility to rotate logs. Here is an example configuration for log rotation:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/path/to/your/log/file <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    daily
-</span></span><span class="line"><span class="cl">    rotate <span class="m">7</span>
-</span></span><span class="line"><span class="cl">    compress
-</span></span><span class="line"><span class="cl">    delaycompress
-</span></span><span class="line"><span class="cl">    missingok
-</span></span><span class="line"><span class="cl">    notifempty
-</span></span><span class="line"><span class="cl">    create
-</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>There is a cool <a href="https://www.digitalocean.com/community/tutorials/how-to-manage-logfiles-with-logrotate-on-ubuntu-16-04">article about handling log rotation here</a>.</p>
-<p>That&rsquo;s it! You now know how to log in Pionia.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/9259eabc51390beaf5369723327de202d355e1ae">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on July 15, 2024
-    </a>
-  </div>
-
+				
 				
 
 
@@ -809,7 +841,7 @@ By default, this attempts to log both the requests and responses. However, Respo
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/1000_logging.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/600_generic_services_advanced.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -832,7 +864,24 @@ By default, this attempts to log both the requests and responses. However, Respo
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/resources/" class="stretched-link text-reset text-decoration-none">Resources</a>
+					<a href="/documentation/generic-services/" class="stretched-link text-reset text-decoration-none">Generic Services</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/requests-and-responses/" class="stretched-link text-reset text-decoration-none">Requests and Responses</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
 				</div>
 			</div>
 		</div>

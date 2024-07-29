@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Mon, 29 Jul 2024 17:28:39 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2024 18:54:20 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction</title>
@@ -52,6 +52,13 @@
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
     <item>
+      <title>Advanced Generic Services</title>
+      <link>http://localhost:1313/documentation/advanced-generic-services/</link>
+      <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/advanced-generic-services/</guid>
+      <description>Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them.</description>
+    </item>
+    <item>
       <title>Requests and Responses</title>
       <link>http://localhost:1313/documentation/requests-and-responses/</link>
       <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
       <guid>http://localhost:1313/documentation/jwt-authentication/</guid>
       <description>This section guides us through Pionia&amp;rsquo;s approach to authentication using JWT. Firebase/JWT package is used for illustration.</description>
-    </item>
-    <item>
-      <title>Logging in Pionia</title>
-      <link>http://localhost:1313/documentation/logging-in-pionia/</link>
-      <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/logging-in-pionia/</guid>
-      <description>As a developer, you need to log information about the application&amp;rsquo;s state, errors, and other important information. This guide will show you how to log in pionia.</description>
     </item>
   </channel>
 </rss>

@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/security-authentication-and-authorization/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-06-29T21:06:45+03:00">
-<meta property="article:modified_time" content="2024-07-29T15:34:15+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-07-29T18:54:20+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Security - Authentication and Authorization">
@@ -170,6 +170,10 @@
 
   <li>
       <a href="/documentation/generic-services/">Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
   </li>
 
   <li>
@@ -407,6 +411,10 @@
   </li>
 
   <li>
+      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
       <a href="/documentation/requests-and-responses/">Requests and Responses</a>
   </li>
 
@@ -570,7 +578,7 @@
 <li>Authorization</li>
 </ul>
 <h2 id="authentication---authentication-backends">Authentication - Authentication Backends.<a href="#authentication---authentication-backends" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Currently Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.</p>
+<p>Currently, Pionia does not dictate on any authentication mechanism but provides a way to implement your own authentication mechanism.</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
@@ -645,7 +653,7 @@ This method receives the request object, this also implies that you have access 
 </span></span><span class="line"><span class="cl">	<span class="sd">/**
 </span></span></span><span class="line"><span class="cl"><span class="sd">	 * Implement this method and return your &#39;ContextUserObject&#39;. You can use Porm here too!
 </span></span></span><span class="line"><span class="cl"><span class="sd">	 */</span>
-</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">ContextUserObject</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:?</span> <span class="nx">ContextUserObject</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nv">$userObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ContextUserObject</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        
@@ -997,7 +1005,7 @@ If these are not defined, the service won&rsquo;t be accessed.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/baad51a4f507defc26709cfd1b7025a6c616b46a">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/165f7986569bcfa423f04760b91914179c958b62">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Last updated on July 29, 2024
     </a>

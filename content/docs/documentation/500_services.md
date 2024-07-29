@@ -43,32 +43,47 @@ If you are using our 'pionia console', then you can just name your service 'user
 Let's create a service called `TodoService`. In the terminal run the following command.
 
 ```bash
-php pionia addservice todo
+php pionia gen:service todo
 ```
+Running the above command will prompt you for two options. 
 
-By default, running the above command alone creates a service called `TodoService` in `services` folder with four actions.
-
-1. `getTodo` - For getting one todo item.
-2. `listTodo` - For getting all available (paginated) todos.
-3. `deleteTodo` - For deleting a todo item.
-4. `createTodo` - For creating a todo item.
+1. `Basic` - These are services that extend the `BaseRestService`. They are close to creating manual services.
+If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want 
+or let the cli add the default actions of `create`, `retrieve`, `update`, `delete` for you. Once you are done, the service will be created in the `services` folder.
 
 You can delete or add more actions as you see fit.
 
-If you want to override the above behaviour, you can define your actions with the `addservice` command.
+2. `Generic` - These are services that extend the `GenericService`. They come with an entire CRUD logic out of the box. 
+Once you select this option you will presented with a list of nine options to choose from. If you are not sure of what to select,
+just hit enter and the cli will select the default option for you which is the `UniversalGenericService`. This service comes with all the CRUD logic out of the box.
 
-```bash
-php pionia addservice auth login register reset
-```
+Other Options are :-  
 
-The above will add actions `loginAuth`, `registerAuth` and `resetAuth`.
+[0] UniversalGenericService
 
-Note that everything that is listed after the service name is an action.
+[1] RetrieveListUpdateDeleteService
+
+[2] RetrieveListUpdateService
+
+[3] RetrieveListRandomService
+
+[4] RetrieveListDeleteService
+
+[5] RetrieveListCreateUpdateService
+
+[6] RetrieveListCreateService
+
+[7] RetrieveCreateUpdateService
+
+[8] GenericService
+
+Choosing option 8 gives you freedom to define your own mixins to extend.
+
 
 {{< /tab >}}
 {{< tab "Manually" >}}
 >>>
-1. Head over to your services folder.
+1. Head over to your `services` folder.
 2. Create a new service with a clear name, such as UserService, AuthService, CartService
 3. Extend BaseRestService
 4. Add your own actions each taking in `data`(post request data), `files`(ff your service is expecting files) and returning `BaseResponse`.
@@ -77,9 +92,20 @@ Note that everything that is listed after the service name is an action.
 {{< /tab >}}
 {{< /tabs >}}
 
+{{<callout note >}}
+Remember generic services target a base table.
+
+Therefore, you shall be asked the table you want to target. This is required.
+
+However, starting from version 1.1.7, you can target relationships too!
+
+You can read more about this in the [Generic Services Section](/documentation/generic-services/).
+{{</callout>}}
+
 ## Service Registration
 
-Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel. Service registration happens in the associated switch.
+Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel.
+Service registration happens in the associated switch.
 
 In the switches folder, find the switch you want to use for this service. You can add your service as below.
 
@@ -89,11 +115,12 @@ In the switches folder, find the switch you want to use for this service. You ca
     {
         return [
             'user' => new UserService(),
-            "todo" => new TodoService(),
-            'auth' => new AuthService(), // like this.
+            "todo" => TodoService::class, // this is okay
+            'auth' => new AuthService(), // and this too
         ];
     }
 ```
+
 
 The `key` of this method is the name you shall use in your proceeding requests to access this service. Therefore, it must be unique!
 
@@ -115,11 +142,11 @@ In the request, you can target a service by determining the `SERVICE` key with y
 
 To target an action in a certain service, you need to define both the service and action as below.
 
-```js
+```json
 
 {
     SERVICE: "user",
-    ACTION: "loginAuth",
+    ACTION: "loginAuth"
     // rest of your service data
 }
 ```

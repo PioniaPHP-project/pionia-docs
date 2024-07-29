@@ -23,17 +23,15 @@ This framework was born at Service Cops - East Africa by [JET](https://www.linke
 
 Documentation organisation.
 
-- [MoonLight Architecture](/moonlight/moonlight-architecture/)
+- [MoonLight Architecture](/moonlight/introduction-to-moonlight-architecture/)
 - [Tutorial](/documentation/api-tutorial/)
-- [Directory Structure](/documentation/structure/)
+- [App Structure](/documentation/application-structure/)
 - [Requests And Responss](/documentation/requests-and-responses/)
 - [Middleware](/docs/documentation/middleware/)
-- [Security - Authentication and Authorization](/docs/documentation/authentication/)
-- [Validation](/docs/documentation/validation/)
-- [The Controller](/docs/documentation/controllers/)
+- [Security - Authentication and Authorization](/documentation/security-authentication-and-authorization/)
 - [Services and Actions](/documentation/services/)
 - [Database and Querying](/documentation/database/)
-- [API Reference](/docs/documentation/api-reference/)
+
 
 ### Get Started
 

@@ -173,6 +173,10 @@
   </li>
 
   <li>
+      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
       <a href="/documentation/requests-and-responses/">Requests and Responses</a>
   </li>
 
@@ -407,6 +411,10 @@
   </li>
 
   <li>
+      <a href="/documentation/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
       <a href="/documentation/requests-and-responses/">Requests and Responses</a>
   </li>
 
@@ -595,31 +603,32 @@ As you might already know, a class can have multiple methods. In Pionia we call 
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice todo</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia gen:service todo</span></span></code></pre></div>
   </figure>
 </div>
-<p>By default, running the above command alone creates a service called <code>TodoService</code> in <code>services</code> folder with four actions.</p>
+<p>Running the above command will prompt you for two options.</p>
 <ol>
-<li><code>getTodo</code> - For getting one todo item.</li>
-<li><code>listTodo</code> - For getting all available (paginated) todos.</li>
-<li><code>deleteTodo</code> - For deleting a todo item.</li>
-<li><code>createTodo</code> - For creating a todo item.</li>
+<li><code>Basic</code> - These are services that extend the <code>BaseRestService</code>. They are close to creating manual services.
+If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want
+or let the cli add the default actions of <code>create</code>, <code>retrieve</code>, <code>update</code>, <code>delete</code> for you. Once you are done, the service will be created in the <code>services</code> folder.</li>
 </ol>
 <p>You can delete or add more actions as you see fit.</p>
-<p>If you want to override the above behaviour, you can define your actions with the <code>addservice</code> command.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addservice auth login register reset</span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above will add actions <code>loginAuth</code>, <code>registerAuth</code> and <code>resetAuth</code>.</p>
-<p>Note that everything that is listed after the service name is an action.</p>
+<ol start="2">
+<li><code>Generic</code> - These are services that extend the <code>GenericService</code>. They come with an entire CRUD logic out of the box.
+Once you select this option you will presented with a list of nine options to choose from. If you are not sure of what to select,
+just hit enter and the cli will select the default option for you which is the <code>UniversalGenericService</code>. This service comes with all the CRUD logic out of the box.</li>
+</ol>
+<p>Other Options are :-</p>
+<p>[0] UniversalGenericService</p>
+<p>[1] RetrieveListUpdateDeleteService</p>
+<p>[2] RetrieveListUpdateService</p>
+<p>[3] RetrieveListRandomService</p>
+<p>[4] RetrieveListDeleteService</p>
+<p>[5] RetrieveListCreateUpdateService</p>
+<p>[6] RetrieveListCreateService</p>
+<p>[7] RetrieveCreateUpdateService</p>
+<p>[8] GenericService</p>
+<p>Choosing option 8 gives you freedom to define your own mixins to extend.</p>
 </div>
   <div data-pane="manually" class="tab-pane fade" id="tabs-create-new-service-1" role="tabpanel" aria-labelledby="tabs-create-new-service-1-tab" tabindex="0">
       <blockquote>
@@ -629,7 +638,7 @@ As you might already know, a class can have multiple methods. In Pionia we call 
 </blockquote>
 </blockquote>
 <ol>
-<li>Head over to your services folder.</li>
+<li>Head over to your <code>services</code> folder.</li>
 <li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
 <li>Extend BaseRestService</li>
 <li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(ff your service is expecting files) and returning <code>BaseResponse</code>.</li>
@@ -644,8 +653,23 @@ As you might already know, a class can have multiple methods. In Pionia we call 
 </div>
   </div>
 
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Remember generic services target a base table.</p>
+<p>Therefore, you shall be asked the table you want to target. This is required.</p>
+<p>However, starting from version 1.1.7, you can target relationships too!</p>
+<p>You can read more about this in the <a href="/documentation/generic-services/">Generic Services Section</a>.</p>
+
+    </div>
+  </div>
+</div>
+
 <h2 id="service-registration">Service Registration<a href="#service-registration" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel. Service registration happens in the associated switch.</p>
+<p>Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel.
+Service registration happens in the associated switch.</p>
 <p>In the switches folder, find the switch you want to use for this service. You can add your service as below.</p>
 
 
@@ -660,8 +684,8 @@ As you might already know, a class can have multiple methods. In Pionia we call 
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">TodoService</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">AuthService</span><span class="p">(),</span> <span class="c1">// like this.
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// this is okay
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">AuthService</span><span class="p">(),</span> <span class="c1">// and this too
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -704,10 +728,10 @@ As you might already know, a class can have multiple methods. In Pionia we call 
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ACTION</span><span class="o">:</span> <span class="s2">&#34;loginAuth&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="err">SERVICE:</span> <span class="nt">&#34;user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="err">ACTION:</span> <span class="nt">&#34;loginAuth&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// rest of your service data
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
