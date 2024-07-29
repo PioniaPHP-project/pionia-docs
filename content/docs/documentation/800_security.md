@@ -37,6 +37,8 @@ With this approach, you can make authentication backends that handle mobile, web
 
 Packages like [firebase/php-jwt](https://github.com/firebase/php-jwt) can be used to implement JWT authentication.
 
+Also, you can visit our [jwt authentication sample guide](/documentation/jwt-authentication/) on how to implement JWT authentication in Pionia.
+
 {{</callout>}}
 
 ### About Authentication Backends
