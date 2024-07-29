@@ -58,14 +58,14 @@ To quickly bootstrap your authentication backend, you can use the following comm
 
 Example below creates an authentication backend called `JwtAuthBackend`.
 ```bash
-php pionia addauth jwt
+php pionia  gen:auth  jwt
 ```
 
 {{<callout  tip >}}
 Notice that we only define `jwt` as the authentication backend name. This is because Pionia will automatically append `AuthBackend` to the name.
 {{</callout>}}
 
-Upon running the above command, Pionia will create a new authentication backend in the `app/authenticationBackends` directory.
+Upon running the above command, Pionia will create a new authentication backend in the `app/authentications` directory.
 
 ```php 
 <?php
@@ -75,7 +75,7 @@ Upon running the above command, Pionia will create a new authentication backend 
  * Remember to register your backend in settings.ini
  */
 
-namespace application\authenticationBackends;
+namespace application\authentications;
 
 use Pionia\Core\Helpers\ContextUserObject;
 use Pionia\Core\Interceptions\BaseAuthenticationBackend;
@@ -117,7 +117,7 @@ Every backend must be given a unique name. Also, you to note that the order of r
 
 ```ini
 [authentications]
-jwt_auth = application\authenticationBackends\JwtAuthBackend
+jwt_auth = application\authentications\JwtAuthBackend
 
 ```
 

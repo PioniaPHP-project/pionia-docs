@@ -177,6 +177,10 @@
   </li>
 
   <li>
+      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+  </li>
+
+  <li>
       <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
 
@@ -403,6 +407,10 @@
   </li>
 
   <li>
+      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+  </li>
+
+  <li>
       <a href="/documentation/logging-in-pionia/">Logging in Pionia</a>
   </li>
 
@@ -587,7 +595,7 @@ This method receives the request object, this also implies that you have access 
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia addauth jwt</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia  gen:auth  jwt</span></span></code></pre></div>
   </figure>
 </div>
 <div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
@@ -601,7 +609,7 @@ This method receives the request object, this also implies that you have access 
   </div>
 </div>
 
-<p>Upon running the above command, Pionia will create a new authentication backend in the <code>app/authenticationBackends</code> directory.</p>
+<p>Upon running the above command, Pionia will create a new authentication backend in the <code>app/authentications</code> directory.</p>
 
 
 
@@ -617,7 +625,7 @@ This method receives the request object, this also implies that you have access 
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * Remember to register your backend in settings.ini
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\authenticationBackends</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\authentications</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Core\Helpers\ContextUserObject</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Core\Interceptions\BaseAuthenticationBackend</span><span class="p">;</span>
@@ -661,7 +669,7 @@ Every backend must be given a unique name. Also, you to note that the order of r
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[authentications]</span>
-</span></span><span class="line"><span class="cl"><span class="na">jwt_auth</span> <span class="o">=</span> <span class="s">application\authenticationBackends\JwtAuthBackend</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="na">jwt_auth</span> <span class="o">=</span> <span class="s">application\authentications\JwtAuthBackend</span></span></span></code></pre></div>
   </figure>
 </div>
 <p>And that&rsquo;s it! Your authentication backend is now ready to be used in your application.</p>
@@ -1036,7 +1044,7 @@ If these are not defined, the service won&rsquo;t be accessed.</p>
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/database/configuration-getting-started/" class="stretched-link text-reset text-decoration-none">Configuration - Getting Started</a>
+					<a href="/documentation/jwt-authentication/" class="stretched-link text-reset text-decoration-none">JWT Authentication</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

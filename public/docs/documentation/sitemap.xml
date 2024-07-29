@@ -51,6 +51,13 @@
     </url>
     
     <url>
+      <loc>http://localhost:1313/documentation/jwt-authentication/</loc>
+      <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
       <loc>http://localhost:1313/documentation/logging-in-pionia/</loc>
       <lastmod>2024-07-15T19:46:21+03:00</lastmod>
       <changefreq>monthly</changefreq>

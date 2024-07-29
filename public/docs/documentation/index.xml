@@ -59,6 +59,13 @@
       <description>Authentication and Authorization are two important aspects of security in any application. This guide will show you how to secure your application using pionia.</description>
     </item>
     <item>
+      <title>JWT Authentication</title>
+      <link>http://localhost:1313/documentation/jwt-authentication/</link>
+      <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/jwt-authentication/</guid>
+      <description>This section guides us through Pionia&amp;rsquo;s approach to authentication using JWT. Firebase/JWT package is used for illustration.</description>
+    </item>
+    <item>
       <title>Logging in Pionia</title>
       <link>http://localhost:1313/documentation/logging-in-pionia/</link>
       <pubDate>Sat, 29 Jun 2024 21:06:45 +0300</pubDate>
