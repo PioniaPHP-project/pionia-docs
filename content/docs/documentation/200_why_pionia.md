@@ -26,18 +26,22 @@ are some of the reasons why you should consider using Pionia:
 to get started with. Remember that boilerplate code you usually get after installing most frameworks? Pionia doesn't have even quarter of that. Staff like controllers, routes, models 
 are not here. You just need to write your services, and you are good to go.
 
+
 2. **Query Builder**: Pionia comes with a powerful query builder that makes it easy to interact with the database. We know you're
 already used to models and ORM. This has both pros and cons. Models usually undergo a process called model hydration while populating the resultset
 into your model class. This can really be more expensive especially when you're dealing with large datasets. Pionia uses a query builder
 that returns everything as `arrays` and `objects`. This is more efficient and faster. You can read more about [Pionia Query Builder here](/documentation/database/configuration-getting-started/).
 
+
 3. **Performance**: Pionia is built with performance in mind. It is lightweight and fast, making it ideal for building 
 high-performance api applications. It is also designed to be scalable, so you can easily add more resources as your 
 application grows. You will be surprised how fast your api will be.
 
+
 4. **Api Versioning**: Pionia has a unique approach to api versioning. Every switch implies a new version of the api. 
 This means that you can easily add new versions of your api without having to change your existing code. 
 Just roll out a new switch and you are good to go.
+
 
 5. **Security**: Pionia has built-in security features that help protect your application from common security threats.
 It also has a flexible authentication system that allows you to easily integrate with third-party authentication providers.
@@ -46,9 +50,11 @@ system but with less conventions and more configurations. We keep an open mind o
 and we provide you with the tools to do so. We also have a built-in role-based access control system that allows you to
 easily manage user permissions and access control. You can look at in the [Authentication and Authorization Section](/documentation/security-authentication-and-authorization/)
 
+
 6. **Developer Performance**: Using Pionia, rolling out an api should not take even hours. This is achieved by the fact 
 that you don't need to write a lot of boilerplate code. You just need to write your services and you are good to go. This becomes 
 even simpler if you're using our [Generic Services](/documentation/generic-services/).
+
 
 7. **Moonlight Compatibility**: Pionia follows the standards defined by Moonlight. Advantages like, single endpoint, 
 single request format, single response format,  single switch per api version, every request being post and many more... are all here.
@@ -56,14 +62,23 @@ Moonlight strips away the unnecessary complexities that come with most common tr
 However much this seems to be a new pattern, most platforms have used this platform for years, and it has been proven to 
 be an excellent option for building high-performance api applications. [Get started with moonlight pattern here](/moonlight/moonlight-architecture/)
 
+
 8. **Single Request and Response Format**: In Pionia projects, all requests carry the same format and all responses too.
 This makes it easy to understand and work with the api especially on the frontend side.
+
 
 9. **Community**: Pionia has a growing community of developers who are passionate about building high-performance api 
 applications. You can find help and support from the community through discord, twitter, and other social media channels.
 
-10. We also take most of the other advantages listed by most other frameworks like inbuilt logging, error handling, and many more.
 
+10. **Frontend Scaffolding and Serving**: Pionia is a backend REST framework. But we also scaffold most frameworks especially those supported by `vite`.
+    We also have a clean way of serving these frameworks' build files and assets at the root of the Pionia backend.
+    This is especially useful when you want to serve your frontend and backend from the same server. You can read more about this in the [Frontend Scaffolding and Serving Section](/documentation/frontend-scaffolding-and-serving/).
+
+11. We also take most of the other advantages listed by most other frameworks like inbuilt logging, error handling, and many more.
+
+
+### Conclusion
 Not everything is as you expected in Pionia. We recommend you to first appreciate the moonlight paradigm(also nicknamed single endpoint paradigm or SS&R - Services, Switches and Routes) before you start using Pionia.
 This will help you understand the philosophy behind Pionia. The paradigm of Single endpoint, single route, single switch, single request format and single response format is what makes Pionia unique.
 

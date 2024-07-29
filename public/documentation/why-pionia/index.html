@@ -469,7 +469,16 @@
 		
 		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
 			<div class="page-links">
-  
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 </div>
 
 		</nav>
@@ -478,7 +487,21 @@
 			<h1>Why Pionia?</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
-				
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
 			</nav>
 			
 <picture>
@@ -551,9 +574,15 @@ This makes it easy to understand and work with the api especially on the fronten
 applications. You can find help and support from the community through discord, twitter, and other social media channels.</p>
 </li>
 <li>
+<p><strong>Frontend Scaffolding and Serving</strong>: Pionia is a backend REST framework. But we also scaffold most frameworks especially those supported by <code>vite</code>.
+We also have a clean way of serving these frameworks&rsquo; build files and assets at the root of the Pionia backend.
+This is especially useful when you want to serve your frontend and backend from the same server. You can read more about this in the <a href="/documentation/frontend-scaffolding-and-serving/">Frontend Scaffolding and Serving Section</a>.</p>
+</li>
+<li>
 <p>We also take most of the other advantages listed by most other frameworks like inbuilt logging, error handling, and many more.</p>
 </li>
 </ol>
+<h3 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true">#</a> </h3>
 <p>Not everything is as you expected in Pionia. We recommend you to first appreciate the moonlight paradigm(also nicknamed single endpoint paradigm or SS&amp;R - Services, Switches and Routes) before you start using Pionia.
 This will help you understand the philosophy behind Pionia. The paradigm of Single endpoint, single route, single switch, single request format and single response format is what makes Pionia unique.</p>
 <p>Also, please note that Pionia is a REST framework and it intends to keep that way. If you&rsquo;re looking for something
