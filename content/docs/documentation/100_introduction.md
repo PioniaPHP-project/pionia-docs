@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Guides lead a user through a specific task they want to accomplish, often with a sequence of steps."
+description: "Guides a developer on how to navigate the docs, get started with Pionia and more."
 summary: ""
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
