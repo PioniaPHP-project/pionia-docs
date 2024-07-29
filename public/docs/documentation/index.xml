@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Mon, 15 Jul 2024 19:46:21 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2024 17:28:39 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction</title>
@@ -50,6 +50,13 @@
       <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
       <guid>http://localhost:1313/documentation/generic-services/</guid>
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
+    </item>
+    <item>
+      <title>Requests and Responses</title>
+      <link>http://localhost:1313/documentation/requests-and-responses/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/requests-and-responses/</guid>
+      <description>All actions take up request data as associated array, and return a BaseResponse object. This guide will show you how to handle requests and responses in pionia.</description>
     </item>
     <item>
       <title>Security - Authentication and Authorization</title>
