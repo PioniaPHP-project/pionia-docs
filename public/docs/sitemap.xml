@@ -23,7 +23,7 @@
     </url>
     <url>
         <loc>http://localhost:1313/documentation/introduction/</loc>
-        <lastmod>2024-07-29T20:19:37+03:00</lastmod>
+        <lastmod>2024-07-31T19:11:06+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
@@ -47,7 +47,7 @@
       </url>
       <url>
         <loc>http://localhost:1313/docs/documentation/services/</loc>
-        <lastmod>2024-07-05T01:06:18+03:00</lastmod>
+        <lastmod>2024-07-31T19:11:06+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
