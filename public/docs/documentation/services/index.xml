@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Services on Pionia</title>
+    <link>http://localhost:1313/docs/documentation/services/</link>
+    <description>Recent content in Services on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Fri, 05 Jul 2024 01:06:18 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/documentation/services/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Services</title>
+      <link>http://localhost:1313/documentation/services/services/</link>
+      <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/services/services/</guid>
+      <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
+    </item>
+    <item>
+      <title>Generic Services</title>
+      <link>http://localhost:1313/documentation/services/generic-services/</link>
+      <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/services/generic-services/</guid>
+      <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
+    </item>
+    <item>
+      <title>Advanced Generic Services</title>
+      <link>http://localhost:1313/documentation/services/advanced-generic-services/</link>
+      <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/services/advanced-generic-services/</guid>
+      <description>Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them.</description>
+    </item>
+  </channel>
+</rss>

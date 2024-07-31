@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Mon, 29 Jul 2024 17:28:39 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2024 20:19:37 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to MoonLight Architecture</title>
@@ -67,16 +67,16 @@
     </item>
     <item>
       <title>Services</title>
-      <link>http://localhost:1313/documentation/services/</link>
+      <link>http://localhost:1313/documentation/services/services/</link>
       <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/services/</guid>
+      <guid>http://localhost:1313/documentation/services/services/</guid>
       <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
     </item>
     <item>
       <title>Generic Services</title>
-      <link>http://localhost:1313/documentation/generic-services/</link>
+      <link>http://localhost:1313/documentation/services/generic-services/</link>
       <pubDate>Sat, 29 Jun 2024 19:57:09 +0300</pubDate>
-      <guid>http://localhost:1313/documentation/generic-services/</guid>
+      <guid>http://localhost:1313/documentation/services/generic-services/</guid>
       <description>All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.</description>
     </item>
   </channel>

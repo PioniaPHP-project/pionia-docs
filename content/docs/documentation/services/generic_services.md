@@ -6,7 +6,7 @@ summary: 'All business logic in Pionia is stored in services. This guide will sh
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2024-06-29 19:57:09.923 +0300
 draft: false
-weight: 600
+weight: 502
 toc: true
 seo:
     title: 'Pionia Services' # custom title (optional)

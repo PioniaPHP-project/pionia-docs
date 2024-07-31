@@ -14,10 +14,10 @@
 
 <link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
 
-<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/introduction/">
-  <link rel="canonical" href="http://localhost:1313/documentation/introduction/">
-<title>Introduction  |  Pionia</title>
-<meta name="description" content="Guides a developer on how to navigate the docs, get started with Pionia and more.">
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/services/advanced-generic-services/">
+  <link rel="canonical" href="http://localhost:1313/documentation/services/advanced-generic-services/">
+<title>Pionia Generic Services- Advanced</title>
+<meta name="description" content="Handling Advanced Generic Services in Pionia">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -43,18 +43,19 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Introduction">
-<meta property="og:description" content="Guides a developer on how to navigate the docs, get started with Pionia and more.">
+<meta property="og:title" content="Advanced Generic Services">
+<meta property="og:description" content="Guides the developer in the advanced usages on Pionia Generic Services.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/introduction/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
-<meta property="article:modified_time" content="2024-07-29T20:19:37+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/documentation/services/advanced-generic-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-06-29T19:57:09+03:00">
+<meta property="article:modified_time" content="2024-06-29T19:57:09+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Introduction">
-<meta name="twitter:description" content="Guides a developer on how to navigate the docs, get started with Pionia and more.">
+<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Advanced Generic Services">
+<meta name="twitter:description" content="Guides the developer in the advanced usages on Pionia Generic Services.">
 <meta name="twitter:site" content="@pionia">
 
+    
     
     
     <script type="application/ld+json">
@@ -82,8 +83,14 @@
      },
      {
        "@type": "ListItem",
-       "name": "Introduction",
+       "item": "http://localhost:1313/docs/documentation/services/",
+       "name": "Services",
        "position": 4
+     },
+     {
+       "@type": "ListItem",
+       "name": "Advanced Generic Services",
+       "position": 5
      }
    ]
  }
@@ -148,8 +155,8 @@
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/introduction/">Introduction</a>
+  <li>
+      <a href="/documentation/introduction/">Introduction</a>
   </li>
 
   <li>
@@ -165,7 +172,7 @@
   </li>
 
   <li>
-    <details open>
+    <details open open>
       <summary>Services</summary>
       <ul class="list-unstyled list-nested">
 
@@ -177,8 +184,8 @@
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
-  <li>
-      <a href="/documentation/services/advanced-generic-services/">Advanced Generic Services</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/services/advanced-generic-services/">Advanced Generic Services</a>
   </li>
       </ul>
     </details>
@@ -394,8 +401,8 @@
       <summary>Documentation</summary>
       <ul class="list-unstyled list-nested">
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/introduction/">Introduction</a>
+  <li>
+      <a href="/documentation/introduction/">Introduction</a>
   </li>
 
   <li>
@@ -411,7 +418,7 @@
   </li>
 
   <li>
-    <details open>
+    <details open open>
       <summary>Services</summary>
       <ul class="list-unstyled list-nested">
 
@@ -423,8 +430,8 @@
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
-  <li>
-      <a href="/documentation/services/advanced-generic-services/">Advanced Generic Services</a>
+  <li class="active" >
+      <a aria-current="page" href="/documentation/services/advanced-generic-services/">Advanced Generic Services</a>
   </li>
       </ul>
     </details>
@@ -504,18 +511,21 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#about">About</a>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#properties-and-methods">Properties and Methods</a>
       <ul>
-        <li><a href="#get-started">Get Started</a></li>
+        <li><a href="#joins">$joins</a></li>
+        <li><a href="#jointypes">$joinTypes</a></li>
+        <li><a href="#as-clause">AS Clause</a></li>
       </ul>
     </li>
-    <li><a href="#why-pionia">Why Pionia?</a></li>
-    <li><a href="#installation">Installation</a>
+    <li><a href="#creation">Creation</a></li>
+    <li><a href="#uploading-files">Uploading Files</a>
       <ul>
-        <li></li>
+        <li><a href="#custom-upload-handler">Custom upload handler</a></li>
       </ul>
     </li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#querying-relationships">Querying Relationships</a></li>
   </ul>
 </nav>
 </div>
@@ -523,7 +533,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>Introduction</h1>
+			<h1>Advanced Generic Services</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -531,129 +541,49 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#about">About</a>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#properties-and-methods">Properties and Methods</a>
       <ul>
-        <li><a href="#get-started">Get Started</a></li>
+        <li><a href="#joins">$joins</a></li>
+        <li><a href="#jointypes">$joinTypes</a></li>
+        <li><a href="#as-clause">AS Clause</a></li>
       </ul>
     </li>
-    <li><a href="#why-pionia">Why Pionia?</a></li>
-    <li><a href="#installation">Installation</a>
+    <li><a href="#creation">Creation</a></li>
+    <li><a href="#uploading-files">Uploading Files</a>
       <ul>
-        <li></li>
+        <li><a href="#custom-upload-handler">Custom upload handler</a></li>
       </ul>
     </li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#querying-relationships">Querying Relationships</a></li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			
-<picture>
-      <source type="image/webp" data-srcset="/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_480x0_resize_q85_h2_lanczos_3.webp 480w,/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_576x0_resize_q85_h2_lanczos_3.webp 576w,/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_602x0_resize_q85_h2_lanczos_3.webp 602w"
-        data-sizes="auto">
-  <img
-    src="data:image/webp;base64,UklGRrgAAABXRUJQVlA4WAoAAAAQAAAADwAABQAAQUxQSGEAAAAAAE6XuGgDBQQCAgQCAwIEAz2gdjLaoRYAAAAAAIBCAACYX8F8uGgvlR5EcEhmG3ZhmXnaa06YkaXa2N2Dj3SmupeYkgA5xrqfhK5&#43;vr7BtaA5y0IEBDAdOwAUEzApJzQcAFZQOCAwAAAA0AEAnQEqEAAGAAKYfCewAnQA9E5Di/AA/mQNGp8u5XkQdcb9yTf0qO05YY9qwAAA"
-    data-src="/pionia_hu7bc625304583a71a69e31d56c05815e9_99619_480x0_resize_q85_bgffffff_lanczos_3.jpg"
-    width="602"
-    height="232"
-    decoding="async"
-    fetchpriority="auto"
-    loading="lazy"
-    alt="Pionia Logo"
-    class="lazyload blur-up"
-  >
-</picture>
-<h2 id="about">About<a href="#about" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Welcome to the official documentation of pionia - <code>/ˌpʌɪəˈnɪə/</code> framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.</p>
-<p>This framework was born at Service Cops - East Africa by <a href="https://www.linkedin.com/in/jetezra/">JET</a> and is maintained by the same team. The framework is open-source and is released under the MIT license.</p>
-<p>Documentation organisation.</p>
-<ul>
-<li><a href="/moonlight/introduction-to-moonlight-architecture/">MoonLight Architecture</a></li>
-<li><a href="/documentation/api-tutorial/">Tutorial</a></li>
-<li><a href="/documentation/application-structure/">App Structure</a></li>
-<li><a href="/documentation/requests-and-responses/">Requests And Responss</a></li>
-<li><a href="/docs/documentation/middleware/">Middleware</a></li>
-<li><a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a></li>
-<li><a href="/documentation/services/services/">Services and Actions</a></li>
-<li><a href="/documentation/database/">Database and Querying</a></li>
-</ul>
-<h3 id="get-started">Get Started<a href="#get-started" class="anchor" aria-hidden="true">#</a> </h3>
-<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
   <div class="callout-content">
-    <div class="callout-title">
-        <p>Start with a TO-DO api tutorial</p>
-
-      </div>
+    
     <div class="callout-body">
-      <p>You can quickly get started with our <a href="/documentation/api-tutorial/">To-Do API tutorial</a>. This guide introduces you to the both the framework and the <a href="/moonlight/introduction-to-moonlight-architecture/">Moonlight architecture</a>. It is the recommended way to start your pionia jungle journey.</p>
+      <p>This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven&rsquo;t, you can check the <a href="/documentation/generic-services/">Generic Services section</a> first.</p>
 
     </div>
   </div>
 </div>
 
-<h2 id="why-pionia">Why Pionia?<a href="#why-pionia" class="anchor" aria-hidden="true">#</a> </h2>
-<p>There are various reasons why pionia stands out from other PHP frameworks. From program performance, developer performance, to maintainability, pionia has got you covered.</p>
-<p>You can read more about <a href="/documentation/why-pionia/">Why Pionia here</a>.</p>
-<h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true">#</a> </h2>
-<h6 id="pre-requisites">Pre-requisites<a href="#pre-requisites" class="anchor" aria-hidden="true">#</a> </h6>
-<ul>
-<li>PHP 8.0 or higher</li>
-<li>Any web server (Apache, Nginx, etc.) for production</li>
-<li>Composer</li>
-<li>Any of Postgres, MySQL, or SQLite</li>
-</ul>
-<p><strong>Note:</strong> This guide assumes you have Composer installed and running globally. If you don&rsquo;t, you can download it from <a href="https://getcomposer.org/">getcomposer.org</a> or use the <a href="https://hub.docker.com/_/composer">Composer Docker image</a>.</p>
-
-
-
-
-
-
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-  <button data-toggle-tab="composer" class="nav-link active" id="tabs-create-new-project-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-project-0" type="button" role="tab" aria-controls="tabs-create-new-project-0" aria-selected="true">
-      composer</button>
-  <button data-toggle-tab="git templates" class="nav-link" id="tabs-create-new-project-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-project-1" type="button" role="tab" aria-controls="tabs-create-new-project-1" aria-selected="true">
-      Git templates</button>
-  </div>
-</nav>
-
-<div class="tab-content" id="nav-tabContent">
-  <div data-pane="composer" class="tab-pane fade show active" id="tabs-create-new-project-0" role="tabpanel" aria-labelledby="tabs-create-new-project-0-tab" tabindex="0">
-      <div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer create-project pionia/pionia-app my-project</span></span></code></pre></div>
-  </figure>
-</div>
-<p>Remember to replace <code>my-project</code> with the name of your project.</p></div>
-  <div data-pane="git templates" class="tab-pane fade" id="tabs-create-new-project-1" role="tabpanel" aria-labelledby="tabs-create-new-project-1-tab" tabindex="0">
-      <blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<ol>
-<li>Select <a href="https://github.com/PioniaPHP-project/Pionia-App">use this template</a> on the repository page.</li>
-<li>Download directly the compressed file from the <a href="https://github.com/PioniaPHP-project/Pionia-App/releases">releases page</a>.</li>
-</ol>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</div>
-  </div>
-
-<p><em>Nginx configuration</em>ss</p>
-<p>This is just a sample configuration. You can modify it to suit your needs. But make sure your configuration points to the <code>index.php</code> file of your project.</p>
+<h1 id="introduction">Introduction</h1>
+<p>Pionia Generic Services can be used to do more than just CRUD operations.
+This section is also still growing immensely as we discover more ways to use Generic Services.
+In this section, we will look at how to use Generic Services for more advanced operations.</p>
+<h2 id="relationships">Relationships<a href="#relationships" class="anchor" aria-hidden="true">#</a> </h2>
+<p>The first advanced operation we will look at is relationships. Pionia Generic Services can not query relationships directly.</p>
+<p>Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.</p>
+<h2 id="properties-and-methods">Properties and Methods<a href="#properties-and-methods" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="joins">$joins<a href="#joins" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The <code>$joins</code> property is an array defining each table we are connecting to and the relationship between them.</p>
+<p>Remember, that we still need our base table to be defined in the <code>$table</code> property.</p>
 
 
 
@@ -662,40 +592,260 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ...rest of your configurations
-</span></span></span><span class="line"><span class="cl"><span class="c1">#  projet_name [replace this with your project name]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">location</span> <span class="s">/projet_name</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kn">alias</span> <span class="s">/var/www/html/project_name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/</span> <span class="s">@project_name</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">location</span> <span class="s">@project_name</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kn">rewrite</span> <span class="s">/project_name/(.*)</span>$ <span class="s">/project_name/index.php?/</span><span class="nv">$1</span> <span class="s">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;products&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="k">...</span> <span class="s">rest</span> <span class="s">of</span> <span class="s">your</span> <span class="s">configurations</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$joins</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;category_id&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
   </figure>
 </div>
-<h2 id="contributing">Contributing<a href="#contributing" class="anchor" aria-hidden="true">#</a> </h2>
-<p>However, the framework is maintained by a dedicated team and welcomes you as our next contributor on any of our related projects.</p>
-<p>You can contribute to the framework, documentation or by helping us grow the community through writing articles, tutorials, and sharing your experience with the framework on any media platform.</p>
-<blockquote>
-<p>The framework itself strips off all the unnecessary features that are found in other frameworks and leaves you with only what you need to build a RESTful API.
-This means you can also contribute by building plugins and extensions that can be used with the framework.</p>
-</blockquote>
-<p>If you want to contribute to this documentation, you can find the source code on <a href="https://github.com/PioniaPHP-project/Pionia-App">GitHub</a>.</p>
-<p>Please read the <a href="https://github.com/PioniaPHP-project/Pionia-App/contributing.md">contributing guidelines</a> before contributing.</p>
-<p>Please note that this project is released with a <a href="https://github.com/PioniaPHP-project/Pionia-App/code_of_conduct.md">Contributor Code of Conduct</a></p>
+<p>The above implies that we have a <code>products</code> table and a <code>category</code> table.
+The <code>products</code> table has a <code>category_id</code> column that relates to the <code>id</code> column in the <code>category</code> table.</p>
+<h3 id="jointypes">$joinTypes<a href="#jointypes" class="anchor" aria-hidden="true">#</a> </h3>
+<p>For each table in the <code>$joins</code> property, we can define the type of join to use.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">array</span> <span class="nv">$joinTypes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="nx">JoinType</span><span class="o">::</span><span class="na">INNER</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If you had defined an alias on your table, you can define the <code>$joinAlias</code> property to use the alias in the query.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinAliases</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This implies that the <code>category</code> table will be aliased as <code>cat</code> in the query. This has to be reflected in all queries that use the <code>category</code> table including
+in the <code>$listColumns</code> property.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$listColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;product.id(id)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;product.name(product_name)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;cat.created_at(category_created_at)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;product.created_at(product_created_at)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;active&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="as-clause">AS Clause<a href="#as-clause" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In the entire Porm including even in the above <code>listColumns</code> property, you can achieve the <code>AS</code> clause to alias columns
+by using the <code>()</code> syntax.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$listColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;product.id(id)&#39;</span><span class="p">,</span> <span class="c1">// product.id AS id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;product.name(product_name)&#34;</span><span class="p">,</span> <span class="c1">// product.name AS product_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">,</span> <span class="c1">// cat.name AS category_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;cat.created_at(category_created_at)&#34;</span><span class="p">,</span> <span class="c1">// cat.created_at AS category_created_at
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;product.created_at(product_created_at)&#34;</span><span class="p">,</span> <span class="c1">// product.created_at AS product_created_at
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s2">&#34;active&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This is applicable to all use cases of Porm.</p>
+<h2 id="creation">Creation<a href="#creation" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not allowed.</p>
+<h2 id="uploading-files">Uploading Files<a href="#uploading-files" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Pionia Generic Services have a built-in file upload feature. This is done by defining the <code>$fileColumns</code> property.</p>
+<p>Imagining the following <code>$createColumns</code>:-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$createColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;active&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;icon_image&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If you want the <code>icon_image</code> to be treated as a file upload, you can define the <code>$fileColumns</code> property as follows:-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$fileColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;icon_image&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This will automatically upload the file and save the file path in the database.</p>
+<p>By default, this behaviour uploads the file to the <code>media</code> directory in the root of your project.
+But you can change this in your <code>settings.ini</code> file by defining the <code>uploads</code> section.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[uploads]</span>
+</span></span><span class="line"><span class="cl"><span class="na">media_dir</span><span class="o">=</span><span class="s">/media</span>
+</span></span><span class="line"><span class="cl"><span class="na">media_url</span><span class="o">=</span><span class="s">/media</span>
+</span></span><span class="line"><span class="cl"><span class="na">max_size</span><span class="o">=</span><span class="s">20000000</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>From the above, the <code>media_dir</code> is the directory where the files will be uploaded to.
+The <code>media_url</code> is the URL to access the files.
+The <code>max_size</code> is the maximum size of the file to be uploaded.</p>
+<h3 id="custom-upload-handler">Custom upload handler<a href="#custom-upload-handler" class="anchor" aria-hidden="true">#</a> </h3>
+<p>If you don&rsquo;t want to upload files to the media directory, you can define a custom upload handler by overriding the <code>handleUpload</code> method.</p>
+<p>This method receives the <code>UploadedFile</code> object as the first argument and the <code>fileName</code> as the second argument.</p>
+<p>The <code>fileName</code> matches the parameter that was used to receive the file in your action, in the example above it would be <code>icon_image</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Provides the default upload behaviour for the service.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can override this method in your service to provide custom upload behaviour.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param UploadedFile $file The file to upload
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $fileName The name to save the file as
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handleUpload</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$file</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fileName</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultUpload</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nv">$fileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This is the core default implementation of the <code>handleUpload</code> method.
+Once this is defined in your service, all files will be uploaded using your custom handler.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>The <code>handleUpload</code> method should return the path to the file to be saved in the database.
+Whatever it returns, we will attempt to save it in the database.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="querying-relationships">Querying Relationships<a href="#querying-relationships" class="anchor" aria-hidden="true">#</a> </h2>
+<p>This is the part where generic services shine the most. The frontend now has access to all the related data.
+So they can even define the columns across relationships defined above to return from the db.</p>
+<p>If the frontend want to withdraw from querying relationships back to querying the base table, they can define the
+<code>dontRelate</code> request parameter as <code>true</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;dontRelate&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The frontend can also define the <code>COLUMNS</code> parameter to define the columns to return from the base table.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>If your tables are aliased, you can use the alias in the <code>COLUMNS</code> parameter.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;cat.name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Also, the frontend can achieve the <code>AS</code> clause by using the <code>()</code> syntax.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other parameters,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;COLUMNS&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;product.id(id)&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;cat.name(category_name)&#34;</span><span class="p">]</span> <span class="c1">// product.id AS id, name, cat.name AS category_name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>All the other functionalities of the Generic Services are still available in the advanced operations.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>When switching from relationships back to querying the base table alone, Pionia takes care of converting the <code>listColumns</code>
+however, if you had aliased your tables, you need to remember how you named your <code>pk_field</code> as it might no longer be <code>id</code>.</p>
+
+    </div>
+  </div>
+</div>
+
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/e0c82724a57be894bb8a6cb3a323018106ccb632">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on July 29, 2024
-    </a>
-  </div>
-
+				
 				
 
 
@@ -714,7 +864,7 @@ This means you can also contribute by building plugins and extensions that can b
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/100_introduction.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/services/generic_services_advanced.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -737,7 +887,7 @@ This means you can also contribute by building plugins and extensions that can b
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/moonlight/api-versioning-in-moonlight/" class="stretched-link text-reset text-decoration-none">API Versioning in Moonlight</a>
+					<a href="/documentation/services/generic-services/" class="stretched-link text-reset text-decoration-none">Generic Services</a>
 				</div>
 			</div>
 		</div>
@@ -746,7 +896,7 @@ This means you can also contribute by building plugins and extensions that can b
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/why-pionia/" class="stretched-link text-reset text-decoration-none">Why Pionia?</a>
+					<a href="/documentation/requests-and-responses/" class="stretched-link text-reset text-decoration-none">Requests and Responses</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

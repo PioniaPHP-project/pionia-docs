@@ -6,7 +6,7 @@ summary: 'Pionia Generic Services can be used for more than CRUD operations. Thi
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2024-06-29 19:57:09.923 +0300
 draft: false
-weight: 602
+weight: 506
 toc: true
 seo:
     title: 'Pionia Generic Services- Advanced' # custom title (optional)
