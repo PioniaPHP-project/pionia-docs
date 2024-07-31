@@ -26,7 +26,7 @@ In this section, we will look at how to use Generic Services for more advanced o
 
 ## Relationships
 
-The first advanced operation we will look at is relationships. Pionia Generic Services can not query relationships directly.
+The first advanced operation we will look at is relationships. Pionia Generic Services can now query relationships directly.
 
 Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.
 
