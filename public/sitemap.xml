@@ -33,12 +33,12 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/frontend-integration/</loc>
-    <lastmod>2024-05-24T13:45:48+00:00</lastmod>
+    <lastmod>2024-08-11T12:38:33+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/documentation/api-tutorial/</loc>
-    <lastmod>2024-07-05T02:12:14+03:00</lastmod>
+    <lastmod>2024-08-11T12:38:33+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -53,7 +53,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/docs/documentation/security/</loc>
-    <lastmod>2023-09-07T16:06:50+02:00</lastmod>
+    <lastmod>2024-08-11T12:38:33+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -88,7 +88,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-05-26T01:47:41+03:00</lastmod>
+    <lastmod>2024-08-11T12:38:33+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
