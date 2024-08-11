@@ -48,19 +48,19 @@ It also has a flexible authentication system that allows you to easily integrate
 Pionia's authentication especially the authentication backends are inspired by Django and Spring boot authentication 
 system but with less conventions and more configurations. We keep an open mind on what you want your backend to authenticate with
 and we provide you with the tools to do so. We also have a built-in role-based access control system that allows you to
-easily manage user permissions and access control. You can look at in the [Authentication and Authorization Section](/documentation/security-authentication-and-authorization/)
+easily manage user permissions and access control. You can look at in the [Authentication and Authorization Section](/documentation/security/security-authentication-and-authorization/)
 
 
 6. **Developer Performance**: Using Pionia, rolling out an api should not take even hours. This is achieved by the fact 
 that you don't need to write a lot of boilerplate code. You just need to write your services and you are good to go. This becomes 
-even simpler if you're using our [Generic Services](/documentation/generic-services/).
+even simpler if you're using our [Generic Services](/documentation/services/generic-services/).
 
 
 7. **Moonlight Compatibility**: Pionia follows the standards defined by Moonlight. Advantages like, single endpoint, 
 single request format, single response format,  single switch per api version, every request being post and many more... are all here.
 Moonlight strips away the unnecessary complexities that come with most common traditional frameworks. Developers stay focused on the business logic only.
 However much this seems to be a new pattern, most platforms have used this platform for years, and it has been proven to 
-be an excellent option for building high-performance api applications. [Get started with moonlight pattern here](/moonlight/moonlight-architecture/)
+be an excellent option for building high-performance api applications. [Get started with moonlight pattern here](/moonlight/introduction-to-moonlight-architecture/)
 
 
 8. **Single Request and Response Format**: In Pionia projects, all requests carry the same format and all responses too.

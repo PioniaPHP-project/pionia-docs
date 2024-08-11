@@ -15,7 +15,7 @@ seo:
     noindex: true # false (default) or true
 ---
 {{<callout tip>}}
-This section assumes that you have a basic understanding how Services work in Pionia. If you haven't, you can check the [Services section](/documentation/services/) first.
+This section assumes that you have a basic understanding how Services work in Pionia. If you haven't, you can check the [Services section](/documentation/services/services/) first.
 {{</callout >}}
 
 # Introduction

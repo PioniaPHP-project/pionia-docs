@@ -5,7 +5,7 @@ summary: "Authentication and Authorization are two important aspects of security
 date: 2024-06-29 21:06:45.763 +0300
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 800
+weight: 801
 toc: true
 seo:
   title: "Security" # custom title (optional)
@@ -37,7 +37,7 @@ With this approach, you can make authentication backends that handle mobile, web
 
 Packages like [firebase/php-jwt](https://github.com/firebase/php-jwt) can be used to implement JWT authentication.
 
-Also, you can visit our [jwt authentication sample guide](/documentation/jwt-authentication/) on how to implement JWT authentication in Pionia.
+Also, you can visit our [jwt authentication sample guide](/documentation/security/example-jwt-authentication/) on how to implement JWT authentication in Pionia.
 
 {{</callout>}}
 

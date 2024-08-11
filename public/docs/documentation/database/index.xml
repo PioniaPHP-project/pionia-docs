@@ -30,6 +30,13 @@
       <description>This section assumes you have alredy completed configuring the database from the Configuration Section.</description>
     </item>
     <item>
+      <title>Relationships</title>
+      <link>http://localhost:1313/documentation/database/relationships/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/database/relationships/</guid>
+      <description>Pionia QueryBuilder supports querying relationships. This is a powerful feature that allows you to query data across multiple tables.</description>
+    </item>
+    <item>
       <title>Using Functions - Aggregation</title>
       <link>http://localhost:1313/documentation/database/using-functions-aggregation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

@@ -14,79 +14,130 @@ seo:
   noindex: true # false (default) or true
 ---
 
-{{<callout context="tip"  icon="outline/pencil">}}
-This section assumes you have already set up your project and have already gone through the [Api Tutorial](/documentation/api-tutorial/) guide atleast.
-{{</callout>}}
+[//]: # ()
+[//]: # ({{<callout context="tip"  icon="outline/pencil">}})
 
-## Introduction.
+[//]: # (This section assumes you have already set up your project and have already gone through the [Api Tutorial]&#40;/documentation/api-tutorial/&#41; guide atleast.)
 
-Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the [medoo framework](https://medoo.in/). PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.
+[//]: # ({{</callout>}})
 
-## Installation
+[//]: # ()
+[//]: # (## Introduction.)
 
-If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer.
+[//]: # ()
+[//]: # (Pionia uses PORM &#40;Pionia ORM&#41; to interact with the database. PORM is a simple and lightweight ORM that is built on top of the [medoo framework]&#40;https://medoo.in/&#41;. PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.)
 
-```bash
-composer require pionia/porm
-```
+[//]: # ()
+[//]: # (## Installation)
 
-{{<callout context="note"  icon="outline/pencil">}}
-If you are using Pionia, you do not need to install PORM separately. PORM is already included in the Pionia framework.
-{{</callout>}}
+[//]: # ()
+[//]: # (If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer.)
 
-## Configuration
+[//]: # ()
+[//]: # (```bash)
 
-Configuring PORM is simple. All you need is the settings.ini file in the root of your project. The settings.ini file should contain the following:
+[//]: # (composer require pionia/porm)
 
-```ini
-[db]
-database =
-username =
-type =
-host =
-password =
-port =
-```
+[//]: # (```)
 
-See the [medoo database configuration](https://medoo.in/api/new) for all the available options.
+[//]: # ()
+[//]: # ({{<callout context="note"  icon="outline/pencil">}})
 
-{{<callout context="note"  icon="outline/pencil">}}
-If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework.
-{{</callout>}}
+[//]: # (If you are using Pionia, you do not need to install PORM separately. PORM is already included in the Pionia framework.)
 
-### Multiple Database Connections
+[//]: # ({{</callout>}})
 
-If you want to connect to multiple databases, you can do so by adding the database connection settings to the `settings.ini` file. You can then specify the database connection to use when querying the database.
+[//]: # ()
+[//]: # (## Configuration)
 
-```ini
-; other settings
+[//]: # ()
+[//]: # (Configuring PORM is simple. All you need is the settings.ini file in the root of your project. The settings.ini file should contain the following:)
 
-[db]
-database =
-username =
-type =
-host =
-password =
-port =
+[//]: # ()
+[//]: # (```ini)
 
-[db2]
-database =
-username =
-type =
-host =
-password =
-port =
+[//]: # ([db])
 
-; other settings
+[//]: # (database =)
 
-```
+[//]: # (username =)
 
-You can then specify the database connection to use when querying the database.
+[//]: # (type =)
 
-```php
-use Porm\Porm;
+[//]: # (host =)
 
-Porm::from('posts')->using('db2'); // will connect to the db2 database
-```
+[//]: # (password =)
 
-By default, PORM will use the default database connection(db) to query the database.
+[//]: # (port =)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # ({{<callout context="note"  icon="outline/pencil">}})
+
+[//]: # (If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework.)
+
+[//]: # ({{</callout>}})
+
+[//]: # ()
+[//]: # (### Multiple Database Connections)
+
+[//]: # ()
+[//]: # (If you want to connect to multiple databases, you can do so by adding the database connection settings to the `settings.ini` file. You can then specify the database connection to use when querying the database.)
+
+[//]: # ()
+[//]: # (```ini)
+
+[//]: # (; other settings)
+
+[//]: # ()
+[//]: # ([db])
+
+[//]: # (database =)
+
+[//]: # (username =)
+
+[//]: # (type =)
+
+[//]: # (host =)
+
+[//]: # (password =)
+
+[//]: # (port =)
+
+[//]: # ()
+[//]: # ([db2])
+
+[//]: # (database =)
+
+[//]: # (username =)
+
+[//]: # (type =)
+
+[//]: # (host =)
+
+[//]: # (password =)
+
+[//]: # (port =)
+
+[//]: # ()
+[//]: # (; other settings)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # (You can then specify the database connection to use when querying the database.)
+
+[//]: # ()
+[//]: # (```php)
+
+[//]: # (use Porm\Porm;)
+
+[//]: # ()
+[//]: # (Porm::from&#40;'posts'&#41;->using&#40;'db2'&#41;; // will connect to the db2 database)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (By default, PORM will use the default database connection&#40;db&#41; to query the database.)

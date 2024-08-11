@@ -28,9 +28,9 @@ Documentation organisation.
 - [App Structure](/documentation/application-structure/)
 - [Requests And Responss](/documentation/requests-and-responses/)
 - [Middleware](/docs/documentation/middleware/)
-- [Security - Authentication and Authorization](/documentation/security-authentication-and-authorization/)
+- [Security - Authentication and Authorization](/documentation/security/security-authentication-and-authorization/)
 - [Services and Actions](/documentation/services/services/)
-- [Database and Querying](/documentation/database/)
+- [Database and Querying](/documentation/database/configuration-getting-started/)
 
 
 ### Get Started
@@ -50,10 +50,10 @@ You can read more about [Why Pionia here](/documentation/why-pionia/).
 
 ###### Pre-requisites
 
-- PHP 8.0 or higher
+- PHP 8.0 or higher preferably 8.1. You can download PHP from [php.net](https://www.php.net/manual/en/install.php)
 - Any web server (Apache, Nginx, etc.) for production
 - Composer
-- Any of Postgres, MySQL, or SQLite
+- Any RDBMS of Postgres, MySQL/MariaDB, Oracle, Sybase, MSSQL or SQLite
 
 **Note:** This guide assumes you have Composer installed and running globally. If you don't, you can download it from [getcomposer.org](https://getcomposer.org/) or use the [Composer Docker image](https://hub.docker.com/_/composer).
 

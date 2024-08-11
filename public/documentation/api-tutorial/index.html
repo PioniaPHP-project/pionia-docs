@@ -160,6 +160,10 @@
       <a href="/documentation/application-structure/">Application Structure</a>
   </li>
 
+  <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
   <li class="active" >
       <a aria-current="page" href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
@@ -189,11 +193,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -215,6 +227,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -406,6 +422,10 @@
       <a href="/documentation/application-structure/">Application Structure</a>
   </li>
 
+  <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
   <li class="active" >
       <a aria-current="page" href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
@@ -435,11 +455,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -461,6 +489,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -561,7 +593,7 @@
     
     <div class="callout-body">
       <p>This section assumes that you have already setup your pinia framework project. If you haven&rsquo;t done done, please head over to <a href="/documentation/introduction/#installation">Installation</a>.</p>
-<p>This guide also introduces you to the implementation of the <a href="/docs/moonlight/">Moonlight architecture</a>, so you can check it out first to get familiar with the terminologies.</p>
+<p>This guide also introduces you to the implementation of the <a href="/moonlight/introduction-to-moonlight-architecture/">Moonlight architecture</a>, so you can check it out first to get familiar with the terminologies.</p>
 
     </div>
   </div>
@@ -727,8 +759,8 @@
   <div class="highlight" title="MainApiSwitch.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">TodoService</span><span class="p">(),</span> <span class="c1">// add this line here
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nx">UserService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// add this line here
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -792,17 +824,45 @@
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-  <button data-toggle-tab="axios formdata(postman)" class="nav-link active" id="tabs-test-the-api-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-0" type="button" role="tab" aria-controls="tabs-test-the-api-0" aria-selected="true">
+  <button data-toggle-tab="jet-fetch json" class="nav-link active" id="tabs-test-the-api-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-0" type="button" role="tab" aria-controls="tabs-test-the-api-0" aria-selected="true">
+      jet-fetch JSON</button>
+  <button data-toggle-tab="axios formdata(postman)" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
       Axios FormData(postman)</button>
-  <button data-toggle-tab="axios json data(postman)" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
+  <button data-toggle-tab="axios json data(postman)" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
       Axios JSON Data(Postman)</button>
-  <button data-toggle-tab="xhr -json (postman)" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
+  <button data-toggle-tab="xhr -json (postman)" class="nav-link" id="tabs-test-the-api-3-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-3" type="button" role="tab" aria-controls="tabs-test-the-api-3" aria-selected="true">
       XHR -JSON (Postman)</button>
   </div>
 </nav>
 
 <div class="tab-content" id="nav-tabContent">
-  <div data-pane="axios formdata(postman)" class="tab-pane fade show active" id="tabs-test-the-api-0" role="tabpanel" aria-labelledby="tabs-test-the-api-0-tab" tabindex="0">
+  <div data-pane="jet-fetch json" class="tab-pane fade show active" id="tabs-test-the-api-0" role="tabpanel" aria-labelledby="tabs-test-the-api-0-tab" tabindex="0">
+      
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Jet</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;jet-fetch&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">jet</span> <span class="o">=</span>  <span class="k">new</span> <span class="nx">Jet</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">baseUrl</span><span class="o">:</span> <span class="s1">&#39;http://localhost:8000/api/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="nx">jet</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">moonlightRequest</span><span class="p">({</span><span class="nx">SERVICE</span><span class="o">:</span> <span class="s1">&#39;todo&#39;</span><span class="p">,</span> <span class="nx">ACTION</span><span class="o">:</span> <span class="s1">&#39;createOrUpdate&#39;</span><span class="p">,</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Pass this &#39;</span><span class="p">,</span> <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Must pass&#39;</span> <span class="p">},</span> <span class="s1">&#39;v1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="p">{</span> <span class="nx">returnCode</span><span class="p">,</span> <span class="nx">returnMessage</span><span class="p">,</span> <span class="nx">returnData</span><span class="p">,</span> <span class="nx">extraData</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">returnCode</span><span class="p">,</span> <span class="nx">returnMessage</span><span class="p">,</span> <span class="nx">returnData</span><span class="p">,</span> <span class="nx">extraData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span></span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+  <div data-pane="axios formdata(postman)" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
       
 
 
@@ -839,7 +899,7 @@
   </figure>
 </div>
 </div>
-  <div data-pane="axios json data(postman)" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
+  <div data-pane="axios json data(postman)" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
       
 
 
@@ -876,7 +936,7 @@
   </figure>
 </div>
 </div>
-  <div data-pane="xhr -json (postman)" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
+  <div data-pane="xhr -json (postman)" class="tab-pane fade" id="tabs-test-the-api-3" role="tabpanel" aria-labelledby="tabs-test-the-api-3-tab" tabindex="0">
       
 
 
@@ -964,42 +1024,13 @@
     <span class="title">routes.php</span>
   </figcaption>
   <div class="highlight" title="routes.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$router</span><span class="o">-&gt;</span><span class="na">addGroup</span><span class="p">(</span><span class="s1">&#39;application\Controller&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;apiV1&#39;</span><span class="p">,</span> <span class="s1">&#39;api_version_one&#39;</span><span class="p">);</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="nv">$router</span><span class="o">-&gt;</span><span class="na">addSwitchFor</span><span class="p">(</span><span class="s1">&#39;application\switches\MainApiSwitch&#39;</span><span class="p">,</span> <span class="s1">&#39;v1&#39;</span><span class="p">);</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The above route implies that all post requests to our only controller should be handled by an action(method) named &lsquo;apiV1&rsquo;.</p>
-<p>Therefore, in our controller, the following method was executed:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame has-title not-content">
-  <figcaption class="header">
-    <span class="title">Controller.php</span>
-  </figcaption>
-  <div class="highlight" title="Controller.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">apiV1</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">MainApiSwitch</span><span class="o">::</span><span class="na">processServices</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above does two things:</p>
-<blockquote>
-<p>Maps the whole request to the <code>MainApiSwitch</code> class which is our service registry for v1. It helps to map the request to the service mentioned.</p>
-</blockquote>
-<blockquote>
-<p>Catches any exception that might be thrown during the process and returns a 200 OK response with a returnCode of 400.</p>
-</blockquote>
-<blockquote>
-<p>You can also add logic here as you see fit. But we recommend you keep it as clean as possible.</p>
-</blockquote>
-<p>The main api switch checks in the request body for the <code>SERVICE</code> and <code>ACTION</code> keys. If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. Therefore, for your service to be discovered, you must register it <a href="#step-3-create-the-service---todoservice">as we did here</a>.</p>
+<p>The above route implies that all requests to <code>http://localhost:8000/api/v1/</code> should be handled by the <code>MainApiSwitch</code> switch.</p>
+<p>The main api switch checks in the request body for the <code>SERVICE</code> and <code>ACTION</code> keys.
+If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services.
+Therefore, for your service to be discovered, you must register it <a href="#step-3-create-the-service---todoservice">as we did here</a>.</p>
 
 
 
@@ -1011,8 +1042,8 @@
   <div class="highlight" title="MainApiSwitch.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">TodoService</span><span class="p">(),</span> <span class="c1">// this is our service.
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nx">UserService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// this is our service.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1214,7 +1245,7 @@
 
       </div>
     <div class="callout-body">
-      <p>Notice how the exception message becomes our <code>returnMessage</code>. This exception was caught by our controller. Therefore, wherever you&rsquo;re in the services, feel free to throw any exceptions with clean messages.</p>
+      <p>Notice how the exception message becomes our <code>returnMessage</code>. This exception was caught by our switch. Therefore, wherever you&rsquo;re in the services, feel free to throw any exceptions with clean messages.</p>
 
     </div>
   </div>
@@ -1333,7 +1364,7 @@
 <li>All our requests have similar body structure, they have a <code>SERVICE</code>, <code>ACTION</code>, and other param keys.</li>
 <li>All our responses have the same response format, <code>returnCode</code>, <code>returnMessage</code>, <code>returnData</code>, and <code>extraData</code> keys.</li>
 <li>We are hitting the same endpoint <code>http://localhost:8000/api/v1/</code> for all our requests.</li>
-<li>We did not touch the controller, routes, or the kernel. but we only focused on the service!</li>
+<li>We did not touch the routes or the kernel. but we only focused on the service!</li>
 </ol>
 <p>This is the beauty of the Moonlight architecture. It makes it easy to understand and maintain your code.</p>
 <p>Imagine how fast you would pull off a new service with Pionia.</p>
@@ -1524,7 +1555,7 @@
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/application-structure/" class="stretched-link text-reset text-decoration-none">Application Structure</a>
+					<a href="/documentation/frontend-integration/" class="stretched-link text-reset text-decoration-none">Frontend Integration</a>
 				</div>
 			</div>
 		</div>

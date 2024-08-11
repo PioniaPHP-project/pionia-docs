@@ -161,6 +161,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -189,11 +193,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -215,6 +227,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -407,6 +423,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -435,11 +455,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -461,6 +489,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -583,19 +615,19 @@ It also has a flexible authentication system that allows you to easily integrate
 Pionia&rsquo;s authentication especially the authentication backends are inspired by Django and Spring boot authentication
 system but with less conventions and more configurations. We keep an open mind on what you want your backend to authenticate with
 and we provide you with the tools to do so. We also have a built-in role-based access control system that allows you to
-easily manage user permissions and access control. You can look at in the <a href="/documentation/security-authentication-and-authorization/">Authentication and Authorization Section</a></p>
+easily manage user permissions and access control. You can look at in the <a href="/documentation/security/security-authentication-and-authorization/">Authentication and Authorization Section</a></p>
 </li>
 <li>
 <p><strong>Developer Performance</strong>: Using Pionia, rolling out an api should not take even hours. This is achieved by the fact
 that you don&rsquo;t need to write a lot of boilerplate code. You just need to write your services and you are good to go. This becomes
-even simpler if you&rsquo;re using our <a href="/documentation/generic-services/">Generic Services</a>.</p>
+even simpler if you&rsquo;re using our <a href="/documentation/services/generic-services/">Generic Services</a>.</p>
 </li>
 <li>
 <p><strong>Moonlight Compatibility</strong>: Pionia follows the standards defined by Moonlight. Advantages like, single endpoint,
 single request format, single response format,  single switch per api version, every request being post and many more&hellip; are all here.
 Moonlight strips away the unnecessary complexities that come with most common traditional frameworks. Developers stay focused on the business logic only.
 However much this seems to be a new pattern, most platforms have used this platform for years, and it has been proven to
-be an excellent option for building high-performance api applications. <a href="/moonlight/moonlight-architecture/">Get started with moonlight pattern here</a></p>
+be an excellent option for building high-performance api applications. <a href="/moonlight/introduction-to-moonlight-architecture/">Get started with moonlight pattern here</a></p>
 </li>
 <li>
 <p><strong>Single Request and Response Format</strong>: In Pionia projects, all requests carry the same format and all responses too.

@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/services/advanced-generic-services/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-06-29T19:57:09+03:00">
-<meta property="article:modified_time" content="2024-07-31T19:11:06+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-07-31T23:19:24+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Advanced Generic Services">
@@ -168,6 +168,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -196,11 +200,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -222,6 +234,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -414,6 +430,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -442,11 +462,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -468,6 +496,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -567,7 +599,7 @@
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven&rsquo;t, you can check the <a href="/documentation/generic-services/">Generic Services section</a> first.</p>
+      <p>This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven&rsquo;t, you can check the <a href="/documentation/services/generic-services/">Generic Services section</a> first.</p>
 
     </div>
   </div>
@@ -581,6 +613,8 @@ In this section, we will look at how to use Generic Services for more advanced o
 <p>The first advanced operation we will look at is relationships. Pionia Generic Services can now query relationships directly.</p>
 <p>Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.</p>
 <h2 id="properties-and-methods">Properties and Methods<a href="#properties-and-methods" class="anchor" aria-hidden="true">#</a> </h2>
+<p>This feature is only available in all services that extend the <code>Pionia\Services\GenericService</code> class. But by default,
+this feature is not activated. You have to defines some or all of the following properties and methods to activate it.</p>
 <h3 id="joins">$joins<a href="#joins" class="anchor" aria-hidden="true">#</a> </h3>
 <p>The <code>$joins</code> property is an array defining each table we are connecting to and the relationship between them.</p>
 <p>Remember, that we still need our base table to be defined in the <code>$table</code> property.</p>
@@ -625,8 +659,8 @@ The <code>products</code> table has a <code>category_id</code> column that relat
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinAliases</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinAliases</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="p">];</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -673,7 +707,7 @@ by using the <code>()</code> syntax.</p>
 </div>
 <p>This is applicable to all use cases of Porm.</p>
 <h2 id="creation">Creation<a href="#creation" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not allowed.</p>
+<p>Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not yet supported.</p>
 <h2 id="uploading-files">Uploading Files<a href="#uploading-files" class="anchor" aria-hidden="true">#</a> </h2>
 <p>Pionia Generic Services have a built-in file upload feature. This is done by defining the <code>$fileColumns</code> property.</p>
 <p>Imagining the following <code>$createColumns</code>:-</p>
@@ -846,7 +880,7 @@ however, if you had aliased your tables, you need to remember how you named your
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/686d7a85ea33659b0cc54a83900bfff6afaba249">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/6f8408cde60c9436b87ede9a51366063585ae06b">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Last updated on July 31, 2024
     </a>

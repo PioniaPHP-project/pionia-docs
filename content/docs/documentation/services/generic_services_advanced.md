@@ -15,7 +15,7 @@ seo:
     noindex: true # false (default) or true
 ---
 {{<callout tip>}}
-This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven't, you can check the [Generic Services section](/documentation/generic-services/) first.
+This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven't, you can check the [Generic Services section](/documentation/services/generic-services/) first.
 {{</callout >}}
 
 # Introduction
@@ -31,6 +31,8 @@ The first advanced operation we will look at is relationships. Pionia Generic Se
 Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.
 
 ## Properties and Methods
+This feature is only available in all services that extend the `Pionia\Services\GenericService` class. But by default,
+this feature is not activated. You have to defines some or all of the following properties and methods to activate it.
 
 ### $joins
 
@@ -62,8 +64,8 @@ public array $joinTypes = [
 If you had defined an alias on your table, you can define the `$joinAlias` property to use the alias in the query.
 
 ```php
-public ?array $joinAliases = [
-        'category' => 'cat',
+    public ?array $joinAliases = [
+      'category' => 'cat',
     ];
 ```
 This implies that the `category` table will be aliased as `cat` in the query. This has to be reflected in all queries that use the `category` table including 
@@ -99,7 +101,7 @@ This is applicable to all use cases of Porm.
 
 ## Creation
 
-Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not allowed.
+Even in cross relationships, you are only allowed to insert in the base table. This means saving across relationships is not yet supported.
 
 ## Uploading Files
 

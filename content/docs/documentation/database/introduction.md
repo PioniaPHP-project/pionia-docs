@@ -20,7 +20,7 @@ This section assumes you have already set up your project and have already gone 
 
 ## Introduction
 
-Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the [medoo framework](https://medoo.in/). PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.
+Pionia uses PORM to interact with the database. Porm is a simple and lightweight QueryBuilder that is built on top of the [medoo framework](https://medoo.in/). Porm provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.
 
 ## Installation
 
@@ -48,7 +48,15 @@ password =
 port =
 ```
 
-See the [medoo database configuration](https://medoo.in/api/new) for all the available options.
+## Supported Databases
+1. Postgres (PostgreSQL) via the `pgsql` driver
+2. MySQL/MariaDB  via the `mysql` driver
+3. Oracle via the `oci` driver
+4. Sybase via the `dblib` driver
+5. MSSQL via the `sqlsrv` or `dblib` driver
+6. SQLite via the `sqlite` driver
+
+Please remember to install the necessary PHP extensions for the database you are using in order to connect to the database. This usually happens in the `php.ini` file.
 
 {{<callout context="note"  icon="outline/pencil">}}
 If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework.
@@ -118,8 +126,9 @@ To get the last inserted ID after inserting a record into the database, you can 
 
 use Porm\Porm;
 
-$instance = Porm::from('posts')
-  ->save([
+$instance = Porm::from('posts');
+
+$instance->save([
     'title' => 'My Post',
     'content' => 'This is my post content'
   ]);

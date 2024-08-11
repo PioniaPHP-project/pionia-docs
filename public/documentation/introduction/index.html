@@ -161,6 +161,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -189,11 +193,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -215,6 +227,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -407,6 +423,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -435,11 +455,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -461,6 +489,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -575,9 +607,9 @@
 <li><a href="/documentation/application-structure/">App Structure</a></li>
 <li><a href="/documentation/requests-and-responses/">Requests And Responss</a></li>
 <li><a href="/docs/documentation/middleware/">Middleware</a></li>
-<li><a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a></li>
+<li><a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a></li>
 <li><a href="/documentation/services/services/">Services and Actions</a></li>
-<li><a href="/documentation/database/">Database and Querying</a></li>
+<li><a href="/documentation/database/configuration-getting-started/">Database and Querying</a></li>
 </ul>
 <h3 id="get-started">Get Started<a href="#get-started" class="anchor" aria-hidden="true">#</a> </h3>
 <div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
@@ -600,10 +632,10 @@
 <h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true">#</a> </h2>
 <h6 id="pre-requisites">Pre-requisites<a href="#pre-requisites" class="anchor" aria-hidden="true">#</a> </h6>
 <ul>
-<li>PHP 8.0 or higher</li>
+<li>PHP 8.0 or higher preferably 8.1. You can download PHP from <a href="https://www.php.net/manual/en/install.php">php.net</a></li>
 <li>Any web server (Apache, Nginx, etc.) for production</li>
 <li>Composer</li>
-<li>Any of Postgres, MySQL, or SQLite</li>
+<li>Any RDBMS of Postgres, MySQL/MariaDB, Oracle, Sybase, MSSQL or SQLite</li>
 </ul>
 <p><strong>Note:</strong> This guide assumes you have Composer installed and running globally. If you don&rsquo;t, you can download it from <a href="https://getcomposer.org/">getcomposer.org</a> or use the <a href="https://hub.docker.com/_/composer">Composer Docker image</a>.</p>
 

@@ -18,7 +18,7 @@ seo:
 
 This section assumes that you have already setup your pinia framework project. If you haven't done done, please head over to [Installation](/documentation/introduction/#installation).
 
-This guide also introduces you to the implementation of the [Moonlight architecture](/docs/moonlight/), so you can check it out first to get familiar with the terminologies.
+This guide also introduces you to the implementation of the [Moonlight architecture](/moonlight/introduction-to-moonlight-architecture/), so you can check it out first to get familiar with the terminologies.
 {{</callout >}}
 
 
@@ -139,8 +139,8 @@ After creating our service, we need to register it in the `MainApiSwitch` class.
 public function registerServices(): array
     {
         return [
-            'user' => new UserService(),
-            "todo" => new TodoService(), // add this line here
+            'user' => UserService::class,
+            "todo" => TodoService::class, // add this line here
         ];
     }
 ```
@@ -193,6 +193,27 @@ class TodoService extends BaseRestService
 Sending the request using any client of choice.
 
 {{<tabs "test-the-api">}}
+
+{{<tab "jet-fetch JSON">}}
+
+```js
+import { Jet } from 'jet-fetch';
+
+const jet =  new Jet({
+  baseUrl: 'http://localhost:8000/api/',
+});
+  
+jet
+  .moonlightRequest({SERVICE: 'todo', ACTION: 'createOrUpdate', title: 'Pass this ', description: 'Must pass' }, 'v1')
+  .then((response) => {
+      const { returnCode, returnMessage, returnData, extraData } = response.data;
+      console.log(returnCode, returnMessage, returnData, extraData);
+  }).catch((error) => {
+      console.log(error);
+  });
+
+```
+{{</tab>}}
 
 {{<tab "Axios FormData(postman)">}}
 
@@ -310,42 +331,22 @@ When you hit the endpoint `http://localhost:8000/api/v1/` with the data as shown
 
 ```php {title="routes.php"}
 
-$router->addGroup('application\Controller')
-    ->post('apiV1', 'api_version_one');
+$router->addSwitchFor('application\switches\MainApiSwitch', 'v1');
 
 ```
 
-The above route implies that all post requests to our only controller should be handled by an action(method) named 'apiV1'.
+The above route implies that all requests to `http://localhost:8000/api/v1/` should be handled by the `MainApiSwitch` switch.
 
-Therefore, in our controller, the following method was executed:
-
-```php {title="Controller.php"}
-
-  public function apiV1(Request $request): BaseResponse
-    {
-        try {
-            return MainApiSwitch::processServices($request);
-        } catch (Exception $e) {
-            return BaseResponse::JsonResponse(400, $e->getMessage());
-        }
-    }
-```
-
-The above does two things:
- > Maps the whole request to the `MainApiSwitch` class which is our service registry for v1. It helps to map the request to the service mentioned.
-
- > Catches any exception that might be thrown during the process and returns a 200 OK response with a returnCode of 400.
-
- > You can also add logic here as you see fit. But we recommend you keep it as clean as possible.
-
-The main api switch checks in the request body for the `SERVICE` and `ACTION` keys. If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. Therefore, for your service to be discovered, you must register it [as we did here](#step-3-create-the-service---todoservice).
+The main api switch checks in the request body for the `SERVICE` and `ACTION` keys. 
+If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. 
+Therefore, for your service to be discovered, you must register it [as we did here](#step-3-create-the-service---todoservice).
 
 ```php {title="MainApiSwitch.php"}
   public function registerServices(): array
     {
         return [
-            'user' => new UserService(),
-            "todo" => new TodoService(), // this is our service.
+            'user' => UserService::class,
+            "todo" => TodoService::class, // this is our service.
         ];
     }
 ```
@@ -486,7 +487,7 @@ But in the second scenario, we still get a status code of 200 OK but with the fo
 ```
 
 {{<callout context="tip" title="Point To Ponder" icon="outline/pencil">}}
-Notice how the exception message becomes our `returnMessage`. This exception was caught by our controller. Therefore, wherever you're in the services, feel free to throw any exceptions with clean messages.
+Notice how the exception message becomes our `returnMessage`. This exception was caught by our switch. Therefore, wherever you're in the services, feel free to throw any exceptions with clean messages.
 {{</callout>}}
 
 - [x] Retrieve a single to-do item from the database(Completed)
@@ -565,7 +566,7 @@ If you did everything right, you should get your response as follows
 2. All our requests have similar body structure, they have a `SERVICE`, `ACTION`, and other param keys.
 3. All our responses have the same response format, `returnCode`, `returnMessage`, `returnData`, and `extraData` keys.
 4. We are hitting the same endpoint `http://localhost:8000/api/v1/` for all our requests.
-5. We did not touch the controller, routes, or the kernel. but we only focused on the service!
+5. We did not touch the routes or the kernel. but we only focused on the service!
 
 This is the beauty of the Moonlight architecture. It makes it easy to understand and maintain your code.
 

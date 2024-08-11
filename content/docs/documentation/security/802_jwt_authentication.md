@@ -1,11 +1,11 @@
 ---
-title: "JWT Authentication"
+title: "Example - JWT Authentication"
 description: "Guides us through Pionia's approach to authentication using JWT."
 summary: "This section guides us through Pionia's approach to authentication using JWT. Firebase/JWT package is used for illustration."
 date: 2024-06-29 21:06:45.763 +0300
 lastmod: 2024-05-24T13:45:48.890Z
 draft: false
-weight: 801
+weight: 802
 toc: true
 seo:
   title: "JWT Authentication " # custom title (optional)
@@ -17,7 +17,7 @@ seo:
 
 
 {{<callout  tip >}}
-This guide assumes you have a basic understanding of how Pionia Security works. If you are new to Pionia, you can start by going through the [API Tutorial](/documentation/security-authentication-and-authorization/) guide.
+This guide assumes you have a basic understanding of how Pionia Security works. If you are new to Pionia, you can start by going through the [API Tutorial](/documentation/api-tutorial/) guide.
 {{</callout>}}
 
 ## Our target

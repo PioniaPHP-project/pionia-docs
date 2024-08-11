@@ -168,6 +168,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -196,11 +200,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -222,6 +234,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -414,6 +430,10 @@
   </li>
 
   <li>
+      <a href="/documentation/frontend-integration/">Frontend Integration</a>
+  </li>
+
+  <li>
       <a href="/documentation/api-tutorial/">API Tutorial</a>
   </li>
 
@@ -442,11 +462,19 @@
   </li>
 
   <li>
-      <a href="/documentation/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
   </li>
 
   <li>
-      <a href="/documentation/jwt-authentication/">JWT Authentication</a>
+      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -468,6 +496,10 @@
 
   <li>
       <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships</a>
   </li>
 
   <li>
@@ -513,7 +545,8 @@
   <ul>
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#installation">Installation</a></li>
-    <li><a href="#configuration">Configuration</a>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#supported-databases">Supported Databases</a>
       <ul>
         <li><a href="#multiple-database-connections">Multiple Database Connections</a></li>
         <li><a href="#accessing-the-underlying-medoo-instance">Accessing the Underlying Medoo Instance</a></li>
@@ -543,7 +576,8 @@
   <ul>
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#installation">Installation</a></li>
-    <li><a href="#configuration">Configuration</a>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#supported-databases">Supported Databases</a>
       <ul>
         <li><a href="#multiple-database-connections">Multiple Database Connections</a></li>
         <li><a href="#accessing-the-underlying-medoo-instance">Accessing the Underlying Medoo Instance</a></li>
@@ -574,7 +608,7 @@
 </div>
 
 <h2 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the <a href="https://medoo.in/">medoo framework</a>. PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.</p>
+<p>Pionia uses PORM to interact with the database. Porm is a simple and lightweight QueryBuilder that is built on top of the <a href="https://medoo.in/">medoo framework</a>. Porm provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.</p>
 <h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true">#</a> </h2>
 <p>If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer.</p>
 
@@ -618,7 +652,16 @@
 </span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>See the <a href="https://medoo.in/api/new">medoo database configuration</a> for all the available options.</p>
+<h2 id="supported-databases">Supported Databases<a href="#supported-databases" class="anchor" aria-hidden="true">#</a> </h2>
+<ol>
+<li>Postgres (PostgreSQL) via the <code>pgsql</code> driver</li>
+<li>MySQL/MariaDB  via the <code>mysql</code> driver</li>
+<li>Oracle via the <code>oci</code> driver</li>
+<li>Sybase via the <code>dblib</code> driver</li>
+<li>MSSQL via the <code>sqlsrv</code> or <code>dblib</code> driver</li>
+<li>SQLite via the <code>sqlite</code> driver</li>
+</ol>
+<p>Please remember to install the necessary PHP extensions for the database you are using in order to connect to the database. This usually happens in the <code>php.ini</code> file.</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
@@ -714,8 +757,9 @@
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$instance</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$instance</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$instance</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Post&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;This is my post content&#39;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">]);</span>
@@ -859,7 +903,7 @@
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/jwt-authentication/" class="stretched-link text-reset text-decoration-none">JWT Authentication</a>
+					<a href="/documentation/security/example-jwt-authentication/" class="stretched-link text-reset text-decoration-none">Example - JWT Authentication</a>
 				</div>
 			</div>
 		</div>
