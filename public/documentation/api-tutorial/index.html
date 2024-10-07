@@ -46,12 +46,12 @@
 <meta property="og:title" content="API Tutorial">
 <meta property="og:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/api-tutorial/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="og:url" content="http://localhost:1313/documentation/api-tutorial/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
 <meta property="article:modified_time" content="2024-08-11T12:38:33+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="API Tutorial">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="API Tutorial">
 <meta name="twitter:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 <meta name="twitter:site" content="@pionia">
 
@@ -178,6 +178,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -238,6 +242,18 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
   </li>
       </ul>
     </details>
@@ -440,6 +456,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -501,6 +521,18 @@
       </ul>
     </details>
   </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
+  </li>
       </ul>
     </details>
   </li>
@@ -541,13 +573,12 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#step-1-initialize-the-project">Step 1: Initialize the project</a></li>
         <li><a href="#step-2-connect-to-a-database">Step 2: Connect to a database</a></li>
-        <li><a href="#step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code></a></li>
+        <li><a href="#step-3-create-your-first-service---todoservice">Step 3: Create your first service - <code>TodoService</code></a></li>
         <li><a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.</a></li>
         <li><a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.</a></li>
         <li><a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.</a></li>
         <li><a href="#step-7-grab-n-random-to-do-items-from-the-database---7th-action">Step 7: Grab n random to-do item[s] from the database - 7th action.</a></li>
         <li><a href="#step-8-delete-a-to-do-item-from-the-database---5th-action">Step 8: Delete a to-do item from the database - 5th action.</a></li>
-        <li><a href="#full-service-source-code">Full Service Source Code</a></li>
       </ul>
     </li>
     <li><a href="#post-tutorial----what-next">Post Tutorial &ndash; What Next?</a></li>
@@ -571,13 +602,12 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#step-1-initialize-the-project">Step 1: Initialize the project</a></li>
         <li><a href="#step-2-connect-to-a-database">Step 2: Connect to a database</a></li>
-        <li><a href="#step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code></a></li>
+        <li><a href="#step-3-create-your-first-service---todoservice">Step 3: Create your first service - <code>TodoService</code></a></li>
         <li><a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.</a></li>
         <li><a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.</a></li>
         <li><a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.</a></li>
         <li><a href="#step-7-grab-n-random-to-do-items-from-the-database---7th-action">Step 7: Grab n random to-do item[s] from the database - 7th action.</a></li>
         <li><a href="#step-8-delete-a-to-do-item-from-the-database---5th-action">Step 8: Delete a to-do item from the database - 5th action.</a></li>
-        <li><a href="#full-service-source-code">Full Service Source Code</a></li>
       </ul>
     </li>
     <li><a href="#post-tutorial----what-next">Post Tutorial &ndash; What Next?</a></li>
@@ -592,7 +622,7 @@
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>This section assumes that you have already setup your pinia framework project. If you haven&rsquo;t done done, please head over to <a href="/documentation/introduction/#installation">Installation</a>.</p>
+      <p>This section assumes that you have already setup your Pionia framework project. If you haven&rsquo;t done that, please head over to <a href="/documentation/introduction/#installation">Installation section for details</a>.</p>
 <p>This guide also introduces you to the implementation of the <a href="/moonlight/introduction-to-moonlight-architecture/">Moonlight architecture</a>, so you can check it out first to get familiar with the terminologies.</p>
 
     </div>
@@ -602,9 +632,9 @@
 <h2 id="out-target">Out Target<a href="#out-target" class="anchor" aria-hidden="true">#</a> </h2>
 <p>We should be able to accomplish the following tasks by the end of this tutorial:</p>
 <ol>
-<li><input disabled="" type="checkbox"> Intialise the project.</li>
+<li><input disabled="" type="checkbox"> Initialize the project.</li>
 <li><input disabled="" type="checkbox"> Connect to a database.</li>
-<li><input disabled="" type="checkbox"> Create a service.</li>
+<li><input disabled="" type="checkbox"> Create your first service.</li>
 <li><input disabled="" type="checkbox"> Create or update a to-do item in the database.</li>
 <li><input disabled="" type="checkbox"> Retrieve all to-do items from the database.</li>
 <li><input disabled="" type="checkbox"> Retrieve a single to-do item from the database.</li>
@@ -632,15 +662,69 @@
 </div>
 <p>We can open the project in our favorite code editor or IDE, for this tutorial we will be using PhPStorm IDE.</p>
 <blockquote>
-<p>All IDEs and Editors should be okay to use since Pionia is powered by PHP that is supported by most of the IDEs.</p>
+<p>All IDEs and Editors should be supported for use since Pionia is powered by PHP that is supported by most of the IDEs.</p>
 </blockquote>
 <p>For explanation of the directories and scripts, please refer to the <a href="/documentation/structure/">Structure Section of this documentation</a>.</p>
+<p>To confirm that our installation works fine, let&rsquo;s just go start our server. Open the terminal in the root of the project and run the following command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia serve</span></span></code></pre></div>
+  </figure>
+</div>
+<p>If everything is setup correctly, your project should be up and running on http://127.0.0.1:8000. Visiting this url, you should see the following page.</p>
+
+<picture>
+      <source type="image/webp" data-srcset="/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_480x0_resize_q85_h2_lanczos_3.webp 480w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_576x0_resize_q85_h2_lanczos_3.webp 576w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_768x0_resize_q85_h2_lanczos_3.webp 768w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_1025x0_resize_q85_h2_lanczos_3.webp 1025w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_1200x0_resize_q85_h2_lanczos_3.webp 1200w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_1440x0_resize_q85_h2_lanczos_3.webp 1440w,/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_3584x0_resize_q85_h2_lanczos_3.webp 3584w"
+        data-sizes="auto">
+  <img
+    src="data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAkAAph8J7ACdAEPBCbKYAD&#43;07S4VvVaQOa4X991xinhXgdySUgEcfza9/I8gFpAAA=="
+    data-src="/images/Pionia_landing_page_hue26076f9ac74a3b7e6d4d0a43cecc099_1756724_480x0_resize_q85_bgffffff_lanczos_3.jpg"
+    width="3584"
+    height="1956"
+    decoding="async"
+    fetchpriority="auto"
+    loading="lazy"
+    alt="Pionia Logo"
+    class="lazyload blur-up"
+  >
+</picture>
+<p>We can test if our APIs are also working fine by visiting http://127.0.0.1:8000/api/v1/.
+It should return the following in the browser.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span><span class="s2">&#34;pong&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnData&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;framework&#34;</span><span class="p">:</span><span class="s2">&#34;Pionia Framework&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span><span class="s2">&#34;2.0.2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;port&#34;</span><span class="p">:</span><span class="mi">8000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;uri&#34;</span><span class="p">:</span><span class="s2">&#34;\/api\/v1\/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;schema&#34;</span><span class="p">:</span><span class="s2">&#34;http&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;extraData&#34;</span><span class="p">:</span><span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
 <ul>
-<li><input checked="" disabled="" type="checkbox"> Intialise the project(Completed)</li>
+<li><input checked="" disabled="" type="checkbox"> Initialize the project(Completed)</li>
 </ul>
 <h3 id="step-2-connect-to-a-database">Step 2: Connect to a database<a href="#step-2-connect-to-a-database" class="anchor" aria-hidden="true">#</a> </h3>
 <p>Pionia removes the section of models and migrations and instead uses a simple and lightweight query builder to <a href="/documentation/database">interact with the database - PORM</a>.</p>
-<p>At its heart, PORM is a wrapper on top of <a href="https://medoo.in/">medoo</a>, a lightweight database framework that makes interacting with the database easy and fun.</p>
+<p>At its heart, PORM was initially a wrapper on top of <a href="https://medoo.in/">medoo</a>, a lightweight database framework that makes interacting with the database easy and fun.
+However, from <code>v2.0^</code>, the core medoo package was re-written to meet Pionia-specific needs and added to the core Pionia.</p>
 <blockquote>
 <p>You can create a new database or use an existing one as you see fit!</p>
 </blockquote>
@@ -690,6 +774,22 @@
   loading="lazy"
   alt="alt text"id="h-rh-i-0"
 /></p>
+<p>Database configurations in the <code>environment</code> should be done in any <code>.ini</code> files.
+You can create a dedicated <code>database.ini</code> file or just use the existing <code>settings.ini</code>.</p>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>But why do we have have to do this from <code>.ini</code> files?</p>
+<p>Pionia supports connection to multiple database at ago. Using <code>.ini</code> files, these can just be sections.
+Forexample, our first database can called <code>[db]</code>, and then our second can <code>[db2]</code>. Pionia will auto-discover these
+and collect them in the <code>container</code> as needed. To set a database as the default, just add <code>default=1</code> or <code>default=true</code> in its section.</p>
+
+    </div>
+  </div>
+</div>
+
 <p>Open <code>settings.ini</code> file and update the database settings as below:</p>
 
 
@@ -705,14 +805,15 @@
 </span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">&#34;mysql&#34; # your database type</span>
 </span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">&#34;&#34; # your database password</span>
-</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">3306</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">3306</span>
+</span></span><span class="line"><span class="cl"><span class="na">default</span><span class="o">=</span><span class="s">true # to mark it as our default db connection</span></span></span></code></pre></div>
   </figure>
 </div>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Connect to a database(Completed)</li>
 </ul>
 <p>Throughout this tutorial, we will be creating everything manually, however, pionia cli can be used to create most of the staff for you.</p>
-<p>Just run the following command in your terminal to see the available commands.</p>
+<p>Just run the following command in your terminal to see the available commands. And you can always add your own <a href="/documentation/commands-pionia-cli/">commands like illustrated in this section</a></p>
 
 
 
@@ -724,8 +825,16 @@
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia</span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="step-3-create-the-service---todoservice">Step 3: Create the service - <code>TodoService</code><a href="#step-3-create-the-service---todoservice" class="anchor" aria-hidden="true">#</a> </h3>
-<p>Since all our business logic is related to To-do items, we only need one service called <code>TodoService</code>. Head over to services directory and add the following code to <code>TodoService.php</code>. All our services should extend <code>BaseRestService</code> class.</p>
+<h3 id="step-3-create-your-first-service---todoservice">Step 3: Create your first service - <code>TodoService</code><a href="#step-3-create-your-first-service---todoservice" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Since all our business logic is related to To-do items, we only need one service called <code>TodoService</code>.</p>
+<p><b>Points to ponder! </b></p>
+<blockquote>
+<p>All Pionia services reside in the <code>services</code> folder under the <code>Application\Services</code>.</p>
+</blockquote>
+<blockquote>
+<p>All Pionia Services should extend <code>Service</code> from <code>Pionia\Http\Services\Service</code>.</p>
+</blockquote>
+<p>At its most minimal nature, this is a valid Pionia Service. For <a href="/documentation/services/services/">details about services, please through the detailed guide here</a></p>
 
 
 
@@ -736,18 +845,25 @@
   </figcaption>
   <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Applications\Services</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\request\BaseRestService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>After creating our service, we need to register it in the <code>MainApiSwitch</code> class. Open <code>MainApiSwitch.php</code> and add the following code:</p>
+<h4 id="service-registration---switches">Service Registration - Switches.<a href="#service-registration---switches" class="anchor" aria-hidden="true">#</a> </h4>
+<p>Pionia introduces the concept of switches to help in api versioning. Be default, your new application already
+consists of <code>MainApiSwitch</code> which maps all requests targeting <code>/api/v1/</code>.
+When can create switches manually or via the cli, but all in all, these should only define one method <code>registerServices</code> which returns
+a Pionia <code>Pionia\Collections\Arrayable</code>. In this Arrayable, you can register all your services that should be under the same version like <code>/api/v1</code>.
+For details, about switches, please head over to <a href="/documentation/services/services/#service-registration">Service Registration</a> section of services.</p>
+<p>For now, let&rsquo;s register our created service in the <code>MainApiSwitch</code> class. Open <code>MainApiSwitch.php</code> in the <code>switches</code> folder and add the following code in our
+<code>registerServices</code> method.</p>
 
 
 
@@ -756,12 +872,12 @@
   <figcaption class="header">
     <span class="title">MainApiSwitch.php</span>
   </figcaption>
-  <div class="highlight" title="MainApiSwitch.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+  <div class="highlight" title="MainApiSwitch.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nx">UserService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// add this line here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -770,7 +886,13 @@
 <li><input checked="" disabled="" type="checkbox"> Create the service(Completed)</li>
 </ul>
 <h3 id="step-4-create-or-update-a-to-do-item-in-the-database---1st-action">Step 4: Create or update a to-do item in the database - 1st action.<a href="#step-4-create-or-update-a-to-do-item-in-the-database---1st-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>We create our first action in our service called &lsquo;createOrUpdate&rsquo;. This action will be responsible for creating a new to-do item in the database or update an existing one if an id is provided.</p>
+<h4 id="pionia-actions">Pionia Actions.<a href="#pionia-actions" class="anchor" aria-hidden="true">#</a> </h4>
+<p>To their simplest, these are just class methods with a little sugar-coating. As we have already seen, Pionia services
+are just PHP classes that extend from <code>Service</code>. All methods defined in these services(classes) that are suffixed by
+<code>Action</code> and return <code>Pionia\Http\Response\BaseResponse</code>, are taken to be Pionia Actions. Therefore, any other methods defined in Pionia Service without an <code>Action</code> suffix are taken
+to be just class methods not a Pionia Action.</p>
+<p>For Details about Pionia Actions, please <a href="/documentation/services/actions/">read more about the details here</a>.</p>
+<p>We create our first action in our service called &lsquo;createOrUpdateAction&rsquo;. This action will be responsible for creating a new to-do item in the database or update an existing one if an id is provided.</p>
 
 
 
@@ -779,43 +901,108 @@
   <figcaption class="header">
     <span class="title">TodoService.php</span>
   </figcaption>
-  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\services</span><span class="p">;</span>
+  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\BaseResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\request\BaseRestService</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdate</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdateAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$postData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getInt</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we can create
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$message</span> <span class="o">=</span> <span class="s2">&#34;Todo created successfully!&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we can update
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="p">],</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">database</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$message</span> <span class="o">=</span> <span class="s2">&#34;Todo updated successfully!&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$saved-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$saved</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$message</span><span class="p">,</span> <span class="nv">$saved</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<p>✨So, briefly to go through what we just did.</p>
+<ol>
+<li>We created our action which takes up a Pionia Arrayable <code>$postData</code> which will always contain our POST request data.</li>
+<li>We collected our data, <code>title</code> and <code>description</code> as a string, the <code>id</code> as an integer.</li>
+<li>We checked if we actually have an <code>id</code> in our request. If no id was provided, we use the post data given to us to create a new todo, otherwise we updated the matched to-do.</li>
+<li>Finally, we returned a response using one of our <a href="/documentation/pionia-helpers/">Pionia Helpers</a></li>
+</ol>
 <p>Sending the request using any client of choice.</p>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>So, in the request, using the above, we defined that everytime we define a <code>SERVICE</code> or <code>service</code> called <code>todo</code>, our <code>TodoService</code>
+should then be loaded. Remember, all services are lazy-loaded, so, Pionia does not know that this service exists till it&rsquo;s required by the incoming request.</p>
+<p>For actions, the same process applies. All actions are lazy-loaded too.</p>
+<p>But how do we then target our actions, a case here, <code>createOrUpdateAction</code>?</p>
+<p>To hit out action, another key called <code>ACTION</code> or <code>action</code> must be passed in our request post data.</p>
+<p>This can target the action name directly as the method name:-</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span> <span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span> <span class="p">:</span> <span class="s2">&#34;createOrUpdateAction&#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Or we can ignore the <code>Action</code> suffix like this.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span> <span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span> <span class="p">:</span> <span class="s2">&#34;createOrUpdate&#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Or if you love snake_case format, you can also pass it like below</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span> <span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span> <span class="p">:</span> <span class="s2">&#34;create-or-update&#34;</span> <span class="c1">// can also be &#34;create-or-update-action&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -876,8 +1063,8 @@
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Pass this &#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;Must pass this&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;SERVICE&#39;</span><span class="p">,</span> <span class="s1">&#39;todo&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;ACTION&#39;</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="s1">&#39;todo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;post&#39;</span><span class="p">,</span>
@@ -946,8 +1133,8 @@
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;SERVICE&#34;</span><span class="o">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ACTION&#34;</span><span class="o">:</span> <span class="s2">&#34;create&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;service&#34;</span><span class="o">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;action&#34;</span><span class="o">:</span> <span class="s2">&#34;create&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;Become an avenger&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;description&#34;</span><span class="o">:</span> <span class="s2">&#34;Make sure you become an avenger at 10!&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="mi">2</span> <span class="c1">// this is optional, only pass it to update.
@@ -980,14 +1167,14 @@
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Todo Become an avenger created.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Todo updated successfully!&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Become an avenger&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Make sure you become an avenger at 10!&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2024-05-26 00:11:23&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;2&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="kc">null</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -1014,47 +1201,34 @@
   </div>
 </div>
 
-<p>When you hit the endpoint <code>http://localhost:8000/api/v1/</code> with the data as shown above, the request came via our <code>index.php</code>, which checked out routes. We only have one route as follows:-</p>
+<p>When you reached the endpoint <code>http://localhost:8000/api/v1/</code> with the data as shown above, the request came via our <code>public/index.php</code>, which loaded out routes. We only have one route as follows:-</p>
 
 
 
 <div class="expressive-code">
   <figure class="frame has-title not-content">
   <figcaption class="header">
-    <span class="title">routes.php</span>
+    <span class="title">bootstrap/routes.php</span>
   </figcaption>
-  <div class="highlight" title="routes.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">$router</span><span class="o">-&gt;</span><span class="na">addSwitchFor</span><span class="p">(</span><span class="s1">&#39;application\switches\MainApiSwitch&#39;</span><span class="p">,</span> <span class="s1">&#39;v1&#39;</span><span class="p">);</span></span></span></code></pre></div>
+  <div class="highlight" title="bootstrap/routes.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Application\Switches\MainSwitch</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Routing\PioniaRouter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$router</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">PioniaRouter</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">wireTo</span><span class="p">(</span><span class="nx">MainSwitch</span><span class="o">::</span><span class="na">class</span><span class="p">);</span></span></span></code></pre></div>
   </figure>
 </div>
 <p>The above route implies that all requests to <code>http://localhost:8000/api/v1/</code> should be handled by the <code>MainApiSwitch</code> switch.</p>
 <p>The main api switch checks in the request body for the <code>SERVICE</code> and <code>ACTION</code> keys.
 If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services.
 Therefore, for your service to be discovered, you must register it <a href="#step-3-create-the-service---todoservice">as we did here</a>.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame has-title not-content">
-  <figcaption class="header">
-    <span class="title">MainApiSwitch.php</span>
-  </figcaption>
-  <div class="highlight" title="MainApiSwitch.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nx">UserService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// this is our service.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>So, after here, the service needed is loaded and the entire request in forwarded to it. When the service receives the request, it checks for the action mentioned in the request body. If the action is not found, it throws an exception. If the action is found, it executes the action and returns a response back to the MainApiSwitch which then returns the response to the controller which then returns the response to the kernel that does final processing and returns the response to the client.</p>
+<p>So, after here, the service needed is loaded and the entire request in forwarded to it. When the service receives the request, it checks for the action mentioned in the request body. If the action is not found, it throws an exception. If the action is found, it executes the action and returns a response back to our client.</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Create or update a to-do item in the database(Completed)</li>
 </ul>
 <h3 id="step-5-retrieve-all-to-do-items-from-the-database---2nd-action">Step 5: Retrieve all to-do items from the database - 2nd action.<a href="#step-5-retrieve-all-to-do-items-from-the-database---2nd-action" class="anchor" aria-hidden="true">#</a> </h3>
 <p>We created our todo from the above step, please first take time to create as many as you want.</p>
-<p>Now, let&rsquo;s create an action called <code>all</code> in our service to retrieve all to-do items from the database.</p>
+<p>Now, let&rsquo;s create an action called <code>listAction</code> in our service to retrieve all to-do items from the database.</p>
 
 
 
@@ -1064,10 +1238,9 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
     <span class="title">TodoService.php</span>
   </figcaption>
   <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">## ..rest of the service code
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">all</span><span class="p">()</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">protected</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$data</span> <span class="o">=</span> <span class="nx">Por</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nx">table</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">## rest of the service code...
@@ -1085,7 +1258,7 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;all&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;list&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -1127,7 +1300,7 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 
       </div>
     <div class="callout-body">
-      <p>Notice how the <code>returnData</code> is an array yet it was an object in the previous response. <code>returnData</code> and <code>extraData</code> can be of any type, it is up to you to decide what to return in them.</p>
+      <p>Notice how the <code>returnData</code> is an array, yet it was an object in the previous response. <code>returnData</code> and <code>extraData</code> can be of any type, it is up to you to decide what to return in them.</p>
 <p>You can also omit the message by setting it to null which should be logical for cases of listing items.</p>
 
     </div>
@@ -1138,7 +1311,7 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 <li><input checked="" disabled="" type="checkbox"> Retrieve all to-do items from the database(Completed)</li>
 </ul>
 <h3 id="step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action">Step 6: Retrieve a single to-do item from the database - 3rd action.<a href="#step-6-retrieve-a-single-to-do-item-from-the-database---3rd-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>We will create an action called <code>one</code> in our service to retrieve a single to-do item from the database.</p>
+<p>We will create an action called <code>retrieveAction</code> in our service to retrieve a single to-do item from the database.</p>
 
 
 
@@ -1151,19 +1324,21 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="sd">/**
 </span></span></span><span class="line"><span class="cl"><span class="sd">   * @throws DatabaseException
 </span></span></span><span class="line"><span class="cl"><span class="sd">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">one</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">protected</span> <span class="k">function</span> <span class="nf">retrieveAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="nv">$res</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;todos&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// or Porm::from(&#39;todos&#39;)-&gt;get([&#39;id&#39; =&gt; $id]);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">throw</span> <span class="k">new</span> <span class="nx">DatabaseException</span><span class="p">(</span><span class="s2">&#34;No todo with id </span><span class="si">$id</span><span class="s2"> found.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$todo</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$todo</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&#34;No todo with id </span><span class="si">$todo</span><span class="s2"> found.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">## ..rest of the service code
 </span></span></span></code></pre></div>
   </figure>
@@ -1179,7 +1354,7 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span><span class="s2">&#34;todo&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;one&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;retrieve&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1194,12 +1369,12 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;one&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;retrieve&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">100</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>In the first scenario, we get back a status code of 200 OK but with the following response.</p>
+<p>In the first scenario, we get back a status code of 200 OK with the following response.</p>
 
 
 
@@ -1212,9 +1387,10 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;one&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Become an avenger&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Make sure you become an avenger at 10!&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2024-05-26 00:11:23&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="kc">null</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
@@ -1266,15 +1442,14 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">## ..rest of the service code
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">random</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">randomAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$todos</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="nv">$porm</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">          <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$porm</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$todos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
 <p>You can keep hitting this action and on each hit, you should get a different to-do item. You can also play with the <code>length</code> parameter to get more or less to-do items.</p>
@@ -1312,7 +1487,20 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 </span></span><span class="line"><span class="cl">      <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// you can now hit &#39;all&#39; to see if this worked,
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// you should notice item with this id disappears.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">deleteAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nv">$todo</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted successfully&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span></code></pre></div>
   </figure>
 </div>
 <p>Change your request object to the following in your client(postman).</p>
@@ -1342,7 +1530,7 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Todo deleted successfully&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="kc">null</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
@@ -1373,118 +1561,6 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
   </div>
 </div>
 
-<h3 id="full-service-source-code">Full Service Source Code<a href="#full-service-source-code" class="anchor" aria-hidden="true">#</a> </h3>
-<details>
-  <summary>Details</summary>
-  
-
-
-<div class="expressive-code">
-  <figure class="frame has-title not-content">
-  <figcaption class="header">
-    <span class="title">TodoService.php</span>
-  </figcaption>
-  <div class="highlight" title="TodoService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">application\services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Exception</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\exceptions\DatabaseException</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\request\BaseRestService</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\response\BaseResponse</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\exceptions\BaseDatabaseException</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Porm\Porm</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdate</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we can create
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="p">]);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// here we can update
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="p">],</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="nv">$saved</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo </span><span class="si">$saved-&gt;title</span><span class="s2"> created.&#34;</span><span class="p">,</span> <span class="nv">$saved</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">all</span><span class="p">()</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">one</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$res</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;todos&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">DatabaseException</span><span class="p">(</span><span class="s2">&#34;No todo with id </span><span class="si">$id</span><span class="s2"> found.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws BaseDatabaseException
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// you can now hit all to see if this worked,
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// you should notice item with this id disappears.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todo deleted.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">random</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$porm</span> <span class="o">=</span> <span class="nx">Porm</span><span class="o">::</span><span class="na">from</span><span class="p">(</span><span class="s2">&#34;todos&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;Todos found.&#34;</span><span class="p">,</span> <span class="nv">$porm</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-</details>
 <h2 id="post-tutorial----what-next">Post Tutorial &ndash; What Next?<a href="#post-tutorial----what-next" class="anchor" aria-hidden="true">#</a> </h2>
 
   <div class="card-nav d-flex flex-column flex-sm-row">

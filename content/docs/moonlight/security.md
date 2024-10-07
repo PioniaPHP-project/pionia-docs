@@ -66,7 +66,7 @@ Sample moonlight request:
     "username": "example",
     "password": "example",
     "action": "login",
-    "service": "auth",
+    "service": "auth"
   }
 }
 ```

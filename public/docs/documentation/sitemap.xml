@@ -70,9 +70,36 @@
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/commands-pionia-cli/</loc>
+      <lastmod>2024-10-07T19:48:09+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/caching-in-pionia/</loc>
+      <lastmod>2024-10-07T18:34:56+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/pionia-helpers/</loc>
+      <lastmod>2024-10-07T19:48:09+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
     <url>
         <loc>http://localhost:1313/documentation/services/services/</loc>
         <lastmod>2024-07-31T19:11:06+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/services/actions/</loc>
+        <lastmod>2024-10-07T20:24:56+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>

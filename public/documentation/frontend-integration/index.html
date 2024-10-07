@@ -46,12 +46,12 @@
 <meta property="og:title" content="Frontend Integration">
 <meta property="og:description" content="Guides the developer how to scaffold the frontend of a Pionia application.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/frontend-integration/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="og:url" content="http://localhost:1313/documentation/frontend-integration/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
 <meta property="article:modified_time" content="2024-08-11T12:38:33+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Frontend Integration">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Frontend Integration">
 <meta name="twitter:description" content="Guides the developer how to scaffold the frontend of a Pionia application.">
 <meta name="twitter:site" content="@pionia">
 
@@ -178,6 +178,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -238,6 +242,18 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
   </li>
       </ul>
     </details>
@@ -440,6 +456,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -500,6 +520,18 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
   </li>
       </ul>
     </details>
@@ -634,7 +666,7 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia front:sc </span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia front:sc</span></span></code></pre></div>
   </figure>
 </div>
 <p>If you pass <code>-y</code> flag, the command will assume the defaults and scaffold the frontend without asking for any input.
@@ -649,7 +681,7 @@ This will scaffold <code>Vuejs</code> in the <code>frontend</code> directory of 
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia front:sc </span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia front:sc</span></span></code></pre></div>
   </figure>
 </div>
 
@@ -781,7 +813,7 @@ be added in your <code>settings.ini</code> upon successful scaffolding of the fr
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[frontend]</span>
 </span></span><span class="line"><span class="cl"><span class="na">frontend_root_folder</span><span class="o">=</span><span class="s">pages</span>
-</span></span><span class="line"><span class="cl"><span class="na">build_command</span><span class="o">=</span><span class="s">yarn build </span>
+</span></span><span class="line"><span class="cl"><span class="na">build_command</span><span class="o">=</span><span class="s">yarn build</span>
 </span></span><span class="line"><span class="cl"><span class="na">frontend_build_folder</span><span class="o">=</span><span class="s">dist</span>
 </span></span><span class="line"><span class="cl"><span class="na">frontend_framework</span><span class="o">=</span><span class="s">Vue</span>
 </span></span><span class="line"><span class="cl"><span class="na">package_manager</span><span class="o">=</span><span class="s">yarn</span></span></span></code></pre></div>
@@ -811,7 +843,7 @@ Pionia adds the <code>VITE_API_URL</code> to your <code>.env</code> file. This i
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-.env" data-lang=".env"><span class="line"><span class="cl"><span class="c1"># .env.development</span>
-</span></span><span class="line"><span class="cl"><span class="nv">VITE_API_URL</span><span class="o">=</span>http://localhost:8000/api/ </span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="nv">VITE_API_URL</span><span class="o">=</span>http://localhost:8000/api/</span></span></code></pre></div>
   </figure>
 </div>
 <ol start="2">

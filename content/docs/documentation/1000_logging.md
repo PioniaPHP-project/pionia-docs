@@ -12,7 +12,6 @@ seo:
   description: "Guides us through the process of logging in pionia." # custom description (recommended)
   noindex: true # false (default) or true
 ---
-    
 
 At its core, Pionia uses the [Monolog](https://github.com/Seldaek/monolog) library to handle logging.
 
@@ -27,6 +26,7 @@ tail -f server.log # replace server.log with your log file
 ## Usage
 
 Anywhere in your app, just call the `logger` constant to log messages. The following log levels are available:
+
 ```php
 public function getItem(): ?object
 {
@@ -50,26 +50,28 @@ public function getItem(): ?object
 The above code will log messages at different levels. You can then view the logs in the `server.log` file.
 
 ```text
-[2024-07-08T15:29:28.809573+00:00] pionia.INFO >> Getting item ::  
-[2024-07-08T15:29:28.809623+00:00] pionia.DEBUG >> Getting item ::  
-[2024-07-08T15:29:28.809654+00:00] pionia.CRITICAL >> Getting item ::  
-[2024-07-08T15:29:28.809680+00:00] pionia.ERROR >> Getting item ::  
-[2024-07-08T15:29:28.809706+00:00] pionia.WARNING >> Getting item ::  
-[2024-07-08T15:29:28.809728+00:00] pionia.NOTICE >> Getting item ::  
-[2024-07-08T15:29:28.809751+00:00] pionia.ALERT >> Getting item ::  
-[2024-07-08T15:29:28.809773+00:00] pionia.EMERGENCY >> Getting item ::  
-[2024-07-08T15:29:28.811627+00:00] pionia.INFO >> Gotten item :: 
+[2024-07-08T15:29:28.809573+00:00] pionia.INFO >> Getting item ::
+[2024-07-08T15:29:28.809623+00:00] pionia.DEBUG >> Getting item ::
+[2024-07-08T15:29:28.809654+00:00] pionia.CRITICAL >> Getting item ::
+[2024-07-08T15:29:28.809680+00:00] pionia.ERROR >> Getting item ::
+[2024-07-08T15:29:28.809706+00:00] pionia.WARNING >> Getting item ::
+[2024-07-08T15:29:28.809728+00:00] pionia.NOTICE >> Getting item ::
+[2024-07-08T15:29:28.809751+00:00] pionia.ALERT >> Getting item ::
+[2024-07-08T15:29:28.809773+00:00] pionia.EMERGENCY >> Getting item ::
+[2024-07-08T15:29:28.811627+00:00] pionia.INFO >> Gotten item ::
 ```
 
 ## Customization
 
 ### Log File
+
 You can change the file to log to by defining the log destination in the `settings.ini` file:
 
 ```ini
 [SERVER]
 LOG_DESTINATION=server.log
 ```
+
 If you want to log to php://stdout, you can define the log destination as `stdout`.
 
 ```ini
@@ -85,6 +87,7 @@ You can also change the log format by defining the log format in the `settings.i
 [SERVER]
 LOG_FORMAT=TEXT
 ```
+
 Log formats can be `TEXT` or `JSON`.
 
 ### Logging Settings
@@ -103,6 +106,7 @@ You can hide sensitive information from the logs by defining the sensitive field
 ```ini
 HIDE_IN_LOGS=password,pin,acc
 ```
+
 The above means that whenever a log entry contains any of the fields `password`, `pin`, or `acc`, the value will be replaced with `*******`.
 
 You can also define the string to replace the sensitive fields with:
@@ -112,6 +116,7 @@ HIDE_SUB=**********
 ```
 
 ### Turning off logs
+
 You can simply turn off `DEBUG` mode in the `settings.ini` file:
 
 ```ini
@@ -124,12 +129,14 @@ However much this is okay, but sometimes, if not most times, we would want to le
 The following settings can be defined in the `settings.ini` file:
 
 ### Logging Requests
+
 You can log requests by defining the `LOG_REQUESTS` setting in the `settings.ini` file:
 
 ```ini
 [SERVER]
 LOG_REQUESTS=true
 ```
+
 Whether in `DEBUG` or not, if the above is turned on, all requests will be logged.
 By default, this attempts to log both the requests and responses. However, Responses are sometimes heavy and you may choose to omit them. You can do so by defining the `LOG_RESPONSES` setting in the `settings.ini` file:
 
@@ -140,7 +147,6 @@ LOG_RESPONSES=false
 
 Also, defining the `LOG_RESPONSES` setting as `true` will log only the responses without the requests.
 
-
 With version 1.1.4, you can also define which Monolog processors you would like to include.
 
 You can achieve this by defining the `LOG_PROCESSORS` setting in the `settings.ini` file:
@@ -149,6 +155,7 @@ You can achieve this by defining the `LOG_PROCESSORS` setting in the `settings.i
 [SERVER]
 LOG_PROCESSORS=Monolog\Processor\ProcessIdProcessor, Monolog\Processor\MemoryUsageProcessor
 ```
+
 By default, no processor is added to the logger.
 
 With the above, you app now logs the process id and memory usage in the logs.
@@ -161,6 +168,7 @@ By default, all logs indicate the `pionia` prefix. You can change this by defini
 [SERVER]
 APP_NAME=blog
 ```
+
 The above will change the prefix to `blog`.
 
 ## Log Rotation

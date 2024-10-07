@@ -1,26 +1,27 @@
 ---
-title: 'Advanced Generic Services'
-parent: '600_generic_services'
-description: 'Guides the developer in the advanced usages on Pionia Generic Services.'
-summary: 'Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them.'
+title: "Advanced Generic Services"
+parent: "600_generic_services"
+description: "Guides the developer in the advanced usages on Pionia Generic Services."
+summary: "Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them."
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2024-06-29 19:57:09.923 +0300
 draft: false
 weight: 506
 toc: true
 seo:
-    title: 'Pionia Generic Services- Advanced' # custom title (optional)
-    description: 'Handling Advanced Generic Services in Pionia' # custom description (recommended)
-    canonical: '' # custom canonical URL (optional)
-    noindex: true # false (default) or true
+  title: "Pionia Generic Services- Advanced" # custom title (optional)
+  description: "Handling Advanced Generic Services in Pionia" # custom description (recommended)
+  canonical: "" # custom canonical URL (optional)
+  noindex: true # false (default) or true
 ---
+
 {{<callout tip>}}
 This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven't, you can check the [Generic Services section](/documentation/services/generic-services/) first.
 {{</callout >}}
 
 # Introduction
 
-Pionia Generic Services can be used to do more than just CRUD operations. 
+Pionia Generic Services can be used to do more than just CRUD operations.
 This section is also still growing immensely as we discover more ways to use Generic Services.
 In this section, we will look at how to use Generic Services for more advanced operations.
 
@@ -31,6 +32,7 @@ The first advanced operation we will look at is relationships. Pionia Generic Se
 Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.
 
 ## Properties and Methods
+
 This feature is only available in all services that extend the `Pionia\Services\GenericService` class. But by default,
 this feature is not activated. You have to defines some or all of the following properties and methods to activate it.
 
@@ -48,6 +50,7 @@ public array $joins = [
 ];
 
 ```
+
 The above implies that we have a `products` table and a `category` table.
 The `products` table has a `category_id` column that relates to the `id` column in the `category` table.
 
@@ -68,7 +71,8 @@ If you had defined an alias on your table, you can define the `$joinAlias` prope
       'category' => 'cat',
     ];
 ```
-This implies that the `category` table will be aliased as `cat` in the query. This has to be reflected in all queries that use the `category` table including 
+
+This implies that the `category` table will be aliased as `cat` in the query. This has to be reflected in all queries that use the `category` table including
 in the `$listColumns` property.
 
 ```php
@@ -84,7 +88,7 @@ public ?array $listColumns = [
 
 ### AS Clause
 
-In the entire Porm including even in the above `listColumns` property, you can achieve the `AS` clause to alias columns 
+In the entire Porm including even in the above `listColumns` property, you can achieve the `AS` clause to alias columns
 by using the `()` syntax.
 
 ```php
@@ -97,6 +101,7 @@ public ?array $listColumns = [
         "active"
     ];
 ```
+
 This is applicable to all use cases of Porm.
 
 ## Creation
@@ -107,7 +112,8 @@ Even in cross relationships, you are only allowed to insert in the base table. T
 
 Pionia Generic Services have a built-in file upload feature. This is done by defining the `$fileColumns` property.
 
-Imagining the following `$createColumns`:- 
+Imagining the following `$createColumns`:-
+
 ```php
 public ?array $createColumns = [
         'name',
@@ -124,7 +130,7 @@ public ?array $fileColumns = [
     ];
 ```
 
-This will automatically upload the file and save the file path in the database. 
+This will automatically upload the file and save the file path in the database.
 
 By default, this behaviour uploads the file to the `media` directory in the root of your project.
 But you can change this in your `settings.ini` file by defining the `uploads` section.
@@ -136,8 +142,8 @@ media_url=/media
 max_size=20000000
 ```
 
-From the above, the `media_dir` is the directory where the files will be uploaded to. 
-The `media_url` is the URL to access the files. 
+From the above, the `media_dir` is the directory where the files will be uploaded to.
+The `media_url` is the URL to access the files.
 The `max_size` is the maximum size of the file to be uploaded.
 
 ### Custom upload handler
@@ -162,11 +168,12 @@ The `fileName` matches the parameter that was used to receive the file in your a
         return $this->defaultUpload($file, $fileName);
     }
 ```
-This is the core default implementation of the `handleUpload` method. 
+
+This is the core default implementation of the `handleUpload` method.
 Once this is defined in your service, all files will be uploaded using your custom handler.
 
 {{<callout tip>}}
-The `handleUpload` method should return the path to the file to be saved in the database. 
+The `handleUpload` method should return the path to the file to be saved in the database.
 Whatever it returns, we will attempt to save it in the database.
 {{</callout >}}
 
@@ -175,7 +182,7 @@ Whatever it returns, we will attempt to save it in the database.
 This is the part where generic services shine the most. The frontend now has access to all the related data.
 So they can even define the columns across relationships defined above to return from the db.
 
-If the frontend want to withdraw from querying relationships back to querying the base table, they can define the 
+If the frontend want to withdraw from querying relationships back to querying the base table, they can define the
 `dontRelate` request parameter as `true`.
 
 ```JSON
@@ -193,6 +200,7 @@ The frontend can also define the `COLUMNS` parameter to define the columns to re
     "COLUMNS": ["id", "name"]
 }
 ```
+
 If your tables are aliased, you can use the alias in the `COLUMNS` parameter.
 
 ```JSON
@@ -214,6 +222,6 @@ Also, the frontend can achieve the `AS` clause by using the `()` syntax.
 All the other functionalities of the Generic Services are still available in the advanced operations.
 
 {{<callout tip>}}
-When switching from relationships back to querying the base table alone, Pionia takes care of converting the `listColumns` 
+When switching from relationships back to querying the base table alone, Pionia takes care of converting the `listColumns`
 however, if you had aliased your tables, you need to remember how you named your `pk_field` as it might no longer be `id`.
 {{</callout >}}

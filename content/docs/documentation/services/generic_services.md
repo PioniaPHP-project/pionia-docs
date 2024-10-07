@@ -1,19 +1,20 @@
 ---
-title: 'Generic Services'
-parent: 'documentation'
-description: 'Guides you through services processing in Pionia Framework.'
-summary: 'All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia.'
+title: "Generic Services"
+parent: "documentation"
+description: "Guides you through services processing in Pionia Framework."
+summary: "All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia."
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2024-06-29 19:57:09.923 +0300
 draft: false
 weight: 502
 toc: true
 seo:
-    title: 'Pionia Services' # custom title (optional)
-    description: 'Handling Services in Pionia' # custom description (recommended)
-    canonical: '' # custom canonical URL (optional)
-    noindex: true # false (default) or true
+  title: "Pionia Services" # custom title (optional)
+  description: "Handling Services in Pionia" # custom description (recommended)
+  canonical: "" # custom canonical URL (optional)
+  noindex: true # false (default) or true
 ---
+
 {{<callout tip>}}
 This section assumes that you have a basic understanding how Services work in Pionia. If you haven't, you can check the [Services section](/documentation/services/services/) first.
 {{</callout >}}
@@ -105,7 +106,7 @@ use application\services\CreateRandomService;
 class MyService extends CreateRandomService
 {
     public string $table = 'users';
-    
+
     public array $createColumns = ['name', 'age', 'gender']
 }
 ```
@@ -258,12 +259,13 @@ your request as `details` will still work the same as setting it to `retrieve`.
 
 This defines for us the table we are going to be interacting with. It is a required option.
 
-```php 
+```php
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
 }
 ```
+
 All the other services will require you to define this. This is the table that the service will be interacting with.
 
 ### $pk_field
@@ -291,6 +293,7 @@ class StudentService extends RetrieveCreateUpdateService
     public ?array $createColumns = ['name', 'age', 'gender'];
 }
 ```
+
 Any other columns that are not defined in this array shall be ignored. This is requred for all create services.
 
 ### $updateColumns
@@ -305,6 +308,7 @@ class StudentService extends RetrieveCreateUpdateService
     public ?array $updateColumns = ['name', 'age', 'gender'];
 }
 ```
+
 If this is not defined, then all the columns that are defined in the request will be updated. This param is optional.
 
 ### $listColumns
@@ -369,14 +373,14 @@ You can override any of the actions provided by the generic services. This is do
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
-    
+
     public function create(): BaseResponse
     {
         // Your custom logic here
         $data = $this->request->getData();
-        
+
         // perform your own way of creating the record
-        
+
         return BaseResponse::JsonResponse(0, "your message", $data);
     }
 }
@@ -394,14 +398,14 @@ You can add your own custom actions to the generic services. This is done by def
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
-    
+
     public function customAction(): BaseResponse
     {
         // Your custom logic here
         $data = $this->request->getData();
-        
+
         // perform your own custom action
-        
+
         return BaseResponse::JsonResponse(0, "your message", $data);
     }
 }
@@ -433,7 +437,7 @@ For this cause, you can override the `getItem` and `getItems` methods in service
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
-    
+
     /**
      * Override this in your service to define the basis to return single item details
      * @return null|object
@@ -473,6 +477,7 @@ This hook is called before the `create` action is executed.
         return $createItem;
     }
 ```
+
 If this hook returns `null` or a false value, the `create` action will abort.
 
 Also, this hook has access to the `createItem` that is about to be created. You can mutate data as you see fit at this point or add extra data.
@@ -491,7 +496,7 @@ This hook is called after the `create` action is executed.
     }
 ```
 
-It gives you access to the currently create record. You can mutate the return data as you see fit, but this won't affect 
+It gives you access to the currently create record. You can mutate the return data as you see fit, but this won't affect
 the object that has already been saved. This is just for the response.
 
 Whatever object or array you return from here is what shall be sent back to the user.
@@ -520,6 +525,7 @@ The object that is returned from this hook is what shall be used to update the r
 ### postUpdate
 
 This hook is called after the `update` action is executed.
+
 ```php
     public function postUpdate(object|array|null $updatedItem = null): object|array|null
     {
@@ -586,6 +592,7 @@ public bool $serviceRequiresAuth = true;
 ```
 
 You can also define a few actions that will require authentication like below.
+
 ```php
 public ?array $actionsRequiringAuth = ['create', 'update', 'delete'];
 ```
@@ -612,6 +619,3 @@ The generic services are there to help you with the CRUD operations. They are th
 You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.
 
 This is all to turbo charge your development process which is the main goal of Pionia.
-
-
-

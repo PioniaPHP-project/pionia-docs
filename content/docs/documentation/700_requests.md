@@ -15,17 +15,16 @@ seo:
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
-
 ## Handling Requests and Responses
 
 In Pionia all actions take up request data as associated array, and return a BaseResponse object. This guide will show you how to handle requests and responses in pionia.
 
 ### Request
 
-Pionia framework supports only HTTP verbs due to its single endpoint nature. The supported HTTP verbs are: 
+Pionia framework supports only HTTP verbs due to its single endpoint nature. The supported HTTP verbs are:
 
 - GET
-This is used to `ping` api endpoints for every api version you roll out. This implies that every time you create a new switch, you get this action for free.
+  This is used to `ping` api endpoints for every api version you roll out. This implies that every time you create a new switch, you get this action for free.
 
 {{<callout context="tip" title="GET Request" icon="outline/pencil">}}
 Remember all switches are matching a certain version of your api. The default `MainApiSwitch` matches `v1` of your api.
@@ -58,7 +57,7 @@ This is the only use of the `GET` verb in Pionia. All other actions are done usi
 
 - POST
 
-Every request you make to Pionia is `POST`. This is because Pionia is a single endpoint framework. 
+Every request you make to Pionia is `POST`. This is because Pionia is a single endpoint framework.
 
 So for all the examples that will be mentioned below, you will assume the `POST` verb.
 
@@ -69,7 +68,7 @@ Each `switch` matches an endpoint. The default `MainApiSwitch` matches the `/api
 
 All switches alongside their versions are registered in the `routes.php` file. This file is located in the `app` directory.
 
-The highligted code below shows how the `MainApiSwitch` is registered in the `routes.php` file. 
+The highligted code below shows how the `MainApiSwitch` is registered in the `routes.php` file.
 If no version is defined, then Pionia assumes `v1` as the default version.
 
 ```php {title="app/routes.php" lineNos=1 hl_Lines=7}
@@ -85,7 +84,7 @@ return $router->getRoutes();
 
 ```
 
-To add a second version of the api, you can add a new switch and register it in the `routes.php` file. 
+To add a second version of the api, you can add a new switch and register it in the `routes.php` file.
 
 ```php {title="app/routes.php" lineNos=1 hl_Lines=7}
 <?php
@@ -108,6 +107,7 @@ This is all you need to know about Pionia Routing!
 {{</callout>}}
 
 ### Request Data
+
 Pionia supports both `JSON` and `FormData` data. Whereas using both is possible, it is recommended to use `JSON` data unless you are uploading files.
 
 Every `action` has access to the request `data` as an associated array. This data is passed to the `action` as the first argument.
@@ -148,7 +148,7 @@ To get one file from the file bag, you can use the `get` method.
 public function action(array $data, FileBag $files): BaseResponse
 {
     $file = $files->get('file');
-    
+
     $name = $data['name'];
     $email = $data['email'];
 
@@ -158,7 +158,7 @@ public function action(array $data, FileBag $files): BaseResponse
 
 ### Marking Request Data as required
 
-In your action you can define data that must be present in the request. 
+In your action you can define data that must be present in the request.
 This is done by calling the `requires` method on the service instance.
 
 ```php
@@ -175,6 +175,7 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 This will check if the `$data` array or the `$files` FileBag contains the `name` and `email` keys. If any of the keys are missing, the action will abort.
 
 You can also use the method to check one key at a time.
@@ -197,7 +198,7 @@ public function action(array $data): BaseResponse
 > Whereas you can use the `requires` method on a single key, you should always prefer checking all your keys at once using an array.
 
 ```php {hl_lines=4}
-<?php 
+<?php
 public function action(array $data): BaseResponse
 {
     $this->requires(['name', 'email']);
@@ -216,6 +217,7 @@ Pionia provides a simple way to validate request data. Helper methods are alread
 For all the helper methods provided, you can override the underlying regex pattern by passing a custom pattern as the second argument.
 
 ### Email
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -227,6 +229,7 @@ public function action(array $data): BaseResponse
 ```
 
 ### URL
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -236,7 +239,9 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### IP
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -246,7 +251,9 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Slug
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -256,8 +263,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### International Phone Number
+
 You can also validate international phone numbers. The second argument is the country code you want to validate against. This is optional.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -267,9 +277,12 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Password
+
 Strong Passwords have rules that they must adhere to. You can validate passwords using the `asPassword` method.
 Rules considered are:
+
 - At least one uppercase letter
 - At least one lowercase letter
 - At least one digit
@@ -285,8 +298,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Number
+
 This checks for both Integers and Floats.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -298,7 +314,9 @@ public function action(array $data): BaseResponse
 ```
 
 ### Numeric
+
 This checks for numbers and numbers in string format.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -308,8 +326,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Numeric Integers
+
 This checks for integers and integers in string format.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -319,7 +340,9 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Mac Address
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -329,7 +352,9 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Domain
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -339,8 +364,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Should Be
+
 This is a special method that allows you to define a custom validation. The second argument can be a regex or anything to match.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -350,8 +378,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### All Should Be
+
 Checks if all the keys in the array are valid. The second argument is the validation method to use.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -361,8 +392,11 @@ public function action(array $data): BaseResponse
     // your code here
 }
 ```
+
 ### Custom Validation
+
 You can also define a custom validation using the validate method. The method should return a boolean or int.
+
 ```php {hl_lines=4}
 <?php
 public function action(array $data): BaseResponse
@@ -375,7 +409,7 @@ public function action(array $data): BaseResponse
 
 ## Response
 
-All responses that hit the application server return a `200 OK` status code. And as a result, Pionia returns back the power to define 
+All responses that hit the application server return a `200 OK` status code. And as a result, Pionia returns back the power to define
 the return code of the response. This is done by returning a `BaseResponse` object.
 
 Pionia returns a `BaseResponse` object for every action. This object is used to send responses back to the client.
@@ -400,6 +434,7 @@ public function action(array $data): BaseResponse
     throw new Exception('This is an exception message that will stop this action from proceeding');
 }
 ```
+
 {{<callout context="note" title="Note" icon="outline/pencil">}}
 By default, Pionia reserves `returnCode` of `0` for successful responses. This is just a convention, and you can use any other code you want.
 {{</callout>}}

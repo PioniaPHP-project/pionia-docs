@@ -46,12 +46,12 @@
 <meta property="og:title" content="Application Structure">
 <meta property="og:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/application-structure/"><meta property="og:image" content="http://localhost:1313/pionia.png"><meta property="article:section" content="docs">
+<meta property="og:url" content="http://localhost:1313/documentation/application-structure/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
 <meta property="article:modified_time" content="2024-07-29T16:04:12+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/pionia.png"><meta name="twitter:title" content="Application Structure">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Application Structure">
 <meta name="twitter:description" content="Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.">
 <meta name="twitter:site" content="@pionia">
 
@@ -178,6 +178,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -238,6 +242,18 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
   </li>
       </ul>
     </details>
@@ -440,6 +456,10 @@
   </li>
 
   <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
+  <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
   </li>
 
@@ -500,6 +520,18 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
   </li>
       </ul>
     </details>
@@ -568,26 +600,34 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">app
-</span></span><span class="line"><span class="cl">├── switches
-</span></span><span class="line"><span class="cl">├── services
-</span></span><span class="line"><span class="cl">├── authentications
-</span></span><span class="line"><span class="cl">├── commands
-</span></span><span class="line"><span class="cl">├── middlewares
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">bootstrap
+</span></span><span class="line"><span class="cl">├── application.php
 </span></span><span class="line"><span class="cl">├── routes.php
-</span></span><span class="line"><span class="cl">vendor
-</span></span><span class="line"><span class="cl">.gitignore
-</span></span><span class="line"><span class="cl">composer.json
-</span></span><span class="line"><span class="cl">composer.lock
-</span></span><span class="line"><span class="cl">index.php
-</span></span><span class="line"><span class="cl">pionia
-</span></span><span class="line"><span class="cl">README.md
-</span></span><span class="line"><span class="cl">settings.ini</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">environment
+</span></span><span class="line"><span class="cl">├── .env
+</span></span><span class="line"><span class="cl">├── settings.ini
+</span></span><span class="line"><span class="cl">public
+</span></span><span class="line"><span class="cl">├── index.php
+</span></span><span class="line"><span class="cl">├── .htaccess
+</span></span><span class="line"><span class="cl">services
+</span></span><span class="line"><span class="cl">├── AuthService.php
+</span></span><span class="line"><span class="cl">static
+</span></span><span class="line"><span class="cl">├── bootstrap.min.css
+</span></span><span class="line"><span class="cl">├── favicon.ico
+</span></span><span class="line"><span class="cl">├── favicon.png
+</span></span><span class="line"><span class="cl">├── pionia_logo.webp
+</span></span><span class="line"><span class="cl">storage
+</span></span><span class="line"><span class="cl">├── scripts
+</span></span><span class="line"><span class="cl">├── rename.php
+</span></span><span class="line"><span class="cl">switches
+</span></span><span class="line"><span class="cl">├── MainSwitch.php
+</span></span><span class="line"><span class="cl">├── .gitignore
+</span></span><span class="line"><span class="cl">├── README.md
+</span></span><span class="line"><span class="cl">├── composer.json
+</span></span><span class="line"><span class="cl">├── pionia</span></span></code></pre></div>
   </figure>
 </div>
 <h2 id="directory-structure-breakdown">Directory Structure Breakdown<a href="#directory-structure-breakdown" class="anchor" aria-hidden="true">#</a> </h2>
-<p><em><strong>app</strong></em><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>:-
-This is the main directory of the project. It is where all the application logic is stored. It contains the following subdirectories and scripts:</p>
 <table>
 <thead>
 <tr>
@@ -598,9 +638,19 @@ This is the main directory of the project. It is where all the application logic
 </thead>
 <tbody>
 <tr>
-<td>switches</td>
-<td>The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough.</td>
+<td>bootstrap</td>
+<td>This is where we store our application and routes. <code>application.php</code> helps to bootstrap the Pionia application that shall be used by both our CLI and web kernels.</td>
 <td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg> Folder</td>
+</tr>
+<tr>
+<td>environment</td>
+<td>This holds our environment configuration files, can contain profile-specific environment too!</td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg> Folder</td>
+</tr>
+<tr>
+<td>public</td>
+<td>This handles all HTTP requests and boots up our web kernel using the Pionia application created in <code>bootstrap/application.php</code></td>
+<td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
 </tr>
 <tr>
 <td>services</td>
@@ -608,44 +658,44 @@ This is the main directory of the project. It is where all the application logic
 <td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
 </tr>
 <tr>
-<td>authentications</td>
-<td>This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini</td>
+<td>static</td>
+<td>These holds static files that the might you may need or that might be needed by the framework itself. In the future, this folder might be used to serve frontend SPAs</td>
 <td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
 </tr>
 <tr>
-<td>middlewares</td>
-<td>This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the switches and after they leave the switches.</td>
+<td>storage</td>
+<td>This where application generated files are stored. These might include caches, logs, and scripts. Please do not remove <code>rename.php</code> in scripts</td>
 <td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
 </tr>
 <tr>
-<td>commands</td>
-<td>This is where we store our console commands. Add your console commands here.</td>
+<td>switches</td>
+<td>This is where our app switches reside.</td>
 <td><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>Folder</td>
 </tr>
 <tr>
-<td>routes.php</td>
-<td>Our routes behave different, their job is not to not route but to register the switches that should be auto-dicovered.</td>
-<td><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
+<td>.gitignore</td>
+<td>This file is used to tell git which files to ignore when pushing to the repository.</td>
+<td><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
+</tr>
+<tr>
+<td>composer.json</td>
+<td>This file is used to manage the dependencies of the project. It is used by composer to install the dependencies.</td>
+<td><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
+</tr>
+<tr>
+<td>pionia</td>
+<td>This handles all our CLI commands, whether inbuilt or your custom commands. Just run <code>php pionia</code> to boot this CLI up</td>
+<td><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
+</tr>
+<tr>
+<td>README.m</td>
+<td>A simple getting started guide for the project.</td>
+<td><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>File</td>
 </tr>
 </tbody>
 </table>
-<p><em><strong>vendor</strong></em><svg class="outline/folder svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2"/></svg>:-
-This is where all the dependencies of the project are stored. It is created by composer when you run <code>composer install</code> or <code>composer update</code>.</p>
-<p><em><strong>.gitignore</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This file is used to tell git which files to ignore when pushing to the repository.</p>
-<p><em><strong>composer.json</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This file is used to manage the dependencies of the project. It is used by composer to install the dependencies.</p>
-<p><em><strong>composer.lock</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This file is used to lock the dependencies of the project. It is used by composer to install the dependencies.</p>
-<p><em><strong>index.php</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This is the entry point of the project. It is where the project starts running. This is where you register the middlewares, routes, and authentication backends.</p>
-<p><em><strong>pionia</strong></em><svg class="outline/file svg-inline svg-inline-custom" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This is our console interface. It helps us to run pionia-specific commands.</p>
-<p><em><strong>README.md</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-A simple getting started guide for the project.</p>
-<p><em><strong>settings.ini</strong></em><svg class="outline/file svg-inline svg-inline" height="1rem" width="1rem"  xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>:-
-This is the file that contains the settings of the project. It is where you store the settings of the project.</p>
-<p>As you can see, pionia maintains the least number of files and directories to make it easy for you to understand and maintain your project. You can always add more directories and files as you see fit. But remember to keep the project as simple as possible.</p>
+<p>Pionia is a progressive framework, there more folders might be included as you need/require them. Other folders might include
+<code>middlewares</code>, <code>authentications</code>, <code>commands</code>. All these will only be added when you invoke/initiate them.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

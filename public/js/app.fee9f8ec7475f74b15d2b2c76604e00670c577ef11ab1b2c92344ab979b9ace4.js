@@ -1,1587 +1,1672 @@
-"use strict";
+'use strict';
 (() => {
-  var __create = Object.create;
-  var __defProp = Object.defineProperty;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getProtoOf = Object.getPrototypeOf;
-  var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-  };
-  var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
-      for (let key of __getOwnPropNames(from))
-        if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-    }
-    return to;
-  };
-  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-    mod
-  ));
-
-  // node_modules/lazysizes/lazysizes.js
-  var require_lazysizes = __commonJS({
-    "node_modules/lazysizes/lazysizes.js"(exports, module) {
-      (function(window2, factory) {
-        var lazySizes2 = factory(window2, window2.document, Date);
-        window2.lazySizes = lazySizes2;
-        if (typeof module == "object" && module.exports) {
-          module.exports = lazySizes2;
-        }
-      })(
-        typeof window != "undefined" ? window : {},
-        /**
-         * import("./types/global")
-         * @typedef { import("./types/lazysizes-config").LazySizesConfigPartial } LazySizesConfigPartial
-         */
-        function l(window2, document2, Date2) {
-          "use strict";
-          var lazysizes, lazySizesCfg;
-          (function() {
-            var prop;
-            var lazySizesDefaults = {
-              lazyClass: "lazyload",
-              loadedClass: "lazyloaded",
-              loadingClass: "lazyloading",
-              preloadClass: "lazypreload",
-              errorClass: "lazyerror",
-              //strictClass: 'lazystrict',
-              autosizesClass: "lazyautosizes",
-              fastLoadedClass: "ls-is-cached",
-              iframeLoadMode: 0,
-              srcAttr: "data-src",
-              srcsetAttr: "data-srcset",
-              sizesAttr: "data-sizes",
-              //preloadAfterLoad: false,
-              minSize: 40,
-              customMedia: {},
-              init: true,
-              expFactor: 1.5,
-              hFac: 0.8,
-              loadMode: 2,
-              loadHidden: true,
-              ricTimeout: 0,
-              throttleDelay: 125
-            };
-            lazySizesCfg = window2.lazySizesConfig || window2.lazysizesConfig || {};
-            for (prop in lazySizesDefaults) {
-              if (!(prop in lazySizesCfg)) {
-                lazySizesCfg[prop] = lazySizesDefaults[prop];
-              }
-            }
-          })();
-          if (!document2 || !document2.getElementsByClassName) {
-            return {
-              init: function() {
-              },
-              /**
-               * @type { LazySizesConfigPartial }
-               */
-              cfg: lazySizesCfg,
-              /**
-               * @type { true }
-               */
-              noSupport: true
-            };
-          }
-          var docElem = document2.documentElement;
-          var supportPicture = window2.HTMLPictureElement;
-          var _addEventListener = "addEventListener";
-          var _getAttribute = "getAttribute";
-          var addEventListener = window2[_addEventListener].bind(window2);
-          var setTimeout2 = window2.setTimeout;
-          var requestAnimationFrame = window2.requestAnimationFrame || setTimeout2;
-          var requestIdleCallback = window2.requestIdleCallback;
-          var regPicture = /^picture$/i;
-          var loadEvents = ["load", "error", "lazyincluded", "_lazyloaded"];
-          var regClassCache = {};
-          var forEach = Array.prototype.forEach;
-          var hasClass = function(ele, cls) {
-            if (!regClassCache[cls]) {
-              regClassCache[cls] = new RegExp("(\\s|^)" + cls + "(\\s|$)");
-            }
-            return regClassCache[cls].test(ele[_getAttribute]("class") || "") && regClassCache[cls];
-          };
-          var addClass = function(ele, cls) {
-            if (!hasClass(ele, cls)) {
-              ele.setAttribute("class", (ele[_getAttribute]("class") || "").trim() + " " + cls);
-            }
-          };
-          var removeClass = function(ele, cls) {
-            var reg;
-            if (reg = hasClass(ele, cls)) {
-              ele.setAttribute("class", (ele[_getAttribute]("class") || "").replace(reg, " "));
-            }
-          };
-          var addRemoveLoadEvents = function(dom, fn, add) {
-            var action = add ? _addEventListener : "removeEventListener";
-            if (add) {
-              addRemoveLoadEvents(dom, fn);
-            }
-            loadEvents.forEach(function(evt) {
-              dom[action](evt, fn);
-            });
-          };
-          var triggerEvent = function(elem, name, detail, noBubbles, noCancelable) {
-            var event = document2.createEvent("Event");
-            if (!detail) {
-              detail = {};
-            }
-            detail.instance = lazysizes;
-            event.initEvent(name, !noBubbles, !noCancelable);
-            event.detail = detail;
-            elem.dispatchEvent(event);
-            return event;
-          };
-          var updatePolyfill = function(el, full) {
-            var polyfill;
-            if (!supportPicture && (polyfill = window2.picturefill || lazySizesCfg.pf)) {
-              if (full && full.src && !el[_getAttribute]("srcset")) {
-                el.setAttribute("srcset", full.src);
-              }
-              polyfill({ reevaluate: true, elements: [el] });
-            } else if (full && full.src) {
-              el.src = full.src;
-            }
-          };
-          var getCSS = function(elem, style) {
-            return (getComputedStyle(elem, null) || {})[style];
-          };
-          var getWidth = function(elem, parent, width) {
-            width = width || elem.offsetWidth;
-            while (width < lazySizesCfg.minSize && parent && !elem._lazysizesWidth) {
-              width = parent.offsetWidth;
-              parent = parent.parentNode;
-            }
-            return width;
-          };
-          var rAF = function() {
-            var running, waiting;
-            var firstFns = [];
-            var secondFns = [];
-            var fns = firstFns;
-            var run = function() {
-              var runFns = fns;
-              fns = firstFns.length ? secondFns : firstFns;
-              running = true;
-              waiting = false;
-              while (runFns.length) {
-                runFns.shift()();
-              }
-              running = false;
-            };
-            var rafBatch = function(fn, queue) {
-              if (running && !queue) {
-                fn.apply(this, arguments);
-              } else {
-                fns.push(fn);
-                if (!waiting) {
-                  waiting = true;
-                  (document2.hidden ? setTimeout2 : requestAnimationFrame)(run);
-                }
-              }
-            };
-            rafBatch._lsFlush = run;
-            return rafBatch;
-          }();
-          var rAFIt = function(fn, simple) {
-            return simple ? function() {
-              rAF(fn);
-            } : function() {
-              var that = this;
-              var args = arguments;
-              rAF(function() {
-                fn.apply(that, args);
-              });
-            };
-          };
-          var throttle = function(fn) {
-            var running;
-            var lastTime = 0;
-            var gDelay = lazySizesCfg.throttleDelay;
-            var rICTimeout = lazySizesCfg.ricTimeout;
-            var run = function() {
-              running = false;
-              lastTime = Date2.now();
-              fn();
-            };
-            var idleCallback = requestIdleCallback && rICTimeout > 49 ? function() {
-              requestIdleCallback(run, { timeout: rICTimeout });
-              if (rICTimeout !== lazySizesCfg.ricTimeout) {
-                rICTimeout = lazySizesCfg.ricTimeout;
-              }
-            } : rAFIt(function() {
-              setTimeout2(run);
-            }, true);
-            return function(isPriority) {
-              var delay;
-              if (isPriority = isPriority === true) {
-                rICTimeout = 33;
-              }
-              if (running) {
-                return;
-              }
-              running = true;
-              delay = gDelay - (Date2.now() - lastTime);
-              if (delay < 0) {
-                delay = 0;
-              }
-              if (isPriority || delay < 9) {
-                idleCallback();
-              } else {
-                setTimeout2(idleCallback, delay);
-              }
-            };
-          };
-          var debounce = function(func) {
-            var timeout, timestamp;
-            var wait = 99;
-            var run = function() {
-              timeout = null;
-              func();
-            };
-            var later = function() {
-              var last = Date2.now() - timestamp;
-              if (last < wait) {
-                setTimeout2(later, wait - last);
-              } else {
-                (requestIdleCallback || run)(run);
-              }
-            };
-            return function() {
-              timestamp = Date2.now();
-              if (!timeout) {
-                timeout = setTimeout2(later, wait);
-              }
-            };
-          };
-          var loader = function() {
-            var preloadElems, isCompleted, resetPreloadingTimer, loadMode, started;
-            var eLvW, elvH, eLtop, eLleft, eLright, eLbottom, isBodyHidden;
-            var regImg = /^img$/i;
-            var regIframe = /^iframe$/i;
-            var supportScroll = "onscroll" in window2 && !/(gle|ing)bot/.test(navigator.userAgent);
-            var shrinkExpand = 0;
-            var currentExpand = 0;
-            var isLoading = 0;
-            var lowRuns = -1;
-            var resetPreloading = function(e2) {
-              isLoading--;
-              if (!e2 || isLoading < 0 || !e2.target) {
-                isLoading = 0;
-              }
-            };
-            var isVisible = function(elem) {
-              if (isBodyHidden == null) {
-                isBodyHidden = getCSS(document2.body, "visibility") == "hidden";
-              }
-              return isBodyHidden || !(getCSS(elem.parentNode, "visibility") == "hidden" && getCSS(elem, "visibility") == "hidden");
-            };
-            var isNestedVisible = function(elem, elemExpand) {
-              var outerRect;
-              var parent = elem;
-              var visible = isVisible(elem);
-              eLtop -= elemExpand;
-              eLbottom += elemExpand;
-              eLleft -= elemExpand;
-              eLright += elemExpand;
-              while (visible && (parent = parent.offsetParent) && parent != document2.body && parent != docElem) {
-                visible = (getCSS(parent, "opacity") || 1) > 0;
-                if (visible && getCSS(parent, "overflow") != "visible") {
-                  outerRect = parent.getBoundingClientRect();
-                  visible = eLright > outerRect.left && eLleft < outerRect.right && eLbottom > outerRect.top - 1 && eLtop < outerRect.bottom + 1;
-                }
-              }
-              return visible;
-            };
-            var checkElements = function() {
-              var eLlen, i3, rect, autoLoadElem, loadedSomething, elemExpand, elemNegativeExpand, elemExpandVal, beforeExpandVal, defaultExpand, preloadExpand, hFac;
-              var lazyloadElems = lazysizes.elements;
-              if ((loadMode = lazySizesCfg.loadMode) && isLoading < 8 && (eLlen = lazyloadElems.length)) {
-                i3 = 0;
-                lowRuns++;
-                for (; i3 < eLlen; i3++) {
-                  if (!lazyloadElems[i3] || lazyloadElems[i3]._lazyRace) {
-                    continue;
-                  }
-                  if (!supportScroll || lazysizes.prematureUnveil && lazysizes.prematureUnveil(lazyloadElems[i3])) {
-                    unveilElement(lazyloadElems[i3]);
-                    continue;
-                  }
-                  if (!(elemExpandVal = lazyloadElems[i3][_getAttribute]("data-expand")) || !(elemExpand = elemExpandVal * 1)) {
-                    elemExpand = currentExpand;
-                  }
-                  if (!defaultExpand) {
-                    defaultExpand = !lazySizesCfg.expand || lazySizesCfg.expand < 1 ? docElem.clientHeight > 500 && docElem.clientWidth > 500 ? 500 : 370 : lazySizesCfg.expand;
-                    lazysizes._defEx = defaultExpand;
-                    preloadExpand = defaultExpand * lazySizesCfg.expFactor;
-                    hFac = lazySizesCfg.hFac;
-                    isBodyHidden = null;
-                    if (currentExpand < preloadExpand && isLoading < 1 && lowRuns > 2 && loadMode > 2 && !document2.hidden) {
-                      currentExpand = preloadExpand;
-                      lowRuns = 0;
-                    } else if (loadMode > 1 && lowRuns > 1 && isLoading < 6) {
-                      currentExpand = defaultExpand;
-                    } else {
-                      currentExpand = shrinkExpand;
-                    }
-                  }
-                  if (beforeExpandVal !== elemExpand) {
-                    eLvW = innerWidth + elemExpand * hFac;
-                    elvH = innerHeight + elemExpand;
-                    elemNegativeExpand = elemExpand * -1;
-                    beforeExpandVal = elemExpand;
-                  }
-                  rect = lazyloadElems[i3].getBoundingClientRect();
-                  if ((eLbottom = rect.bottom) >= elemNegativeExpand && (eLtop = rect.top) <= elvH && (eLright = rect.right) >= elemNegativeExpand * hFac && (eLleft = rect.left) <= eLvW && (eLbottom || eLright || eLleft || eLtop) && (lazySizesCfg.loadHidden || isVisible(lazyloadElems[i3])) && (isCompleted && isLoading < 3 && !elemExpandVal && (loadMode < 3 || lowRuns < 4) || isNestedVisible(lazyloadElems[i3], elemExpand))) {
-                    unveilElement(lazyloadElems[i3]);
-                    loadedSomething = true;
-                    if (isLoading > 9) {
-                      break;
-                    }
-                  } else if (!loadedSomething && isCompleted && !autoLoadElem && isLoading < 4 && lowRuns < 4 && loadMode > 2 && (preloadElems[0] || lazySizesCfg.preloadAfterLoad) && (preloadElems[0] || !elemExpandVal && (eLbottom || eLright || eLleft || eLtop || lazyloadElems[i3][_getAttribute](lazySizesCfg.sizesAttr) != "auto"))) {
-                    autoLoadElem = preloadElems[0] || lazyloadElems[i3];
-                  }
-                }
-                if (autoLoadElem && !loadedSomething) {
-                  unveilElement(autoLoadElem);
-                }
-              }
-            };
-            var throttledCheckElements = throttle(checkElements);
-            var switchLoadingClass = function(e2) {
-              var elem = e2.target;
-              if (elem._lazyCache) {
-                delete elem._lazyCache;
-                return;
-              }
-              resetPreloading(e2);
-              addClass(elem, lazySizesCfg.loadedClass);
-              removeClass(elem, lazySizesCfg.loadingClass);
-              addRemoveLoadEvents(elem, rafSwitchLoadingClass);
-              triggerEvent(elem, "lazyloaded");
-            };
-            var rafedSwitchLoadingClass = rAFIt(switchLoadingClass);
-            var rafSwitchLoadingClass = function(e2) {
-              rafedSwitchLoadingClass({ target: e2.target });
-            };
-            var changeIframeSrc = function(elem, src) {
-              var loadMode2 = elem.getAttribute("data-load-mode") || lazySizesCfg.iframeLoadMode;
-              if (loadMode2 == 0) {
-                elem.contentWindow.location.replace(src);
-              } else if (loadMode2 == 1) {
-                elem.src = src;
-              }
-            };
-            var handleSources = function(source) {
-              var customMedia;
-              var sourceSrcset = source[_getAttribute](lazySizesCfg.srcsetAttr);
-              if (customMedia = lazySizesCfg.customMedia[source[_getAttribute]("data-media") || source[_getAttribute]("media")]) {
-                source.setAttribute("media", customMedia);
-              }
-              if (sourceSrcset) {
-                source.setAttribute("srcset", sourceSrcset);
-              }
-            };
-            var lazyUnveil = rAFIt(function(elem, detail, isAuto, sizes, isImg) {
-              var src, srcset, parent, isPicture, event, firesLoad;
-              if (!(event = triggerEvent(elem, "lazybeforeunveil", detail)).defaultPrevented) {
-                if (sizes) {
-                  if (isAuto) {
-                    addClass(elem, lazySizesCfg.autosizesClass);
-                  } else {
-                    elem.setAttribute("sizes", sizes);
-                  }
-                }
-                srcset = elem[_getAttribute](lazySizesCfg.srcsetAttr);
-                src = elem[_getAttribute](lazySizesCfg.srcAttr);
-                if (isImg) {
-                  parent = elem.parentNode;
-                  isPicture = parent && regPicture.test(parent.nodeName || "");
-                }
-                firesLoad = detail.firesLoad || "src" in elem && (srcset || src || isPicture);
-                event = { target: elem };
-                addClass(elem, lazySizesCfg.loadingClass);
-                if (firesLoad) {
-                  clearTimeout(resetPreloadingTimer);
-                  resetPreloadingTimer = setTimeout2(resetPreloading, 2500);
-                  addRemoveLoadEvents(elem, rafSwitchLoadingClass, true);
-                }
-                if (isPicture) {
-                  forEach.call(parent.getElementsByTagName("source"), handleSources);
-                }
-                if (srcset) {
-                  elem.setAttribute("srcset", srcset);
-                } else if (src && !isPicture) {
-                  if (regIframe.test(elem.nodeName)) {
-                    changeIframeSrc(elem, src);
-                  } else {
-                    elem.src = src;
-                  }
-                }
-                if (isImg && (srcset || isPicture)) {
-                  updatePolyfill(elem, { src });
-                }
-              }
-              if (elem._lazyRace) {
-                delete elem._lazyRace;
-              }
-              removeClass(elem, lazySizesCfg.lazyClass);
-              rAF(function() {
-                var isLoaded = elem.complete && elem.naturalWidth > 1;
-                if (!firesLoad || isLoaded) {
-                  if (isLoaded) {
-                    addClass(elem, lazySizesCfg.fastLoadedClass);
-                  }
-                  switchLoadingClass(event);
-                  elem._lazyCache = true;
-                  setTimeout2(function() {
-                    if ("_lazyCache" in elem) {
-                      delete elem._lazyCache;
-                    }
-                  }, 9);
-                }
-                if (elem.loading == "lazy") {
-                  isLoading--;
-                }
-              }, true);
-            });
-            var unveilElement = function(elem) {
-              if (elem._lazyRace) {
-                return;
-              }
-              var detail;
-              var isImg = regImg.test(elem.nodeName);
-              var sizes = isImg && (elem[_getAttribute](lazySizesCfg.sizesAttr) || elem[_getAttribute]("sizes"));
-              var isAuto = sizes == "auto";
-              if ((isAuto || !isCompleted) && isImg && (elem[_getAttribute]("src") || elem.srcset) && !elem.complete && !hasClass(elem, lazySizesCfg.errorClass) && hasClass(elem, lazySizesCfg.lazyClass)) {
-                return;
-              }
-              detail = triggerEvent(elem, "lazyunveilread").detail;
-              if (isAuto) {
-                autoSizer.updateElem(elem, true, elem.offsetWidth);
-              }
-              elem._lazyRace = true;
-              isLoading++;
-              lazyUnveil(elem, detail, isAuto, sizes, isImg);
-            };
-            var afterScroll = debounce(function() {
-              lazySizesCfg.loadMode = 3;
-              throttledCheckElements();
-            });
-            var altLoadmodeScrollListner = function() {
-              if (lazySizesCfg.loadMode == 3) {
-                lazySizesCfg.loadMode = 2;
-              }
-              afterScroll();
-            };
-            var onload = function() {
-              if (isCompleted) {
-                return;
-              }
-              if (Date2.now() - started < 999) {
-                setTimeout2(onload, 999);
-                return;
-              }
-              isCompleted = true;
-              lazySizesCfg.loadMode = 3;
-              throttledCheckElements();
-              addEventListener("scroll", altLoadmodeScrollListner, true);
-            };
-            return {
-              _: function() {
-                started = Date2.now();
-                lazysizes.elements = document2.getElementsByClassName(lazySizesCfg.lazyClass);
-                preloadElems = document2.getElementsByClassName(lazySizesCfg.lazyClass + " " + lazySizesCfg.preloadClass);
-                addEventListener("scroll", throttledCheckElements, true);
-                addEventListener("resize", throttledCheckElements, true);
-                addEventListener("pageshow", function(e2) {
-                  if (e2.persisted) {
-                    var loadingElements = document2.querySelectorAll("." + lazySizesCfg.loadingClass);
-                    if (loadingElements.length && loadingElements.forEach) {
-                      requestAnimationFrame(function() {
-                        loadingElements.forEach(function(img) {
-                          if (img.complete) {
-                            unveilElement(img);
-                          }
-                        });
-                      });
-                    }
-                  }
-                });
-                if (window2.MutationObserver) {
-                  new MutationObserver(throttledCheckElements).observe(docElem, { childList: true, subtree: true, attributes: true });
-                } else {
-                  docElem[_addEventListener]("DOMNodeInserted", throttledCheckElements, true);
-                  docElem[_addEventListener]("DOMAttrModified", throttledCheckElements, true);
-                  setInterval(throttledCheckElements, 999);
-                }
-                addEventListener("hashchange", throttledCheckElements, true);
-                ["focus", "mouseover", "click", "load", "transitionend", "animationend"].forEach(function(name) {
-                  document2[_addEventListener](name, throttledCheckElements, true);
-                });
-                if (/d$|^c/.test(document2.readyState)) {
-                  onload();
-                } else {
-                  addEventListener("load", onload);
-                  document2[_addEventListener]("DOMContentLoaded", throttledCheckElements);
-                  setTimeout2(onload, 2e4);
-                }
-                if (lazysizes.elements.length) {
-                  checkElements();
-                  rAF._lsFlush();
-                } else {
-                  throttledCheckElements();
-                }
-              },
-              checkElems: throttledCheckElements,
-              unveil: unveilElement,
-              _aLSL: altLoadmodeScrollListner
-            };
-          }();
-          var autoSizer = function() {
-            var autosizesElems;
-            var sizeElement = rAFIt(function(elem, parent, event, width) {
-              var sources, i3, len;
-              elem._lazysizesWidth = width;
-              width += "px";
-              elem.setAttribute("sizes", width);
-              if (regPicture.test(parent.nodeName || "")) {
-                sources = parent.getElementsByTagName("source");
-                for (i3 = 0, len = sources.length; i3 < len; i3++) {
-                  sources[i3].setAttribute("sizes", width);
-                }
-              }
-              if (!event.detail.dataAttr) {
-                updatePolyfill(elem, event.detail);
-              }
-            });
-            var getSizeElement = function(elem, dataAttr, width) {
-              var event;
-              var parent = elem.parentNode;
-              if (parent) {
-                width = getWidth(elem, parent, width);
-                event = triggerEvent(elem, "lazybeforesizes", { width, dataAttr: !!dataAttr });
-                if (!event.defaultPrevented) {
-                  width = event.detail.width;
-                  if (width && width !== elem._lazysizesWidth) {
-                    sizeElement(elem, parent, event, width);
-                  }
-                }
-              }
-            };
-            var updateElementsSizes = function() {
-              var i3;
-              var len = autosizesElems.length;
-              if (len) {
-                i3 = 0;
-                for (; i3 < len; i3++) {
-                  getSizeElement(autosizesElems[i3]);
-                }
-              }
-            };
-            var debouncedUpdateElementsSizes = debounce(updateElementsSizes);
-            return {
-              _: function() {
-                autosizesElems = document2.getElementsByClassName(lazySizesCfg.autosizesClass);
-                addEventListener("resize", debouncedUpdateElementsSizes);
-              },
-              checkElems: debouncedUpdateElementsSizes,
-              updateElem: getSizeElement
-            };
-          }();
-          var init = function() {
-            if (!init.i && document2.getElementsByClassName) {
-              init.i = true;
-              autoSizer._();
-              loader._();
-            }
-          };
-          setTimeout2(function() {
-            if (lazySizesCfg.init) {
-              init();
-            }
-          });
-          lazysizes = {
-            /**
-             * @type { LazySizesConfigPartial }
-             */
-            cfg: lazySizesCfg,
-            autoSizer,
-            loader,
-            init,
-            uP: updatePolyfill,
-            aC: addClass,
-            rC: removeClass,
-            hC: hasClass,
-            fire: triggerEvent,
-            gW: getWidth,
-            rAF
-          };
-          return lazysizes;
-        }
-      );
-    }
-  });
-
-  // node_modules/lazysizes/plugins/native-loading/ls.native-loading.js
-  var require_ls_native_loading = __commonJS({
-    "node_modules/lazysizes/plugins/native-loading/ls.native-loading.js"(exports, module) {
-      (function(window2, factory) {
-        var globalInstall = function() {
-          factory(window2.lazySizes);
-          window2.removeEventListener("lazyunveilread", globalInstall, true);
+    var __create = Object.create;
+    var __defProp = Object.defineProperty;
+    var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+    var __getOwnPropNames = Object.getOwnPropertyNames;
+    var __getProtoOf = Object.getPrototypeOf;
+    var __hasOwnProp = Object.prototype.hasOwnProperty;
+    var __commonJS = (cb, mod) =>
+        function __require() {
+            return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
         };
-        factory = factory.bind(null, window2, window2.document);
-        if (typeof module == "object" && module.exports) {
-          factory(require_lazysizes());
-        } else if (typeof define == "function" && define.amd) {
-          define(["lazysizes"], factory);
-        } else if (window2.lazySizes) {
-          globalInstall();
-        } else {
-          window2.addEventListener("lazyunveilread", globalInstall, true);
+    var __copyProps = (to, from, except, desc) => {
+        if ((from && typeof from === 'object') || typeof from === 'function') {
+            for (let key of __getOwnPropNames(from)) if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
         }
-      })(window, function(window2, document2, lazySizes2) {
-        "use strict";
-        var imgSupport = "loading" in HTMLImageElement.prototype;
-        var iframeSupport = "loading" in HTMLIFrameElement.prototype;
-        var isConfigSet = false;
-        var oldPrematureUnveil = lazySizes2.prematureUnveil;
-        var cfg = lazySizes2.cfg;
-        var listenerMap = {
-          focus: 1,
-          mouseover: 1,
-          click: 1,
-          load: 1,
-          transitionend: 1,
-          animationend: 1,
-          scroll: 1,
-          resize: 1
-        };
-        if (!cfg.nativeLoading) {
-          cfg.nativeLoading = {};
-        }
-        if (!window2.addEventListener || !window2.MutationObserver || !imgSupport && !iframeSupport) {
-          return;
-        }
-        function disableEvents() {
-          var loader = lazySizes2.loader;
-          var throttledCheckElements = loader.checkElems;
-          var removeALSL = function() {
-            setTimeout(function() {
-              window2.removeEventListener("scroll", loader._aLSL, true);
-            }, 1e3);
-          };
-          var currentListenerMap = typeof cfg.nativeLoading.disableListeners == "object" ? cfg.nativeLoading.disableListeners : listenerMap;
-          if (currentListenerMap.scroll) {
-            window2.addEventListener("load", removeALSL);
-            removeALSL();
-            window2.removeEventListener("scroll", throttledCheckElements, true);
-          }
-          if (currentListenerMap.resize) {
-            window2.removeEventListener("resize", throttledCheckElements, true);
-          }
-          Object.keys(currentListenerMap).forEach(function(name) {
-            if (currentListenerMap[name]) {
-              document2.removeEventListener(name, throttledCheckElements, true);
-            }
-          });
-        }
-        function runConfig() {
-          if (isConfigSet) {
-            return;
-          }
-          isConfigSet = true;
-          if (imgSupport && iframeSupport && cfg.nativeLoading.disableListeners) {
-            if (cfg.nativeLoading.disableListeners === true) {
-              cfg.nativeLoading.setLoadingAttribute = true;
-            }
-            disableEvents();
-          }
-          if (cfg.nativeLoading.setLoadingAttribute) {
-            window2.addEventListener("lazybeforeunveil", function(e2) {
-              var element = e2.target;
-              if ("loading" in element && !element.getAttribute("loading")) {
-                element.setAttribute("loading", "lazy");
-              }
-            }, true);
-          }
-        }
-        lazySizes2.prematureUnveil = function prematureUnveil(element) {
-          if (!isConfigSet) {
-            runConfig();
-          }
-          if ("loading" in element && (cfg.nativeLoading.setLoadingAttribute || element.getAttribute("loading")) && (element.getAttribute("data-sizes") != "auto" || element.offsetWidth)) {
-            return true;
-          }
-          if (oldPrematureUnveil) {
-            return oldPrematureUnveil(element);
-          }
-        };
-      });
-    }
-  });
-
-  // node_modules/clipboard/dist/clipboard.js
-  var require_clipboard = __commonJS({
-    "node_modules/clipboard/dist/clipboard.js"(exports, module) {
-      (function webpackUniversalModuleDefinition(root, factory) {
-        if (typeof exports === "object" && typeof module === "object")
-          module.exports = factory();
-        else if (typeof define === "function" && define.amd)
-          define([], factory);
-        else if (typeof exports === "object")
-          exports["ClipboardJS"] = factory();
-        else
-          root["ClipboardJS"] = factory();
-      })(exports, function() {
-        return (
-          /******/
-          function() {
-            var __webpack_modules__ = {
-              /***/
-              686: (
-                /***/
-                function(__unused_webpack_module, __webpack_exports__, __webpack_require__2) {
-                  "use strict";
-                  __webpack_require__2.d(__webpack_exports__, {
-                    "default": function() {
-                      return (
-                        /* binding */
-                        clipboard
-                      );
-                    }
-                  });
-                  var tiny_emitter = __webpack_require__2(279);
-                  var tiny_emitter_default = /* @__PURE__ */ __webpack_require__2.n(tiny_emitter);
-                  var listen = __webpack_require__2(370);
-                  var listen_default = /* @__PURE__ */ __webpack_require__2.n(listen);
-                  var src_select = __webpack_require__2(817);
-                  var select_default = /* @__PURE__ */ __webpack_require__2.n(src_select);
-                  ;
-                  function command(type) {
-                    try {
-                      return document.execCommand(type);
-                    } catch (err) {
-                      return false;
-                    }
-                  }
-                  ;
-                  var ClipboardActionCut = function ClipboardActionCut2(target) {
-                    var selectedText = select_default()(target);
-                    command("cut");
-                    return selectedText;
-                  };
-                  var actions_cut = ClipboardActionCut;
-                  ;
-                  function createFakeElement(value) {
-                    var isRTL = document.documentElement.getAttribute("dir") === "rtl";
-                    var fakeElement = document.createElement("textarea");
-                    fakeElement.style.fontSize = "12pt";
-                    fakeElement.style.border = "0";
-                    fakeElement.style.padding = "0";
-                    fakeElement.style.margin = "0";
-                    fakeElement.style.position = "absolute";
-                    fakeElement.style[isRTL ? "right" : "left"] = "-9999px";
-                    var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-                    fakeElement.style.top = "".concat(yPosition, "px");
-                    fakeElement.setAttribute("readonly", "");
-                    fakeElement.value = value;
-                    return fakeElement;
-                  }
-                  ;
-                  var fakeCopyAction = function fakeCopyAction2(value, options) {
-                    var fakeElement = createFakeElement(value);
-                    options.container.appendChild(fakeElement);
-                    var selectedText = select_default()(fakeElement);
-                    command("copy");
-                    fakeElement.remove();
-                    return selectedText;
-                  };
-                  var ClipboardActionCopy = function ClipboardActionCopy2(target) {
-                    var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
-                      container: document.body
-                    };
-                    var selectedText = "";
-                    if (typeof target === "string") {
-                      selectedText = fakeCopyAction(target, options);
-                    } else if (target instanceof HTMLInputElement && !["text", "search", "url", "tel", "password"].includes(target === null || target === void 0 ? void 0 : target.type)) {
-                      selectedText = fakeCopyAction(target.value, options);
-                    } else {
-                      selectedText = select_default()(target);
-                      command("copy");
-                    }
-                    return selectedText;
-                  };
-                  var actions_copy = ClipboardActionCopy;
-                  ;
-                  function _typeof(obj) {
-                    "@babel/helpers - typeof";
-                    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-                      _typeof = function _typeof2(obj2) {
-                        return typeof obj2;
-                      };
-                    } else {
-                      _typeof = function _typeof2(obj2) {
-                        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
-                      };
-                    }
-                    return _typeof(obj);
-                  }
-                  var ClipboardActionDefault = function ClipboardActionDefault2() {
-                    var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-                    var _options$action = options.action, action = _options$action === void 0 ? "copy" : _options$action, container = options.container, target = options.target, text = options.text;
-                    if (action !== "copy" && action !== "cut") {
-                      throw new Error('Invalid "action" value, use either "copy" or "cut"');
-                    }
-                    if (target !== void 0) {
-                      if (target && _typeof(target) === "object" && target.nodeType === 1) {
-                        if (action === "copy" && target.hasAttribute("disabled")) {
-                          throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
-                        }
-                        if (action === "cut" && (target.hasAttribute("readonly") || target.hasAttribute("disabled"))) {
-                          throw new Error(`Invalid "target" attribute. You can't cut text from elements with "readonly" or "disabled" attributes`);
-                        }
-                      } else {
-                        throw new Error('Invalid "target" value, use a valid Element');
-                      }
-                    }
-                    if (text) {
-                      return actions_copy(text, {
-                        container
-                      });
-                    }
-                    if (target) {
-                      return action === "cut" ? actions_cut(target) : actions_copy(target, {
-                        container
-                      });
-                    }
-                  };
-                  var actions_default = ClipboardActionDefault;
-                  ;
-                  function clipboard_typeof(obj) {
-                    "@babel/helpers - typeof";
-                    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-                      clipboard_typeof = function _typeof2(obj2) {
-                        return typeof obj2;
-                      };
-                    } else {
-                      clipboard_typeof = function _typeof2(obj2) {
-                        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
-                      };
-                    }
-                    return clipboard_typeof(obj);
-                  }
-                  function _classCallCheck(instance, Constructor) {
-                    if (!(instance instanceof Constructor)) {
-                      throw new TypeError("Cannot call a class as a function");
-                    }
-                  }
-                  function _defineProperties(target, props) {
-                    for (var i3 = 0; i3 < props.length; i3++) {
-                      var descriptor = props[i3];
-                      descriptor.enumerable = descriptor.enumerable || false;
-                      descriptor.configurable = true;
-                      if ("value" in descriptor) descriptor.writable = true;
-                      Object.defineProperty(target, descriptor.key, descriptor);
-                    }
-                  }
-                  function _createClass(Constructor, protoProps, staticProps) {
-                    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-                    if (staticProps) _defineProperties(Constructor, staticProps);
-                    return Constructor;
-                  }
-                  function _inherits(subClass, superClass) {
-                    if (typeof superClass !== "function" && superClass !== null) {
-                      throw new TypeError("Super expression must either be null or a function");
-                    }
-                    subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
-                    if (superClass) _setPrototypeOf(subClass, superClass);
-                  }
-                  function _setPrototypeOf(o2, p) {
-                    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o3, p2) {
-                      o3.__proto__ = p2;
-                      return o3;
-                    };
-                    return _setPrototypeOf(o2, p);
-                  }
-                  function _createSuper(Derived) {
-                    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-                    return function _createSuperInternal() {
-                      var Super = _getPrototypeOf(Derived), result;
-                      if (hasNativeReflectConstruct) {
-                        var NewTarget = _getPrototypeOf(this).constructor;
-                        result = Reflect.construct(Super, arguments, NewTarget);
-                      } else {
-                        result = Super.apply(this, arguments);
-                      }
-                      return _possibleConstructorReturn(this, result);
-                    };
-                  }
-                  function _possibleConstructorReturn(self, call) {
-                    if (call && (clipboard_typeof(call) === "object" || typeof call === "function")) {
-                      return call;
-                    }
-                    return _assertThisInitialized(self);
-                  }
-                  function _assertThisInitialized(self) {
-                    if (self === void 0) {
-                      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-                    }
-                    return self;
-                  }
-                  function _isNativeReflectConstruct() {
-                    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-                    if (Reflect.construct.sham) return false;
-                    if (typeof Proxy === "function") return true;
-                    try {
-                      Date.prototype.toString.call(Reflect.construct(Date, [], function() {
-                      }));
-                      return true;
-                    } catch (e2) {
-                      return false;
-                    }
-                  }
-                  function _getPrototypeOf(o2) {
-                    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o3) {
-                      return o3.__proto__ || Object.getPrototypeOf(o3);
-                    };
-                    return _getPrototypeOf(o2);
-                  }
-                  function getAttributeValue(suffix, element) {
-                    var attribute = "data-clipboard-".concat(suffix);
-                    if (!element.hasAttribute(attribute)) {
-                      return;
-                    }
-                    return element.getAttribute(attribute);
-                  }
-                  var Clipboard2 = /* @__PURE__ */ function(_Emitter) {
-                    _inherits(Clipboard3, _Emitter);
-                    var _super = _createSuper(Clipboard3);
-                    function Clipboard3(trigger, options) {
-                      var _this;
-                      _classCallCheck(this, Clipboard3);
-                      _this = _super.call(this);
-                      _this.resolveOptions(options);
-                      _this.listenClick(trigger);
-                      return _this;
-                    }
-                    _createClass(Clipboard3, [{
-                      key: "resolveOptions",
-                      value: function resolveOptions() {
-                        var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-                        this.action = typeof options.action === "function" ? options.action : this.defaultAction;
-                        this.target = typeof options.target === "function" ? options.target : this.defaultTarget;
-                        this.text = typeof options.text === "function" ? options.text : this.defaultText;
-                        this.container = clipboard_typeof(options.container) === "object" ? options.container : document.body;
-                      }
-                      /**
-                       * Adds a click event listener to the passed trigger.
-                       * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
-                       */
-                    }, {
-                      key: "listenClick",
-                      value: function listenClick(trigger) {
-                        var _this2 = this;
-                        this.listener = listen_default()(trigger, "click", function(e2) {
-                          return _this2.onClick(e2);
-                        });
-                      }
-                      /**
-                       * Defines a new `ClipboardAction` on each click event.
-                       * @param {Event} e
-                       */
-                    }, {
-                      key: "onClick",
-                      value: function onClick(e2) {
-                        var trigger = e2.delegateTarget || e2.currentTarget;
-                        var action = this.action(trigger) || "copy";
-                        var text = actions_default({
-                          action,
-                          container: this.container,
-                          target: this.target(trigger),
-                          text: this.text(trigger)
-                        });
-                        this.emit(text ? "success" : "error", {
-                          action,
-                          text,
-                          trigger,
-                          clearSelection: function clearSelection() {
-                            if (trigger) {
-                              trigger.focus();
-                            }
-                            window.getSelection().removeAllRanges();
-                          }
-                        });
-                      }
-                      /**
-                       * Default `action` lookup function.
-                       * @param {Element} trigger
-                       */
-                    }, {
-                      key: "defaultAction",
-                      value: function defaultAction(trigger) {
-                        return getAttributeValue("action", trigger);
-                      }
-                      /**
-                       * Default `target` lookup function.
-                       * @param {Element} trigger
-                       */
-                    }, {
-                      key: "defaultTarget",
-                      value: function defaultTarget(trigger) {
-                        var selector = getAttributeValue("target", trigger);
-                        if (selector) {
-                          return document.querySelector(selector);
-                        }
-                      }
-                      /**
-                       * Allow fire programmatically a copy action
-                       * @param {String|HTMLElement} target
-                       * @param {Object} options
-                       * @returns Text copied.
-                       */
-                    }, {
-                      key: "defaultText",
-                      /**
-                       * Default `text` lookup function.
-                       * @param {Element} trigger
-                       */
-                      value: function defaultText(trigger) {
-                        return getAttributeValue("text", trigger);
-                      }
-                      /**
-                       * Destroy lifecycle.
-                       */
-                    }, {
-                      key: "destroy",
-                      value: function destroy() {
-                        this.listener.destroy();
-                      }
-                    }], [{
-                      key: "copy",
-                      value: function copy(target) {
-                        var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
-                          container: document.body
-                        };
-                        return actions_copy(target, options);
-                      }
-                      /**
-                       * Allow fire programmatically a cut action
-                       * @param {String|HTMLElement} target
-                       * @returns Text cutted.
-                       */
-                    }, {
-                      key: "cut",
-                      value: function cut(target) {
-                        return actions_cut(target);
-                      }
-                      /**
-                       * Returns the support of the given action, or all actions if no action is
-                       * given.
-                       * @param {String} [action]
-                       */
-                    }, {
-                      key: "isSupported",
-                      value: function isSupported() {
-                        var action = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : ["copy", "cut"];
-                        var actions = typeof action === "string" ? [action] : action;
-                        var support = !!document.queryCommandSupported;
-                        actions.forEach(function(action2) {
-                          support = support && !!document.queryCommandSupported(action2);
-                        });
-                        return support;
-                      }
-                    }]);
-                    return Clipboard3;
-                  }(tiny_emitter_default());
-                  var clipboard = Clipboard2;
-                }
-              ),
-              /***/
-              828: (
-                /***/
-                function(module2) {
-                  var DOCUMENT_NODE_TYPE = 9;
-                  if (typeof Element !== "undefined" && !Element.prototype.matches) {
-                    var proto = Element.prototype;
-                    proto.matches = proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector;
-                  }
-                  function closest(element, selector) {
-                    while (element && element.nodeType !== DOCUMENT_NODE_TYPE) {
-                      if (typeof element.matches === "function" && element.matches(selector)) {
-                        return element;
-                      }
-                      element = element.parentNode;
-                    }
-                  }
-                  module2.exports = closest;
-                }
-              ),
-              /***/
-              438: (
-                /***/
-                function(module2, __unused_webpack_exports, __webpack_require__2) {
-                  var closest = __webpack_require__2(828);
-                  function _delegate(element, selector, type, callback, useCapture) {
-                    var listenerFn = listener.apply(this, arguments);
-                    element.addEventListener(type, listenerFn, useCapture);
-                    return {
-                      destroy: function() {
-                        element.removeEventListener(type, listenerFn, useCapture);
-                      }
-                    };
-                  }
-                  function delegate(elements, selector, type, callback, useCapture) {
-                    if (typeof elements.addEventListener === "function") {
-                      return _delegate.apply(null, arguments);
-                    }
-                    if (typeof type === "function") {
-                      return _delegate.bind(null, document).apply(null, arguments);
-                    }
-                    if (typeof elements === "string") {
-                      elements = document.querySelectorAll(elements);
-                    }
-                    return Array.prototype.map.call(elements, function(element) {
-                      return _delegate(element, selector, type, callback, useCapture);
-                    });
-                  }
-                  function listener(element, selector, type, callback) {
-                    return function(e2) {
-                      e2.delegateTarget = closest(e2.target, selector);
-                      if (e2.delegateTarget) {
-                        callback.call(element, e2);
-                      }
-                    };
-                  }
-                  module2.exports = delegate;
-                }
-              ),
-              /***/
-              879: (
-                /***/
-                function(__unused_webpack_module, exports2) {
-                  exports2.node = function(value) {
-                    return value !== void 0 && value instanceof HTMLElement && value.nodeType === 1;
-                  };
-                  exports2.nodeList = function(value) {
-                    var type = Object.prototype.toString.call(value);
-                    return value !== void 0 && (type === "[object NodeList]" || type === "[object HTMLCollection]") && "length" in value && (value.length === 0 || exports2.node(value[0]));
-                  };
-                  exports2.string = function(value) {
-                    return typeof value === "string" || value instanceof String;
-                  };
-                  exports2.fn = function(value) {
-                    var type = Object.prototype.toString.call(value);
-                    return type === "[object Function]";
-                  };
-                }
-              ),
-              /***/
-              370: (
-                /***/
-                function(module2, __unused_webpack_exports, __webpack_require__2) {
-                  var is = __webpack_require__2(879);
-                  var delegate = __webpack_require__2(438);
-                  function listen(target, type, callback) {
-                    if (!target && !type && !callback) {
-                      throw new Error("Missing required arguments");
-                    }
-                    if (!is.string(type)) {
-                      throw new TypeError("Second argument must be a String");
-                    }
-                    if (!is.fn(callback)) {
-                      throw new TypeError("Third argument must be a Function");
-                    }
-                    if (is.node(target)) {
-                      return listenNode(target, type, callback);
-                    } else if (is.nodeList(target)) {
-                      return listenNodeList(target, type, callback);
-                    } else if (is.string(target)) {
-                      return listenSelector(target, type, callback);
-                    } else {
-                      throw new TypeError("First argument must be a String, HTMLElement, HTMLCollection, or NodeList");
-                    }
-                  }
-                  function listenNode(node, type, callback) {
-                    node.addEventListener(type, callback);
-                    return {
-                      destroy: function() {
-                        node.removeEventListener(type, callback);
-                      }
-                    };
-                  }
-                  function listenNodeList(nodeList, type, callback) {
-                    Array.prototype.forEach.call(nodeList, function(node) {
-                      node.addEventListener(type, callback);
-                    });
-                    return {
-                      destroy: function() {
-                        Array.prototype.forEach.call(nodeList, function(node) {
-                          node.removeEventListener(type, callback);
-                        });
-                      }
-                    };
-                  }
-                  function listenSelector(selector, type, callback) {
-                    return delegate(document.body, selector, type, callback);
-                  }
-                  module2.exports = listen;
-                }
-              ),
-              /***/
-              817: (
-                /***/
-                function(module2) {
-                  function select(element) {
-                    var selectedText;
-                    if (element.nodeName === "SELECT") {
-                      element.focus();
-                      selectedText = element.value;
-                    } else if (element.nodeName === "INPUT" || element.nodeName === "TEXTAREA") {
-                      var isReadOnly = element.hasAttribute("readonly");
-                      if (!isReadOnly) {
-                        element.setAttribute("readonly", "");
-                      }
-                      element.select();
-                      element.setSelectionRange(0, element.value.length);
-                      if (!isReadOnly) {
-                        element.removeAttribute("readonly");
-                      }
-                      selectedText = element.value;
-                    } else {
-                      if (element.hasAttribute("contenteditable")) {
-                        element.focus();
-                      }
-                      var selection = window.getSelection();
-                      var range = document.createRange();
-                      range.selectNodeContents(element);
-                      selection.removeAllRanges();
-                      selection.addRange(range);
-                      selectedText = selection.toString();
-                    }
-                    return selectedText;
-                  }
-                  module2.exports = select;
-                }
-              ),
-              /***/
-              279: (
-                /***/
-                function(module2) {
-                  function E() {
-                  }
-                  E.prototype = {
-                    on: function(name, callback, ctx) {
-                      var e2 = this.e || (this.e = {});
-                      (e2[name] || (e2[name] = [])).push({
-                        fn: callback,
-                        ctx
-                      });
-                      return this;
-                    },
-                    once: function(name, callback, ctx) {
-                      var self = this;
-                      function listener() {
-                        self.off(name, listener);
-                        callback.apply(ctx, arguments);
-                      }
-                      ;
-                      listener._ = callback;
-                      return this.on(name, listener, ctx);
-                    },
-                    emit: function(name) {
-                      var data = [].slice.call(arguments, 1);
-                      var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
-                      var i3 = 0;
-                      var len = evtArr.length;
-                      for (i3; i3 < len; i3++) {
-                        evtArr[i3].fn.apply(evtArr[i3].ctx, data);
-                      }
-                      return this;
-                    },
-                    off: function(name, callback) {
-                      var e2 = this.e || (this.e = {});
-                      var evts = e2[name];
-                      var liveEvents = [];
-                      if (evts && callback) {
-                        for (var i3 = 0, len = evts.length; i3 < len; i3++) {
-                          if (evts[i3].fn !== callback && evts[i3].fn._ !== callback)
-                            liveEvents.push(evts[i3]);
-                        }
-                      }
-                      liveEvents.length ? e2[name] = liveEvents : delete e2[name];
-                      return this;
-                    }
-                  };
-                  module2.exports = E;
-                  module2.exports.TinyEmitter = E;
-                }
-              )
-              /******/
-            };
-            var __webpack_module_cache__ = {};
-            function __webpack_require__(moduleId) {
-              if (__webpack_module_cache__[moduleId]) {
-                return __webpack_module_cache__[moduleId].exports;
-              }
-              var module2 = __webpack_module_cache__[moduleId] = {
-                /******/
-                // no module.id needed
-                /******/
-                // no module.loaded needed
-                /******/
-                exports: {}
-                /******/
-              };
-              __webpack_modules__[moduleId](module2, module2.exports, __webpack_require__);
-              return module2.exports;
-            }
-            !function() {
-              __webpack_require__.n = function(module2) {
-                var getter = module2 && module2.__esModule ? (
-                  /******/
-                  function() {
-                    return module2["default"];
-                  }
-                ) : (
-                  /******/
-                  function() {
-                    return module2;
-                  }
-                );
-                __webpack_require__.d(getter, { a: getter });
-                return getter;
-              };
-            }();
-            !function() {
-              __webpack_require__.d = function(exports2, definition) {
-                for (var key in definition) {
-                  if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports2, key)) {
-                    Object.defineProperty(exports2, key, { enumerable: true, get: definition[key] });
-                  }
-                }
-              };
-            }();
-            !function() {
-              __webpack_require__.o = function(obj, prop) {
-                return Object.prototype.hasOwnProperty.call(obj, prop);
-              };
-            }();
-            return __webpack_require__(686);
-          }().default
-        );
-      });
-    }
-  });
-
-  // node_modules/quicklink/dist/quicklink.mjs
-  function e(e2) {
-    return new Promise(function(n2, r2, t2) {
-      (t2 = new XMLHttpRequest()).open("GET", e2, t2.withCredentials = true), t2.onload = function() {
-        200 === t2.status ? n2() : r2();
-      }, t2.send();
-    });
-  }
-  var n;
-  var r = (n = document.createElement("link")).relList && n.relList.supports && n.relList.supports("prefetch") ? function(e2) {
-    return new Promise(function(n2, r2, t2) {
-      (t2 = document.createElement("link")).rel = "prefetch", t2.href = e2, t2.onload = n2, t2.onerror = r2, document.head.appendChild(t2);
-    });
-  } : e;
-  var t = window.requestIdleCallback || function(e2) {
-    var n2 = Date.now();
-    return setTimeout(function() {
-      e2({ didTimeout: false, timeRemaining: function() {
-        return Math.max(0, 50 - (Date.now() - n2));
-      } });
-    }, 1);
-  };
-  var o = /* @__PURE__ */ new Set();
-  var i = /* @__PURE__ */ new Set();
-  var c = false;
-  function a(e2) {
-    if (e2) {
-      if (e2.saveData) return new Error("Save-Data is enabled");
-      if (/2g/.test(e2.effectiveType)) return new Error("network conditions are poor");
-    }
-    return true;
-  }
-  function u(e2) {
-    if (e2 || (e2 = {}), window.IntersectionObserver) {
-      var n2 = function(e3) {
-        e3 = e3 || 1;
-        var n3 = [], r3 = 0;
-        function t2() {
-          r3 < e3 && n3.length > 0 && (n3.shift()(), r3++);
-        }
-        return [function(e4) {
-          n3.push(e4) > 1 || t2();
-        }, function() {
-          r3--, t2();
-        }];
-      }(e2.throttle || 1 / 0), r2 = n2[0], a2 = n2[1], u2 = e2.limit || 1 / 0, l = e2.origins || [location.hostname], d = e2.ignores || [], h = e2.delay || 0, p = [], m = e2.timeoutFn || t, w = "function" == typeof e2.hrefFn && e2.hrefFn, g = e2.prerender || false;
-      c = e2.prerenderAndPrefetch || false;
-      var v = new IntersectionObserver(function(n3) {
-        n3.forEach(function(n4) {
-          if (n4.isIntersecting) p.push((n4 = n4.target).href), function(e3, n5) {
-            n5 ? setTimeout(e3, n5) : e3();
-          }(function() {
-            -1 !== p.indexOf(n4.href) && (v.unobserve(n4), (c || g) && i.size < 1 ? f(w ? w(n4) : n4.href).catch(function(n5) {
-              if (!e2.onError) throw n5;
-              e2.onError(n5);
-            }) : o.size < u2 && !g && r2(function() {
-              s(w ? w(n4) : n4.href, e2.priority).then(a2).catch(function(n5) {
-                a2(), e2.onError && e2.onError(n5);
-              });
-            }));
-          }, h);
-          else {
-            var t2 = p.indexOf((n4 = n4.target).href);
-            t2 > -1 && p.splice(t2);
-          }
-        });
-      }, { threshold: e2.threshold || 0 });
-      return m(function() {
-        (e2.el || document).querySelectorAll("a").forEach(function(e3) {
-          l.length && !l.includes(e3.hostname) || function e4(n3, r3) {
-            return Array.isArray(r3) ? r3.some(function(r4) {
-              return e4(n3, r4);
-            }) : (r3.test || r3).call(r3, n3.href, n3);
-          }(e3, d) || v.observe(e3);
-        });
-      }, { timeout: e2.timeout || 2e3 }), function() {
-        o.clear(), v.disconnect();
-      };
-    }
-  }
-  function s(n2, t2, u2) {
-    var s2 = a(navigator.connection);
-    return s2 instanceof Error ? Promise.reject(new Error("Cannot prefetch, " + s2.message)) : (i.size > 0 && !c && console.warn("[Warning] You are using both prefetching and prerendering on the same document"), Promise.all([].concat(n2).map(function(n3) {
-      if (!o.has(n3)) return o.add(n3), (t2 ? function(n4) {
-        return window.fetch ? fetch(n4, { credentials: "include" }) : e(n4);
-      } : r)(new URL(n3, location.href).toString());
-    })));
-  }
-  function f(e2, n2) {
-    var r2 = a(navigator.connection);
-    if (r2 instanceof Error) return Promise.reject(new Error("Cannot prerender, " + r2.message));
-    if (!HTMLScriptElement.supports("speculationrules")) return s(e2), Promise.reject(new Error("This browser does not support the speculation rules API. Falling back to prefetch."));
-    if (document.querySelector('script[type="speculationrules"]')) return Promise.reject(new Error("Speculation Rules is already defined and cannot be altered."));
-    for (var t2 = 0, u2 = [].concat(e2); t2 < u2.length; t2 += 1) {
-      var f2 = u2[t2];
-      if (window.location.origin !== new URL(f2, window.location.href).origin) return Promise.reject(new Error("Only same origin URLs are allowed: " + f2));
-      i.add(f2);
-    }
-    o.size > 0 && !c && console.warn("[Warning] You are using both prefetching and prerendering on the same document");
-    var l = function(e3) {
-      var n3 = document.createElement("script");
-      n3.type = "speculationrules", n3.text = '{"prerender":[{"source": "list","urls": ["' + Array.from(e3).join('","') + '"]}]}';
-      try {
-        document.head.appendChild(n3);
-      } catch (e4) {
-        return e4;
-      }
-      return true;
-    }(i);
-    return true === l ? Promise.resolve() : Promise.reject(l);
-  }
-
-  // node_modules/@hyas/core/assets/js/core.js
-  var import_lazysizes = __toESM(require_lazysizes());
-  var import_ls = __toESM(require_ls_native_loading());
-  u();
-  import_lazysizes.default.cfg.nativeLoading = {
-    setLoadingAttribute: true,
-    disableListeners: {
-      scroll: true
-    }
-  };
-
-  // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/clipboard.js
-  var import_clipboard = __toESM(require_clipboard());
-  (() => {
-    "use strict";
-    var cb = document.getElementsByClassName("highlight");
-    for (var i3 = 0; i3 < cb.length; ++i3) {
-      var element = cb[i3];
-      element.insertAdjacentHTML("afterbegin", '<div class="copy"><button title="Copy to clipboard" class="btn-copy" aria-label="Clipboard button"><div></div></button></div>');
-    }
-    var clipboard = new import_clipboard.default(".btn-copy", {
-      target: function(trigger) {
-        return trigger.parentNode.nextElementSibling;
-      }
-    });
-    clipboard.on("success", function(e2) {
-      e2.clearSelection();
-    });
-    clipboard.on("error", function(e2) {
-      console.error("Action:", e2.action);
-      console.error("Trigger:", e2.trigger);
-    });
-  })();
-
-  // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/to-top.js
-  var topButton = document.getElementById("toTop");
-  if (topButton !== null) {
-    topButton.classList.remove("fade");
-    window.onscroll = function() {
-      scrollFunction();
+        return to;
     };
-    topButton.addEventListener("click", topFunction);
-  }
-  function scrollFunction() {
-    if (document.body.scrollTop > 270 || document.documentElement.scrollTop > 270) {
-      topButton.classList.add("fade");
-    } else {
-      topButton.classList.remove("fade");
-    }
-  }
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+    var __toESM = (mod, isNodeMode, target) => (
+        (target = mod != null ? __create(__getProtoOf(mod)) : {}),
+        __copyProps(
+            // If the importer is in node compatibility mode or this is not an ESM
+            // file that has been converted to a CommonJS file using a Babel-
+            // compatible transform (i.e. "__esModule" has not been set), then set
+            // "default" to the CommonJS "module.exports" for node compatibility.
+            isNodeMode || !mod || !mod.__esModule ? __defProp(target, 'default', { value: mod, enumerable: true }) : target,
+            mod
+        )
+    );
 
-  // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/tabs.js
-  var i2;
-  var allTabs = document.querySelectorAll("[data-toggle-tab]");
-  var allPanes = document.querySelectorAll("[data-pane]");
-  function toggleTabs(event) {
-    if (event.target) {
-      event.preventDefault();
-      var clickedTab = event.currentTarget;
-      var targetKey = clickedTab.getAttribute("data-toggle-tab");
-    } else {
-      var targetKey = event;
+    // node_modules/lazysizes/lazysizes.js
+    var require_lazysizes = __commonJS({
+        'node_modules/lazysizes/lazysizes.js'(exports, module) {
+            (function (window2, factory) {
+                var lazySizes2 = factory(window2, window2.document, Date);
+                window2.lazySizes = lazySizes2;
+                if (typeof module == 'object' && module.exports) {
+                    module.exports = lazySizes2;
+                }
+            })(
+                typeof window != 'undefined' ? window : {},
+                /**
+                 * import("./types/global")
+                 * @typedef { import("./types/lazysizes-config").LazySizesConfigPartial } LazySizesConfigPartial
+                 */
+                function l(window2, document2, Date2) {
+                    'use strict';
+                    var lazysizes, lazySizesCfg;
+                    (function () {
+                        var prop;
+                        var lazySizesDefaults = {
+                            lazyClass: 'lazyload',
+                            loadedClass: 'lazyloaded',
+                            loadingClass: 'lazyloading',
+                            preloadClass: 'lazypreload',
+                            errorClass: 'lazyerror',
+                            //strictClass: 'lazystrict',
+                            autosizesClass: 'lazyautosizes',
+                            fastLoadedClass: 'ls-is-cached',
+                            iframeLoadMode: 0,
+                            srcAttr: 'data-src',
+                            srcsetAttr: 'data-srcset',
+                            sizesAttr: 'data-sizes',
+                            //preloadAfterLoad: false,
+                            minSize: 40,
+                            customMedia: {},
+                            init: true,
+                            expFactor: 1.5,
+                            hFac: 0.8,
+                            loadMode: 2,
+                            loadHidden: true,
+                            ricTimeout: 0,
+                            throttleDelay: 125
+                        };
+                        lazySizesCfg = window2.lazySizesConfig || window2.lazysizesConfig || {};
+                        for (prop in lazySizesDefaults) {
+                            if (!(prop in lazySizesCfg)) {
+                                lazySizesCfg[prop] = lazySizesDefaults[prop];
+                            }
+                        }
+                    })();
+                    if (!document2 || !document2.getElementsByClassName) {
+                        return {
+                            init: function () {},
+                            /**
+                             * @type { LazySizesConfigPartial }
+                             */
+                            cfg: lazySizesCfg,
+                            /**
+                             * @type { true }
+                             */
+                            noSupport: true
+                        };
+                    }
+                    var docElem = document2.documentElement;
+                    var supportPicture = window2.HTMLPictureElement;
+                    var _addEventListener = 'addEventListener';
+                    var _getAttribute = 'getAttribute';
+                    var addEventListener = window2[_addEventListener].bind(window2);
+                    var setTimeout2 = window2.setTimeout;
+                    var requestAnimationFrame = window2.requestAnimationFrame || setTimeout2;
+                    var requestIdleCallback = window2.requestIdleCallback;
+                    var regPicture = /^picture$/i;
+                    var loadEvents = ['load', 'error', 'lazyincluded', '_lazyloaded'];
+                    var regClassCache = {};
+                    var forEach = Array.prototype.forEach;
+                    var hasClass = function (ele, cls) {
+                        if (!regClassCache[cls]) {
+                            regClassCache[cls] = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+                        }
+                        return regClassCache[cls].test(ele[_getAttribute]('class') || '') && regClassCache[cls];
+                    };
+                    var addClass = function (ele, cls) {
+                        if (!hasClass(ele, cls)) {
+                            ele.setAttribute('class', (ele[_getAttribute]('class') || '').trim() + ' ' + cls);
+                        }
+                    };
+                    var removeClass = function (ele, cls) {
+                        var reg;
+                        if ((reg = hasClass(ele, cls))) {
+                            ele.setAttribute('class', (ele[_getAttribute]('class') || '').replace(reg, ' '));
+                        }
+                    };
+                    var addRemoveLoadEvents = function (dom, fn, add) {
+                        var action = add ? _addEventListener : 'removeEventListener';
+                        if (add) {
+                            addRemoveLoadEvents(dom, fn);
+                        }
+                        loadEvents.forEach(function (evt) {
+                            dom[action](evt, fn);
+                        });
+                    };
+                    var triggerEvent = function (elem, name, detail, noBubbles, noCancelable) {
+                        var event = document2.createEvent('Event');
+                        if (!detail) {
+                            detail = {};
+                        }
+                        detail.instance = lazysizes;
+                        event.initEvent(name, !noBubbles, !noCancelable);
+                        event.detail = detail;
+                        elem.dispatchEvent(event);
+                        return event;
+                    };
+                    var updatePolyfill = function (el, full) {
+                        var polyfill;
+                        if (!supportPicture && (polyfill = window2.picturefill || lazySizesCfg.pf)) {
+                            if (full && full.src && !el[_getAttribute]('srcset')) {
+                                el.setAttribute('srcset', full.src);
+                            }
+                            polyfill({ reevaluate: true, elements: [el] });
+                        } else if (full && full.src) {
+                            el.src = full.src;
+                        }
+                    };
+                    var getCSS = function (elem, style) {
+                        return (getComputedStyle(elem, null) || {})[style];
+                    };
+                    var getWidth = function (elem, parent, width) {
+                        width = width || elem.offsetWidth;
+                        while (width < lazySizesCfg.minSize && parent && !elem._lazysizesWidth) {
+                            width = parent.offsetWidth;
+                            parent = parent.parentNode;
+                        }
+                        return width;
+                    };
+                    var rAF = (function () {
+                        var running, waiting;
+                        var firstFns = [];
+                        var secondFns = [];
+                        var fns = firstFns;
+                        var run = function () {
+                            var runFns = fns;
+                            fns = firstFns.length ? secondFns : firstFns;
+                            running = true;
+                            waiting = false;
+                            while (runFns.length) {
+                                runFns.shift()();
+                            }
+                            running = false;
+                        };
+                        var rafBatch = function (fn, queue) {
+                            if (running && !queue) {
+                                fn.apply(this, arguments);
+                            } else {
+                                fns.push(fn);
+                                if (!waiting) {
+                                    waiting = true;
+                                    (document2.hidden ? setTimeout2 : requestAnimationFrame)(run);
+                                }
+                            }
+                        };
+                        rafBatch._lsFlush = run;
+                        return rafBatch;
+                    })();
+                    var rAFIt = function (fn, simple) {
+                        return simple ?
+                                function () {
+                                    rAF(fn);
+                                }
+                            :   function () {
+                                    var that = this;
+                                    var args = arguments;
+                                    rAF(function () {
+                                        fn.apply(that, args);
+                                    });
+                                };
+                    };
+                    var throttle = function (fn) {
+                        var running;
+                        var lastTime = 0;
+                        var gDelay = lazySizesCfg.throttleDelay;
+                        var rICTimeout = lazySizesCfg.ricTimeout;
+                        var run = function () {
+                            running = false;
+                            lastTime = Date2.now();
+                            fn();
+                        };
+                        var idleCallback =
+                            requestIdleCallback && rICTimeout > 49 ?
+                                function () {
+                                    requestIdleCallback(run, { timeout: rICTimeout });
+                                    if (rICTimeout !== lazySizesCfg.ricTimeout) {
+                                        rICTimeout = lazySizesCfg.ricTimeout;
+                                    }
+                                }
+                            :   rAFIt(function () {
+                                    setTimeout2(run);
+                                }, true);
+                        return function (isPriority) {
+                            var delay;
+                            if ((isPriority = isPriority === true)) {
+                                rICTimeout = 33;
+                            }
+                            if (running) {
+                                return;
+                            }
+                            running = true;
+                            delay = gDelay - (Date2.now() - lastTime);
+                            if (delay < 0) {
+                                delay = 0;
+                            }
+                            if (isPriority || delay < 9) {
+                                idleCallback();
+                            } else {
+                                setTimeout2(idleCallback, delay);
+                            }
+                        };
+                    };
+                    var debounce = function (func) {
+                        var timeout, timestamp;
+                        var wait = 99;
+                        var run = function () {
+                            timeout = null;
+                            func();
+                        };
+                        var later = function () {
+                            var last = Date2.now() - timestamp;
+                            if (last < wait) {
+                                setTimeout2(later, wait - last);
+                            } else {
+                                (requestIdleCallback || run)(run);
+                            }
+                        };
+                        return function () {
+                            timestamp = Date2.now();
+                            if (!timeout) {
+                                timeout = setTimeout2(later, wait);
+                            }
+                        };
+                    };
+                    var loader = (function () {
+                        var preloadElems, isCompleted, resetPreloadingTimer, loadMode, started;
+                        var eLvW, elvH, eLtop, eLleft, eLright, eLbottom, isBodyHidden;
+                        var regImg = /^img$/i;
+                        var regIframe = /^iframe$/i;
+                        var supportScroll = 'onscroll' in window2 && !/(gle|ing)bot/.test(navigator.userAgent);
+                        var shrinkExpand = 0;
+                        var currentExpand = 0;
+                        var isLoading = 0;
+                        var lowRuns = -1;
+                        var resetPreloading = function (e2) {
+                            isLoading--;
+                            if (!e2 || isLoading < 0 || !e2.target) {
+                                isLoading = 0;
+                            }
+                        };
+                        var isVisible = function (elem) {
+                            if (isBodyHidden == null) {
+                                isBodyHidden = getCSS(document2.body, 'visibility') == 'hidden';
+                            }
+                            return isBodyHidden || !(getCSS(elem.parentNode, 'visibility') == 'hidden' && getCSS(elem, 'visibility') == 'hidden');
+                        };
+                        var isNestedVisible = function (elem, elemExpand) {
+                            var outerRect;
+                            var parent = elem;
+                            var visible = isVisible(elem);
+                            eLtop -= elemExpand;
+                            eLbottom += elemExpand;
+                            eLleft -= elemExpand;
+                            eLright += elemExpand;
+                            while (visible && (parent = parent.offsetParent) && parent != document2.body && parent != docElem) {
+                                visible = (getCSS(parent, 'opacity') || 1) > 0;
+                                if (visible && getCSS(parent, 'overflow') != 'visible') {
+                                    outerRect = parent.getBoundingClientRect();
+                                    visible = eLright > outerRect.left && eLleft < outerRect.right && eLbottom > outerRect.top - 1 && eLtop < outerRect.bottom + 1;
+                                }
+                            }
+                            return visible;
+                        };
+                        var checkElements = function () {
+                            var eLlen, i3, rect, autoLoadElem, loadedSomething, elemExpand, elemNegativeExpand, elemExpandVal, beforeExpandVal, defaultExpand, preloadExpand, hFac;
+                            var lazyloadElems = lazysizes.elements;
+                            if ((loadMode = lazySizesCfg.loadMode) && isLoading < 8 && (eLlen = lazyloadElems.length)) {
+                                i3 = 0;
+                                lowRuns++;
+                                for (; i3 < eLlen; i3++) {
+                                    if (!lazyloadElems[i3] || lazyloadElems[i3]._lazyRace) {
+                                        continue;
+                                    }
+                                    if (!supportScroll || (lazysizes.prematureUnveil && lazysizes.prematureUnveil(lazyloadElems[i3]))) {
+                                        unveilElement(lazyloadElems[i3]);
+                                        continue;
+                                    }
+                                    if (!(elemExpandVal = lazyloadElems[i3][_getAttribute]('data-expand')) || !(elemExpand = elemExpandVal * 1)) {
+                                        elemExpand = currentExpand;
+                                    }
+                                    if (!defaultExpand) {
+                                        defaultExpand =
+                                            !lazySizesCfg.expand || lazySizesCfg.expand < 1 ?
+                                                docElem.clientHeight > 500 && docElem.clientWidth > 500 ?
+                                                    500
+                                                :   370
+                                            :   lazySizesCfg.expand;
+                                        lazysizes._defEx = defaultExpand;
+                                        preloadExpand = defaultExpand * lazySizesCfg.expFactor;
+                                        hFac = lazySizesCfg.hFac;
+                                        isBodyHidden = null;
+                                        if (currentExpand < preloadExpand && isLoading < 1 && lowRuns > 2 && loadMode > 2 && !document2.hidden) {
+                                            currentExpand = preloadExpand;
+                                            lowRuns = 0;
+                                        } else if (loadMode > 1 && lowRuns > 1 && isLoading < 6) {
+                                            currentExpand = defaultExpand;
+                                        } else {
+                                            currentExpand = shrinkExpand;
+                                        }
+                                    }
+                                    if (beforeExpandVal !== elemExpand) {
+                                        eLvW = innerWidth + elemExpand * hFac;
+                                        elvH = innerHeight + elemExpand;
+                                        elemNegativeExpand = elemExpand * -1;
+                                        beforeExpandVal = elemExpand;
+                                    }
+                                    rect = lazyloadElems[i3].getBoundingClientRect();
+                                    if ((eLbottom = rect.bottom) >= elemNegativeExpand && (eLtop = rect.top) <= elvH && (eLright = rect.right) >= elemNegativeExpand * hFac && (eLleft = rect.left) <= eLvW && (eLbottom || eLright || eLleft || eLtop) && (lazySizesCfg.loadHidden || isVisible(lazyloadElems[i3])) && ((isCompleted && isLoading < 3 && !elemExpandVal && (loadMode < 3 || lowRuns < 4)) || isNestedVisible(lazyloadElems[i3], elemExpand))) {
+                                        unveilElement(lazyloadElems[i3]);
+                                        loadedSomething = true;
+                                        if (isLoading > 9) {
+                                            break;
+                                        }
+                                    } else if (!loadedSomething && isCompleted && !autoLoadElem && isLoading < 4 && lowRuns < 4 && loadMode > 2 && (preloadElems[0] || lazySizesCfg.preloadAfterLoad) && (preloadElems[0] || (!elemExpandVal && (eLbottom || eLright || eLleft || eLtop || lazyloadElems[i3][_getAttribute](lazySizesCfg.sizesAttr) != 'auto')))) {
+                                        autoLoadElem = preloadElems[0] || lazyloadElems[i3];
+                                    }
+                                }
+                                if (autoLoadElem && !loadedSomething) {
+                                    unveilElement(autoLoadElem);
+                                }
+                            }
+                        };
+                        var throttledCheckElements = throttle(checkElements);
+                        var switchLoadingClass = function (e2) {
+                            var elem = e2.target;
+                            if (elem._lazyCache) {
+                                delete elem._lazyCache;
+                                return;
+                            }
+                            resetPreloading(e2);
+                            addClass(elem, lazySizesCfg.loadedClass);
+                            removeClass(elem, lazySizesCfg.loadingClass);
+                            addRemoveLoadEvents(elem, rafSwitchLoadingClass);
+                            triggerEvent(elem, 'lazyloaded');
+                        };
+                        var rafedSwitchLoadingClass = rAFIt(switchLoadingClass);
+                        var rafSwitchLoadingClass = function (e2) {
+                            rafedSwitchLoadingClass({ target: e2.target });
+                        };
+                        var changeIframeSrc = function (elem, src) {
+                            var loadMode2 = elem.getAttribute('data-load-mode') || lazySizesCfg.iframeLoadMode;
+                            if (loadMode2 == 0) {
+                                elem.contentWindow.location.replace(src);
+                            } else if (loadMode2 == 1) {
+                                elem.src = src;
+                            }
+                        };
+                        var handleSources = function (source) {
+                            var customMedia;
+                            var sourceSrcset = source[_getAttribute](lazySizesCfg.srcsetAttr);
+                            if ((customMedia = lazySizesCfg.customMedia[source[_getAttribute]('data-media') || source[_getAttribute]('media')])) {
+                                source.setAttribute('media', customMedia);
+                            }
+                            if (sourceSrcset) {
+                                source.setAttribute('srcset', sourceSrcset);
+                            }
+                        };
+                        var lazyUnveil = rAFIt(function (elem, detail, isAuto, sizes, isImg) {
+                            var src, srcset, parent, isPicture, event, firesLoad;
+                            if (!(event = triggerEvent(elem, 'lazybeforeunveil', detail)).defaultPrevented) {
+                                if (sizes) {
+                                    if (isAuto) {
+                                        addClass(elem, lazySizesCfg.autosizesClass);
+                                    } else {
+                                        elem.setAttribute('sizes', sizes);
+                                    }
+                                }
+                                srcset = elem[_getAttribute](lazySizesCfg.srcsetAttr);
+                                src = elem[_getAttribute](lazySizesCfg.srcAttr);
+                                if (isImg) {
+                                    parent = elem.parentNode;
+                                    isPicture = parent && regPicture.test(parent.nodeName || '');
+                                }
+                                firesLoad = detail.firesLoad || ('src' in elem && (srcset || src || isPicture));
+                                event = { target: elem };
+                                addClass(elem, lazySizesCfg.loadingClass);
+                                if (firesLoad) {
+                                    clearTimeout(resetPreloadingTimer);
+                                    resetPreloadingTimer = setTimeout2(resetPreloading, 2500);
+                                    addRemoveLoadEvents(elem, rafSwitchLoadingClass, true);
+                                }
+                                if (isPicture) {
+                                    forEach.call(parent.getElementsByTagName('source'), handleSources);
+                                }
+                                if (srcset) {
+                                    elem.setAttribute('srcset', srcset);
+                                } else if (src && !isPicture) {
+                                    if (regIframe.test(elem.nodeName)) {
+                                        changeIframeSrc(elem, src);
+                                    } else {
+                                        elem.src = src;
+                                    }
+                                }
+                                if (isImg && (srcset || isPicture)) {
+                                    updatePolyfill(elem, { src });
+                                }
+                            }
+                            if (elem._lazyRace) {
+                                delete elem._lazyRace;
+                            }
+                            removeClass(elem, lazySizesCfg.lazyClass);
+                            rAF(function () {
+                                var isLoaded = elem.complete && elem.naturalWidth > 1;
+                                if (!firesLoad || isLoaded) {
+                                    if (isLoaded) {
+                                        addClass(elem, lazySizesCfg.fastLoadedClass);
+                                    }
+                                    switchLoadingClass(event);
+                                    elem._lazyCache = true;
+                                    setTimeout2(function () {
+                                        if ('_lazyCache' in elem) {
+                                            delete elem._lazyCache;
+                                        }
+                                    }, 9);
+                                }
+                                if (elem.loading == 'lazy') {
+                                    isLoading--;
+                                }
+                            }, true);
+                        });
+                        var unveilElement = function (elem) {
+                            if (elem._lazyRace) {
+                                return;
+                            }
+                            var detail;
+                            var isImg = regImg.test(elem.nodeName);
+                            var sizes = isImg && (elem[_getAttribute](lazySizesCfg.sizesAttr) || elem[_getAttribute]('sizes'));
+                            var isAuto = sizes == 'auto';
+                            if ((isAuto || !isCompleted) && isImg && (elem[_getAttribute]('src') || elem.srcset) && !elem.complete && !hasClass(elem, lazySizesCfg.errorClass) && hasClass(elem, lazySizesCfg.lazyClass)) {
+                                return;
+                            }
+                            detail = triggerEvent(elem, 'lazyunveilread').detail;
+                            if (isAuto) {
+                                autoSizer.updateElem(elem, true, elem.offsetWidth);
+                            }
+                            elem._lazyRace = true;
+                            isLoading++;
+                            lazyUnveil(elem, detail, isAuto, sizes, isImg);
+                        };
+                        var afterScroll = debounce(function () {
+                            lazySizesCfg.loadMode = 3;
+                            throttledCheckElements();
+                        });
+                        var altLoadmodeScrollListner = function () {
+                            if (lazySizesCfg.loadMode == 3) {
+                                lazySizesCfg.loadMode = 2;
+                            }
+                            afterScroll();
+                        };
+                        var onload = function () {
+                            if (isCompleted) {
+                                return;
+                            }
+                            if (Date2.now() - started < 999) {
+                                setTimeout2(onload, 999);
+                                return;
+                            }
+                            isCompleted = true;
+                            lazySizesCfg.loadMode = 3;
+                            throttledCheckElements();
+                            addEventListener('scroll', altLoadmodeScrollListner, true);
+                        };
+                        return {
+                            _: function () {
+                                started = Date2.now();
+                                lazysizes.elements = document2.getElementsByClassName(lazySizesCfg.lazyClass);
+                                preloadElems = document2.getElementsByClassName(lazySizesCfg.lazyClass + ' ' + lazySizesCfg.preloadClass);
+                                addEventListener('scroll', throttledCheckElements, true);
+                                addEventListener('resize', throttledCheckElements, true);
+                                addEventListener('pageshow', function (e2) {
+                                    if (e2.persisted) {
+                                        var loadingElements = document2.querySelectorAll('.' + lazySizesCfg.loadingClass);
+                                        if (loadingElements.length && loadingElements.forEach) {
+                                            requestAnimationFrame(function () {
+                                                loadingElements.forEach(function (img) {
+                                                    if (img.complete) {
+                                                        unveilElement(img);
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    }
+                                });
+                                if (window2.MutationObserver) {
+                                    new MutationObserver(throttledCheckElements).observe(docElem, { childList: true, subtree: true, attributes: true });
+                                } else {
+                                    docElem[_addEventListener]('DOMNodeInserted', throttledCheckElements, true);
+                                    docElem[_addEventListener]('DOMAttrModified', throttledCheckElements, true);
+                                    setInterval(throttledCheckElements, 999);
+                                }
+                                addEventListener('hashchange', throttledCheckElements, true);
+                                ['focus', 'mouseover', 'click', 'load', 'transitionend', 'animationend'].forEach(function (name) {
+                                    document2[_addEventListener](name, throttledCheckElements, true);
+                                });
+                                if (/d$|^c/.test(document2.readyState)) {
+                                    onload();
+                                } else {
+                                    addEventListener('load', onload);
+                                    document2[_addEventListener]('DOMContentLoaded', throttledCheckElements);
+                                    setTimeout2(onload, 2e4);
+                                }
+                                if (lazysizes.elements.length) {
+                                    checkElements();
+                                    rAF._lsFlush();
+                                } else {
+                                    throttledCheckElements();
+                                }
+                            },
+                            checkElems: throttledCheckElements,
+                            unveil: unveilElement,
+                            _aLSL: altLoadmodeScrollListner
+                        };
+                    })();
+                    var autoSizer = (function () {
+                        var autosizesElems;
+                        var sizeElement = rAFIt(function (elem, parent, event, width) {
+                            var sources, i3, len;
+                            elem._lazysizesWidth = width;
+                            width += 'px';
+                            elem.setAttribute('sizes', width);
+                            if (regPicture.test(parent.nodeName || '')) {
+                                sources = parent.getElementsByTagName('source');
+                                for (i3 = 0, len = sources.length; i3 < len; i3++) {
+                                    sources[i3].setAttribute('sizes', width);
+                                }
+                            }
+                            if (!event.detail.dataAttr) {
+                                updatePolyfill(elem, event.detail);
+                            }
+                        });
+                        var getSizeElement = function (elem, dataAttr, width) {
+                            var event;
+                            var parent = elem.parentNode;
+                            if (parent) {
+                                width = getWidth(elem, parent, width);
+                                event = triggerEvent(elem, 'lazybeforesizes', { width, dataAttr: !!dataAttr });
+                                if (!event.defaultPrevented) {
+                                    width = event.detail.width;
+                                    if (width && width !== elem._lazysizesWidth) {
+                                        sizeElement(elem, parent, event, width);
+                                    }
+                                }
+                            }
+                        };
+                        var updateElementsSizes = function () {
+                            var i3;
+                            var len = autosizesElems.length;
+                            if (len) {
+                                i3 = 0;
+                                for (; i3 < len; i3++) {
+                                    getSizeElement(autosizesElems[i3]);
+                                }
+                            }
+                        };
+                        var debouncedUpdateElementsSizes = debounce(updateElementsSizes);
+                        return {
+                            _: function () {
+                                autosizesElems = document2.getElementsByClassName(lazySizesCfg.autosizesClass);
+                                addEventListener('resize', debouncedUpdateElementsSizes);
+                            },
+                            checkElems: debouncedUpdateElementsSizes,
+                            updateElem: getSizeElement
+                        };
+                    })();
+                    var init = function () {
+                        if (!init.i && document2.getElementsByClassName) {
+                            init.i = true;
+                            autoSizer._();
+                            loader._();
+                        }
+                    };
+                    setTimeout2(function () {
+                        if (lazySizesCfg.init) {
+                            init();
+                        }
+                    });
+                    lazysizes = {
+                        /**
+                         * @type { LazySizesConfigPartial }
+                         */
+                        cfg: lazySizesCfg,
+                        autoSizer,
+                        loader,
+                        init,
+                        uP: updatePolyfill,
+                        aC: addClass,
+                        rC: removeClass,
+                        hC: hasClass,
+                        fire: triggerEvent,
+                        gW: getWidth,
+                        rAF
+                    };
+                    return lazysizes;
+                }
+            );
+        }
+    });
+
+    // node_modules/lazysizes/plugins/native-loading/ls.native-loading.js
+    var require_ls_native_loading = __commonJS({
+        'node_modules/lazysizes/plugins/native-loading/ls.native-loading.js'(exports, module) {
+            (function (window2, factory) {
+                var globalInstall = function () {
+                    factory(window2.lazySizes);
+                    window2.removeEventListener('lazyunveilread', globalInstall, true);
+                };
+                factory = factory.bind(null, window2, window2.document);
+                if (typeof module == 'object' && module.exports) {
+                    factory(require_lazysizes());
+                } else if (typeof define == 'function' && define.amd) {
+                    define(['lazysizes'], factory);
+                } else if (window2.lazySizes) {
+                    globalInstall();
+                } else {
+                    window2.addEventListener('lazyunveilread', globalInstall, true);
+                }
+            })(window, function (window2, document2, lazySizes2) {
+                'use strict';
+                var imgSupport = 'loading' in HTMLImageElement.prototype;
+                var iframeSupport = 'loading' in HTMLIFrameElement.prototype;
+                var isConfigSet = false;
+                var oldPrematureUnveil = lazySizes2.prematureUnveil;
+                var cfg = lazySizes2.cfg;
+                var listenerMap = {
+                    focus: 1,
+                    mouseover: 1,
+                    click: 1,
+                    load: 1,
+                    transitionend: 1,
+                    animationend: 1,
+                    scroll: 1,
+                    resize: 1
+                };
+                if (!cfg.nativeLoading) {
+                    cfg.nativeLoading = {};
+                }
+                if (!window2.addEventListener || !window2.MutationObserver || (!imgSupport && !iframeSupport)) {
+                    return;
+                }
+                function disableEvents() {
+                    var loader = lazySizes2.loader;
+                    var throttledCheckElements = loader.checkElems;
+                    var removeALSL = function () {
+                        setTimeout(function () {
+                            window2.removeEventListener('scroll', loader._aLSL, true);
+                        }, 1e3);
+                    };
+                    var currentListenerMap = typeof cfg.nativeLoading.disableListeners == 'object' ? cfg.nativeLoading.disableListeners : listenerMap;
+                    if (currentListenerMap.scroll) {
+                        window2.addEventListener('load', removeALSL);
+                        removeALSL();
+                        window2.removeEventListener('scroll', throttledCheckElements, true);
+                    }
+                    if (currentListenerMap.resize) {
+                        window2.removeEventListener('resize', throttledCheckElements, true);
+                    }
+                    Object.keys(currentListenerMap).forEach(function (name) {
+                        if (currentListenerMap[name]) {
+                            document2.removeEventListener(name, throttledCheckElements, true);
+                        }
+                    });
+                }
+                function runConfig() {
+                    if (isConfigSet) {
+                        return;
+                    }
+                    isConfigSet = true;
+                    if (imgSupport && iframeSupport && cfg.nativeLoading.disableListeners) {
+                        if (cfg.nativeLoading.disableListeners === true) {
+                            cfg.nativeLoading.setLoadingAttribute = true;
+                        }
+                        disableEvents();
+                    }
+                    if (cfg.nativeLoading.setLoadingAttribute) {
+                        window2.addEventListener(
+                            'lazybeforeunveil',
+                            function (e2) {
+                                var element = e2.target;
+                                if ('loading' in element && !element.getAttribute('loading')) {
+                                    element.setAttribute('loading', 'lazy');
+                                }
+                            },
+                            true
+                        );
+                    }
+                }
+                lazySizes2.prematureUnveil = function prematureUnveil(element) {
+                    if (!isConfigSet) {
+                        runConfig();
+                    }
+                    if ('loading' in element && (cfg.nativeLoading.setLoadingAttribute || element.getAttribute('loading')) && (element.getAttribute('data-sizes') != 'auto' || element.offsetWidth)) {
+                        return true;
+                    }
+                    if (oldPrematureUnveil) {
+                        return oldPrematureUnveil(element);
+                    }
+                };
+            });
+        }
+    });
+
+    // node_modules/clipboard/dist/clipboard.js
+    var require_clipboard = __commonJS({
+        'node_modules/clipboard/dist/clipboard.js'(exports, module) {
+            (function webpackUniversalModuleDefinition(root, factory) {
+                if (typeof exports === 'object' && typeof module === 'object') module.exports = factory();
+                else if (typeof define === 'function' && define.amd) define([], factory);
+                else if (typeof exports === 'object') exports['ClipboardJS'] = factory();
+                else root['ClipboardJS'] = factory();
+            })(exports, function () {
+                return (
+                    /******/
+                    (function () {
+                        var __webpack_modules__ = {
+                            /***/
+                            686:
+                                /***/
+                                function (__unused_webpack_module, __webpack_exports__, __webpack_require__2) {
+                                    'use strict';
+                                    __webpack_require__2.d(__webpack_exports__, {
+                                        default: function () {
+                                            return (
+                                                /* binding */
+                                                clipboard
+                                            );
+                                        }
+                                    });
+                                    var tiny_emitter = __webpack_require__2(279);
+                                    var tiny_emitter_default = /* @__PURE__ */ __webpack_require__2.n(tiny_emitter);
+                                    var listen = __webpack_require__2(370);
+                                    var listen_default = /* @__PURE__ */ __webpack_require__2.n(listen);
+                                    var src_select = __webpack_require__2(817);
+                                    var select_default = /* @__PURE__ */ __webpack_require__2.n(src_select);
+                                    function command(type) {
+                                        try {
+                                            return document.execCommand(type);
+                                        } catch (err) {
+                                            return false;
+                                        }
+                                    }
+                                    var ClipboardActionCut = function ClipboardActionCut2(target) {
+                                        var selectedText = select_default()(target);
+                                        command('cut');
+                                        return selectedText;
+                                    };
+                                    var actions_cut = ClipboardActionCut;
+                                    function createFakeElement(value) {
+                                        var isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+                                        var fakeElement = document.createElement('textarea');
+                                        fakeElement.style.fontSize = '12pt';
+                                        fakeElement.style.border = '0';
+                                        fakeElement.style.padding = '0';
+                                        fakeElement.style.margin = '0';
+                                        fakeElement.style.position = 'absolute';
+                                        fakeElement.style[isRTL ? 'right' : 'left'] = '-9999px';
+                                        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+                                        fakeElement.style.top = ''.concat(yPosition, 'px');
+                                        fakeElement.setAttribute('readonly', '');
+                                        fakeElement.value = value;
+                                        return fakeElement;
+                                    }
+                                    var fakeCopyAction = function fakeCopyAction2(value, options) {
+                                        var fakeElement = createFakeElement(value);
+                                        options.container.appendChild(fakeElement);
+                                        var selectedText = select_default()(fakeElement);
+                                        command('copy');
+                                        fakeElement.remove();
+                                        return selectedText;
+                                    };
+                                    var ClipboardActionCopy = function ClipboardActionCopy2(target) {
+                                        var options =
+                                            arguments.length > 1 && arguments[1] !== void 0 ?
+                                                arguments[1]
+                                            :   {
+                                                    container: document.body
+                                                };
+                                        var selectedText = '';
+                                        if (typeof target === 'string') {
+                                            selectedText = fakeCopyAction(target, options);
+                                        } else if (target instanceof HTMLInputElement && !['text', 'search', 'url', 'tel', 'password'].includes(target === null || target === void 0 ? void 0 : target.type)) {
+                                            selectedText = fakeCopyAction(target.value, options);
+                                        } else {
+                                            selectedText = select_default()(target);
+                                            command('copy');
+                                        }
+                                        return selectedText;
+                                    };
+                                    var actions_copy = ClipboardActionCopy;
+                                    function _typeof(obj) {
+                                        '@babel/helpers - typeof';
+                                        if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
+                                            _typeof = function _typeof2(obj2) {
+                                                return typeof obj2;
+                                            };
+                                        } else {
+                                            _typeof = function _typeof2(obj2) {
+                                                return obj2 && typeof Symbol === 'function' && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? 'symbol' : typeof obj2;
+                                            };
+                                        }
+                                        return _typeof(obj);
+                                    }
+                                    var ClipboardActionDefault = function ClipboardActionDefault2() {
+                                        var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+                                        var _options$action = options.action,
+                                            action = _options$action === void 0 ? 'copy' : _options$action,
+                                            container = options.container,
+                                            target = options.target,
+                                            text = options.text;
+                                        if (action !== 'copy' && action !== 'cut') {
+                                            throw new Error('Invalid "action" value, use either "copy" or "cut"');
+                                        }
+                                        if (target !== void 0) {
+                                            if (target && _typeof(target) === 'object' && target.nodeType === 1) {
+                                                if (action === 'copy' && target.hasAttribute('disabled')) {
+                                                    throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
+                                                }
+                                                if (action === 'cut' && (target.hasAttribute('readonly') || target.hasAttribute('disabled'))) {
+                                                    throw new Error(`Invalid "target" attribute. You can't cut text from elements with "readonly" or "disabled" attributes`);
+                                                }
+                                            } else {
+                                                throw new Error('Invalid "target" value, use a valid Element');
+                                            }
+                                        }
+                                        if (text) {
+                                            return actions_copy(text, {
+                                                container
+                                            });
+                                        }
+                                        if (target) {
+                                            return action === 'cut' ?
+                                                    actions_cut(target)
+                                                :   actions_copy(target, {
+                                                        container
+                                                    });
+                                        }
+                                    };
+                                    var actions_default = ClipboardActionDefault;
+                                    function clipboard_typeof(obj) {
+                                        '@babel/helpers - typeof';
+                                        if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
+                                            clipboard_typeof = function _typeof2(obj2) {
+                                                return typeof obj2;
+                                            };
+                                        } else {
+                                            clipboard_typeof = function _typeof2(obj2) {
+                                                return obj2 && typeof Symbol === 'function' && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? 'symbol' : typeof obj2;
+                                            };
+                                        }
+                                        return clipboard_typeof(obj);
+                                    }
+                                    function _classCallCheck(instance, Constructor) {
+                                        if (!(instance instanceof Constructor)) {
+                                            throw new TypeError('Cannot call a class as a function');
+                                        }
+                                    }
+                                    function _defineProperties(target, props) {
+                                        for (var i3 = 0; i3 < props.length; i3++) {
+                                            var descriptor = props[i3];
+                                            descriptor.enumerable = descriptor.enumerable || false;
+                                            descriptor.configurable = true;
+                                            if ('value' in descriptor) descriptor.writable = true;
+                                            Object.defineProperty(target, descriptor.key, descriptor);
+                                        }
+                                    }
+                                    function _createClass(Constructor, protoProps, staticProps) {
+                                        if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+                                        if (staticProps) _defineProperties(Constructor, staticProps);
+                                        return Constructor;
+                                    }
+                                    function _inherits(subClass, superClass) {
+                                        if (typeof superClass !== 'function' && superClass !== null) {
+                                            throw new TypeError('Super expression must either be null or a function');
+                                        }
+                                        subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+                                        if (superClass) _setPrototypeOf(subClass, superClass);
+                                    }
+                                    function _setPrototypeOf(o2, p) {
+                                        _setPrototypeOf =
+                                            Object.setPrototypeOf ||
+                                            function _setPrototypeOf2(o3, p2) {
+                                                o3.__proto__ = p2;
+                                                return o3;
+                                            };
+                                        return _setPrototypeOf(o2, p);
+                                    }
+                                    function _createSuper(Derived) {
+                                        var hasNativeReflectConstruct = _isNativeReflectConstruct();
+                                        return function _createSuperInternal() {
+                                            var Super = _getPrototypeOf(Derived),
+                                                result;
+                                            if (hasNativeReflectConstruct) {
+                                                var NewTarget = _getPrototypeOf(this).constructor;
+                                                result = Reflect.construct(Super, arguments, NewTarget);
+                                            } else {
+                                                result = Super.apply(this, arguments);
+                                            }
+                                            return _possibleConstructorReturn(this, result);
+                                        };
+                                    }
+                                    function _possibleConstructorReturn(self, call) {
+                                        if (call && (clipboard_typeof(call) === 'object' || typeof call === 'function')) {
+                                            return call;
+                                        }
+                                        return _assertThisInitialized(self);
+                                    }
+                                    function _assertThisInitialized(self) {
+                                        if (self === void 0) {
+                                            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+                                        }
+                                        return self;
+                                    }
+                                    function _isNativeReflectConstruct() {
+                                        if (typeof Reflect === 'undefined' || !Reflect.construct) return false;
+                                        if (Reflect.construct.sham) return false;
+                                        if (typeof Proxy === 'function') return true;
+                                        try {
+                                            Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+                                            return true;
+                                        } catch (e2) {
+                                            return false;
+                                        }
+                                    }
+                                    function _getPrototypeOf(o2) {
+                                        _getPrototypeOf =
+                                            Object.setPrototypeOf ?
+                                                Object.getPrototypeOf
+                                            :   function _getPrototypeOf2(o3) {
+                                                    return o3.__proto__ || Object.getPrototypeOf(o3);
+                                                };
+                                        return _getPrototypeOf(o2);
+                                    }
+                                    function getAttributeValue(suffix, element) {
+                                        var attribute = 'data-clipboard-'.concat(suffix);
+                                        if (!element.hasAttribute(attribute)) {
+                                            return;
+                                        }
+                                        return element.getAttribute(attribute);
+                                    }
+                                    var Clipboard2 = /* @__PURE__ */ (function (_Emitter) {
+                                        _inherits(Clipboard3, _Emitter);
+                                        var _super = _createSuper(Clipboard3);
+                                        function Clipboard3(trigger, options) {
+                                            var _this;
+                                            _classCallCheck(this, Clipboard3);
+                                            _this = _super.call(this);
+                                            _this.resolveOptions(options);
+                                            _this.listenClick(trigger);
+                                            return _this;
+                                        }
+                                        _createClass(
+                                            Clipboard3,
+                                            [
+                                                {
+                                                    key: 'resolveOptions',
+                                                    value: function resolveOptions() {
+                                                        var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+                                                        this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
+                                                        this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
+                                                        this.text = typeof options.text === 'function' ? options.text : this.defaultText;
+                                                        this.container = clipboard_typeof(options.container) === 'object' ? options.container : document.body;
+                                                    }
+                                                    /**
+                                                     * Adds a click event listener to the passed trigger.
+                                                     * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
+                                                     */
+                                                },
+                                                {
+                                                    key: 'listenClick',
+                                                    value: function listenClick(trigger) {
+                                                        var _this2 = this;
+                                                        this.listener = listen_default()(trigger, 'click', function (e2) {
+                                                            return _this2.onClick(e2);
+                                                        });
+                                                    }
+                                                    /**
+                                                     * Defines a new `ClipboardAction` on each click event.
+                                                     * @param {Event} e
+                                                     */
+                                                },
+                                                {
+                                                    key: 'onClick',
+                                                    value: function onClick(e2) {
+                                                        var trigger = e2.delegateTarget || e2.currentTarget;
+                                                        var action = this.action(trigger) || 'copy';
+                                                        var text = actions_default({
+                                                            action,
+                                                            container: this.container,
+                                                            target: this.target(trigger),
+                                                            text: this.text(trigger)
+                                                        });
+                                                        this.emit(text ? 'success' : 'error', {
+                                                            action,
+                                                            text,
+                                                            trigger,
+                                                            clearSelection: function clearSelection() {
+                                                                if (trigger) {
+                                                                    trigger.focus();
+                                                                }
+                                                                window.getSelection().removeAllRanges();
+                                                            }
+                                                        });
+                                                    }
+                                                    /**
+                                                     * Default `action` lookup function.
+                                                     * @param {Element} trigger
+                                                     */
+                                                },
+                                                {
+                                                    key: 'defaultAction',
+                                                    value: function defaultAction(trigger) {
+                                                        return getAttributeValue('action', trigger);
+                                                    }
+                                                    /**
+                                                     * Default `target` lookup function.
+                                                     * @param {Element} trigger
+                                                     */
+                                                },
+                                                {
+                                                    key: 'defaultTarget',
+                                                    value: function defaultTarget(trigger) {
+                                                        var selector = getAttributeValue('target', trigger);
+                                                        if (selector) {
+                                                            return document.querySelector(selector);
+                                                        }
+                                                    }
+                                                    /**
+                                                     * Allow fire programmatically a copy action
+                                                     * @param {String|HTMLElement} target
+                                                     * @param {Object} options
+                                                     * @returns Text copied.
+                                                     */
+                                                },
+                                                {
+                                                    key: 'defaultText',
+                                                    /**
+                                                     * Default `text` lookup function.
+                                                     * @param {Element} trigger
+                                                     */
+                                                    value: function defaultText(trigger) {
+                                                        return getAttributeValue('text', trigger);
+                                                    }
+                                                    /**
+                                                     * Destroy lifecycle.
+                                                     */
+                                                },
+                                                {
+                                                    key: 'destroy',
+                                                    value: function destroy() {
+                                                        this.listener.destroy();
+                                                    }
+                                                }
+                                            ],
+                                            [
+                                                {
+                                                    key: 'copy',
+                                                    value: function copy(target) {
+                                                        var options =
+                                                            arguments.length > 1 && arguments[1] !== void 0 ?
+                                                                arguments[1]
+                                                            :   {
+                                                                    container: document.body
+                                                                };
+                                                        return actions_copy(target, options);
+                                                    }
+                                                    /**
+                                                     * Allow fire programmatically a cut action
+                                                     * @param {String|HTMLElement} target
+                                                     * @returns Text cutted.
+                                                     */
+                                                },
+                                                {
+                                                    key: 'cut',
+                                                    value: function cut(target) {
+                                                        return actions_cut(target);
+                                                    }
+                                                    /**
+                                                     * Returns the support of the given action, or all actions if no action is
+                                                     * given.
+                                                     * @param {String} [action]
+                                                     */
+                                                },
+                                                {
+                                                    key: 'isSupported',
+                                                    value: function isSupported() {
+                                                        var action = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : ['copy', 'cut'];
+                                                        var actions = typeof action === 'string' ? [action] : action;
+                                                        var support = !!document.queryCommandSupported;
+                                                        actions.forEach(function (action2) {
+                                                            support = support && !!document.queryCommandSupported(action2);
+                                                        });
+                                                        return support;
+                                                    }
+                                                }
+                                            ]
+                                        );
+                                        return Clipboard3;
+                                    })(tiny_emitter_default());
+                                    var clipboard = Clipboard2;
+                                },
+                            /***/
+                            828:
+                                /***/
+                                function (module2) {
+                                    var DOCUMENT_NODE_TYPE = 9;
+                                    if (typeof Element !== 'undefined' && !Element.prototype.matches) {
+                                        var proto = Element.prototype;
+                                        proto.matches = proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector;
+                                    }
+                                    function closest(element, selector) {
+                                        while (element && element.nodeType !== DOCUMENT_NODE_TYPE) {
+                                            if (typeof element.matches === 'function' && element.matches(selector)) {
+                                                return element;
+                                            }
+                                            element = element.parentNode;
+                                        }
+                                    }
+                                    module2.exports = closest;
+                                },
+                            /***/
+                            438:
+                                /***/
+                                function (module2, __unused_webpack_exports, __webpack_require__2) {
+                                    var closest = __webpack_require__2(828);
+                                    function _delegate(element, selector, type, callback, useCapture) {
+                                        var listenerFn = listener.apply(this, arguments);
+                                        element.addEventListener(type, listenerFn, useCapture);
+                                        return {
+                                            destroy: function () {
+                                                element.removeEventListener(type, listenerFn, useCapture);
+                                            }
+                                        };
+                                    }
+                                    function delegate(elements, selector, type, callback, useCapture) {
+                                        if (typeof elements.addEventListener === 'function') {
+                                            return _delegate.apply(null, arguments);
+                                        }
+                                        if (typeof type === 'function') {
+                                            return _delegate.bind(null, document).apply(null, arguments);
+                                        }
+                                        if (typeof elements === 'string') {
+                                            elements = document.querySelectorAll(elements);
+                                        }
+                                        return Array.prototype.map.call(elements, function (element) {
+                                            return _delegate(element, selector, type, callback, useCapture);
+                                        });
+                                    }
+                                    function listener(element, selector, type, callback) {
+                                        return function (e2) {
+                                            e2.delegateTarget = closest(e2.target, selector);
+                                            if (e2.delegateTarget) {
+                                                callback.call(element, e2);
+                                            }
+                                        };
+                                    }
+                                    module2.exports = delegate;
+                                },
+                            /***/
+                            879:
+                                /***/
+                                function (__unused_webpack_module, exports2) {
+                                    exports2.node = function (value) {
+                                        return value !== void 0 && value instanceof HTMLElement && value.nodeType === 1;
+                                    };
+                                    exports2.nodeList = function (value) {
+                                        var type = Object.prototype.toString.call(value);
+                                        return value !== void 0 && (type === '[object NodeList]' || type === '[object HTMLCollection]') && 'length' in value && (value.length === 0 || exports2.node(value[0]));
+                                    };
+                                    exports2.string = function (value) {
+                                        return typeof value === 'string' || value instanceof String;
+                                    };
+                                    exports2.fn = function (value) {
+                                        var type = Object.prototype.toString.call(value);
+                                        return type === '[object Function]';
+                                    };
+                                },
+                            /***/
+                            370:
+                                /***/
+                                function (module2, __unused_webpack_exports, __webpack_require__2) {
+                                    var is = __webpack_require__2(879);
+                                    var delegate = __webpack_require__2(438);
+                                    function listen(target, type, callback) {
+                                        if (!target && !type && !callback) {
+                                            throw new Error('Missing required arguments');
+                                        }
+                                        if (!is.string(type)) {
+                                            throw new TypeError('Second argument must be a String');
+                                        }
+                                        if (!is.fn(callback)) {
+                                            throw new TypeError('Third argument must be a Function');
+                                        }
+                                        if (is.node(target)) {
+                                            return listenNode(target, type, callback);
+                                        } else if (is.nodeList(target)) {
+                                            return listenNodeList(target, type, callback);
+                                        } else if (is.string(target)) {
+                                            return listenSelector(target, type, callback);
+                                        } else {
+                                            throw new TypeError('First argument must be a String, HTMLElement, HTMLCollection, or NodeList');
+                                        }
+                                    }
+                                    function listenNode(node, type, callback) {
+                                        node.addEventListener(type, callback);
+                                        return {
+                                            destroy: function () {
+                                                node.removeEventListener(type, callback);
+                                            }
+                                        };
+                                    }
+                                    function listenNodeList(nodeList, type, callback) {
+                                        Array.prototype.forEach.call(nodeList, function (node) {
+                                            node.addEventListener(type, callback);
+                                        });
+                                        return {
+                                            destroy: function () {
+                                                Array.prototype.forEach.call(nodeList, function (node) {
+                                                    node.removeEventListener(type, callback);
+                                                });
+                                            }
+                                        };
+                                    }
+                                    function listenSelector(selector, type, callback) {
+                                        return delegate(document.body, selector, type, callback);
+                                    }
+                                    module2.exports = listen;
+                                },
+                            /***/
+                            817:
+                                /***/
+                                function (module2) {
+                                    function select(element) {
+                                        var selectedText;
+                                        if (element.nodeName === 'SELECT') {
+                                            element.focus();
+                                            selectedText = element.value;
+                                        } else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+                                            var isReadOnly = element.hasAttribute('readonly');
+                                            if (!isReadOnly) {
+                                                element.setAttribute('readonly', '');
+                                            }
+                                            element.select();
+                                            element.setSelectionRange(0, element.value.length);
+                                            if (!isReadOnly) {
+                                                element.removeAttribute('readonly');
+                                            }
+                                            selectedText = element.value;
+                                        } else {
+                                            if (element.hasAttribute('contenteditable')) {
+                                                element.focus();
+                                            }
+                                            var selection = window.getSelection();
+                                            var range = document.createRange();
+                                            range.selectNodeContents(element);
+                                            selection.removeAllRanges();
+                                            selection.addRange(range);
+                                            selectedText = selection.toString();
+                                        }
+                                        return selectedText;
+                                    }
+                                    module2.exports = select;
+                                },
+                            /***/
+                            279:
+                                /***/
+                                function (module2) {
+                                    function E() {}
+                                    E.prototype = {
+                                        on: function (name, callback, ctx) {
+                                            var e2 = this.e || (this.e = {});
+                                            (e2[name] || (e2[name] = [])).push({
+                                                fn: callback,
+                                                ctx
+                                            });
+                                            return this;
+                                        },
+                                        once: function (name, callback, ctx) {
+                                            var self = this;
+                                            function listener() {
+                                                self.off(name, listener);
+                                                callback.apply(ctx, arguments);
+                                            }
+                                            listener._ = callback;
+                                            return this.on(name, listener, ctx);
+                                        },
+                                        emit: function (name) {
+                                            var data = [].slice.call(arguments, 1);
+                                            var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
+                                            var i3 = 0;
+                                            var len = evtArr.length;
+                                            for (i3; i3 < len; i3++) {
+                                                evtArr[i3].fn.apply(evtArr[i3].ctx, data);
+                                            }
+                                            return this;
+                                        },
+                                        off: function (name, callback) {
+                                            var e2 = this.e || (this.e = {});
+                                            var evts = e2[name];
+                                            var liveEvents = [];
+                                            if (evts && callback) {
+                                                for (var i3 = 0, len = evts.length; i3 < len; i3++) {
+                                                    if (evts[i3].fn !== callback && evts[i3].fn._ !== callback) liveEvents.push(evts[i3]);
+                                                }
+                                            }
+                                            liveEvents.length ? (e2[name] = liveEvents) : delete e2[name];
+                                            return this;
+                                        }
+                                    };
+                                    module2.exports = E;
+                                    module2.exports.TinyEmitter = E;
+                                }
+                            /******/
+                        };
+                        var __webpack_module_cache__ = {};
+                        function __webpack_require__(moduleId) {
+                            if (__webpack_module_cache__[moduleId]) {
+                                return __webpack_module_cache__[moduleId].exports;
+                            }
+                            var module2 = (__webpack_module_cache__[moduleId] = {
+                                /******/
+                                // no module.id needed
+                                /******/
+                                // no module.loaded needed
+                                /******/
+                                exports: {}
+                                /******/
+                            });
+                            __webpack_modules__[moduleId](module2, module2.exports, __webpack_require__);
+                            return module2.exports;
+                        }
+                        !(function () {
+                            __webpack_require__.n = function (module2) {
+                                var getter =
+                                    module2 && module2.__esModule ?
+                                        /******/
+                                        function () {
+                                            return module2['default'];
+                                        }
+                                    :   /******/
+                                        function () {
+                                            return module2;
+                                        };
+                                __webpack_require__.d(getter, { a: getter });
+                                return getter;
+                            };
+                        })();
+                        !(function () {
+                            __webpack_require__.d = function (exports2, definition) {
+                                for (var key in definition) {
+                                    if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports2, key)) {
+                                        Object.defineProperty(exports2, key, { enumerable: true, get: definition[key] });
+                                    }
+                                }
+                            };
+                        })();
+                        !(function () {
+                            __webpack_require__.o = function (obj, prop) {
+                                return Object.prototype.hasOwnProperty.call(obj, prop);
+                            };
+                        })();
+                        return __webpack_require__(686);
+                    })().default
+                );
+            });
+        }
+    });
+
+    // node_modules/quicklink/dist/quicklink.mjs
+    function e(e2) {
+        return new Promise(function (n2, r2, t2) {
+            (t2 = new XMLHttpRequest()).open('GET', e2, (t2.withCredentials = true)),
+                (t2.onload = function () {
+                    200 === t2.status ? n2() : r2();
+                }),
+                t2.send();
+        });
     }
-    if (window.localStorage) {
-      window.localStorage.setItem("configLangPref", targetKey);
+    var n;
+    var r =
+        (n = document.createElement('link')).relList && n.relList.supports && n.relList.supports('prefetch') ?
+            function (e2) {
+                return new Promise(function (n2, r2, t2) {
+                    ((t2 = document.createElement('link')).rel = 'prefetch'), (t2.href = e2), (t2.onload = n2), (t2.onerror = r2), document.head.appendChild(t2);
+                });
+            }
+        :   e;
+    var t =
+        window.requestIdleCallback ||
+        function (e2) {
+            var n2 = Date.now();
+            return setTimeout(function () {
+                e2({
+                    didTimeout: false,
+                    timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - n2));
+                    }
+                });
+            }, 1);
+        };
+    var o = /* @__PURE__ */ new Set();
+    var i = /* @__PURE__ */ new Set();
+    var c = false;
+    function a(e2) {
+        if (e2) {
+            if (e2.saveData) return new Error('Save-Data is enabled');
+            if (/2g/.test(e2.effectiveType)) return new Error('network conditions are poor');
+        }
+        return true;
     }
-    var selectedTabs = document.querySelectorAll("[data-toggle-tab=" + targetKey + "]");
-    var selectedPanes = document.querySelectorAll("[data-pane=" + targetKey + "]");
-    for (var i3 = 0; i3 < allTabs.length; i3++) {
-      allTabs[i3].classList.remove("active");
-      allPanes[i3].classList.remove("active");
+    function u(e2) {
+        if ((e2 || (e2 = {}), window.IntersectionObserver)) {
+            var n2 = (function (e3) {
+                    e3 = e3 || 1;
+                    var n3 = [],
+                        r3 = 0;
+                    function t2() {
+                        r3 < e3 && n3.length > 0 && (n3.shift()(), r3++);
+                    }
+                    return [
+                        function (e4) {
+                            n3.push(e4) > 1 || t2();
+                        },
+                        function () {
+                            r3--, t2();
+                        }
+                    ];
+                })(e2.throttle || 1 / 0),
+                r2 = n2[0],
+                a2 = n2[1],
+                u2 = e2.limit || 1 / 0,
+                l = e2.origins || [location.hostname],
+                d = e2.ignores || [],
+                h = e2.delay || 0,
+                p = [],
+                m = e2.timeoutFn || t,
+                w = 'function' == typeof e2.hrefFn && e2.hrefFn,
+                g = e2.prerender || false;
+            c = e2.prerenderAndPrefetch || false;
+            var v = new IntersectionObserver(
+                function (n3) {
+                    n3.forEach(function (n4) {
+                        if (n4.isIntersecting)
+                            p.push((n4 = n4.target).href),
+                                (function (e3, n5) {
+                                    n5 ? setTimeout(e3, n5) : e3();
+                                })(function () {
+                                    -1 !== p.indexOf(n4.href) &&
+                                        (v.unobserve(n4),
+                                        (c || g) && i.size < 1 ?
+                                            f(w ? w(n4) : n4.href).catch(function (n5) {
+                                                if (!e2.onError) throw n5;
+                                                e2.onError(n5);
+                                            })
+                                        :   o.size < u2 &&
+                                            !g &&
+                                            r2(function () {
+                                                s(w ? w(n4) : n4.href, e2.priority)
+                                                    .then(a2)
+                                                    .catch(function (n5) {
+                                                        a2(), e2.onError && e2.onError(n5);
+                                                    });
+                                            }));
+                                }, h);
+                        else {
+                            var t2 = p.indexOf((n4 = n4.target).href);
+                            t2 > -1 && p.splice(t2);
+                        }
+                    });
+                },
+                { threshold: e2.threshold || 0 }
+            );
+            return (
+                m(
+                    function () {
+                        (e2.el || document).querySelectorAll('a').forEach(function (e3) {
+                            (l.length && !l.includes(e3.hostname)) ||
+                                (function e4(n3, r3) {
+                                    return Array.isArray(r3) ?
+                                            r3.some(function (r4) {
+                                                return e4(n3, r4);
+                                            })
+                                        :   (r3.test || r3).call(r3, n3.href, n3);
+                                })(e3, d) ||
+                                v.observe(e3);
+                        });
+                    },
+                    { timeout: e2.timeout || 2e3 }
+                ),
+                function () {
+                    o.clear(), v.disconnect();
+                }
+            );
+        }
     }
-    for (var i3 = 0; i3 < selectedTabs.length; i3++) {
-      selectedTabs[i3].classList.add("active");
-      selectedPanes[i3].classList.add("show", "active");
+    function s(n2, t2, u2) {
+        var s2 = a(navigator.connection);
+        return s2 instanceof Error ?
+                Promise.reject(new Error('Cannot prefetch, ' + s2.message))
+            :   (i.size > 0 && !c && console.warn('[Warning] You are using both prefetching and prerendering on the same document'),
+                Promise.all(
+                    [].concat(n2).map(function (n3) {
+                        if (!o.has(n3))
+                            return (
+                                o.add(n3),
+                                (t2 ?
+                                    function (n4) {
+                                        return window.fetch ? fetch(n4, { credentials: 'include' }) : e(n4);
+                                    }
+                                :   r)(new URL(n3, location.href).toString())
+                            );
+                    })
+                ));
     }
-  }
-  for (i2 = 0; i2 < allTabs.length; i2++) {
-    allTabs[i2].addEventListener("click", toggleTabs);
-  }
-  if (window.localStorage.getItem("configLangPref")) {
-    toggleTabs(window.localStorage.getItem("configLangPref"));
-  }
+    function f(e2, n2) {
+        var r2 = a(navigator.connection);
+        if (r2 instanceof Error) return Promise.reject(new Error('Cannot prerender, ' + r2.message));
+        if (!HTMLScriptElement.supports('speculationrules')) return s(e2), Promise.reject(new Error('This browser does not support the speculation rules API. Falling back to prefetch.'));
+        if (document.querySelector('script[type="speculationrules"]')) return Promise.reject(new Error('Speculation Rules is already defined and cannot be altered.'));
+        for (var t2 = 0, u2 = [].concat(e2); t2 < u2.length; t2 += 1) {
+            var f2 = u2[t2];
+            if (window.location.origin !== new URL(f2, window.location.href).origin) return Promise.reject(new Error('Only same origin URLs are allowed: ' + f2));
+            i.add(f2);
+        }
+        o.size > 0 && !c && console.warn('[Warning] You are using both prefetching and prerendering on the same document');
+        var l = (function (e3) {
+            var n3 = document.createElement('script');
+            (n3.type = 'speculationrules'), (n3.text = '{"prerender":[{"source": "list","urls": ["' + Array.from(e3).join('","') + '"]}]}');
+            try {
+                document.head.appendChild(n3);
+            } catch (e4) {
+                return e4;
+            }
+            return true;
+        })(i);
+        return true === l ? Promise.resolve() : Promise.reject(l);
+    }
+
+    // node_modules/@hyas/core/assets/js/core.js
+    var import_lazysizes = __toESM(require_lazysizes());
+    var import_ls = __toESM(require_ls_native_loading());
+    u();
+    import_lazysizes.default.cfg.nativeLoading = {
+        setLoadingAttribute: true,
+        disableListeners: {
+            scroll: true
+        }
+    };
+
+    // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/clipboard.js
+    var import_clipboard = __toESM(require_clipboard());
+    (() => {
+        'use strict';
+        var cb = document.getElementsByClassName('highlight');
+        for (var i3 = 0; i3 < cb.length; ++i3) {
+            var element = cb[i3];
+            element.insertAdjacentHTML('afterbegin', '<div class="copy"><button title="Copy to clipboard" class="btn-copy" aria-label="Clipboard button"><div></div></button></div>');
+        }
+        var clipboard = new import_clipboard.default('.btn-copy', {
+            target: function (trigger) {
+                return trigger.parentNode.nextElementSibling;
+            }
+        });
+        clipboard.on('success', function (e2) {
+            e2.clearSelection();
+        });
+        clipboard.on('error', function (e2) {
+            console.error('Action:', e2.action);
+            console.error('Trigger:', e2.trigger);
+        });
+    })();
+
+    // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/to-top.js
+    var topButton = document.getElementById('toTop');
+    if (topButton !== null) {
+        topButton.classList.remove('fade');
+        window.onscroll = function () {
+            scrollFunction();
+        };
+        topButton.addEventListener('click', topFunction);
+    }
+    function scrollFunction() {
+        if (document.body.scrollTop > 270 || document.documentElement.scrollTop > 270) {
+            topButton.classList.add('fade');
+        } else {
+            topButton.classList.remove('fade');
+        }
+    }
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    // ns-hugo:/Users/jet/projects/personal/Framework/pionia-docs/node_modules/@hyas/doks-core/assets/js/tabs.js
+    var i2;
+    var allTabs = document.querySelectorAll('[data-toggle-tab]');
+    var allPanes = document.querySelectorAll('[data-pane]');
+    function toggleTabs(event) {
+        if (event.target) {
+            event.preventDefault();
+            var clickedTab = event.currentTarget;
+            var targetKey = clickedTab.getAttribute('data-toggle-tab');
+        } else {
+            var targetKey = event;
+        }
+        if (window.localStorage) {
+            window.localStorage.setItem('configLangPref', targetKey);
+        }
+        var selectedTabs = document.querySelectorAll('[data-toggle-tab=' + targetKey + ']');
+        var selectedPanes = document.querySelectorAll('[data-pane=' + targetKey + ']');
+        for (var i3 = 0; i3 < allTabs.length; i3++) {
+            allTabs[i3].classList.remove('active');
+            allPanes[i3].classList.remove('active');
+        }
+        for (var i3 = 0; i3 < selectedTabs.length; i3++) {
+            selectedTabs[i3].classList.add('active');
+            selectedPanes[i3].classList.add('show', 'active');
+        }
+    }
+    for (i2 = 0; i2 < allTabs.length; i2++) {
+        allTabs[i2].addEventListener('click', toggleTabs);
+    }
+    if (window.localStorage.getItem('configLangPref')) {
+        toggleTabs(window.localStorage.getItem('configLangPref'));
+    }
 })();
 /*! Bundled license information:
 

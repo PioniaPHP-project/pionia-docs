@@ -1,20 +1,19 @@
 ---
-title: 'Services'
-parent: 'documentation'
-description: 'Abstracting most of the CRUD work for so that you focus on only complex business logic.'
-summary: 'Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.'
+title: "Services"
+parent: "documentation"
+description: "Abstracting most of the CRUD work for so that you focus on only complex business logic."
+summary: "Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit."
 date: 2024-07-05 01:06:18.709 +0300
 lastmod: 2024-07-05 01:06:18.709 +0300
 draft: false
 weight: 500
 toc: true
 seo:
-    title: 'Services' # custom title (optional)
-    description: 'Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!' # custom description (recommended)
-    canonical: '' # custom canonical URL (optional)
-    noindex: true # false (default) or true
+  title: "Services" # custom title (optional)
+  description: "Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!" # custom description (recommended)
+  canonical: "" # custom canonical URL (optional)
+  noindex: true # false (default) or true
 ---
-
 
 {{<callout tip>}}
 This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/api-tutorial/).
@@ -45,19 +44,20 @@ Let's create a service called `TodoService`. In the terminal run the following c
 ```bash
 php pionia gen:service todo
 ```
-Running the above command will prompt you for two options. 
+
+Running the above command will prompt you for two options.
 
 1. `Basic` - These are services that extend the `BaseRestService`. They are close to creating manual services.
-If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want 
-or let the cli add the default actions of `create`, `retrieve`, `update`, `delete` for you. Once you are done, the service will be created in the `services` folder.
+   If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want
+   or let the cli add the default actions of `create`, `retrieve`, `update`, `delete` for you. Once you are done, the service will be created in the `services` folder.
 
 You can delete or add more actions as you see fit.
 
-2. `Generic` - These are services that extend the `GenericService`. They come with an entire CRUD logic out of the box. 
-Once you select this option you will presented with a list of nine options to choose from. If you are not sure of what to select,
-just hit enter and the cli will select the default option for you which is the `UniversalGenericService`. This service comes with all the CRUD logic out of the box.
+2. `Generic` - These are services that extend the `GenericService`. They come with an entire CRUD logic out of the box.
+   Once you select this option you will presented with a list of nine options to choose from. If you are not sure of what to select,
+   just hit enter and the cli will select the default option for you which is the `UniversalGenericService`. This service comes with all the CRUD logic out of the box.
 
-Other Options are :-  
+Other Options are :-
 
 [0] UniversalGenericService
 
@@ -79,18 +79,18 @@ Other Options are :-
 
 Choosing option 8 gives you freedom to define your own mixins to extend.
 
-
 {{< /tab >}}
 {{< tab "Manually" >}}
->>>
+
+> > >
+
 1. Head over to your `services` folder.
 2. Create a new service with a clear name, such as UserService, AuthService, CartService
 3. Extend BaseRestService
 4. Add your own actions each taking in `data`(post request data), `files`(ff your service is expecting files) and returning `BaseResponse`.
 5. Add your logic
->>>
-{{< /tab >}}
-{{< /tabs >}}
+   > > > {{< /tab >}}
+   > > > {{< /tabs >}}
 
 {{<callout note >}}
 Remember generic services target a base table.
@@ -121,20 +121,20 @@ In the switches folder, find the switch you want to use for this service. You ca
     }
 ```
 
-
 The `key` of this method is the name you shall use in your proceeding requests to access this service. Therefore, it must be unique!
 
 {{<callout note>}}
 A single service can be registered in multiple switches. This is useful when you want to use the same service in different api versions.
 {{</callout>}}
+
 ## Targeting a service in the request
 
 In the request, you can target a service by determining the `SERVICE` key with your service name as the `key` defined in the `registerServices` method.
 
 ```js
 {
-    SERVICE: 'user'
-    // rest of your request data.
+  SERVICE: "user";
+  // rest of your request data.
 }
 ```
 
@@ -143,11 +143,10 @@ In the request, you can target a service by determining the `SERVICE` key with y
 To target an action in a certain service, you need to define both the service and action as below.
 
 ```json
-
 {
-    SERVICE: "user",
-    ACTION: "loginAuth"
-    // rest of your service data
+  "SERVICE": "user",
+  "ACTION": "loginAuth"
+  // rest of your service data
 }
 ```
 
@@ -177,7 +176,7 @@ class TodoService extends BaseRestService
     protected functon getTodo($data): BaseResponse
     {
         $request = $this->request;
-        
+
         $uri = $this->request->getUri();
 
         // rest of actions logic
@@ -189,10 +188,12 @@ class TodoService extends BaseRestService
 ### Request Data
 
 #### JSON and Form Request Data
+
 An action takes `$data` as the first parameter which is an array of the request data. You can access you post data from this parameter.
 
 This consists of both JSON and form data. Therefore, you can access your data as below.
-```php 
+
+```php
     $username = $data["username"];
     $email = $data["email"];
 ```
@@ -260,6 +261,7 @@ You can protect your actions by determining that they require only authenticated
 ### Globally in the service
 
 #### Entire service
+
 You can mark an entire service as requiring authentication by setting the `$serviceRequiresAuth` parameter to `true`.
 
 ```php
@@ -273,6 +275,7 @@ class TodoService extends BaseRestService
 ```
 
 #### Specific actions
+
 You can also mark specific actions in a service as requiring authentication. Use the `$actionsRequiringAuth` parameter and add action names of actions that should be reached by authenticated users only.
 
 This, unlike `$serviceRequiresAuth`, will only protect the actions listed in the array not the entire service.
@@ -356,7 +359,7 @@ This is useful when you want to deactivate an action in a service without deleti
 class TodoService extends BaseRestService
 {
     public array $deactivatedActions = ['getTodo']; // one or more actions to deactivate.
-   
+
 }
 ```
 

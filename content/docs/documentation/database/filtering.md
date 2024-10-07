@@ -17,7 +17,7 @@ seo:
 {{<callout context="tip"  icon="outline/pencil">}}
 This section assumes you have alredy completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started).
 
-Also, for basic knowledge and understanding, please first look at the  [Making Queries Section](/documentation/database/making-queries)
+Also, for basic knowledge and understanding, please first look at the [Making Queries Section](/documentation/database/making-queries)
 {{</callout>}}
 
 # Introduction
@@ -124,7 +124,6 @@ $users = Porm::from('users')
     ->startAt(5)
     ->all();
 ```
-
 
 ### AND Conditions
 

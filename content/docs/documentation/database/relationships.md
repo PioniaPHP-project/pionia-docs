@@ -44,4 +44,3 @@ Porm::from("products")
     ->inner("categories", "products.category_id = categories.id")
     ->all();
 ```
-

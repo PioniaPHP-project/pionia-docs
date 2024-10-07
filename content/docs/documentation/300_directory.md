@@ -17,60 +17,48 @@ seo:
 Taking our directory structure from the [API Tutorial we created here](/documentation/api-tutorial/).
 
 ```md
-app
-├── switches
-├── services
-├── authentications
-├── commands
-├── middlewares
+bootstrap
+├── application.php
 ├── routes.php
-vendor
-.gitignore
-composer.json
-composer.lock
-index.php
-pionia
-README.md
-settings.ini
+environment
+├── .env
+├── settings.ini
+public
+├── index.php
+├── .htaccess
+services
+├── AuthService.php
+static
+├── bootstrap.min.css
+├── favicon.ico
+├── favicon.png
+├── pionia_logo.webp
+storage
+├── scripts
+├── rename.php
+switches
+├── MainSwitch.php
+├── .gitignore
+├── README.md
+├── composer.json
+├── pionia
 ```
 
 ## Directory Structure Breakdown
 
-***app***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
-    This is the main directory of the project. It is where all the application logic is stored. It contains the following subdirectories and scripts:
+| Name          | Role                                                                                                                                                                  | Type                                                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| bootstrap     | This is where we store our application and routes. `application.php` helps to bootstrap the Pionia application that shall be used by both our CLI and web kernels.    | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
+| environment   | This holds our environment configuration files, can contain profile-specific environment too!                                                                         | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
+| public        | This handles all HTTP requests and boots up our web kernel using the Pionia application created in `bootstrap/application.php`                                        | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder  |
+| services      | This is where all our services are stored. This is where you should focus most. All business logic resides here.                                                      | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder  |
+| static        | These holds static files that the might you may need or that might be needed by the framework itself. In the future, this folder might be used to serve frontend SPAs | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder  |
+| storage       | This where application generated files are stored. These might include caches, logs, and scripts. Please do not remove `rename.php` in scripts                        | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder  |
+| switches      | This is where our app switches reside.                                                                                                                                | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder  |
+| .gitignore    | This file is used to tell git which files to ignore when pushing to the repository.                                                                                   | {{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline-custom">}}File      |
+| composer.json | This file is used to manage the dependencies of the project. It is used by composer to install the dependencies.                                                      | {{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline-custom">}}File      |
+| pionia        | This handles all our CLI commands, whether inbuilt or your custom commands. Just run `php pionia` to boot this CLI up                                                 | {{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline-custom">}}File      |
+| README.m      | A simple getting started guide for the project.                                                                                                                       | {{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline-custom">}}File      |
 
-| Name            | Role                                                                                                                                                                                                                                                                                   | Type |
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------- |
-| switches        | The switch is responsible for deciding which service to call based on the registered services. This is where all our service switches are stored. Every switch should be associated with a version of your api. If your api does not need more than one version, one switch is enough. |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}} Folder |
-| services        | This is where all our services are stored. This is where you should focus most. All business logic resides here.                                                                                                                                                                       |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| authentications | This is where we store our authentication backends. Add your authentication backend here and register it in settings.ini                                                                                                                                                               | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| middlewares     | This folder is not included in the initial project setup. But this is where you add your middlewares. Middlewares are used to intercept requests before they reach the switches and after they leave the switches.                                                                     | {{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder|
-| commands        | This is where we store our console commands. Add your console commands here.                                                                                                                                                                                                           |{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}Folder |
-| routes.php      | Our routes behave different, their job is not to not route but to register the switches that should be auto-dicovered.                                                                                                                                                                 |{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}File |
-
-***vendor***{{<inline-svg src="outline/folder" height="1rem" width="1rem" class="svg-inline-custom">}}:-
-    This is where all the dependencies of the project are stored. It is created by composer when you run `composer install` or `composer update`.
-
-***.gitignore***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This file is used to tell git which files to ignore when pushing to the repository.
-
-***composer.json***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This file is used to manage the dependencies of the project. It is used by composer to install the dependencies.
-
-***composer.lock***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This file is used to lock the dependencies of the project. It is used by composer to install the dependencies.
-
-***index.php***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This is the entry point of the project. It is where the project starts running. This is where you register the middlewares, routes, and authentication backends.
-
-***pionia***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline-custom">}}:-
-    This is our console interface. It helps us to run pionia-specific commands.
-
-***README.md***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    A simple getting started guide for the project.
-
-***settings.ini***{{<inline-svg src="outline/file" height="1rem" width="1rem" class="svg-inline">}}:-
-    This is the file that contains the settings of the project. It is where you store the settings of the project.
-
-
-As you can see, pionia maintains the least number of files and directories to make it easy for you to understand and maintain your project. You can always add more directories and files as you see fit. But remember to keep the project as simple as possible.
+Pionia is a progressive framework, there more folders might be included as you need/require them. Other folders might include
+`middlewares`, `authentications`, `commands`. All these will only be added when you invoke/initiate them.

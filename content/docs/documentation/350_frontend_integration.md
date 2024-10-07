@@ -14,7 +14,7 @@ seo:
   noindex: false # false (default) or true
 ---
 
-Pionia is a REST framework that is entirely meant for the backend. It has no frontend capabilities. 
+Pionia is a REST framework that is entirely meant for the backend. It has no frontend capabilities.
 
 However, Pionia has added support to scaffold one of the seven vite-supported frameworks. This is to help you get started with your frontend quickly.
 
@@ -27,6 +27,7 @@ php pionia front:sc
 ```
 
 The following are the supported frameworks:
+
 1. [0] Vue
 2. [1] React
 3. [2] Z-js
@@ -45,7 +46,7 @@ You should scaffold using our commands if you need Pionia to manage your fronten
 To scaffold the frontend, you can run the following command:
 
 ```bash
-php pionia front:sc 
+php pionia front:sc
 ```
 
 If you pass `-y` flag, the command will assume the defaults and scaffold the frontend without asking for any input.
@@ -56,13 +57,14 @@ This will scaffold `Vuejs` in the `frontend` directory of your project using `np
 Just select the option of the framework you want to scaffold. For example, to scaffold `React`, you can run the following command:
 
 ```bash
-php pionia front:sc 
+php pionia front:sc
 ```
+
 {{<picture src="/images/scaffold-react.png" alt="Pionia Logo">}}
 
 Then select the option for `React` which is `1` as illustrated in the image above.
 
-## Frontend Directory/folder. 
+## Frontend Directory/folder.
 
 The frontend directory is where all the frontend code is stored. It is created by the `front:sc` command. The directory is created in the root of your project.
 
@@ -80,7 +82,7 @@ Example below will scaffold the frontend in the `pages` folder
 
 In the interactive shell of the `front:sc` command, you can specify the package manager you want to use. If you do not specify a package manager, the default package manager is `npm`.
 
-The following are the available options:- 
+The following are the available options:-
 
 {{<picture src="/images/select_pkg.png" alt="Selecting any other Directory for frontend">}}
 
@@ -94,13 +96,13 @@ The package you select should already be setup in your system. If you select any
 
 ## Scaffolding TS or JS
 
-Except `z-js`, for the other frameworks, you can choose between scaffolding the `js` or the `ts` version of the framework. 
+Except `z-js`, for the other frameworks, you can choose between scaffolding the `js` or the `ts` version of the framework.
 
 {{<picture src="/images/ts_js.png" alt="Selecting any other Directory for frontend">}}
 
 This will always default to `js`.
 
-## Other Frontend Operations. 
+## Other Frontend Operations.
 
 Pionia does not just stop at scaffolding the frontend. It also, gives you other features that you can do with your frontend.
 
@@ -112,36 +114,36 @@ be added in your `settings.ini` upon successful scaffolding of the frontend.
 ```ini
 [frontend]
 frontend_root_folder=pages
-build_command=yarn build 
+build_command=yarn build
 frontend_build_folder=dist
 frontend_framework=Vue
 package_manager=yarn
 ```
 
-The `frontend` tells Pionia how to deal with the frontend that was just created. 
+The `frontend` tells Pionia how to deal with the frontend that was just created.
 
 1. `frontend_root_folder` is the root folder of the frontend. This is where the frontend code is stored.
 2. `build_command` is the command that will be run to build the frontend. This command is run as is against your frontend, so feel okay to tweak it the way you see fit.
-3. `frontend_build_folder` is the folder where the frontend will be built. Usually if this is not in `dist`, it will absolutely be in the `build` folder. When 
-Pionia is going to serve your frontend, this is the folder it will read and ship to your backend.
+3. `frontend_build_folder` is the folder where the frontend will be built. Usually if this is not in `dist`, it will absolutely be in the `build` folder. When
+   Pionia is going to serve your frontend, this is the folder it will read and ship to your backend.
 4. `frontend_framework` is the framework that was used to scaffold the frontend.
 5. `package_manager` is the package manager that was used to scaffold the frontend. This will be the package manager used even to build your frontend.
 
-In the frontend directory created, two files were created. These might likely be in your `src` folder. 
-Pionia adds the `VITE_API_URL` to your `.env` file. This is the url that your frontend will use to communicate with the backend. 
+In the frontend directory created, two files were created. These might likely be in your `src` folder.
+Pionia adds the `VITE_API_URL` to your `.env` file. This is the url that your frontend will use to communicate with the backend.
 
 In development mode, this will be `http://localhost:8000/api/`. In production mode, this will be relative to your application domain since the frontend and backend will be served together.
 
-1. `.env.development` - This is the file that will be used to set the environment variables for your frontend in development mode. 
+1. `.env.development` - This is the file that will be used to set the environment variables for your frontend in development mode.
 
 ```.env
 # .env.development
-VITE_API_URL=http://localhost:8000/api/ 
+VITE_API_URL=http://localhost:8000/api/
 ```
 
 2. `.env.production` - This is the file that will be used to set the environment variables for your frontend in production mode.
 
-```env 
+```env
 # .env.production
 VITE_API_URL=/api/
 ```
@@ -150,12 +152,12 @@ VITE_API_URL=/api/
 You need to call this `VITE_API_URL` as your base url in your frontend whenever you want to make any http calls to your API.
 {{</callout>}}
 
-### Build the frontend. 
+### Build the frontend.
 
-In development, the frontend and backend run in isolation. This implies that both the frontend and backend servers must be started 
-and run in two terminals. However, when you are done with your frontend, Pionia kicks in again. 
+In development, the frontend and backend run in isolation. This implies that both the frontend and backend servers must be started
+and run in two terminals. However, when you are done with your frontend, Pionia kicks in again.
 
-Building the frontend and serving it with your backend. 
+Building the frontend and serving it with your backend.
 
 Before proceeding, running `http://localhost:8000/` if your backend is still running on the default port, you will see the default Pionia page.
 
@@ -165,16 +167,17 @@ To build the frontend, you can run the following command:
 php pionia front:build
 ```
 
-This command will build your frontend in your frontend directory, into your build folder, then will ship them to your backend for serving. 
+This command will build your frontend in your frontend directory, into your build folder, then will ship them to your backend for serving.
 
 On successful running of the above command, `http://localhost:8000/` should render your frontend instead.
+
 #### Before build
 
 > http://localhost:8000/
 
 {{<picture src="/images/serving-pionia.png" alt="Selecting any other Directory for frontend">}}
 
-#### After build 
+#### After build
 
 > http://localhost:8000/
 
@@ -182,22 +185,22 @@ On successful running of the above command, `http://localhost:8000/` should rend
 
 ### Cleaning up the build files.
 
-When you serve your frontend with your backend, Pionia drops all the necessary files in your root directory for serving. This can be messy and hard to truck. 
+When you serve your frontend with your backend, Pionia drops all the necessary files in your root directory for serving. This can be messy and hard to truck.
 
 Future versions might handle this in the `public` folder. But for now, Pionia has a way of trucking these files and cleaning them our if you nolonger want them.
 
-Run the following command to clean the frontend served with backend. This is ensured by the `manifest.json` file that was created with the 
+Run the following command to clean the frontend served with backend. This is ensured by the `manifest.json` file that was created with the
 `build` command.
 
 ```bash
 php pionia front:build:clean
 ```
 
-On success, your root directory will be clean and only containing php files. 
+On success, your root directory will be clean and only containing php files.
 
 ### Dropping the entire frontend!
 
-In cases where maybe you wanted to scaffold `Vuejs` and instead scaffolded `React`, you can run this command to drop your entire frontend. 
+In cases where maybe you wanted to scaffold `Vuejs` and instead scaffolded `React`, you can run this command to drop your entire frontend.
 
 ```bash
 php pionia front:drop
@@ -209,9 +212,9 @@ It is advisable to run this command after running the `front:build:clean` so tha
 This operation is irreversible and leads to losing your entire frontend progress. If you're not sure, please do not run this command.
 {{</callout>}}
 
-With this in, Pionia now can handle both the backend and help you with your backend while maintaining each of them in isolation. 
+With this in, Pionia now can handle both the backend and help you with your backend while maintaining each of them in isolation.
 
 ## Need Help?
 
-For any technicalities that you may interface in this section, please refer to the [vite docs](https://vitejs.dev/guide/) for the specific framework you are using or the official documentation 
+For any technicalities that you may interface in this section, please refer to the [vite docs](https://vitejs.dev/guide/) for the specific framework you are using or the official documentation
 of the framework you're trying to scaffold.

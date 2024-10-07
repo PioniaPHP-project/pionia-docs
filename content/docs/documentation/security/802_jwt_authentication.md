@@ -15,17 +15,18 @@ seo:
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
-
 {{<callout  tip >}}
 This guide assumes you have a basic understanding of how Pionia Security works. If you are new to Pionia, you can start by going through the [API Tutorial](/documentation/api-tutorial/) guide.
 {{</callout>}}
 
 ## Our target
+
 Our target is to create a simple authentication system using JWT. We will use the Firebase/JWT package to illustrate how to create a simple authentication system.
 
 This authentication should be able to intercept every request and attempt to authenticate the user.
 
 ## Installation
+
 We need the Firebase/JWT package to create our authentication system. You can install the package via composer.
 
 ```bash
@@ -33,6 +34,7 @@ composer require firebase/php-jwt
 ```
 
 ## Requirements
+
 You should have a database table called `system_user` with the following columns:
 
 ```postgresql {title="Postgres ddl"}
@@ -52,12 +54,12 @@ create table public.system_user
             primary key
 );
 ```
+
 For this tutorial, we shall be using `PostgreSQL` as our database.
 
 ## Bootstrapping our Authentication Backend
 
 Pionia provides to Bootstrap our authentication backend using the Pionia CLI. You can run the following command to create the authentication backend.
-
 
 ```bash
 php pionia gen:auth jwt
@@ -105,13 +107,15 @@ class JwtAuthBackend extends BaseAuthenticationBackend
 		return $userObj;
 	}
 }
-    
+
 ```
+
 Let's first leave this file as it is and create a new file `JwtUtility.php` in the `utils` directory. We shall get back to it.
 
 For separation of concerns, let's create a utils directory where we shall drop all utility classes for our app.
 
 Create a new file `JwtUtility.php` in the same `utils` directory.
+
 ```bash
 app
 ├──utils/
@@ -223,8 +227,8 @@ class JwtUtility
 We have a `JwtUtility` class that handles all our JWT logic.
 
 - `getUserByUsername` method fetches a user by username or email from the database. It also checks if the user is active. If the user is not found or not active, it throws an exception.
-In normal circumstances, this method returns everything from the `system_user` table, including the password hash. However, if 
-`$withPassword` is set to `false`, it returns everything except the password hash. This is useful when you want to return the user object to the client.
+  In normal circumstances, this method returns everything from the `system_user` table, including the password hash. However, if
+  `$withPassword` is set to `false`, it returns everything except the password hash. This is useful when you want to return the user object to the client.
 
 - `jwtSettings` method returns the JWT settings from the `settings.ini` file.
 - `generateToken` method generates a JWT token for the user. It fetches the user by username, generates a token, and updates the last login date in the database.
@@ -272,12 +276,13 @@ In our `JwtAuthenticationBackend.php` in the authentications folder, replace the
         return $contextUser;
 	}
 ```
+
 ### What do we have here?
 
 - We get the Authorization header from the request.
 - We get the `bearer_key` from the `settings.ini` file. This is to make it easy to change the name of the Authorization header.
-- We check if the Authorization header is empty or does not start with the `bearer_key`. If it does not, we return `null` and the request will proceed but 
-unauthenticated.
+- We check if the Authorization header is empty or does not start with the `bearer_key`. If it does not, we return `null` and the request will proceed but
+  unauthenticated.
 - Otherwise, we create a new `ContextUserObject` and decode the token. We then fetch the user by username and set the `authenticated` property to `true` and the `user` property to the user object we got from the database.
 - We return the `ContextUserObject`. This is what must be returned by the `authenticate` method.
 
@@ -299,7 +304,7 @@ jwt=application\authentications\JwtAuthBackend
 
 ## Add our Login Logic
 
-In our services directory, create a new file `UserService.php`. In normal circumstances, you should have the `UserService` class 
+In our services directory, create a new file `UserService.php`. In normal circumstances, you should have the `UserService` class
 already created for you. But if it's not, you can create it in two ways. You can either create it manually or use the Pionia CLI to generate it for you.
 
 Using the Pionia CLI:
@@ -318,10 +323,12 @@ php pionia gen:service user
 services/
 ├── UserService.php
 ```
+
 {{<callout  tip >}}
 However, I created mine manually, so what I have as `login` will be equivalent to your `loginUser` and `register` will be equivalent to your `registerUser`.
 {{</callout>}}
 And add the following code:
+
 ```php
 
 <?php
@@ -413,34 +420,37 @@ class UserService extends BaseRestService
     }
 
 }
-    
+
 ```
 
 ### What do we have here?
 
 - We have a `UserService` class that extends `BaseRestService`. This class has two actions: `login` and `register`.
 - In the `login` action, we require the `username` and `password` fields.
-We then fetch the user by username and verify the password. If the password is correct, we generate a token and return it.
-- In the `register` action, we require the `username`, `password`, `email`, `first_name`, and `last_name` fields. 
+  We then fetch the user by username and verify the password. If the password is correct, we generate a token and return it.
+- In the `register` action, we require the `username`, `password`, `email`, `first_name`, and `last_name` fields.
 - We set the `role_code` to `USER` if it's not provided.
 - We validate the email and password fields. `asEmail` checks if we have a valid email and `asPassword` checks if the password passes
-the minimum requirements(at least 1 special character, at least 1 capital letter, at least 1 digit, length of at least 8).
-- We then hash the password and save the user to the database. 
+  the minimum requirements(at least 1 special character, at least 1 capital letter, at least 1 digit, length of at least 8).
+- We then hash the password and save the user to the database.
 - We check if the username and email are already taken.
 - If everything is okay, we create the user in transaction and return the user object.
 - We define the columns that should be returned upon successful creation of the user.
 - We return a JSON response with the user object.
 
 ### Registering our UserService
+
 We shall also need to register our `UserService` in the switch which shall handle henceforth all our requests.
 
 Create a switch if it doesn't exist in your `switches` directory. This can be created manually or using Pionia Cli
 
 Using Pionia CLI
+
 ```bash
 php pionia gen:switch v2
 ```
-You must target the version the switch is targeting, the above targets version 2 which can be accessed on `/api/v2/`. 
+
+You must target the version the switch is targeting, the above targets version 2 which can be accessed on `/api/v2/`.
 The above command creates `V2Switch.php` in the `switches` directory.
 
 You then have to register it in your `routes.php` file.
@@ -459,9 +469,8 @@ return $router->getRoutes();
 ```
 
 {{<callout  note >}}
-Under normal circumstances, the `MainApiSwitch.php` that ships with the template is enough! 
+Under normal circumstances, the `MainApiSwitch.php` that ships with the template is enough!
 {{</callout>}}
-
 
 ```bash
 switches/
@@ -470,6 +479,7 @@ switches/
 ```
 
 And add to your `registerServices` method in the `MainApiSwitch.php` file the following code:
+
 ```php
 
 class MainApiSwitch extends BaseApiServiceSwitch
@@ -488,7 +498,6 @@ class MainApiSwitch extends BaseApiServiceSwitch
 }
 ```
 
-
 ## Testing our Authentication
 
 To test our authentication, we shall use Postman. You can download Postman [here](https://www.postman.com/downloads/).
@@ -500,16 +509,19 @@ To register a user, send a `POST` request to `http://localhost:8000/api/v1/` wit
 ![User Registration Request](/images/user-registration.jpeg)
 
 ### Register User - Response
+
 Making the above request, should return the following response.
 
 ![User Registration Response](/images/user-registration-response.jpeg)
 
 ### Logging in a User
+
 To test Login, send a `POST` request to `http://localhost:8000/api/v1/` with the following JSON payload:
 
 ![User Login Request](/images/login-request.png)
 
 ### Login User - Response
+
 You should get a response with a token like below.
 
 ![User Login Response](/images/login-response.png)
@@ -517,6 +529,7 @@ You should get a response with a token like below.
 You can use this token to authenticate your requests.
 
 ### Testing Authentication
+
 So to test out that our authentication is working, we shall add another action called `profile` in our `UserService.php` file.
 
 ```php {title="UserService.php"}
@@ -547,10 +560,10 @@ So to test out that our authentication is working, we shall add another action c
 
 ```json
 {
-    "returnCode": 401,
-    "returnMessage": "You must be authenticated to access this resource",
-    "returnData": null,
-    "extraData": null
+  "returnCode": 401,
+  "returnMessage": "You must be authenticated to access this resource",
+  "returnData": null,
+  "extraData": null
 }
 ```
 
@@ -574,25 +587,25 @@ Content-Length: 50
 
 ```json
 {
-    "returnCode": 0,
-    "returnMessage": null,
-    "returnData": {
-        "first_name": "Test",
-        "last_name": "User",
-        "password": "$2y$10$obbGcRTCDgV31K5k2KMW8.8hkXy6Enh3K9l9JHRpgsTmfwlXVgScy",
-        "email": "sample1@gmail.com",
-        "username": "jet1",
-        "role_code": "USER",
-        "created_at": "2024-07-29 10:00:39.671637",
-        "last_logged_in_at": "2024-07-29 12:05:22",
-        "is_active": true,
-        "id": 3
-    },
-    "extraData": null
+  "returnCode": 0,
+  "returnMessage": null,
+  "returnData": {
+    "first_name": "Test",
+    "last_name": "User",
+    "password": "$2y$10$obbGcRTCDgV31K5k2KMW8.8hkXy6Enh3K9l9JHRpgsTmfwlXVgScy",
+    "email": "sample1@gmail.com",
+    "username": "jet1",
+    "role_code": "USER",
+    "created_at": "2024-07-29 10:00:39.671637",
+    "last_logged_in_at": "2024-07-29 12:05:22",
+    "is_active": true,
+    "id": 3
+  },
+  "extraData": null
 }
 ```
 
-We can remove the above password hash just to clean up further. 
+We can remove the above password hash just to clean up further.
 
 In our authentication backend, let's change the following line highlighted and add `false` as the second parameter to the `getUserByUsername` method.
 
@@ -629,6 +642,7 @@ In our authentication backend, let's change the following line highlighted and a
         return $contextUser;
 	}
 ```
+
 ## Conclusion
 
 This is a simple way to create an authentication system using JWT in Pionia. You can extend this to include more features like password reset, email verification, etc. You can also use other JWT libraries like `lcobucci/jwt` or `spomky-labs/jose` if you prefer.

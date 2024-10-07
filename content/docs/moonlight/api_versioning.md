@@ -18,7 +18,7 @@ seo:
 
 ## Introdution
 
-In Moonlight, every switch is directly associated to a version of your api. 
+In Moonlight, every switch is directly associated to a version of your api.
 This means that, to get another version of the api, you just need to roll out a new service including only those services
 that are going to be available in the new version of the api. This is how moonlight approaches api versioning.
 
@@ -26,7 +26,8 @@ At its core, Moonlight still uses a controller paradigm but this is just one for
 This controller is used capture all exceptions in your services and return a response to the client.
 
 Below is an example of a switch in Moonlight based on Pionia Framework.
-```php 
+
+```php
 <?php
 namespace application\services;
 
@@ -52,6 +53,7 @@ class VersionOneSwitch extends BaseApiServiceSwitch
 For the above switch to be available in the application, you need to register it your app routes.
 
 According to Pionia, the routes.php file is used to register the switches that should be auto-dicovered.
+
 ```php
 use Pionia\Core\Routing\PioniaRouter;
 
@@ -61,7 +63,6 @@ $router = new PioniaRouter();
 * This registers the switch for version one of the api.
 * This will be served at /api/v1/
 */
-$router->addSwitchFor("application\switches\MainApiSwitch", "v1"); 
+$router->addSwitchFor("application\switches\MainApiSwitch", "v1");
 
 ```
-

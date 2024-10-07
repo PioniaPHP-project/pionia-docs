@@ -49,8 +49,9 @@ port =
 ```
 
 ## Supported Databases
+
 1. Postgres (PostgreSQL) via the `pgsql` driver
-2. MySQL/MariaDB  via the `mysql` driver
+2. MySQL/MariaDB via the `mysql` driver
 3. Oracle via the `oci` driver
 4. Sybase via the `dblib` driver
 5. MSSQL via the `sqlsrv` or `dblib` driver

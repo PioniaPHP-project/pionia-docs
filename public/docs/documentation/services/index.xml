@@ -7,7 +7,7 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
-    <lastBuildDate>Sun, 11 Aug 2024 12:38:33 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 07 Oct 2024 20:24:56 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/docs/documentation/services/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Services</title>
@@ -15,6 +15,13 @@
       <pubDate>Fri, 05 Jul 2024 01:06:18 +0300</pubDate>
       <guid>http://localhost:1313/documentation/services/services/</guid>
       <description>Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit.</description>
+    </item>
+    <item>
+      <title>Actions</title>
+      <link>http://localhost:1313/documentation/services/actions/</link>
+      <pubDate>Mon, 07 Oct 2024 20:24:56 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/services/actions/</guid>
+      <description>Actions are the central logic for the entire app, this will guide you on handling actions in Pionia Framework.</description>
     </item>
     <item>
       <title>Generic Services</title>

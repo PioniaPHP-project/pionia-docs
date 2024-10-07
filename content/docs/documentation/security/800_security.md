@@ -15,7 +15,6 @@ seo:
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
-
 {{<callout  tip >}}
 This guide assumes you have a basic understanding of how Pionia works. If you are new to Pionia, you can start by going through the [API Tutorial](/documentation/api-tutorial) guide.
 {{</callout>}}
@@ -45,7 +44,7 @@ Also, you can visit our [jwt authentication sample guide](/documentation/securit
 
 These are classes that are responsible for authenticating the user. They are responsible for verifying the user's identity and returning the user object.
 
-All authentication backends must extend the `Pionia\Core\Interceptions\BaseAuthenticationBackend` class and implement the `authenticate` method. 
+All authentication backends must extend the `Pionia\Core\Interceptions\BaseAuthenticationBackend` class and implement the `authenticate` method.
 This method receives the request object, this also implies that you have access to your headers, request body, and therefore you can implement any authentication mechanism you want.
 
 Authentication backends must return the `Pionia\Core\Helpers\ContextUserObject` object if the user is authenticated, otherwise, they should return `null`.
@@ -59,6 +58,7 @@ Otherwise, it will proceed to process the request without authenticating the use
 To quickly bootstrap your authentication backend, you can use the following command.
 
 Example below creates an authentication backend called `JwtAuthBackend`.
+
 ```bash
 php pionia  gen:auth  jwt
 ```
@@ -69,7 +69,7 @@ Notice that we only define `jwt` as the authentication backend name. This is bec
 
 Upon running the above command, Pionia will create a new authentication backend in the `app/authentications` directory.
 
-```php 
+```php
 <?php
 
 /**
@@ -91,7 +91,7 @@ class JwtAuthBackend extends BaseAuthenticationBackend
 	public function authenticate(Request $request):? ContextUserObject
 	{
 		$userObj = new ContextUserObject();
-        
+
 		# your logic here...
 
 		return $userObj;
@@ -129,7 +129,7 @@ And that's it! Your authentication backend is now ready to be used in your appli
 
 #### Accessing the set Context Object
 
-To access the context object in your services, you can access it from the  `$this->auth();`.
+To access the context object in your services, you can access it from the `$this->auth();`.
 
 This returns the `ContextUserObject` object that you set in your authentication backend.
 
@@ -150,6 +150,7 @@ class TodoService extends BaseRestService
 ```
 
 #### Accessing the AuthExtras
+
 AuthExtras are an associative array that you can use to store any extra data you want to access in your services. To access a single item from this array,
 you can use `$this->getAuthExtraByKey($key)`.
 
@@ -242,6 +243,7 @@ class TodoService extends BaseRestService
     }
 }
 ```
+
 ## Authorization
 
 Authorization is the process of determining whether a user has the necessary permissions to access a certain resource.
@@ -256,7 +258,7 @@ There are three ways to check if a user has a certain permission[s]/authority[ie
 
 This can be used both in the normal and in generic services. It defines an associative array that defines permission list per action.
 
-```php 
+```php
 
 public array $actionPermissions = [
     'create' => ['create_todo'],
@@ -265,7 +267,7 @@ public array $actionPermissions = [
 ];
 ```
 
-*From Version 1.1.4, this can also take up strings like below*
+_From Version 1.1.4, this can also take up strings like below_
 
 ```php
 public array $actionPermissions = [
@@ -275,11 +277,10 @@ public array $actionPermissions = [
 ];
 ```
 
-Permissions `create_todo`, `update_todo` are permissions you set on the context user object from your authentication backends. 
+Permissions `create_todo`, `update_todo` are permissions you set on the context user object from your authentication backends.
 If these are not defined, the service won't be accessed.
 
-
-The above implies that to access 
+The above implies that to access
 
 #### Using the `can` method
 
@@ -331,6 +332,7 @@ class TodoService extends BaseRestService
 ```
 
 ### Custom Authorization Messages
+
 The above methods take a second parameter `$message` which is a custom message that will be thrown if the user does not have the permission.
 
 ```php
@@ -343,15 +345,14 @@ class TodoService extends BaseRestService
     }
 }
 ```
+
 {{<callout  note>}}
 All the authentication and authorization should happen early in the an action. This is because, if the user is not authenticated or does not have the necessary permissions, the action should not be executed.
 {{</callout>}}
 
-
 {{<callout  tip>}}
 Remember, all authentication backends run after middlewares. This is because middlewares can be used to sanatize the request, and therefore, it is important to run them before the authentication backends.
 {{</callout>}}
-
 
 ## Custom Return Codes.
 
@@ -368,4 +369,5 @@ UNAUTHORIZED_CODE = 11
 ; other settings
 
 ```
+
 Using the above example, `10` and `11` will override the default `401` and `403` return codes respectively.

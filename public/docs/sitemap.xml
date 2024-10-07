@@ -82,6 +82,24 @@
         <priority>0.5</priority>
       </url>
       <url>
+        <loc>http://localhost:1313/documentation/commands-pionia-cli/</loc>
+        <lastmod>2024-10-07T19:48:09+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/caching-in-pionia/</loc>
+        <lastmod>2024-10-07T18:34:56+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/pionia-helpers/</loc>
+        <lastmod>2024-10-07T19:48:09+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
         <loc>http://localhost:1313/moonlight/introduction-to-moonlight-architecture/</loc>
         <lastmod>2024-07-01T10:38:31+03:00</lastmod>
         <changefreq>monthly</changefreq>

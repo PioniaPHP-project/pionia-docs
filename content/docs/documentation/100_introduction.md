@@ -17,6 +17,7 @@ seo:
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
 ## About
+
 Welcome to the official documentation of pionia - `/ˌpʌɪəˈnɪə/` framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.
 
 This framework was born at Service Cops - East Africa by [JET](https://www.linkedin.com/in/jetezra/) and is maintained by the same team. The framework is open-source and is released under the MIT license.
@@ -31,7 +32,6 @@ Documentation organisation.
 - [Security - Authentication and Authorization](/documentation/security/security-authentication-and-authorization/)
 - [Services and Actions](/documentation/services/services/)
 - [Database and Querying](/documentation/database/configuration-getting-started/)
-
 
 ### Get Started
 
@@ -68,14 +68,14 @@ Remember to replace `my-project` with the name of your project.
 
 {{< /tab >}}
 {{< tab "Git templates" >}}
->>>
 
-1. Select [use this template](https://github.com/PioniaPHP-project/Pionia-App) on the repository page.
-2. Download directly the compressed file from the [releases page](https://github.com/PioniaPHP-project/Pionia-App/releases).
+> > >
 
->>>
-{{< /tab >}}
-{{< /tabs >}}
+1. Select [use this template](https://github.com/new?template_name=Application&template_owner=PioniaPHP-project) on the repository page.
+2. Download directly the compressed file from the [releases page](https://github.com/PioniaPHP-project/Application/releases).
+
+> > > {{< /tab >}}
+> > > {{< /tabs >}}
 
 *Nginx configuration*ss
 
@@ -87,9 +87,9 @@ This is just a sample configuration. You can modify it to suit your needs. But m
 #  projet_name [replace this with your project name]
     location /projet_name {
         alias /var/www/html/project_name;
-        try_files $uri $uri/ @project_name; 
+        try_files $uri $uri/ @project_name;
     }
-    
+
     location @project_name {
         rewrite /project_name/(.*)$ /project_name/index.php?/$1 last;
    }
@@ -106,7 +106,7 @@ You can contribute to the framework, documentation or by helping us grow the com
 > The framework itself strips off all the unnecessary features that are found in other frameworks and leaves you with only what you need to build a RESTful API.
 > This means you can also contribute by building plugins and extensions that can be used with the framework.
 
-If you want to contribute to this documentation, you can find the source code on [GitHub](https://github.com/PioniaPHP-project/Pionia-App).
+If you want to contribute to this documentation, you can find the source code on [GitHub](https://github.com/PioniaPHP-project/Application).
 
 Please read the [contributing guidelines](https://github.com/PioniaPHP-project/Pionia-App/contributing.md) before contributing.
 

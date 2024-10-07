@@ -14,5 +14,4 @@ seo:
   noindex: false # false (default) or true
 ---
 
-
 {{<picture src="pionia.png" alt="Pionia Logo">}}

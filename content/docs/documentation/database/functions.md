@@ -17,12 +17,12 @@ seo:
 {{<callout context="tip"  icon="outline/pencil">}}
 This section assumes you have alredy completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started).
 
-Also, for basic knowledge and understanding, please first look at the  [Making Queries Section](/documentation/database/making-queries)
+Also, for basic knowledge and understanding, please first look at the [Making Queries Section](/documentation/database/making-queries)
 {{</callout>}}
 
 # Introduction
 
-This section covers database functions that can be used to aggregate data in the database. Aggregation functions are used to perform calculations on the data in the database. 
+This section covers database functions that can be used to aggregate data in the database. Aggregation functions are used to perform calculations on the data in the database.
 These functions can be used to calculate the sum, average, minimum, maximum, and count of the data in the database.
 
 ## Inbuilt Aggregation Functions
@@ -154,13 +154,11 @@ Porm::from('users')->min('age', ['age' => 10]); // select min(age) from users wh
 
 The `min` function returns the minimum value in the column in the database that meet the specified conditions.
 
-
 {{<callout context="note"  icon="outline/pencil">}}
 
 All the above methods query the database and return the result. Therefore, you should always call these methods last.
 
 {{</callout>}}
-
 
 ## Using the Agg Builder
 
@@ -184,7 +182,6 @@ $agg = Agg::builder()
 Agg builder comes with a number of methods that can be used to build the aggregation query. They include
 
 ### random
-
 
 ```php
 
@@ -340,7 +337,7 @@ Porm::from("todos")
 
 // select someAlias-10 from todos
 
-  ```
+```
 
 ### plus
 
@@ -498,7 +495,6 @@ If all above don't work for you, you can use this aggregation function to provid
 $agg = Agg::builder()->regex('name', '^d')->build() // name ~ '^d'
 
 ```
-
 
 ## Chaining multiple
 

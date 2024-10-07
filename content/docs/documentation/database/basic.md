@@ -65,7 +65,7 @@ All array conditions passed to the `get` method are joined by `AND`.
 `$data` will contain the object or `NULL` if no matching record is found.
 
 {{<callout context="note"  icon="outline/pencil">}}
-  The `get` method queries the database. So you should always call the `get` method last.
+The `get` method queries the database. So you should always call the `get` method last.
 {{</callout>}}
 
 ### Fetching multiple records
@@ -140,12 +140,12 @@ var_dump($data); // object of data
 ```
 
 {{<callout context="note"  icon="outline/pencil">}}
-  The `random` method queries the database. So you should always call the `random` method last. Also, if you query one item, random will return an object, but if you define length greater than one, it will return an array.
+The `random` method queries the database. So you should always call the `random` method last. Also, if you query one item, random will return an object, but if you define length greater than one, it will return an array.
 {{</callout>}}
 
 ### Inserting Data
 
-To insert data into the table, you can use the `save` method. The `save` method takes an array of data to insert into the table and __returns the saved object__.
+To insert data into the table, you can use the `save` method. The `save` method takes an array of data to insert into the table and **returns the saved object**.
 
 ```php
 
@@ -157,7 +157,7 @@ var_dump($data); // the saved object
 ```
 
 {{<callout context="note"  icon="outline/pencil">}}
-  The `save` method hits the database. So you should always call the `save` method last.
+The `save` method hits the database. So you should always call the `save` method last.
 {{</callout>}}
 
 ### Updating Data
@@ -178,7 +178,7 @@ var_dump($data->rowCount()); // the number of rows affected
 ```
 
 {{<callout context="note"  icon="outline/pencil">}}
-  The `update` method hits the database. So you should always call the `update` method last.
+The `update` method hits the database. So you should always call the `update` method last.
 {{</callout>}}
 
 ### Deleting Data
@@ -237,7 +237,7 @@ var_dump($data); // true or false
 ```
 
 {{<callout context="note"  icon="outline/pencil">}}
-  The `has` method queries the database. So you should always call the `has` method last.
+The `has` method queries the database. So you should always call the `has` method last.
 {{</callout>}}
 
 Passing a string to `has` queries the database for the primary key id.
@@ -254,7 +254,7 @@ var_dump($data); // true or false
 
 ## Raw Queries
 
-Before we dive into complex database querying, Let's first look at a basic raw query mechanism that porm presents to us. This can be 
+Before we dive into complex database querying, Let's first look at a basic raw query mechanism that porm presents to us. This can be
 handy especially when you think that the query you need, is not supported by porm by default. However, overusing this feature can
 somehow mean you are not using porm well.
 
