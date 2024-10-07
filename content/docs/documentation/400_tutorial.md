@@ -298,19 +298,6 @@ Or if you love snake_case format, you can also pass it like below
 {{<tabs "test-the-api">}}
 
 {{<tab "jet-fetch JSON">}}
-```json {{title='HTTP POST 1.1 /api/v1/'}}
-{
-  "SERVICE": "todo",
-  "ACTION": "createOrUpdate",
-  "title": "Pass this ",
-  "description": "Must pass"
-}
-
-
-```
-{{</tab>}}
-
-{{<tab "jet-fetch JSON">}}
 
 ```js
 import { Jet } from 'jet-fetch';
@@ -359,6 +346,19 @@ jet
   .catch((error) => {
     console.log(error);
   });
+```
+{{</tab>}}
+
+{{<tab "Plain JSON">}}
+
+```json
+// HTTP POST 1.1 /api/v1/
+{
+  "SERVICE": "todo",
+  "ACTION": "createOrUpdate",
+  "title": "Pass this ",
+  "description": "Must pass"
+}
 ```
 {{</tab>}}
 

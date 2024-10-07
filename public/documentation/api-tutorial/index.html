@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/api-tutorial/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
-<meta property="article:modified_time" content="2024-08-11T12:38:33+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-10-08T00:22:19+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="API Tutorial">
@@ -1013,10 +1013,10 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
   <button data-toggle-tab="jet-fetch json" class="nav-link active" id="tabs-test-the-api-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-0" type="button" role="tab" aria-controls="tabs-test-the-api-0" aria-selected="true">
       jet-fetch JSON</button>
-  <button data-toggle-tab="jet-fetch json" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
-      jet-fetch JSON</button>
-  <button data-toggle-tab="axios formdata(postman)" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
+  <button data-toggle-tab="axios formdata(postman)" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
       Axios FormData(postman)</button>
+  <button data-toggle-tab="plain json" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
+      Plain JSON</button>
   <button data-toggle-tab="axios json data(postman)" class="nav-link" id="tabs-test-the-api-3-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-3" type="button" role="tab" aria-controls="tabs-test-the-api-3" aria-selected="true">
       Axios JSON Data(Postman)</button>
   <button data-toggle-tab="xhr -json (postman)" class="nav-link" id="tabs-test-the-api-4-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-4" type="button" role="tab" aria-controls="tabs-test-the-api-4" aria-selected="true">
@@ -1026,8 +1026,6 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
 
 <div class="tab-content" id="nav-tabContent">
   <div data-pane="jet-fetch json" class="tab-pane fade show active" id="tabs-test-the-api-0" role="tabpanel" aria-labelledby="tabs-test-the-api-0-tab" tabindex="0">
-      </div>
-  <div data-pane="jet-fetch json" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
       
 
 
@@ -1053,7 +1051,7 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   </figure>
 </div>
 </div>
-  <div data-pane="axios formdata(postman)" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
+  <div data-pane="axios formdata(postman)" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
       
 
 
@@ -1087,6 +1085,25 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
 </span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">});</span></span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+  <div data-pane="plain json" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
+      
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// HTTP POST 1.1 /api/v1/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;todo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;createOrUpdate&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Pass this &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Must pass&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
 </div>
@@ -1588,9 +1605,9 @@ Therefore, for your service to be discovered, you must register it <a href="#ste
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/d690db138db7832085f2e6ad9b95333cb9e86787">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/457b4802b302622eb07245e898a28b05e29d6c03">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on August 11, 2024
+      Last updated on October 8, 2024
     </a>
   </div>
 
