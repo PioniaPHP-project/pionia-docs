@@ -572,7 +572,6 @@
       <ul>
         <li><a href="#request">Request</a></li>
         <li><a href="#endpoint">Endpoint</a></li>
-        <li><a href="#request-data">Request Data</a></li>
         <li><a href="#marking-request-data-as-required">Marking Request Data as required</a></li>
       </ul>
     </li>
@@ -618,7 +617,6 @@
       <ul>
         <li><a href="#request">Request</a></li>
         <li><a href="#endpoint">Endpoint</a></li>
-        <li><a href="#request-data">Request Data</a></li>
         <li><a href="#marking-request-data-as-required">Marking Request Data as required</a></li>
       </ul>
     </li>
@@ -675,7 +673,7 @@
 <li>GET
 This is used to <code>ping</code> api endpoints for every api version you roll out. This implies that every time you create a new switch, you get this action for free.</li>
 </ul>
-<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+<p>{<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
     <div class="callout-title">
@@ -688,7 +686,7 @@ This is used to <code>ping</code> api endpoints for every api version you roll o
     </div>
   </div>
 </div>
-
+</p>
 <p>If you want to ping the <code>v1</code> of your api, you can use the <code>GET</code> request.</p>
 
 
@@ -776,7 +774,7 @@ If no version is defined, then Pionia assumes <code>v1</code> as the default ver
   </figure>
 </div>
 <p>This will register the <code>SecondApiSwitch</code> to the <code>/api/v2/</code> endpoint.</p>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+<p>{{&lt;c<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
     <div class="callout-title">
@@ -790,8 +788,7 @@ If no version is defined, then Pionia assumes <code>v1</code> as the default ver
     </div>
   </div>
 </div>
-
-<h3 id="request-data">Request Data<a href="#request-data" class="anchor" aria-hidden="true">#</a> </h3>
+### Request Data</p>
 <p>Pionia supports both <code>JSON</code> and <code>FormData</code> data. Whereas using both is possible, it is recommended to use <code>JSON</code> data unless you are uploading files.</p>
 <p>Every <code>action</code> has access to the request <code>data</code> as an associated array. This data is passed to the <code>action</code> as the first argument.</p>
 
@@ -831,7 +828,7 @@ If no version is defined, then Pionia assumes <code>v1</code> as the default ver
   </figure>
 </div>
 <p>However, the above data won&rsquo;t include the <code>files</code> if you are uploading files, you can access them from the second parameter <code>$files</code>.</p>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+<p>{{<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
     <div class="callout-title">
@@ -845,7 +842,7 @@ If no version is defined, then Pionia assumes <code>v1</code> as the default ver
   </div>
 </div>
 
-<p>To get one file from the file bag, you can use the <code>get</code> method.</p>
+To get one file from the file bag, you can use the <code>get</code> method.</p>
 
 
 
@@ -858,7 +855,7 @@ If no version is defined, then Pionia assumes <code>v1</code> as the default ver
 </span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">action</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">,</span> <span class="nx">FileBag</span> <span class="nv">$files</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$file</span> <span class="o">=</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">);</span>
-</span></span><span class="line hl"><span class="cl">    
+</span></span><span class="line hl"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$email</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
@@ -926,7 +923,7 @@ This is done by calling the <code>requires</code> method on the service instance
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> 
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">action</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line hl"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">]);</span>
@@ -1234,11 +1231,7 @@ the return code of the response. This is done by returning a <code>BaseResponse<
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">action</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">&#39;This is an exception message that will stop this action from proceeding&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="err">&#39;</span><span class="k">This</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">exception</span> <span class="nx">mess<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
   <div class="callout-content">
     <div class="callout-title">
@@ -1251,7 +1244,9 @@ the return code of the response. This is done by returning a <code>BaseResponse<
     </div>
   </div>
 </div>
-
+io</span></span></span></code></pre></div>
+  </figure>
+</div>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

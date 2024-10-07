@@ -21,6 +21,7 @@ This section assumes that you have already setup your Pionia framework project. 
 This guide also introduces you to the implementation of the [Moonlight architecture](/moonlight/introduction-to-moonlight-architecture/), so you can check it out first to get familiar with the terminologies.
 {{</callout >}}
 
+
 ## Out Target
 
 We should be able to accomplish the following tasks by the end of this tutorial:
@@ -55,33 +56,29 @@ We can open the project in our favorite code editor or IDE, for this tutorial we
 For explanation of the directories and scripts, please refer to the [Structure Section of this documentation](/documentation/structure/).
 
 To confirm that our installation works fine, let's just go start our server. Open the terminal in the root of the project and run the following command.
-
 ```bash
 php pionia serve
 ```
-
 If everything is setup correctly, your project should be up and running on http://127.0.0.1:8000. Visiting this url, you should see the following page.
 
 {{<picture src="images/Pionia_landing_page.png" alt="Pionia Logo">}}
 
 We can test if our APIs are also working fine by visiting http://127.0.0.1:8000/api/v1/.
 It should return the following in the browser.
-
 ```json
 {
-  "returnCode": 0,
-  "returnMessage": "pong",
-  "returnData": {
-    "framework": "Pionia Framework",
-    "version": "2.0.2",
-    "port": 8000,
-    "uri": "/api/v1/",
-    "schema": "http"
+  "returnCode":0,
+  "returnMessage":"pong",
+  "returnData":{
+    "framework":"Pionia Framework",
+    "version":"2.0.2",
+    "port":8000,
+    "uri":"\/api\/v1\/",
+    "schema":"http"
   },
-  "extraData": null
+  "extraData":null
 }
 ```
-
 - [x] Initialize the project(Completed)
 
 ### Step 2: Connect to a database
@@ -121,14 +118,14 @@ Above should return the following:
 
 ![alt text](image-2.png)
 
-Database configurations in the `environment` should be done in any `.ini` files.
+Database configurations in the `environment` should be done in any `.ini` files. 
 You can create a dedicated `database.ini` file or just use the existing `settings.ini`.
 
 {{<callout note>}}
 But why do we have have to do this from `.ini` files?
 
 Pionia supports connection to multiple database at ago. Using `.ini` files, these can just be sections.
-Forexample, our first database can called `[db]`, and then our second can `[db2]`. Pionia will auto-discover these
+Forexample, our first database can called `[db]`, and then our second can `[db2]`. Pionia will auto-discover these 
 and collect them in the `container` as needed. To set a database as the default, just add `default=1` or `default=true` in its section.
 {{</callout>}}
 
@@ -161,12 +158,11 @@ Since all our business logic is related to To-do items, we only need one service
 
 <b>Points to ponder! </b>
 
-> All Pionia services reside in the `services` folder under the `Application\Services`.
+ > All Pionia services reside in the `services` folder under the `Application\Services`.
 
-> All Pionia Services should extend `Service` from `Pionia\Http\Services\Service`.
+ > All Pionia Services should extend `Service` from `Pionia\Http\Services\Service`.
 
 At its most minimal nature, this is a valid Pionia Service. For [details about services, please through the detailed guide here](/documentation/services/services/)
-
 ```php {title="TodoService.php"}
 <?php
 
@@ -183,13 +179,13 @@ class TodoService extends Service
 
 #### Service Registration - Switches.
 
-Pionia introduces the concept of switches to help in api versioning. Be default, your new application already
-consists of `MainApiSwitch` which maps all requests targeting `/api/v1/`.
-When can create switches manually or via the cli, but all in all, these should only define one method `registerServices` which returns
+Pionia introduces the concept of switches to help in api versioning. Be default, your new application already 
+consists of `MainApiSwitch` which maps all requests targeting `/api/v1/`. 
+When can create switches manually or via the cli, but all in all, these should only define one method `registerServices` which returns 
 a Pionia `Pionia\Collections\Arrayable`. In this Arrayable, you can register all your services that should be under the same version like `/api/v1`.
 For details, about switches, please head over to [Service Registration](/documentation/services/services/#service-registration) section of services.
 
-For now, let's register our created service in the `MainApiSwitch` class. Open `MainApiSwitch.php` in the `switches` folder and add the following code in our
+For now, let's register our created service in the `MainApiSwitch` class. Open `MainApiSwitch.php` in the `switches` folder and add the following code in our 
 `registerServices` method.
 
 ```php {title="MainApiSwitch.php"}
@@ -210,9 +206,9 @@ Now our service is discoverable by the framework.
 
 #### Pionia Actions.
 
-To their simplest, these are just class methods with a little sugar-coating. As we have already seen, Pionia services
-are just PHP classes that extend from `Service`. All methods defined in these services(classes) that are suffixed by
-`Action` and return `Pionia\Http\Response\BaseResponse`, are taken to be Pionia Actions. Therefore, any other methods defined in Pionia Service without an `Action` suffix are taken
+To their simplest, these are just class methods with a little sugar-coating. As we have already seen, Pionia services 
+are just PHP classes that extend from `Service`. All methods defined in these services(classes) that are suffixed by 
+`Action` and return `Pionia\Http\Response\BaseResponse`, are taken to be Pionia Actions. Therefore, any other methods defined in Pionia Service without an `Action` suffix are taken 
 to be just class methods not a Pionia Action.
 
 For Details about Pionia Actions, please [read more about the details here](/documentation/services/actions/).
@@ -254,7 +250,7 @@ class TodoService extends Service
 }
 ```
 
-✨So, briefly to go through what we just did.
+✨So, briefly to go through what we just did. 
 
 1. We created our action which takes up a Pionia Arrayable `$postData` which will always contain our POST request data.
 2. We collected our data, `title` and `description` as a string, the `id` as an integer.
@@ -264,42 +260,39 @@ class TodoService extends Service
 Sending the request using any client of choice.
 
 {{<callout >}}
-So, in the request, using the above, we defined that everytime we define a `SERVICE` or `service` called `todo`, our `TodoService`
+So, in the request, using the above, we defined that everytime we define a `SERVICE` or `service` called `todo`, our `TodoService` 
 should then be loaded. Remember, all services are lazy-loaded, so, Pionia does not know that this service exists till it's required by the incoming request.
 
-For actions, the same process applies. All actions are lazy-loaded too.
+For actions, the same process applies. All actions are lazy-loaded too. 
 
-But how do we then target our actions, a case here, `createOrUpdateAction`?
+But how do we then target our actions, a case here, `createOrUpdateAction`? 
 
-To hit out action, another key called `ACTION` or `action` must be passed in our request post data.
+To hit out action, another key called `ACTION` or `action` must be passed in our request post data. 
 
 This can target the action name directly as the method name:-
 
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "createOrUpdateAction"
+  "SERVICE" : "todo",
+  "ACTION" : "createOrUpdateAction" 
 }
 ```
 
 Or we can ignore the `Action` suffix like this.
-
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "createOrUpdate"
+  "SERVICE" : "todo",
+  "ACTION" : "createOrUpdate" 
 }
 ```
 
 Or if you love snake_case format, you can also pass it like below
-
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "create-or-update" // can also be "create-or-update-action"
+  "SERVICE" : "todo",
+  "ACTION" : "create-or-update" // can also be "create-or-update-action"
 }
 ```
-
 {{</callout>}}
 
 {{<tabs "test-the-api">}}
@@ -307,48 +300,46 @@ Or if you love snake_case format, you can also pass it like below
 {{<tab "jet-fetch JSON">}}
 
 ```js
-import { Jet } from "jet-fetch";
+import { Jet } from 'jet-fetch';
 
-const jet = new Jet({
-  baseUrl: "http://localhost:8000/api/"
+const jet =  new Jet({
+  baseUrl: 'http://localhost:8000/api/',
 });
-
+  
 jet
-  .moonlightRequest({ SERVICE: "todo", ACTION: "createOrUpdate", title: "Pass this ", description: "Must pass" }, "v1")
+  .moonlightRequest({SERVICE: 'todo', ACTION: 'createOrUpdate', title: 'Pass this ', description: 'Must pass' }, 'v1')
   .then((response) => {
-    const { returnCode, returnMessage, returnData, extraData } = response.data;
-    console.log(returnCode, returnMessage, returnData, extraData);
-  })
-  .catch((error) => {
-    console.log(error);
+      const { returnCode, returnMessage, returnData, extraData } = response.data;
+      console.log(returnCode, returnMessage, returnData, extraData);
+  }).catch((error) => {
+      console.log(error);
   });
-```
 
+```
 {{</tab>}}
 
 {{<tab "Axios FormData(postman)">}}
 
 ```js
-const axios = require("axios");
-const FormData = require("form-data");
-let data = new FormData();
-data.append("title", "Pass this ");
-data.append("description", "Must pass this");
-data.append("service", "todo");
-data.append("action", "create");
+  const axios = require('axios');
+  const FormData = require('form-data');
+  let data = new FormData();
+  data.append('title', 'Pass this ');
+  data.append('description', 'Must pass this');
+  data.append('service', 'todo');
+  data.append('action', 'create');
 
-let config = {
-  method: "post",
-  maxBodyLength: Infinity,
-  url: "http://localhost:8000/api/v1/",
-  headers: {
-    ...data.getHeaders()
-  },
-  data: data
-};
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:8000/api/v1/',
+    headers: {
+      ...data.getHeaders()
+    },
+    data : data
+  };
 
-axios
-  .request(config)
+  axios.request(config)
   .then((response) => {
     console.log(JSON.stringify(response.data));
   })
@@ -356,32 +347,30 @@ axios
     console.log(error);
   });
 ```
-
 {{</tab>}}
 
 {{<tab "Axios JSON Data(Postman)">}}
 
 ```js
-const axios = require("axios");
-let data = JSON.stringify({
-  SERVICE: "todo",
-  ACTION: "create",
-  title: "Become an avenger",
-  description: "Make sure you become an avenger at 10!"
-});
+  const axios = require('axios');
+  let data = JSON.stringify({
+    "SERVICE": "todo",
+    "ACTION": "create",
+    "title": "Become an avenger",
+    "description": "Make sure you become an avenger at 10!"
+  });
 
-let config = {
-  method: "post",
-  maxBodyLength: Infinity,
-  url: "http://localhost:8000/api/v1/",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  data: data
-};
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:8000/api/v1/',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
 
-axios
-  .request(config)
+  axios.request(config)
   .then((response) => {
     console.log(JSON.stringify(response.data));
   })
@@ -392,7 +381,6 @@ axios
 
 {{</tab>}}
 {{<tab "XHR -JSON (Postman)">}}
-
 ```js
   var data = JSON.stringify({
     "service": "todo",
@@ -414,7 +402,6 @@ axios
   xhr.open("POST", "http://localhost:8000/api/v1/");
   xhr.setRequestHeader("Content-Type", "application/json");
 ```
-
 {{</tab>}}
 {{</tabs>}}
 
@@ -422,21 +409,22 @@ On Successful execution, the above code should return the following:
 
 ```json
 {
-  "returnCode": 0,
-  "returnMessage": "Todo updated successfully!",
-  "returnData": {
-    "id": 1,
-    "title": "Become an avenger",
-    "description": "Make sure you become an avenger at 10!",
-    "created_at": "2024-05-26 00:11:23"
-  },
-  "extraData": null
+    "returnCode": 0,
+    "returnMessage": "Todo updated successfully!",
+    "returnData": {
+        "id": 1,
+        "title": "Become an avenger",
+        "description": "Make sure you become an avenger at 10!",
+        "created_at": "2024-05-26 00:11:23"
+    },
+    "extraData": null
 }
 ```
 
 And in the database, we should have the following:
 
 ![Database record insertation](image-4.png)
+
 
 {{<callout note>}}
 Before we proceed, let's first understand what just happened above.
@@ -456,8 +444,8 @@ $router = (new PioniaRouter())
 
 The above route implies that all requests to `http://localhost:8000/api/v1/` should be handled by the `MainApiSwitch` switch.
 
-The main api switch checks in the request body for the `SERVICE` and `ACTION` keys.
-If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services.
+The main api switch checks in the request body for the `SERVICE` and `ACTION` keys. 
+If they are not found, it throws an exception. If they are found, it maps the request to the service and action mentioned basing on the registered services. 
 Therefore, for your service to be discovered, you must register it [as we did here](#step-3-create-the-service---todoservice).
 
 So, after here, the service needed is loaded and the entire request in forwarded to it. When the service receives the request, it checks for the action mentioned in the request body. If the action is not found, it throws an exception. If the action is found, it executes the action and returns a response back to our client.
@@ -485,8 +473,8 @@ Now, let's change our JSON in postman to the following:
 
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "list"
+    "SERVICE": "todo",
+    "ACTION": "list"
 }
 ```
 
@@ -494,25 +482,26 @@ Send the request and you should get the following response:
 
 ```json
 {
-  "returnCode": 0,
-  "returnMessage": "Todos found.",
-  "returnData": [
-    {
-      "id": 1,
-      "title": "Pass this ",
-      "description": "Must pass this",
-      "created_at": "2024-05-26 00:04:17"
-    },
-    {
-      "id": 2,
-      "title": "Become an avenger",
-      "description": "Make sure you become an avenger at 10!",
-      "created_at": "2024-05-26 00:11:23"
-    }
-  ],
-  "extraData": null
+    "returnCode": 0,
+    "returnMessage": "Todos found.",
+    "returnData": [
+        {
+            "id": 1,
+            "title": "Pass this ",
+            "description": "Must pass this",
+            "created_at": "2024-05-26 00:04:17"
+        },
+        {
+            "id": 2,
+            "title": "Become an avenger",
+            "description": "Make sure you become an avenger at 10!",
+            "created_at": "2024-05-26 00:11:23"
+        }
+    ],
+    "extraData": null
 }
 ```
+
 
 {{<callout context="tip" title="Point To Ponder" icon="outline/pencil">}}
 
@@ -555,17 +544,17 @@ Here we are going to test two scenarios, one is where everything goes smoothly a
 
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "retrieve",
-  "id": 2
+    "SERVICE":"todo",
+    "ACTION": "retrieve",
+    "id": 2
 }
 ```
 
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "retrieve",
-  "id": 100
+    "SERVICE": "todo",
+    "ACTION": "retrieve",
+    "id": 100
 }
 ```
 
@@ -573,15 +562,15 @@ In the first scenario, we get back a status code of 200 OK with the following re
 
 ```json
 {
-  "returnCode": 0,
-  "returnMessage": null,
-  "returnData": {
-    "id": 2,
-    "title": "Become an avenger",
-    "description": "Make sure you become an avenger at 10!",
-    "created_at": "2024-05-26 00:11:23"
-  },
-  "extraData": null
+    "returnCode": 0,
+    "returnMessage": null,
+    "returnData": {
+      "id": 2,
+      "title": "Become an avenger",
+      "description": "Make sure you become an avenger at 10!",
+      "created_at": "2024-05-26 00:11:23"
+    },
+    "extraData": null
 }
 ```
 
@@ -589,10 +578,10 @@ But in the second scenario, we still get a status code of 200 OK but with the fo
 
 ```json
 {
-  "returnCode": 400,
-  "returnMessage": "No todo with id 100 found.",
-  "returnData": null,
-  "extraData": null
+    "returnCode": 400,
+    "returnMessage": "No todo with id 100 found.",
+    "returnData": null,
+    "extraData": null
 }
 ```
 
@@ -624,9 +613,9 @@ You can keep hitting this action and on each hit, you should get a different to-
 
 ```json
 {
-  "SERVICE": "todo",
-  "ACTION": "random",
-  "length": 1
+    "SERVICE": "todo",
+    "ACTION": "random",
+    "length": 1
 }
 ```
 
@@ -649,33 +638,33 @@ public function deleteAction(Arrayable $data) : BaseResponse
     {
         $this->requires("id")
         $id = $data->get('id');
-
+        
         $todo = db("todos")
             ->delete($id);
 
         return response(0, "Todo deleted successfully");
-    }
-
+    }  
+  
 ```
 
 Change your request object to the following in your client(postman).
 
-```json
-{
-  "SERVICE": "todo",
-  "ACTION": "delete",
-  "id": 2
-}
-```
+  ```json
+  {
+      "SERVICE": "todo",
+      "ACTION": "delete",
+      "id": 2
+  }
+  ```
 
 If you did everything right, you should get your response as follows
 
 ```json
 {
-  "returnCode": 0,
-  "returnMessage": "Todo deleted successfully",
-  "returnData": null,
-  "extraData": null
+    "returnCode": 0,
+    "returnMessage": "Todo deleted successfully",
+    "returnData": null,
+    "extraData": null
 }
 ```
 
@@ -695,11 +684,11 @@ Imagine how fast you would pull off a new service with Pionia.
 
 {{</callout>}}
 
+
 ## Post Tutorial -- What Next?
 
 {{<link-card
-title="Deep Dive into Pionia Requests"
-description="Explore more features about the Pionia Requests and the request cycle."
-href="/documentation/requests/"
-
-> }}
+  title="Deep Dive into Pionia Requests"
+  description="Explore more features about the Pionia Requests and the request cycle."
+  href="/documentation/requests/"
+>}}

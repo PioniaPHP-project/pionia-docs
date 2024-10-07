@@ -643,7 +643,7 @@
   </div>
 </div>
 
-<p><em><strong>NOTE</strong></em> Remember the above scenarios as we dive into the MoonLight architecture</p>
+<p><strong><em>NOTE</em></strong> Remember the above scenarios as we dive into the MoonLight architecture</p>
 <h3 id="1-single-api-endpointroute">1. Single API endpoint/route<a href="#1-single-api-endpointroute" class="anchor" aria-hidden="true">#</a> </h3>
 <p>In the moonlight, all requests target the same endpoint. This is to ensure that the application is scalable and easy to maintain. This also makes it easier to debug and monitor the application.</p>
 <p>Assuming the application is running on <code>http://localhost:3000</code>, all requests will be made to <code>http://localhost:3000/api/v1/</code>. This is the only endpoint that is exposed to the outside world.</p>
@@ -677,9 +677,9 @@
     <span class="title">POST http://localhost:3000/api/v1/</span>
   </figcaption>
   <div class="highlight" title="POST http://localhost:3000/api/v1/"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line hl"><span class="cl">    <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-</span></span><span class="line hl"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;get_user_by_profile&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="s2">&#34;@1233232&#34;</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;get_user_by_profile&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="s2">&#34;@1233232&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -721,10 +721,10 @@ With this, <code>services</code> should/must be classes or interfaces(golang) th
     <span class="title">Response</span>
   </figcaption>
   <div class="highlight" title="Response"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line hl"><span class="cl">    <span class="nt">&#34;statusCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line hl"><span class="cl">    <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Some cool message here or null&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="s2">&#34;the data you&#39;re sending to the frontend&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;any extra data you want to send to the frontend&#34;</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;statusCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Some cool message here or null&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="s2">&#34;the data you&#39;re sending to the frontend&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;any extra data you want to send to the frontend&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>

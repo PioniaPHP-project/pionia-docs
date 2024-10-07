@@ -743,7 +743,7 @@ This method receives the request object, this also implies that you have access 
 </span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:?</span> <span class="nx">ContextUserObject</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nv">$userObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ContextUserObject</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1"># your logic here...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nv">$userObj</span><span class="p">;</span>
@@ -779,7 +779,7 @@ Every backend must be given a unique name. Also, you to note that the order of r
 <p>And that&rsquo;s it! Your authentication backend is now ready to be used in your application.</p>
 <h3 id="rbac---service-level-authorization">RBAC - Service Level Authorization<a href="#rbac---service-level-authorization" class="anchor" aria-hidden="true">#</a> </h3>
 <h4 id="accessing-the-set-context-object">Accessing the set Context Object<a href="#accessing-the-set-context-object" class="anchor" aria-hidden="true">#</a> </h4>
-<p>To access the context object in your services, you can access it from the  <code>$this-&gt;auth();</code>.</p>
+<p>To access the context object in your services, you can access it from the <code>$this-&gt;auth();</code>.</p>
 <p>This returns the <code>ContextUserObject</code> object that you set in your authentication backend.</p>
 
 

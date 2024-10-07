@@ -567,7 +567,8 @@
 		
 			<h1>Security in moonlight</h1>
 			
-			<h2 id="introdution">Introdution<a href="#introdution" class="anchor" aria-hidden="true">#</a> </h2>
+			<h2 id="t-or-true">t) or true<a href="#t-or-true" class="anchor" aria-hidden="true">#</a> </h2>
+<h2 id="introdution">Introdution<a href="#introdution" class="anchor" aria-hidden="true">#</a> </h2>
 <p>All requests sent to the server over https get encrypted and decrypted on the web server level. This ensures that attacks like man-in-the-middle are mitigated. This applies for all requests sent to the server whether via GET, POST, PUT, DELETE or any other method. On the server level, every request is logged. These logs omit the request body and only log domain, path, query params and headers. This ensures that the data is secure and not exposed in the URL.</p>
 <p>We need this logging for debugging purposes, therefore, we might not choose to turn it off.</p>
 <p>Example below shows how the logs are stored in the server:</p>
@@ -642,7 +643,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;username&#34;</span><span class="p">:</span> <span class="s2">&#34;example&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;example&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;login&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;auth&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;auth&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -673,8 +674,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>In the above example, the action <code>getTodo</code> requires the user to have the permission <code>view-todo</code>. If the user does not have the permission, the action will not be executed.
-As observed, the action itself determines whether the request is authenticated or not.</p>
+<p>In the above example, the action <code>getTodo</code> requires the user to have the permission <code>view-todo</code>. If the user does not have the permission, the action will not be e</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

@@ -729,14 +729,15 @@ just hit enter and the cli will select the default option for you which is the <
 <li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
 <li>Extend BaseRestService</li>
 <li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(ff your service is expecting files) and returning <code>BaseResponse</code>.</li>
-<li>Add your logic</li>
+<li>Add your logic
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
 </ol>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 </div>
   </div>
 
@@ -800,8 +801,8 @@ Service registration happens in the associated switch.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">SERVICE</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your request data.
+</span></span><span class="line"><span class="cl">  <span class="nx">SERVICE</span><span class="o">:</span> <span class="s2">&#34;user&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// rest of your request data.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -815,11 +816,10 @@ Service registration happens in the associated switch.</p>
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="err">SERVICE:</span> <span class="nt">&#34;user&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="err">ACTION:</span> <span class="nt">&#34;loginAuth&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// rest of your service data
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;loginAuth&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// rest of your service data
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -856,7 +856,7 @@ You can use this to access anything on the request.</p>
 </span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
@@ -1094,7 +1094,7 @@ This is useful when you want to deactivate an action in a service without deleti
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$deactivatedActions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span> <span class="c1">// one or more actions to deactivate.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>

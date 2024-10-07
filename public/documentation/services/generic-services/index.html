@@ -787,7 +787,7 @@ All available methods can <a href="https://pioniaphp-project.github.io/PioniaCor
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyService</span> <span class="k">extends</span> <span class="nx">CreateRandomService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$createColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1153,14 +1153,14 @@ for pagination to kick in, otherwise, each will perform its respective duty with
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">StudentService</span> <span class="k">extends</span> <span class="nx">RetrieveCreateUpdateService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;students&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// Your custom logic here
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// perform your own way of creating the record
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
@@ -1182,14 +1182,14 @@ This is just normal PHP OOP inheritance.</p>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">StudentService</span> <span class="k">extends</span> <span class="nx">RetrieveCreateUpdateService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;students&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">customAction</span><span class="p">()</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// Your custom logic here
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// perform your own custom action
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
@@ -1238,7 +1238,7 @@ for example you want to add complex where clauses to your queries.</p>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">StudentService</span> <span class="k">extends</span> <span class="nx">RetrieveCreateUpdateService</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;students&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="sd">/**
 </span></span></span><span class="line"><span class="cl"><span class="sd">     * Override this in your service to define the basis to return single item details
 </span></span></span><span class="line"><span class="cl"><span class="sd">     * @return null|object

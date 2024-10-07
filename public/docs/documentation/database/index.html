@@ -415,7 +415,76 @@
   <div class="col-md-12 col-lg-10 col-xl-8">
     <article>
       <h1 class="text-center">Database</h1>
-      
+      <div class="text-center"><p><a href="#">//</a>: # &lsquo;<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>&rsquo;
+[//]: # &ldquo;This section assumes you have already set up your project and have already gone through the <a href="/documentation/api-tutorial/">Api Tutorial</a> guide atleast.&rdquo;
+[//]: # &quot;</p>
+
+    </div>
+  </div>
+</div>
+&quot;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;## Introduction.&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the <a href="https://medoo.in/">medoo framework</a>. PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use.&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;## Installation&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer.&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;<code>bash&quot; [//]: # &quot;composer require pionia/porm&quot; [//]: # &quot;</code>&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &lsquo;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>&rsquo;
+[//]: # &ldquo;If you are using Pionia, you do not need to install PORM separately. PORM is already included in the Pionia framework.&rdquo;
+[//]: # &quot;</p>
+
+    </div>
+  </div>
+</div>
+&quot;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;## Configuration&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;Configuring PORM is simple. All you need is the settings.ini file in the root of your project. The settings.ini file should contain the following:&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;<code>ini&quot; [//]: # &quot;[db]&quot; [//]: # &quot;database =&quot; [//]: # &quot;username =&quot; [//]: # &quot;type =&quot; [//]: # &quot;host =&quot; [//]: # &quot;password =&quot; [//]: # &quot;port =&quot; [//]: # &quot;</code>&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &lsquo;<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>&rsquo;
+[//]: # &ldquo;If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework.&rdquo;
+[//]: # &quot;</p>
+
+    </div>
+  </div>
+</div>
+&quot;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;### Multiple Database Connections&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;If you want to connect to multiple databases, you can do so by adding the database connection settings to the <code>settings.ini</code> file. You can then specify the database connection to use when querying the database.&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;<code>ini&quot; [//]: # &quot;; other settings&quot; [//]: # [//]: # &quot;[db]&quot; [//]: # &quot;database =&quot; [//]: # &quot;username =&quot; [//]: # &quot;type =&quot; [//]: # &quot;host =&quot; [//]: # &quot;password =&quot; [//]: # &quot;port =&quot; [//]: # [//]: # &quot;[db2]&quot; [//]: # &quot;database =&quot; [//]: # &quot;username =&quot; [//]: # &quot;type =&quot; [//]: # &quot;host =&quot; [//]: # &quot;password =&quot; [//]: # &quot;port =&quot; [//]: # [//]: # &quot;; other settings&quot; [//]: # [//]: # &quot;</code>&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;You can then specify the database connection to use when querying the database.&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;<code>php&quot; [//]: # &quot;use Porm\\Porm;&quot; [//]: # [//]: # &quot;Porm::from('posts')-&gt;using('db2'); // will connect to the db2 database&quot; [//]: # &quot;</code>&rdquo;
+<a href="#">//</a>: #
+<a href="#">//</a>: # &ldquo;By default, PORM will use the default database connection(db) to query the database.&rdquo;</p>
+</div>
 			<div class="card-list">
 				
 				
