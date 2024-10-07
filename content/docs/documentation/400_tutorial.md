@@ -193,7 +193,7 @@ public function registerServices(): Arrayable
     {
         return arr([
             'user' => UserService::class,
-            "todo" => TodoService::class, // add this line here
+            'todo' => TodoService::class, // add this line here
         ]);
     }
 ```
@@ -224,7 +224,7 @@ use Pionia\Http\Services\Service;
 
 class TodoService extends Service
 {
-  public function createOrUpdateAction(Arrayable $postData) : BaseResponse
+  public function createOrUpdateAction(Arrayable $data) : BaseResponse
     {
         $title = $data->getString("title");
         $description = $data->getString('description');
@@ -252,7 +252,7 @@ class TodoService extends Service
 
 ✨So, briefly to go through what we just did. 
 
-1. We created our action which takes up a Pionia Arrayable `$postData` which will always contain our POST request data.
+1. We created our action which takes up a Pionia Arrayable `$data` which will always contain our POST request data.
 2. We collected our data, `title` and `description` as a string, the `id` as an integer.
 3. We checked if we actually have an `id` in our request. If no id was provided, we use the post data given to us to create a new todo, otherwise we updated the matched to-do.
 4. Finally, we returned a response using one of our [Pionia Helpers](/documentation/pionia-helpers/)
@@ -296,6 +296,19 @@ Or if you love snake_case format, you can also pass it like below
 {{</callout>}}
 
 {{<tabs "test-the-api">}}
+
+{{<tab "jet-fetch JSON">}}
+```json {{title='HTTP POST 1.1 /api/v1/'}}
+{
+  "SERVICE": "todo",
+  "ACTION": "createOrUpdate",
+  "title": "Pass this ",
+  "description": "Must pass"
+}
+
+
+```
+{{</tab>}}
 
 {{<tab "jet-fetch JSON">}}
 

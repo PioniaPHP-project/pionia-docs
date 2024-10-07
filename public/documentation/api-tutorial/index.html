@@ -876,7 +876,7 @@ For details, about switches, please head over to <a href="/documentation/service
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nx">UserService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// add this line here
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;todo&#39;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// add this line here
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -909,7 +909,7 @@ to be just class methods not a Pionia Action.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdateAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$postData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">createOrUpdateAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$description</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">);</span>
@@ -937,7 +937,7 @@ to be just class methods not a Pionia Action.</p>
 </div>
 <p>✨So, briefly to go through what we just did.</p>
 <ol>
-<li>We created our action which takes up a Pionia Arrayable <code>$postData</code> which will always contain our POST request data.</li>
+<li>We created our action which takes up a Pionia Arrayable <code>$data</code> which will always contain our POST request data.</li>
 <li>We collected our data, <code>title</code> and <code>description</code> as a string, the <code>id</code> as an integer.</li>
 <li>We checked if we actually have an <code>id</code> in our request. If no id was provided, we use the post data given to us to create a new todo, otherwise we updated the matched to-do.</li>
 <li>Finally, we returned a response using one of our <a href="/documentation/pionia-helpers/">Pionia Helpers</a></li>
@@ -1013,17 +1013,21 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
   <button data-toggle-tab="jet-fetch json" class="nav-link active" id="tabs-test-the-api-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-0" type="button" role="tab" aria-controls="tabs-test-the-api-0" aria-selected="true">
       jet-fetch JSON</button>
-  <button data-toggle-tab="axios formdata(postman)" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
+  <button data-toggle-tab="jet-fetch json" class="nav-link" id="tabs-test-the-api-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-1" type="button" role="tab" aria-controls="tabs-test-the-api-1" aria-selected="true">
+      jet-fetch JSON</button>
+  <button data-toggle-tab="axios formdata(postman)" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
       Axios FormData(postman)</button>
-  <button data-toggle-tab="axios json data(postman)" class="nav-link" id="tabs-test-the-api-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-2" type="button" role="tab" aria-controls="tabs-test-the-api-2" aria-selected="true">
+  <button data-toggle-tab="axios json data(postman)" class="nav-link" id="tabs-test-the-api-3-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-3" type="button" role="tab" aria-controls="tabs-test-the-api-3" aria-selected="true">
       Axios JSON Data(Postman)</button>
-  <button data-toggle-tab="xhr -json (postman)" class="nav-link" id="tabs-test-the-api-3-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-3" type="button" role="tab" aria-controls="tabs-test-the-api-3" aria-selected="true">
+  <button data-toggle-tab="xhr -json (postman)" class="nav-link" id="tabs-test-the-api-4-tab" data-bs-toggle="tab" data-bs-target="#tabs-test-the-api-4" type="button" role="tab" aria-controls="tabs-test-the-api-4" aria-selected="true">
       XHR -JSON (Postman)</button>
   </div>
 </nav>
 
 <div class="tab-content" id="nav-tabContent">
   <div data-pane="jet-fetch json" class="tab-pane fade show active" id="tabs-test-the-api-0" role="tabpanel" aria-labelledby="tabs-test-the-api-0-tab" tabindex="0">
+      </div>
+  <div data-pane="jet-fetch json" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
       
 
 
@@ -1049,7 +1053,7 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   </figure>
 </div>
 </div>
-  <div data-pane="axios formdata(postman)" class="tab-pane fade" id="tabs-test-the-api-1" role="tabpanel" aria-labelledby="tabs-test-the-api-1-tab" tabindex="0">
+  <div data-pane="axios formdata(postman)" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
       
 
 
@@ -1086,7 +1090,7 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   </figure>
 </div>
 </div>
-  <div data-pane="axios json data(postman)" class="tab-pane fade" id="tabs-test-the-api-2" role="tabpanel" aria-labelledby="tabs-test-the-api-2-tab" tabindex="0">
+  <div data-pane="axios json data(postman)" class="tab-pane fade" id="tabs-test-the-api-3" role="tabpanel" aria-labelledby="tabs-test-the-api-3-tab" tabindex="0">
       
 
 
@@ -1123,7 +1127,7 @@ should then be loaded. Remember, all services are lazy-loaded, so, Pionia does n
   </figure>
 </div>
 </div>
-  <div data-pane="xhr -json (postman)" class="tab-pane fade" id="tabs-test-the-api-3" role="tabpanel" aria-labelledby="tabs-test-the-api-3-tab" tabindex="0">
+  <div data-pane="xhr -json (postman)" class="tab-pane fade" id="tabs-test-the-api-4" role="tabpanel" aria-labelledby="tabs-test-the-api-4-tab" tabindex="0">
       
 
 
