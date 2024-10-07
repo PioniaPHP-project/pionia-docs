@@ -118,8 +118,8 @@ Above should return the following:
 
 ![alt text](image-2.png)
 
-Database configurations in the `environment` should be done in any `.ini` files. 
-You can create a dedicated `database.ini` file or just use the existing `settings.ini`.
+Database configurations in the `environment` folder should be done in any `.ini` files. 
+You can create a dedicated `environment/database.ini` file or just use the existing `environment/settings.ini`.
 
 {{<callout note>}}
 But why do we have have to do this from `.ini` files?
