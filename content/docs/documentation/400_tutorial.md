@@ -133,9 +133,9 @@ Open `settings.ini` file and update the database settings as below:
 
 ```ini {title="settings.ini"}
 [db]
-database = "todo_db" # your database name
+database_name = "todo_db" # your database name
 username = "root" # your database user
-type = "mysql" # your database type
+database_type = "mysql" # your database type
 host = "localhost"
 password = "" # your database password
 port = 3306
@@ -158,7 +158,7 @@ Since all our business logic is related to To-do items, we only need one service
 
 <b>Points to ponder! </b>
 
- > All Pionia services reside in the `services` folder under the `Application\Services`.
+ > All Pionia services reside in the `services` folder under the namespace of `Application\Services`.
 
  > All Pionia Services should extend `Service` from `Pionia\Http\Services\Service`.
 

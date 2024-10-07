@@ -800,9 +800,9 @@ and collect them in the <code>container</code> as needed. To set a database as t
     <span class="title">settings.ini</span>
   </figcaption>
   <div class="highlight" title="settings.ini"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[db]</span>
-</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span> <span class="s">&#34;todo_db&#34; # your database name</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_name</span> <span class="o">=</span> <span class="s">&#34;todo_db&#34; # your database name</span>
 </span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">&#34;root&#34; # your database user</span>
-</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">&#34;mysql&#34; # your database type</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_type</span> <span class="o">=</span> <span class="s">&#34;mysql&#34; # your database type</span>
 </span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">&#34;&#34; # your database password</span>
 </span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">3306</span>
@@ -829,7 +829,7 @@ and collect them in the <code>container</code> as needed. To set a database as t
 <p>Since all our business logic is related to To-do items, we only need one service called <code>TodoService</code>.</p>
 <p><b>Points to ponder! </b></p>
 <blockquote>
-<p>All Pionia services reside in the <code>services</code> folder under the <code>Application\Services</code>.</p>
+<p>All Pionia services reside in the <code>services</code> folder under the namespace of <code>Application\Services</code>.</p>
 </blockquote>
 <blockquote>
 <p>All Pionia Services should extend <code>Service</code> from <code>Pionia\Http\Services\Service</code>.</p>
