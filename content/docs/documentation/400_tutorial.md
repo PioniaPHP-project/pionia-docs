@@ -114,6 +114,18 @@ create table if not exists todos (
 desc todos;
 ```
 
+```sql
+INSERT INTO todos (title, description) VALUES 
+('Grocery Shopping', 'Buy milk, eggs, and bread.'),
+('Workout', 'Attend yoga class at 6 PM.'),
+('Read a Book', 'Finish reading "The Great Gatsby."'),
+('Clean the House', 'Dust and vacuum the living room and kitchen.'),
+('Schedule Doctor Appointment', 'Book a check-up for next week.'),
+('Plan Weekend Trip', 'Research destinations and book accommodations.');
+
+select * from todos; ## Select All Added todos
+```
+
 Above should return the following:
 
 ![alt text](image-2.png)
