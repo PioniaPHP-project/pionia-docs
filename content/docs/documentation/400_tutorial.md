@@ -133,11 +133,11 @@ Open `settings.ini` file and update the database settings as below:
 
 ```ini {title="settings.ini"}
 [db]
+database_type = "mysql" # your database type
 database_name = "todo_db" # your database name
 username = "root" # your database user
-database_type = "mysql" # your database type
-host = "localhost"
 password = "" # your database password
+host = "localhost"
 port = 3306
 default=true # to mark it as our default db connection
 ```
@@ -192,7 +192,6 @@ For now, let's register our created service in the `MainApiSwitch` class. Open `
 public function registerServices(): Arrayable
     {
         return arr([
-            'user' => UserService::class,
             'todo' => TodoService::class, // add this line here
         ]);
     }
@@ -541,7 +540,7 @@ We will create an action called `retrieveAction` in our service to retrieve a si
 
         $id = $data->get('id');
 
-        $todo = db("todos")
+        $todo = db("todos");
             ->get($id);
 
         if (!$todo){
@@ -613,7 +612,7 @@ Notice how the exception message becomes our `returnMessage`. This exception was
 public function randomAction(Arrayable $data) : BaseResponse
     {
         $length = $data->get('length', 1);
-        $todos = db("todos")
+        $todos = db("todos");
             ->random($length);
 
         return response(0, null, $todos);
@@ -639,6 +638,7 @@ You can keep hitting this action and on each hit, you should get a different to-
 If you followed along upto this far, you should be able to implement this on your own. If you get stuck, you can refer to the code below.
 
 ```php {title="TodoService.php"}
+
 public function delete($data) : BaseResponse
   {
       $id = $data['id'];
@@ -646,13 +646,12 @@ public function delete($data) : BaseResponse
       // you should notice item with this id disappears.
       return BaseResponse::JsonResponse(0, "Todo deleted.");
   }
-
 public function deleteAction(Arrayable $data) : BaseResponse
     {
-        $this->requires("id")
+        $this->requires("id");
         $id = $data->get('id');
         
-        $todo = db("todos")
+        $todo = db("todos");
             ->delete($id);
 
         return response(0, "Todo deleted successfully");
