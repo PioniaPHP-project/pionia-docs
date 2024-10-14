@@ -568,7 +568,13 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#coming-soon">Coming soon!</a></li>
+    <li>
+      <ul>
+        <li><a href="#app">app()</a></li>
+        <li><a href="#container">container()</a></li>
+        <li><a href="#db">db()</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </div>
@@ -584,14 +590,102 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#coming-soon">Coming soon!</a></li>
+    <li>
+      <ul>
+        <li><a href="#app">app()</a></li>
+        <li><a href="#container">container()</a></li>
+        <li><a href="#db">db()</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<h2 id="coming-soon">Coming soon!<a href="#coming-soon" class="anchor" aria-hidden="true">#</a> </h2>
+			<h1 id="introduction">Introduction</h1>
+<p>Pionia comes with a number of helpers to assist in quickly accessing parts of our application without implicitly creating instances.
+These helpers can be accessed anywhere on the app after the app has booted.</p>
+<div class="callout callout-danger d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/note svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l7-7"/><path d="M13 20v-6a1 1 0 011-1h6V6a2 2 0 00-2-2H6A2 2 0 004 6v12a2 2 0 002 2h7"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Piont to remember!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>Please not that most Pionia helpers cannot be accessed in the <code>bootstrap/application.php</code> as they might be available yet. This does not affect all the helpers
+but those that have to do with the application context like <code>app</code>, <code>container</code>, <code>logger</code>.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="app">app()<a href="#app" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This holds the currently booted <code>Pionia\Base\PioniaApplication</code>. It can only be used post application bootup otherwise,
+it will boot a new and context-free Pionia application. Unlike in most traditional frameworks, Pionia Application initialises the container.
+Therefore, the container is part of <code>PioniaApplication</code> not the other way round.</p>
+<h4 id="usage">Usage<a href="#usage" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$env</span> <span class="o">=</span> <span class="nx">app</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">environment</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$env</span><span class="p">;</span> <span class="c1">// dev
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Remember this helper can only be used post application booting. Therefore, it cannot be used in the following directories:-
+- bootstrap/application.php
+- bootstrap/routes.php
+- public/index.php</p>
+<p>In other places, the application will already be booted making this helper available for use.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="container">container()<a href="#container" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In Pionia, the <code>PioniaApplication</code> initialises the container. Pionia uses <a href="https://php-di.org/doc/getting-started.html"><code>php-di</code></a> for dependency management. This container is tightly coupled with the application
+instance. Therefore, it is also available post application bootup. However, adding things to the container does not depende on this.
+You can access and add content in the Pionia container even before the application boots.</p>
+<p>The dependency on the application only depends on this helper&rsquo;s usage.</p>
+<p>This helper exposes all <a href="https://php-di.org/doc/getting-started.html"><code>php-di</code></a> container methods directly to you. It is as if you&rsquo;re interacting with the actual <code>php-di</code> itself while using this helper.</p>
+<h4 id="usage-1">Usage<a href="#usage-1" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// getting something from the container.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$something</span>  <span class="o">=</span> <span class="nx">container</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// adding something to the container.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">container</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;some_value_for_something&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// using it for making factories
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$instance</span> <span class="o">=</span> <span class="nx">container</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">make</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$parameters</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Using the above directly throws some exceptions, that&rsquo;s why you should use methods provided for you on the <a href="#app">app</a> helper.</p>
+<h3 id="db">db()<a href="#db" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This is an acronym for <a href="#table">table()</a> helper. It assists one to begin building PiQL(Pionia Query Language) queries.
+By default, this will be using the database connection defined with <code>default=true</code> option or the first connection found in the database settings.</p>
+<p>You can also specify which database connection to use here too.</p>
+<h4 id="usage-2">Usage<a href="#usage-2" class="anchor" aria-hidden="true">#</a> </h4>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
