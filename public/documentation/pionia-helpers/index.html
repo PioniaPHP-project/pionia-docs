@@ -573,6 +573,13 @@
         <li><a href="#app">app()</a></li>
         <li><a href="#container">container()</a></li>
         <li><a href="#db">db()</a></li>
+        <li><a href="#table">table()</a></li>
+        <li><a href="#alias">alias()</a></li>
+        <li><a href="#logger">logger()</a></li>
+        <li><a href="#addinisection">addIniSection()</a></li>
+        <li><a href="#env">env()</a></li>
+        <li><a href="#setenv">setEnv()</a></li>
+        <li><a href="#tap">tap()</a></li>
       </ul>
     </li>
   </ul>
@@ -595,6 +602,13 @@
         <li><a href="#app">app()</a></li>
         <li><a href="#container">container()</a></li>
         <li><a href="#db">db()</a></li>
+        <li><a href="#table">table()</a></li>
+        <li><a href="#alias">alias()</a></li>
+        <li><a href="#logger">logger()</a></li>
+        <li><a href="#addinisection">addIniSection()</a></li>
+        <li><a href="#env">env()</a></li>
+        <li><a href="#setenv">setEnv()</a></li>
+        <li><a href="#tap">tap()</a></li>
       </ul>
     </li>
   </ul>
@@ -686,6 +700,172 @@ You can access and add content in the Pionia container even before the applicati
 By default, this will be using the database connection defined with <code>default=true</code> option or the first connection found in the database settings.</p>
 <p>You can also specify which database connection to use here too.</p>
 <h4 id="usage-2">Usage<a href="#usage-2" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span> <span class="c1">// select * from users;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// defining an explicit db connection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// adding the table alias.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// select * from users where id = 1;
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="table">table()<a href="#table" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This is similar to <a href="#db">db()</a> but was added for semantic reasons since it is more readable. The implementation is as the same as that if <code>db()</code>.</p>
+<h4 id="usage-3">Usage<a href="#usage-3" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span> <span class="c1">// select * from users;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// defining an explicit db connection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// adding the table alias.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$users</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;db2&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// select * from users where id = 1;
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="alias">alias()<a href="#alias" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This is used to get any alias added in the application container. It is also equivalent to calling <code>app()-&gt;alias($key)</code>.</p>
+<p>Aliases can be added the application using <code>app()-&gt;addAlias(string $key, mixed $value)</code>. Then this method can be used to retrieve them.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// assuming we had added an alias like app()-&gt;addAlias(&#39;one&#39;, 1);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$one</span> <span class="o">=</span> <span class="nx">alias</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">);</span> 
+</span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can view all the available aliases by running the following command.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia app:aliases</span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Since this helper also depends on the application, then it should be used after application booting, while the application is booting,
+you can use <code>this-&gt;addAlias($key, $value)</code> to add an alias and also get it using <code>$this-&gt;alias($key)</code> instead.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="logger">logger()<a href="#logger" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This provides an interface to the application logger set. It is used for logging.</p>
+<h4 id="usage-4">Usage<a href="#usage-4" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">logger</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s2">&#34;Something awesome happened&#34;</span><span class="p">,</span> <span class="k">array</span><span class="p">());</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="addinisection">addIniSection()<a href="#addinisection" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This is used to add a new ini section if it was not existing or update it if it does.
+By default, this will add the section in the <code>generated.ini</code> file to separate it from other existing ini files.
+However, you can define which ever file to use using the last parameter of the helper.</p>
+<p>If the file does not exist, this helper will also create it and add the section. This file will now henceforth be read and loaded into the context as other config files in our environment configuration.</p>
+<h4 id="usage-5">Usage<a href="#usage-5" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$pluginSettings</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;Jane Doe&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">addIniSection</span><span class="p">(</span><span class="s1">&#39;plugin_settings&#39;</span><span class="p">,</span> <span class="nv">$pluginSettings</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above will create the following section in <code>environment/generated.ini</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[plugin_settings]</span>
+</span></span><span class="line"><span class="cl"><span class="na">foo</span><span class="o">=</span><span class="s">bar</span>
+</span></span><span class="line"><span class="cl"><span class="na">name</span><span class="o">=</span><span class="s">Jane Doe</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="env">env()<a href="#env" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Get an item from the environment or default to the default value passed. This does not care about which file or file type you&rsquo;re reading from.
+As long as it was defined in the environment or somehow loaded in your environment variables no matter the source.</p>
+<h4 id="usage-6">Usage<a href="#usage-6" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$env</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;APP_ENV&#39;</span><span class="p">,</span> <span class="s1">&#39;dev&#39;</span><span class="p">);</span> <span class="c1">// get the value of APP_ENV from the environment or default to `dev` if it does not exist.
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="setenv">setEnv()<a href="#setenv" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This is similar to calling <code>app()-&gt;setEnv()</code>. It sets or updates a key-value pair in the environment context.
+This is temporary and will be destroyed on the next request cycle. It is only available from the moment it set in the entire app, till the request ends.</p>
+<h4 id="usage-7">Usage<a href="#usage-7" class="anchor" aria-hidden="true">#</a> </h4>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">setEnv</span><span class="p">(</span><span class="s1">&#39;new_port&#39;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// you can then use env to get the value now
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$newPort</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;new_port&#39;</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="tap">tap()<a href="#tap" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This helper helps you run a value against a given closure and return the value. The return value of the closure is not necessary here.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

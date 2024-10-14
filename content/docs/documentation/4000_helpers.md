@@ -76,4 +76,112 @@ You can also specify which database connection to use here too.
 
 #### Usage
 
+```php 
+$users = db('users')->all(); // select * from users;
+
+// defining an explicit db connection
+
+$users = db('users', null, 'db2')->all(); 
+
+// adding the table alias.
+
+$users = db('users', 'u', 'db2')->get(1); // select * from users where id = 1;
+```
+
+### table()
+
+This is similar to [db()](#db) but was added for semantic reasons since it is more readable. The implementation is as the same as that if `db()`.
+
+#### Usage
+
+```php 
+$users = table('users')->all(); // select * from users;
+
+// defining an explicit db connection
+
+$users = table('users', null, 'db2')->all(); 
+
+// adding the table alias.
+
+$users = table('users', 'u', 'db2')->get(1); // select * from users where id = 1;
+```
+
+### alias()
+
+This is used to get any alias added in the application container. It is also equivalent to calling `app()->alias($key)`.
+
+Aliases can be added the application using `app()->addAlias(string $key, mixed $value)`. Then this method can be used to retrieve them.
+
+```php 
+// assuming we had added an alias like app()->addAlias('one', 1);
+$one = alias('one'); 
+```
+You can view all the available aliases by running the following command.
+```bash
+php pionia app:aliases
+```
+
+{{<callout note>}}
+Since this helper also depends on the application, then it should be used after application booting, while the application is booting, 
+you can use `this->addAlias($key, $value)` to add an alias and also get it using `$this->alias($key)` instead.
+{{</callout>}}
+
+### logger() 
+This provides an interface to the application logger set. It is used for logging. 
+
+#### Usage
+
+```php
+logger()->info("Something awesome happened", array());
+```
+
+### addIniSection()
+
+This is used to add a new ini section if it was not existing or update it if it does.
+By default, this will add the section in the `generated.ini` file to separate it from other existing ini files.
+However, you can define which ever file to use using the last parameter of the helper.
+
+If the file does not exist, this helper will also create it and add the section. This file will now henceforth be read and loaded into the context as other config files in our environment configuration.
+
+#### Usage
+
+```php 
+$pluginSettings= ['foo' => 'bar', 'name'=>'Jane Doe'];
+addIniSection('plugin_settings', $pluginSettings);
+```
+
+The above will create the following section in `environment/generated.ini`.
+
+```ini
+[plugin_settings]
+foo=bar
+name=Jane Doe
+```
+
+### env()
+
+Get an item from the environment or default to the default value passed. This does not care about which file or file type you're reading from.
+As long as it was defined in the environment or somehow loaded in your environment variables no matter the source.
+
+#### Usage
+```php
+$env = env('APP_ENV', 'dev'); // get the value of APP_ENV from the environment or default to `dev` if it does not exist.
+```
+
+### setEnv()
+This is similar to calling `app()->setEnv()`. It sets or updates a key-value pair in the environment context.
+This is temporary and will be destroyed on the next request cycle. It is only available from the moment it set in the entire app, till the request ends.
+
+#### Usage
+```php 
+setEnv('new_port', 5000);
+
+// you can then use env to get the value now
+
+$newPort = env('new_port');
+```
+
+### tap()
+This helper helps you run a value against a given closure and return the value. The return value of the closure is not necessary here.
+
 
