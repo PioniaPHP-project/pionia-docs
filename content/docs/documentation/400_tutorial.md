@@ -118,6 +118,20 @@ Above should return the following:
 
 ![alt text](image-2.png)
 
+```sql
+INSERT INTO todos (title, description) VALUES 
+('Grocery Shopping', 'Buy milk, eggs, and bread.'),
+('Workout', 'Attend yoga class at 6 PM.'),
+('Read a Book', 'Finish reading "The Great Gatsby."'),
+('Clean the House', 'Dust and vacuum the living room and kitchen.'),
+('Schedule Doctor Appointment', 'Book a check-up for next week.'),
+('Plan Weekend Trip', 'Research destinations and book accommodations.');
+
+select * from todos; ## Select All Added todos
+```
+
+
+
 Database configurations in the `environment` folder should be done in any `.ini` files. 
 You can create a dedicated `environment/database.ini` file or just use the existing `environment/settings.ini`.
 
