@@ -114,6 +114,10 @@ create table if not exists todos (
 desc todos;
 ```
 
+Above should return the following:
+
+![alt text](image-2.png)
+
 ```sql
 INSERT INTO todos (title, description) VALUES 
 ('Grocery Shopping', 'Buy milk, eggs, and bread.'),
@@ -126,9 +130,7 @@ INSERT INTO todos (title, description) VALUES
 select * from todos; ## Select All Added todos
 ```
 
-Above should return the following:
 
-![alt text](image-2.png)
 
 Database configurations in the `environment` folder should be done in any `.ini` files. 
 You can create a dedicated `environment/database.ini` file or just use the existing `environment/settings.ini`.
