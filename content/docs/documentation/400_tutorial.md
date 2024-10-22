@@ -90,18 +90,19 @@ However, from `v2.0^`, the core medoo package was re-written to meet Pionia-spec
 
 > You can create a new database or use an existing one as you see fit!
 
-Assuming you have already setup your MySQL database.
+Assuming you have already setup your MySQL / MariaDB database.
 
-Let's first create our MySQL database as below:
-
+Let's first create our database as below:
 ```sql
 CREATE DATABASE todo_db;
-
-USE todo_db;
-
 ```
+Let's  use / specify `todo_db`  database created above:
+```sql
+USE todo_db;
+```
+![alt text](../../../assets/images/use_query.png)
 
-Then we can create a table called `todos` as below:
+Let's  create a table called `todos` as below:
 
 ```sql
 create table if not exists todos (
@@ -110,14 +111,22 @@ create table if not exists todos (
   description text,
   created_at timestamp default CURRENT_TIMESTAMP
 );
+```
+Let's  see the table created as `todos` in the database todo_db:
+```sql
+show tables;
+```
+![alt text](../../../assets/images/show_tables.png)
 
+```sql
 desc todos;
 ```
-
 Above should return the following:
 
-![alt text](image-2.png)
+![alt text](../../../assets/images/desc_table.png)
 
+
+Let's now added todo items to the table `todos` in the database `todo_db`:
 ```sql
 INSERT INTO todos (title, description) VALUES 
 ('Grocery Shopping', 'Buy milk, eggs, and bread.'),
@@ -126,10 +135,13 @@ INSERT INTO todos (title, description) VALUES
 ('Clean the House', 'Dust and vacuum the living room and kitchen.'),
 ('Schedule Doctor Appointment', 'Book a check-up for next week.'),
 ('Plan Weekend Trip', 'Research destinations and book accommodations.');
-
-select * from todos; ## Select All Added todos
 ```
 
+Let's list all items in the `todos` table:
+```sql
+select * from todos;
+```
+![alt text](../../../assets/images/all_items_todo.png)
 
 
 Database configurations in the `environment` folder should be done in any `.ini` files. 
