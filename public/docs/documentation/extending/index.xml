@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Extending Pionia on Pionia</title>
+    <link>http://localhost:1313/docs/documentation/extending/</link>
+    <description>Recent content in Extending Pionia on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Mon, 28 Oct 2024 07:23:58 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/documentation/extending/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pionia Packages(Plugins)</title>
+      <link>http://localhost:1313/documentation/extending/pionia-packagesplugins/</link>
+      <pubDate>Mon, 28 Oct 2024 07:23:58 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/extending/pionia-packagesplugins/</guid>
+      <description>This section assumes you&amp;rsquo;re already familier with the Pionia Framework.</description>
+    </item>
+    <item>
+      <title>App Providers</title>
+      <link>http://localhost:1313/documentation/extending/app-providers/</link>
+      <pubDate>Mon, 28 Oct 2024 07:23:58 +0300</pubDate>
+      <guid>http://localhost:1313/documentation/extending/app-providers/</guid>
+      <description>Introduction Pionia allows you to extend the framework through external composer packages.</description>
+    </item>
+  </channel>
+</rss>
