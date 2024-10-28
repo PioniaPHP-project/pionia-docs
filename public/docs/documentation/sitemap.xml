@@ -84,6 +84,13 @@
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
+    
+    <url>
+      <loc>http://localhost:1313/docs/documentation/extending/</loc>
+      <lastmod>2024-10-28T07:22:12+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
     <url>
         <loc>http://localhost:1313/documentation/services/services/</loc>
         <lastmod>2024-10-07T22:51:58+03:00</lastmod>
@@ -147,6 +154,18 @@
       <url>
         <loc>http://localhost:1313/documentation/database/using-functions-aggregation/</loc>
         <lastmod>2024-10-07T22:51:58+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/extending/pionia-packagesplugins/</loc>
+        <lastmod>2024-10-28T07:23:58+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/extending/app-providers/</loc>
+        <lastmod>2024-10-28T07:23:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
