@@ -4,7 +4,7 @@ parent: "documentation"
 description: "Guides the developer how to scaffold the frontend of a Pionia application."
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2024-05-24T13:45:48.890Z
-draft: false
+draft: true
 weight: 300
 toc: true
 seo:
