@@ -32,11 +32,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/documentation/frontend-integration/</loc>
-    <lastmod>2024-10-07T22:51:58+03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://localhost:1313/documentation/api-tutorial/</loc>
     <lastmod>2024-10-08T00:29:51+03:00</lastmod>
     <changefreq>monthly</changefreq>
