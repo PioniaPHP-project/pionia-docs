@@ -90,9 +90,9 @@ However, from `v2.0^`, the core medoo package was re-written to meet Pionia-spec
 
 > You can create a new database or use an existing one as you see fit!
 
-Assuming you have already setup your MySQL database.
+Assuming you have already setup your MySQL / MariaDB database.
 
-Let's first create our MySQL database as below:
+Let's first create our database as below:
 
 ```sql
 CREATE DATABASE todo_db;
@@ -100,8 +100,11 @@ CREATE DATABASE todo_db;
 USE todo_db;
 
 ```
-
-Then we can create a table called `todos` as below:
+Let's  use / specify `todo_db`  database created above:
+```sql
+USE todo_db;
+```
+Let's  create a table called `todos` as below:
 
 ```sql
 create table if not exists todos (
@@ -110,7 +113,14 @@ create table if not exists todos (
   description text,
   created_at timestamp default CURRENT_TIMESTAMP
 );
+```
+Let's  see the table created as `todos` in the database todo_db:
+```sql
+show tables;
+```
 
+Let's  describe the table created as `todos`:
+```sql
 desc todos;
 ```
 
@@ -127,9 +137,11 @@ INSERT INTO todos (title, description) VALUES
 ('Schedule Doctor Appointment', 'Book a check-up for next week.'),
 ('Plan Weekend Trip', 'Research destinations and book accommodations.');
 
-select * from todos; ## Select All Added todos
 ```
-
+Let's list all items in the `todos` table:
+```sql
+select * from todos;
+```
 
 
 Database configurations in the `environment` folder should be done in any `.ini` files. 

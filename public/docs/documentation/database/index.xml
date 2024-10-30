@@ -4,7 +4,7 @@
     <title>Database on Pionia</title>
     <link>http://localhost:1313/docs/documentation/database/</link>
     <description>Recent content in Database on Pionia</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
     <atom:link href="http://localhost:1313/docs/documentation/database/index.xml" rel="self" type="application/rss+xml" />
