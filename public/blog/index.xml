@@ -4,7 +4,7 @@
     <title>Blog on Pionia</title>
     <link>http://localhost:1313/blog/</link>
     <description>Recent content in Blog on Pionia</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
     <lastBuildDate>Fri, 24 May 2024 17:09:22 +0300</lastBuildDate>

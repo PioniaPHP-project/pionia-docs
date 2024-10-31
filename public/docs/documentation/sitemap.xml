@@ -24,7 +24,7 @@
     
     <url>
       <loc>http://localhost:1313/documentation/api-tutorial/</loc>
-      <lastmod>2024-10-08T00:29:51+03:00</lastmod>
+      <lastmod>2024-10-14T17:31:34+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
@@ -87,7 +87,7 @@
     
     <url>
       <loc>http://localhost:1313/docs/documentation/extending/</loc>
-      <lastmod>2024-10-28T07:22:12+03:00</lastmod>
+      <lastmod>2024-10-28T09:35:23+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
@@ -159,13 +159,13 @@
       </url>
       <url>
         <loc>http://localhost:1313/documentation/extending/pionia-packagesplugins/</loc>
-        <lastmod>2024-10-28T07:23:58+03:00</lastmod>
+        <lastmod>2024-10-28T09:35:23+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
         <loc>http://localhost:1313/documentation/extending/app-providers/</loc>
-        <lastmod>2024-10-28T07:23:58+03:00</lastmod>
+        <lastmod>2024-10-28T09:35:23+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>

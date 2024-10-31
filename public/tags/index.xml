@@ -4,7 +4,7 @@
     <title>Tags on Pionia</title>
     <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Pionia</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
