@@ -4,7 +4,7 @@
     <title>Contributors on Pionia</title>
     <link>http://localhost:1313/contributors/</link>
     <description>Recent content in Contributors on Pionia</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright (c) 2024 Pionia</copyright>
     <atom:link href="http://localhost:1313/contributors/index.xml" rel="self" type="application/rss+xml" />

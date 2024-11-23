@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/services/services/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-07-05T01:06:18+03:00">
-<meta property="article:modified_time" content="2024-10-07T22:51:58+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-11-24T01:34:32+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Services">
@@ -602,18 +602,9 @@
     <li><a href="#creating-a-service">Creating a service</a></li>
     <li><a href="#service-registration">Service Registration</a></li>
     <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
-    <li><a href="#targeting-a-service-action">Targeting a service action</a></li>
-    <li><a href="#request-data-and-response">Request Data and Response</a>
+    <li><a href="#actions">Actions</a>
       <ul>
-        <li><a href="#accessing-the-request-object-in-the-services">Accessing the Request object in the services</a></li>
-        <li><a href="#request-data">Request Data</a></li>
-        <li><a href="#action-response">Action Response.</a></li>
-      </ul>
-    </li>
-    <li><a href="#action-protection">Action protection</a>
-      <ul>
-        <li><a href="#globally-in-the-service">Globally in the service</a></li>
-        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+        <li><a href="#service-security">Service Security</a></li>
       </ul>
     </li>
     <li><a href="#error-handling">Error Handling</a></li>
@@ -636,18 +627,9 @@
     <li><a href="#creating-a-service">Creating a service</a></li>
     <li><a href="#service-registration">Service Registration</a></li>
     <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
-    <li><a href="#targeting-a-service-action">Targeting a service action</a></li>
-    <li><a href="#request-data-and-response">Request Data and Response</a>
+    <li><a href="#actions">Actions</a>
       <ul>
-        <li><a href="#accessing-the-request-object-in-the-services">Accessing the Request object in the services</a></li>
-        <li><a href="#request-data">Request Data</a></li>
-        <li><a href="#action-response">Action Response.</a></li>
-      </ul>
-    </li>
-    <li><a href="#action-protection">Action protection</a>
-      <ul>
-        <li><a href="#globally-in-the-service">Globally in the service</a></li>
-        <li><a href="#internally-in-the-action">Internally in the action</a></li>
+        <li><a href="#service-security">Service Security</a></li>
       </ul>
     </li>
     <li><a href="#error-handling">Error Handling</a></li>
@@ -670,19 +652,19 @@
 </div>
 
 <h1 id="introduction">Introduction</h1>
-<p>Services in Pionia Framework are central holders of business logic. This is where most of the work happens.
+<p>Services in Pionia Framework are central containers of business logic. This is where most of the work happens.
 Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area.
-Services are in actual PHP code, just php classes that extend the <code>BaseRestService</code>.
+Services are in actual PHP code, just php classes that extend the <code>Pionia\Http\Services\Service</code>.
 As you might already know, a class can have multiple methods. In Pionia we call these <code>Actions</code>. Therefore, henceforth, the terms <code>service</code> and <code>actions</code> will be used for the same meaning throughout the same guide.</p>
 <h2 id="creating-a-service">Creating a service<a href="#creating-a-service" class="anchor" aria-hidden="true">#</a> </h2>
-<p>You can create a service using our pionia console or manually. All services, as a convention, must be located in the <code>services</code> folder.</p>
+<p>You can create a service using our pionia console or manually. All services, as a convention, MUST be located in the <code>services</code> folder.</p>
 <div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>We recommend to name your services after your database tables. Example, if your table is called &lsquo;users&rsquo;, you can name your service &lsquo;UserService&rsquo;.</p>
-<p>If you are using our &lsquo;pionia console&rsquo;, then you can just name your service &lsquo;user&rsquo;. These are just conventions!</p>
+      <p>We recommend to name your services after your database tables. Example, if your table is called <code>users</code>, you can name your service <code>UserService</code>.</p>
+<p>If you are using our &lsquo;pionia console&rsquo;, then you can just name your service <code>user</code>. These are just conventions!</p>
 
     </div>
   </div>
@@ -719,14 +701,14 @@ As you might already know, a class can have multiple methods. In Pionia we call 
 </div>
 <p>Running the above command will prompt you for two options.</p>
 <ol>
-<li><code>Basic</code> - These are services that extend the <code>BaseRestService</code>. They are close to creating manual services.
+<li><code>Basic</code> - These are services that extend the <code>Pionia\Http\Services\Service</code>. They are close to creating manual services.
 If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want
 or let the cli add the default actions of <code>create</code>, <code>retrieve</code>, <code>update</code>, <code>delete</code> for you. Once you are done, the service will be created in the <code>services</code> folder.</li>
 </ol>
 <p>You can delete or add more actions as you see fit.</p>
 <ol start="2">
-<li><code>Generic</code> - These are services that extend the <code>GenericService</code>. They come with an entire CRUD logic out of the box.
-Once you select this option you will presented with a list of nine options to choose from. If you are not sure of what to select,
+<li><code>Generic</code> - These are services that extend the <code>Pionia\Http\Services\GenericService</code>. They come with an entire CRUD logic out of the box.
+Once you select this option you will be presented with a list of nine options to choose from. If you are not sure of what to select,
 just hit enter and the cli will select the default option for you which is the <code>UniversalGenericService</code>. This service comes with all the CRUD logic out of the box.</li>
 </ol>
 <p>Other Options are :-</p>
@@ -751,17 +733,55 @@ just hit enter and the cli will select the default option for you which is the <
 <ol>
 <li>Head over to your <code>services</code> folder.</li>
 <li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
-<li>Extend BaseRestService</li>
-<li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(ff your service is expecting files) and returning <code>BaseResponse</code>.</li>
-<li>Add your logic
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</li>
+<li>Extend Service</li>
+<li>Add your own actions each taking in <code>data</code>(post request data), <code>files</code>(if your service is expecting files) and returning <code>BaseResponse</code>.</li>
+<li>Add your logic</li>
 </ol>
+
+
+
+<div class="expressive-code">
+  <figure class="frame has-title not-content">
+  <figcaption class="header">
+    <span class="title">services\AuthService.php</span>
+  </figcaption>
+  <div class="highlight" title="services\AuthService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Exception</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\BaseResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\FileBag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AuthService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">  * getUserAction action
+</span></span></span><span class="line"><span class="cl"><span class="sd">  * @throws Exception
+</span></span></span><span class="line"><span class="cl"><span class="sd">  */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">protected</span> <span class="k">function</span> <span class="nf">retrieveUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nv">$user</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$user</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">         <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&#34;No user with id </span><span class="si">$id</span><span class="s2"> found.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$user</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 </div>
   </div>
 
@@ -771,7 +791,7 @@ just hit enter and the cli will select the default option for you which is the <
     
     <div class="callout-body">
       <p>Remember generic services target a base table.</p>
-<p>Therefore, you shall be asked the table you want to target. This is required.</p>
+<p>Therefore, you shall be asked the database table name you want to target. This is required.</p>
 <p>However, starting from version 1.1.7, you can target relationships too!</p>
 <p>You can read more about this in the <a href="/documentation/generic-services/">Generic Services Section</a>.</p>
 
@@ -780,7 +800,7 @@ just hit enter and the cli will select the default option for you which is the <
 </div>
 
 <h2 id="service-registration">Service Registration<a href="#service-registration" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Creating a service is not enough in Pionia. You also need to register it in our switcher to make it discoverable by the kernel.
+<p>Creating a service is not enough in Pionia. You also need to register it in any switch to make it discoverable by the kernel.
 Service registration happens in the associated switch.</p>
 <p>In the switches folder, find the switch you want to use for this service. You can add your service as below.</p>
 
@@ -792,17 +812,17 @@ Service registration happens in the associated switch.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// this is okay
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">AuthService</span><span class="p">(),</span> <span class="c1">// and this too
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="nx">AuthService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// and this too
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The <code>key</code> of this method is the name you shall use in your proceeding requests to access this service. Therefore, it must be unique!</p>
+<p>The <code>keys</code> of are the names you shall use in your proceeding requests to access/identify this service. Therefore, it must be unique per switch!</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
@@ -830,155 +850,6 @@ Service registration happens in the associated switch.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<h2 id="targeting-a-service-action">Targeting a service action<a href="#targeting-a-service-action" class="anchor" aria-hidden="true">#</a> </h2>
-<p>To target an action in a certain service, you need to define both the service and action as below.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;loginAuth&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// rest of your service data
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>The action in every request should match the name of your method in your service action. Pionia uses auto-discovery to automatically call the method passing in every required data needed for the request.</p>
-<p>The keys <code>SERVICE</code> and <code>ACTION</code> are reserved and should not be used for any other purpose in the request data.</p>
-<p>The same keys are case-sensitive and should be in uppercase.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="request-data-and-response">Request Data and Response<a href="#request-data-and-response" class="anchor" aria-hidden="true">#</a> </h2>
-<h3 id="accessing-the-request-object-in-the-services">Accessing the Request object in the services<a href="#accessing-the-request-object-in-the-services" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can access the request object in your service by calling the <code>$this-&gt;request</code> method on the service object. This returns the <code>Pionia\Request\Request</code> object.
-You can use this to access anything on the request.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="request-data">Request Data<a href="#request-data" class="anchor" aria-hidden="true">#</a> </h3>
-<h4 id="json-and-form-request-data">JSON and Form Request Data<a href="#json-and-form-request-data" class="anchor" aria-hidden="true">#</a> </h4>
-<p>An action takes <code>$data</code> as the first parameter which is an array of the request data. You can access you post data from this parameter.</p>
-<p>This consists of both JSON and form data. Therefore, you can access your data as below.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$email</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">];</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also access your request data from the <code>$this-&gt;request</code> object.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="nv">$allData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can also access the request method, headers, and other request data from the <code>$this-&gt;request</code> object.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$headers</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getHeaders</span><span class="p">();</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h4 id="multipart-datauploads">Multipart Data(Uploads)<a href="#multipart-datauploads" class="anchor" aria-hidden="true">#</a> </h4>
-<p>If your action expects multipart upload files, then you can get these from the second action parameter called <code>$files</code>.
-This is an associative array of all uploads.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">profileUpdates</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">,</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$files</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$profilePic</span> <span class="o">=</span> <span class="nv">$files</span><span class="p">[</span><span class="s1">&#39;profile_pik&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<blockquote>
-<p>NOTE: This does not consist of base64 encoded uploads, for those, they&rsquo;ll be part of the <code>$data</code>.</p>
-</blockquote>
-<h3 id="action-response">Action Response.<a href="#action-response" class="anchor" aria-hidden="true">#</a> </h3>
-<p>All actions must return a <code>Pionia\Response\BaseResponse</code> object. This is the object that is sent back to the client. You can use the <code>BaseResponse</code> object to send back a response with a status code, message, and data.</p>
-<p>A helper method <code>BaseResponse::JsonResponse</code> is provided to help you create a response object that is ready to be serialized to JSON.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Response\BaseResponse</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Todo fetched successfully&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
@@ -990,10 +861,9 @@ This is an associative array of all uploads.</p>
   </div>
 </div>
 
-<h2 id="action-protection">Action protection<a href="#action-protection" class="anchor" aria-hidden="true">#</a> </h2>
-<p>You can protect your actions by determining that they require only authenticated requests(users) to be accessed. You can do this in three ways.</p>
-<h3 id="globally-in-the-service">Globally in the service<a href="#globally-in-the-service" class="anchor" aria-hidden="true">#</a> </h3>
-<h4 id="entire-service">Entire service<a href="#entire-service" class="anchor" aria-hidden="true">#</a> </h4>
+<h2 id="actions">Actions<a href="#actions" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You can read more about actions in the <a href="/documentation/services/actions/">actions section</a>.</p>
+<h3 id="service-security">Service Security<a href="#service-security" class="anchor" aria-hidden="true">#</a> </h3>
 <p>You can mark an entire service as requiring authentication by setting the <code>$serviceRequiresAuth</code> parameter to <code>true</code>.</p>
 
 
@@ -1004,7 +874,7 @@ This is an associative array of all uploads.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$serviceRequiresAuth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">// all actions in this service require authentication.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1012,6 +882,7 @@ This is an associative array of all uploads.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
+<p>If the flag is set to true, all actions in the service will require authentication. This means that only authenticated users will be able to access the service.</p>
 <h4 id="specific-actions">Specific actions<a href="#specific-actions" class="anchor" aria-hidden="true">#</a> </h4>
 <p>You can also mark specific actions in a service as requiring authentication. Use the <code>$actionsRequiringAuth</code> parameter and add action names of actions that should be reached by authenticated users only.</p>
 <p>This, unlike <code>$serviceRequiresAuth</code>, will only protect the actions listed in the array not the entire service.</p>
@@ -1024,7 +895,7 @@ This is an associative array of all uploads.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$actionsRequiringAuth</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
@@ -1032,42 +903,6 @@ This is an associative array of all uploads.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="internally-in-the-action">Internally in the action<a href="#internally-in-the-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>You can also call the <code>mustAuthenticate</code> method anywhere in your action, preferably the first line in the action method.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// your other actions here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">functon</span> <span class="nx">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span> <span class="c1">// only authenticated will exceed this point.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// rest of actions logic
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>Details of how Pionia achieves authentication and authorization can be found in the <a href="/documentation/security-authentication-and-authorization/">authentication section</a>.</p>
-
-    </div>
-  </div>
-</div>
-
 <h2 id="error-handling">Error Handling<a href="#error-handling" class="anchor" aria-hidden="true">#</a> </h2>
 <p>According to Moonlight architecture, all requests should return a 200 Ok status code. This is because the client should
 be able to know if the request was successful or not by checking the <code>returnCode</code> in the response body.</p>
@@ -1088,17 +923,17 @@ as the <code>returnMessage</code>.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">getTodo</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">getTodoAction</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="k">null</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">blank</span><span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))){</span>
 </span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s1">&#39;Todo id is required&#39;</span><span class="p">);</span> <span class="c1">// will be caught globally!
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// rest of actions logic
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Todo fetched successfully&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Todo fetched successfully&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -1115,7 +950,7 @@ This is useful when you want to deactivate an action in a service without deleti
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">BaseRestService</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TodoService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$deactivatedActions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getTodo&#39;</span><span class="p">];</span> <span class="c1">// one or more actions to deactivate.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1136,9 +971,9 @@ This is useful when you want to deactivate an action in a service without deleti
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/71db90c9c867145fe6f2a20b9fb6cf9abb9157fe">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/b5628d42dbe0fb9932340ef1dcd463db6c7ae62b">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on October 7, 2024
+      Last updated on November 24, 2024
     </a>
   </div>
 
@@ -1236,8 +1071,8 @@ This is useful when you want to deactivate an action in a service without deleti
     
 
 <script async
-  src="/js/app.5fd4402d5abf9fec2a85688e229fbac623573b4c8fb3e159fc725dfa07120ad8.js"
-  integrity="sha256-X9RALVq/n&#43;wqhWiOIp&#43;6xiNXO0yPs&#43;FZ/HJd&#43;gcSCtg=">
+  src="/js/app.fee9f8ec7475f74b15d2b2c76604e00670c577ef11ab1b2c92344ab979b9ace4.js"
+  integrity="sha256-/un47HR190sV0rLHZgTgBnDFd&#43;8RqxsskjRKuXm5rOQ=">
 </script>
 
 
@@ -1245,12 +1080,12 @@ This is useful when you want to deactivate an action in a service without deleti
 
 
 <script async
-  src="/js/flexsearch.a43ad3e9453067320ab808b85ef437fc65518a219cfea8499e744b7b6f0b6924.js"
-  integrity="sha256-pDrT6UUwZzIKuAi4XvQ3/GVRiiGc/qhJnnRLe28LaSQ=">
+  src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
+  integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">
 </script>
 <script async
-  src="/js/search-modal.543117a85590123cda9e96d1fcbf8bd22fc1a3a3ca3d31a816382f0f10f30a34.js"
-  integrity="sha256-VDEXqFWQEjzanpbR/L&#43;L0i/Bo6PKPTGoFjgvDxDzCjQ=">
+  src="/js/search-modal.bbdea845b287fc7f22a081c11a25b5bbfa96e74e43b36be5733f16439caf46be.js"
+  integrity="sha256-u96oRbKH/H8ioIHBGiW1u/qW505Ds2vlcz8WQ5yvRr4=">
 </script>
 
     <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">

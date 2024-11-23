@@ -374,14 +374,14 @@ class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
 
-    public function create(): BaseResponse
+    public function createAction(): BaseResponse
     {
         // Your custom logic here
         $data = $this->request->getData();
 
         // perform your own way of creating the record
 
-        return BaseResponse::JsonResponse(0, "your message", $data);
+        return response(0, "your message", $data);
     }
 }
 ```
@@ -406,7 +406,7 @@ class StudentService extends RetrieveCreateUpdateService
 
         // perform your own custom action
 
-        return BaseResponse::JsonResponse(0, "your message", $data);
+        return response(0, "your message", $data);
     }
 }
 ```
@@ -416,7 +416,7 @@ You can now call this action in your request by setting the `ACTION` key to `cus
 ```json
 {
   "SERVICE": "student",
-  "ACTION": "custom_action"
+  "ACTION": "custom-action"
 }
 ```
 
@@ -618,4 +618,4 @@ The generic services are there to help you with the CRUD operations. They are th
 
 You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.
 
-This is all to turbo charge your development process which is the main goal of Pionia.
+This is all to turbocharge your development process which is the main goal of Pionia.
