@@ -1178,14 +1178,14 @@ for pagination to kick in, otherwise, each will perform its respective duty with
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;students&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span><span class="o">:</span> <span class="nx">BaseResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">()</span><span class="o">:</span> <span class="nx">BaseResponse</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// Your custom logic here
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// perform your own way of creating the record
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1214,7 +1214,7 @@ This is just normal PHP OOP inheritance.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// perform your own custom action
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">BaseResponse</span><span class="o">::</span><span class="na">JsonResponse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;your message&#34;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1230,7 +1230,7 @@ This is just normal PHP OOP inheritance.</p>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;student&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;custom_action&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;custom-action&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
@@ -1484,7 +1484,7 @@ You can use it as you see fit. The object that is returned from this hook is wha
 <h2 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true">#</a> </h2>
 <p>The generic services are there to help you with the CRUD operations. They are there to help you focus on the complex business logic.</p>
 <p>You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.</p>
-<p>This is all to turbo charge your development process which is the main goal of Pionia.</p>
+<p>This is all to turbocharge your development process which is the main goal of Pionia.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">

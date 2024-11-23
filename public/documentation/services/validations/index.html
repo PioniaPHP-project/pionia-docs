@@ -14,8 +14,8 @@
 
 <link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
 
-<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/services/actions/">
-  <link rel="canonical" href="http://localhost:1313/documentation/services/actions/">
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/services/validations/">
+  <link rel="canonical" href="http://localhost:1313/documentation/services/validations/">
 <title>Services</title>
 <meta name="description" content="Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!">
 
@@ -43,15 +43,15 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Actions">
+<meta property="og:title" content="Validations">
 <meta property="og:description" content="Getting started with Pionia Service Actions">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/services/actions/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
+<meta property="og:url" content="http://localhost:1313/documentation/services/validations/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-10-07T20:24:56+03:00">
-<meta property="article:modified_time" content="2024-10-07T22:51:58+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2024-10-07T20:24:56+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Actions">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Validations">
 <meta name="twitter:description" content="Getting started with Pionia Service Actions">
 <meta name="twitter:site" content="@pionia">
 
@@ -89,7 +89,7 @@
      },
      {
        "@type": "ListItem",
-       "name": "Actions",
+       "name": "Validations",
        "position": 5
      }
    ]
@@ -180,8 +180,12 @@
       <a href="/documentation/services/services/">Services</a>
   </li>
 
+  <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
   <li class="active" >
-      <a aria-current="page" href="/documentation/services/actions/">Actions</a>
+      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
   </li>
 
   <li>
@@ -470,8 +474,12 @@
       <a href="/documentation/services/services/">Services</a>
   </li>
 
+  <li>
+      <a href="/documentation/services/actions/">Actions</a>
+  </li>
+
   <li class="active" >
-      <a aria-current="page" href="/documentation/services/actions/">Actions</a>
+      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
   </li>
 
   <li>
@@ -629,17 +637,6 @@
         <li><a href="#validatestring-key-arrayable--request--service-requestdata">validate(string $key, Arrayable | Request | Service $requestData)</a></li>
       </ul>
     </li>
-    <li><a href="#response">Response</a></li>
-    <li><a href="#returning-cached-responses">Returning Cached Responses</a></li>
-    <li><a href="#error-handling">Error Handling</a></li>
-    <li><a href="#securing-actions">Securing Actions</a>
-      <ul>
-        <li><a href="#mustauthenticatestring-message">mustAuthenticate(?string $message)</a></li>
-        <li><a href="#canstring-permission-string-message">can(string $permission, ?string $message)</a></li>
-        <li><a href="#canallarray-permissions-string-message">canAll(array $permissions, ?string $message)</a></li>
-        <li><a href="#cananyarray-permissions-string-message">canAny(array $permissions, ?string $message)</a></li>
-      </ul>
-    </li>
   </ul>
 </nav>
 </div>
@@ -647,7 +644,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>Actions</h1>
+			<h1>Validations</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -683,17 +680,6 @@
       <ul>
         <li><a href="#requiresstring--array-keys">requires(string | array $keys)</a></li>
         <li><a href="#validatestring-key-arrayable--request--service-requestdata">validate(string $key, Arrayable | Request | Service $requestData)</a></li>
-      </ul>
-    </li>
-    <li><a href="#response">Response</a></li>
-    <li><a href="#returning-cached-responses">Returning Cached Responses</a></li>
-    <li><a href="#error-handling">Error Handling</a></li>
-    <li><a href="#securing-actions">Securing Actions</a>
-      <ul>
-        <li><a href="#mustauthenticatestring-message">mustAuthenticate(?string $message)</a></li>
-        <li><a href="#canstring-permission-string-message">can(string $permission, ?string $message)</a></li>
-        <li><a href="#canallarray-permissions-string-message">canAll(array $permissions, ?string $message)</a></li>
-        <li><a href="#cananyarray-permissions-string-message">canAny(array $permissions, ?string $message)</a></li>
       </ul>
     </li>
   </ul>
@@ -737,7 +723,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
+</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here 
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
@@ -1242,359 +1228,10 @@ If no exception is provided, a normal php Exception is thrown with the message <
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>You can find a complete list of validators <a href="/documentation/services/validations/">here</a>.</p>
-<h2 id="response">Response<a href="#response" class="anchor" aria-hidden="true">#</a> </h2>
-<p>All actions must return an instance of <code>Pionia\Http\Response\BaseResponse</code>. The <code>BaseResponse</code> class provides a way to return a response to the client that conforms to the <a href="/moonlight/introduction-to-moonlight-architecture/">Moonlight Paradigm</a>.</p>
-<p>Here is an example of how to return a response in an action method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\BaseResponse</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Login successful&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some token here&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The response has three parts:</p>
-<ol>
-<li><strong>The status code - <code>returnCode</code></strong>: This is a number that represents the status of the response. A status code of <code>0</code> means the request was successful. Any other status code means there was an error.
-You can therefore return and modify status codes as per your business requirements. <code>0</code> SHOULD be reserved for successful requests as a standard.</li>
-<li><strong>The message - <code>returnMessage</code></strong>: This is a string that provides additional information about the response. The message is optional and can be nulled if not needed.</li>
-<li><strong>The data - <code>returnData</code></strong>: This is any data that you want to return to the client. The data can be an array, object, or any other data type.</li>
-</ol>
-<p>There is also an extra fourth parameter that can be used to pass extra data - <code>extraData</code> to the response. This is optional and can be used to pass additional data to the response.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\BaseResponse</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Login successful&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some token&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;extra&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some extra data&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>Only the <code>returnCode</code> is required in the response. The <code>returnMessage</code>, <code>returnData</code> and <code>extraData</code> are optional and can be nulled if not needed.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="returning-cached-responses">Returning Cached Responses<a href="#returning-cached-responses" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia provides a way to return cached responses to the client. This is useful when you want to cache the response of an action to reduce the load on the server.</p>
-<p>This can be achieved by replacing the <code>response</code> method with the recached method. The <code>recached</code> method takes the same parameters as the <code>response</code> method.</p>
-<p>Here is an example of how to return a cached response in an action method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">recached</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nx">returnCode</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">returnMessage</span><span class="o">:</span> <span class="s2">&#34;hey there&#34;</span><span class="p">,</span> <span class="nx">returnData</span><span class="o">:</span> <span class="nv">$todo</span><span class="p">,</span> <span class="nx">extraData</span><span class="o">:</span> <span class="k">null</span><span class="p">,</span> <span class="nx">ttl</span><span class="o">:</span><span class="mi">120</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Note that the <code>recached</code> method takes an additional parameter <code>ttl</code> which is the time to live of the cached response in seconds. The default value is 60 seconds.</p>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>The <code>recached</code> method caches the response of the action for the specified time. If the same request is made within the specified time, the cached response is returned to the client.
-And this is how Pionia handles caching of responses even over <code>POST</code> requests.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="error-handling">Error Handling<a href="#error-handling" class="anchor" aria-hidden="true">#</a> </h2>
-<p>In Pionia, whenever and wherever an exception is thrown in an action or anywhere in the app, it is caught and a response is returned to the client. The response conforms to the <a href="/moonlight/introduction-to-moonlight-architecture/">Moonlight Paradigm</a>.</p>
-<p>This ensures that a status code of 200 OK is always returned to the client whenever a request reaches the application server.</p>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>The exception message is returned as the <code>returnMessage</code> in the response with a non-zero <code>returnCode</code>. The <code>returnData</code> is nulled in the response.</p>
-
-    </div>
-  </div>
-</div>
-
-<h2 id="securing-actions">Securing Actions<a href="#securing-actions" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia provides a way to secure actions using various methods.</p>
-<p>The following are some of the ways you can secure actions in Pionia:</p>
-<h3 id="mustauthenticatestring-message">mustAuthenticate(?string $message)<a href="#mustauthenticatestring-message" class="anchor" aria-hidden="true">#</a> </h3>
-<p>The <code>mustAuthenticate</code> method is used to secure an action by ensuring that the request is authenticated. If the request is not authenticated, an exception is thrown and the response is returned to the client.</p>
-<p>Here is an example of how to use the <code>mustAuthenticate</code> method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mustAuthenticate</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-  </figure>
-</div>
-<p>Anything beyond line 11 will not be executed if the request is not authenticated.</p>
-<p>By default, the <code>mustAuthenticate</code> method throws an exception with the message <code>You must be authenticated to access this resource</code>. You can provide a custom message as a parameter to the <code>mustAuthenticate</code> method.</p>
-<h3 id="canstring-permission-string-message">can(string $permission, ?string $message)<a href="#canstring-permission-string-message" class="anchor" aria-hidden="true">#</a> </h3>
-<p>The <code>can</code> method is used to secure an action by ensuring that the request has the specified permission. If the request does not have the specified permission, an exception is thrown and the response is returned to the client.</p>
-<p>Here is an example of how to use the <code>can</code> method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">can</span><span class="p">(</span><span class="s1">&#39;view_users&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-  </figure>
-</div>
-<p>Anything beyond line 10 will not be executed if the incoming request user instance does not have the specified permission.</p>
-<p>By default, the <code>can</code> method throws an exception with the message <code>You do not have permission to access this resource</code>. You can provide a custom message as a second parameter to the <code>can</code> method to override this behaviour.</p>
-<h3 id="canallarray-permissions-string-message">canAll(array $permissions, ?string $message)<a href="#canallarray-permissions-string-message" class="anchor" aria-hidden="true">#</a> </h3>
-<p>Similar to the <code>can</code> method, the <code>canAll</code> method is used to secure an action by ensuring that the request has all the specified permissions. If the request does not have all the specified permissions, an exception is thrown and the response is returned to the client.</p>
-<p>Here is an example of how to use the <code>canAll</code> method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">canAll</span><span class="p">([</span><span class="s1">&#39;view_users&#39;</span><span class="p">,</span> <span class="s1">&#39;edit_users&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-  </figure>
-</div>
-<p>Anything beyond line 10 will not be executed if the incoming request user instance does not have all the specified permissions.</p>
-<p>The user must have all the permissions specified in the array for the action to proceed.</p>
-<p>By default, the <code>canAll</code> method throws an exception with the message <code>You do not have permission to access this resource</code>. You can provide a custom message as a second parameter to the <code>canAll</code> method to override this behaviour.</p>
-<h3 id="cananyarray-permissions-string-message">canAny(array $permissions, ?string $message)<a href="#cananyarray-permissions-string-message" class="anchor" aria-hidden="true">#</a> </h3>
-<p>Similar to the <code>can</code> method, the <code>canAny</code> method is used to secure an action by ensuring that the request has any of the specified permissions. If the request does not have any of the specified permissions, an exception is thrown and the response is returned to the client.</p>
-<p>Here is an example of how to use the <code>canAny</code> method:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">canAny</span><span class="p">([</span><span class="s1">&#39;view_users&#39;</span><span class="p">,</span> <span class="s1">&#39;edit_users&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-  </figure>
-</div>
-<p>Anything beyond line 10 will not be executed if the incoming request user instance does not have any of the specified permissions.</p>
-<p>The user must have any of the permissions specified in the array for the action to proceed.</p>
-<p>By default, the <code>canAny</code> method throws an exception with the message <code>You do not have permission to access this resource</code>. You can provide a custom message as a second parameter to the <code>canAny</code> method to override this behaviour.</p>
-<div class="callout callout-danger d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>The methods <code>can</code>, <code>canAll</code>, and <code>canAny</code> check for <code>mustAuthenticate()</code> before proceeding with the permission checks. If the request is not authenticated, the permission checks are not executed. You therefore do not need to call <code>mustAuthenticate()</code> before calling <code>can</code>, <code>canAll</code>, or <code>canAny</code>.</p>
-
-    </div>
-  </div>
-</div>
-
+<p>You can find a complete list of validators <a href="/documentation/services/validation/">here</a>.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/71db90c9c867145fe6f2a20b9fb6cf9abb9157fe">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Last updated on October 7, 2024
-    </a>
-  </div>
-
+				
 				
 
 
@@ -1613,7 +1250,7 @@ And this is how Pionia handles caching of responses even over <code>POST</code> 
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/services/actions.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/services/validation.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -1636,7 +1273,7 @@ And this is how Pionia handles caching of responses even over <code>POST</code> 
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/services/services/" class="stretched-link text-reset text-decoration-none">Services</a>
+					<a href="/documentation/services/actions/" class="stretched-link text-reset text-decoration-none">Actions</a>
 				</div>
 			</div>
 		</div>
