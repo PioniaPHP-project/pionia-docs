@@ -592,7 +592,35 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#coming-soon">Coming soon!</a></li>
+    <li><a href="#adding-custom-commands">Adding Custom Commands</a>
+      <ul>
+        <li><a href="#command-namespace">Command Namespace</a></li>
+        <li><a href="#command-title">Command Title</a></li>
+        <li><a href="#command-description">Command Description</a></li>
+        <li><a href="#command-help-message">Command Help Message</a></li>
+        <li><a href="#command-aliases">Command Aliases</a></li>
+        <li><a href="#command-arguments">Command Arguments</a></li>
+        <li><a href="#command-options">Command Options</a></li>
+        <li><a href="#handle-method">handle() Method</a></li>
+        <li><a href="#registering-the-command">Registering the Command</a></li>
+      </ul>
+    </li>
+    <li><a href="#inbuilt-commands">Inbuilt Commands</a>
+      <ul>
+        <li><a href="#list-commands">List Commands</a></li>
+        <li><a href="#help-command">Help Command</a></li>
+        <li><a href="#serve-command">Serve Command</a></li>
+        <li><a href="#make-commands">Make Commands</a></li>
+        <li><a href="#make-auth-command">Make Auth Command</a></li>
+        <li><a href="#make-service-command">Make Service Command</a></li>
+        <li><a href="#make-middleware-command">Make Middleware Command</a></li>
+        <li><a href="#make-switch-command">Make Switch Command</a></li>
+        <li><a href="#list-app-aliases-command">List App Aliases Command</a></li>
+        <li><a href="#clear-cache-command">Clear Cache Command</a></li>
+        <li><a href="#delete-cache-command">Delete Cache Command</a></li>
+        <li><a href="#prune-cache-command">Prune Cache Command</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </div>
@@ -608,14 +636,393 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#coming-soon">Coming soon!</a></li>
+    <li><a href="#adding-custom-commands">Adding Custom Commands</a>
+      <ul>
+        <li><a href="#command-namespace">Command Namespace</a></li>
+        <li><a href="#command-title">Command Title</a></li>
+        <li><a href="#command-description">Command Description</a></li>
+        <li><a href="#command-help-message">Command Help Message</a></li>
+        <li><a href="#command-aliases">Command Aliases</a></li>
+        <li><a href="#command-arguments">Command Arguments</a></li>
+        <li><a href="#command-options">Command Options</a></li>
+        <li><a href="#handle-method">handle() Method</a></li>
+        <li><a href="#registering-the-command">Registering the Command</a></li>
+      </ul>
+    </li>
+    <li><a href="#inbuilt-commands">Inbuilt Commands</a>
+      <ul>
+        <li><a href="#list-commands">List Commands</a></li>
+        <li><a href="#help-command">Help Command</a></li>
+        <li><a href="#serve-command">Serve Command</a></li>
+        <li><a href="#make-commands">Make Commands</a></li>
+        <li><a href="#make-auth-command">Make Auth Command</a></li>
+        <li><a href="#make-service-command">Make Service Command</a></li>
+        <li><a href="#make-middleware-command">Make Middleware Command</a></li>
+        <li><a href="#make-switch-command">Make Switch Command</a></li>
+        <li><a href="#list-app-aliases-command">List App Aliases Command</a></li>
+        <li><a href="#clear-cache-command">Clear Cache Command</a></li>
+        <li><a href="#delete-cache-command">Delete Cache Command</a></li>
+        <li><a href="#prune-cache-command">Prune Cache Command</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<h2 id="coming-soon">Coming soon!<a href="#coming-soon" class="anchor" aria-hidden="true">#</a> </h2>
+			<p>Pionia CLI is a command-line interface that allows you to interact with Pionia. It is a tool that helps you to manage your Pionia instance. It is a powerful tool that allows you to perform various operations on your Pionia instance. This guide will help you understand the available commands in Pionia CLI and how you can add your custom commands.</p>
+<p>Pionia CLI also extends <code>PioniaApplication</code> instance in your <code>bootstrap/application.php</code>. This means you can access all the methods and properties of the <code>PioniaApplication</code> instance in your custom commands.</p>
+<h2 id="adding-custom-commands">Adding Custom Commands<a href="#adding-custom-commands" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Pionia Commmands extend the <code>Pionia\Console\BaseCommand</code> class. This class provides a set of methods that you can use to interact with the command line. To create a new command, you need to create a new class that extends the <code>BaseCommand</code> class. The class should be placed in the <code>commands</code> directory. However much you can create these commands manually, Pionia CLI provides a command that you can use to generate a new command.</p>
+<p>To create a new command, you can run the following command:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:command PasswordGenerator</span></span></code></pre></div>
+  </figure>
+</div>
+<p>This is an interactive command that will ask you to provide the name, title, help message, description, options, the command namespace and many more of the command.</p>
+<h3 id="command-namespace">Command Namespace<a href="#command-namespace" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Commands are grouped into namesapces such as <code>auth</code>, <code>make</code> <code>app</code> and you can also create your own namespace and add your commands there. The namespace is used to group related commands together. The namespace is the first part of the command name. For example, in the command <code>make:command</code>, <code>make</code> is the namespace.</p>
+<p>If you do not provide a namespace for your command, it will be placed in the <code>custom</code> namespace.</p>
+<p>For our command above, let&rsquo;s add in the <code>security</code> namespace. The command name will be <code>security:PasswordGenerator</code>.</p>
+<h3 id="command-title">Command Title<a href="#command-title" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The title is the name of the command that will be displayed in the list of available commands. It should be a human-readable name that describes the command.</p>
+<p>Let&rsquo;s name our command <code>Password Generator</code>.</p>
+<h3 id="command-description">Command Description<a href="#command-description" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The description is a brief description of what the command does. It should be a short description that explains the purpose of the command.</p>
+<p>In our description prompt, we can write <code>Generate a random password in Pionia</code>.</p>
+<h3 id="command-help-message">Command Help Message<a href="#command-help-message" class="anchor" aria-hidden="true">#</a> </h3>
+<p>The help message is a detailed description of how to use the command. It should explain the arguments, options, and usage of the command.</p>
+<p>In our help message prompt, we can write <code>This command generates a random password with the specified length. You can specify the length of the password using the --length option. If no length is specified, a password of length 10 will be generated.</code></p>
+<h3 id="command-aliases">Command Aliases<a href="#command-aliases" class="anchor" aria-hidden="true">#</a> </h3>
+<p>From the command we have, writing <code>php pionia security:PasswordGenerator</code> is quite long. We can add aliases to the command to make it easier to run the command. You can add multiple aliases here to make it easier to run the command.</p>
+<p>In our aliases prompt, let&rsquo;s add <code>gen-pwd</code> as aliases. The CLI will prompt you to add more aliases if you want.</p>
+<p>Now on, you can run the command using <code>php pionia gen-pwd</code>.</p>
+<h3 id="command-arguments">Command Arguments<a href="#command-arguments" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Arguments are the values that are passed to the command when it is run. You can specify the arguments that the command accepts. You can also specify whether the argument is required or optional.</p>
+<p>In our case, we might not need any arguments, so we can skip this step. However, any arguments identified will be prompted to you when you run the command.</p>
+<p>Arguments can also be shortened by passing the <code>short argument</code> which implies that you can pass the argument by a single character instead of writing the entire string.</p>
+<p>Arguments must be described too. A description of the argument helps the user to understand what the argument is used for.</p>
+<h3 id="command-options">Command Options<a href="#command-options" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Options are the flags that can be passed to the command when it is run. You can specify the options that the command accepts. You can also specify whether the option is required or optional.</p>
+<p>For our case, we can add an option for the length of the password. The argument should be named <code>length</code> and should be optional. The CLI will prompt you to add more arguments if you want.</p>
+<p>Options can also be shortened by passing the <code>short option</code> which implies that you can pass the option using <code>-l</code> instead of <code>--length</code>.</p>
+<p>Options must be described too. For our case, we can write <code>The length of the password to generate, defaults to 10</code></p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p>Optional arguments and options can have default values. If the user does not provide a value for the argument or option, the default value will be used.</p>
+
+    </div>
+  </div>
+</div>
+
+<p>For our case, we can set the default value for the length option to 10.</p>
+<p>On complete setup, the command will generate a new command class in the <code>commands</code> directory. The class will look like below:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame has-title not-content">
+  <figcaption class="header">
+    <span class="title">commands/PasswordGeneratorCommand.php</span>
+  </figcaption>
+  <div class="highlight" title="commands/PasswordGeneratorCommand.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">   * This command is auto-generated from pionia cli.
+</span></span></span><span class="line"><span class="cl"><span class="sd">   */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">namespace</span> <span class="nx">Application\Commands</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">use</span> <span class="nx">Pionia\Console\BaseCommand</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">use</span> <span class="nx">Symfony\Component\Console\Command\Command</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">use</span> <span class="nx">Symfony\Component\Console\Input\InputArgument</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">use</span> <span class="nx">Symfony\Component\Console\Input\InputOption</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">class</span> <span class="nc">PasswordGeneratorCommand</span> <span class="k">extends</span> <span class="nx">BaseCommand</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** The aliases for the command. */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">array</span> <span class="nv">$aliases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gen-pwd&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** The help message for the command. */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$help</span> <span class="o">=</span> <span class="s1">&#39;This command generates a random password with the specified length. You can specify the length of the password using the --length option. If no length is specified, a password of length 10 will be generated.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** The description of the command. */</span>
+</span></span><span class="line"><span class="cl">   <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;Generate a random password in Pionia&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** The title of the command. */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$title</span> <span class="o">=</span> <span class="s1">&#39;Password Generator&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** The name of the command. */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s1">&#39;security:PasswordGenerator&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get the console command arguments.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getArguments</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get the console command options.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getOptions</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="nx">InputOption</span><span class="o">::</span><span class="na">VALUE_OPTIONAL</span><span class="p">,</span> <span class="s1">&#39;The length of the password to generate, defaults to 10&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Execute the console command.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">option</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Add your logic here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">Command</span><span class="o">::</span><span class="na">SUCCESS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="handle-method">handle() Method<a href="#handle-method" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This where your command logic sits, if you defined any arguments or options, you can access them using <code>$this-&gt;argument('argument_name')</code> or <code>$this-&gt;option('option_name')</code>.</p>
+<p>In our case, we can access the length option using <code>$this-&gt;option('length')</code>.</p>
+<p>You can create other helper methods in the command class to help you with the command logic.</p>
+<p>For our case, let&rsquo;s add the folllowing code to generate a random password</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">  <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">   * @throws RandomException
+</span></span></span><span class="line"><span class="cl"><span class="sd">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">function</span> <span class="nf">generateRandomString</span><span class="p">(</span><span class="nv">$length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$characters</span> <span class="o">=</span> <span class="s1">&#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$charactersLength</span> <span class="o">=</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$characters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$randomString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$length</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">$randomString</span> <span class="o">.=</span> <span class="nv">$characters</span><span class="p">[</span><span class="nx">random_int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$charactersLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nv">$randomString</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>We can now complete our handle method as follows:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Execute the console command.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws RandomException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$length</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">argument</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Add your logic here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$string</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateRandomString</span><span class="p">(</span><span class="nv">$length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">Command</span><span class="o">::</span><span class="na">SUCCESS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="registering-the-command">Registering the Command<a href="#registering-the-command" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Commands must be registered under the <code>[commands]</code> section in any of the <code>.ini</code> files. However, if your command was generated via the cli automatically, it will be registered automatically in the <code>generated.ini</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[commands]</span>
+</span></span><span class="line"><span class="cl"><span class="na">security:PasswordGenerator</span> <span class="o">=</span> <span class="s">&#34;Application\Commands\PasswordGeneratorCommand&#34;</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>To see our command, we can now run the following command:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia list</span></span></code></pre></div>
+  </figure>
+</div>
+<p>This command will display all the available commands in Pionia CLI. You should see your command listed there.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Available Commands:
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl">  security
+</span></span><span class="line"><span class="cl">    security:PasswordGenerator  Generate a random password in Pionia
+</span></span><span class="line"><span class="cl">  ...</span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can now run your command using the following command:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia gen-pwd</span></span></code></pre></div>
+  </figure>
+</div>
+<p>This will generate a random string in your terminal.</p>
+<p>To pass the length of the password, you can use the <code>--length</code> option:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia gen-pwd --length<span class="o">=</span><span class="m">20</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="inbuilt-commands">Inbuilt Commands<a href="#inbuilt-commands" class="anchor" aria-hidden="true">#</a> </h2>
+<p>To view the available commands in Pionia CLI, you can run the following command:</p>
+<h3 id="list-commands">List Commands<a href="#list-commands" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia list</span></span></code></pre></div>
+  </figure>
+</div>
+<p>This command will display all the available commands in Pionia CLI. You can also get help for a specific command by running the following command:</p>
+<h3 id="help-command">Help Command<a href="#help-command" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia <span class="nb">help</span> &lt;command&gt;</span></span></code></pre></div>
+  </figure>
+</div>
+<p>The above command will display the help message, description, arguments,  usage, and options for the specified command.</p>
+<p>As of now, the following commands are available in Pionia CLI:</p>
+<h3 id="serve-command">Serve Command<a href="#serve-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>serve</code>: This command is used to start the Pionia development server. It will start the server on the specified port or retry on the next available port if the specified port is already in use. It can be aliased as <code>php pionia server</code>, <code>php pionia run</code>, <code>php pionia start</code>. Also, you can specify the port number using the <code>--port</code> option.</p>
+<p>Usage: <code>php pionia serve --port=8000</code></p>
+</li>
+</ul>
+<h3 id="make-commands">Make Commands<a href="#make-commands" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>make:command &lt;name&gt;</code>: This command is used to create a new command in your Pionia instance. It will create a new command class in the <code>app/Commands</code> directory. You can specify the name of the command as an argument.</p>
+<p>Usage: <code>php pionia make:command MyCommand</code>
+Details on how to generate a new custom command can be found in the <a href="#adding-custom-commands">adding custom commnds section</a>.</p>
+</li>
+</ul>
+<h3 id="make-auth-command">Make Auth Command<a href="#make-auth-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>make:auth &lt;name&gt;</code>: This command is used to a new Authentication Backend in your Pionia instance. It will create a new Authentication class in the <code>authentications</code> directory. You can specify the name of the Authentication as an argument.</p>
+<p>Usage: <code>php pionia make:auth jwt</code></p>
+</li>
+</ul>
+<h3 id="make-service-command">Make Service Command<a href="#make-service-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>make:service &lt;name&gt;</code>: This command is used to create a new service in your application. It will create a new service class in the <code>services</code> directory. You can specify the name of the service as an argument. It can also be used to create both <code>generic</code> and <code>basic</code> services.</p>
+<p>Usage: <code>php pionia make:service auth</code> will generate <code>AuthService</code></p>
+</li>
+</ul>
+<h3 id="make-middleware-command">Make Middleware Command<a href="#make-middleware-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>make:middleware &lt;name&gt;</code>: This command is used to create a new middleware in your application. It will create a new middleware class in the <code>middlewares</code> directory. You can specify the name of the middleware as an argument.</p>
+<p>Usage: <code>php pionia make:middleware slackLogger</code></p>
+</li>
+</ul>
+<h3 id="make-switch-command">Make Switch Command<a href="#make-switch-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>make:switch &lt;name&gt;</code>: This command is used to create a new switch in your application. It will create a new switch class in the <code>switches</code> directory. You can specify the name of the switch as an argument. The <code>name</code> argument should be pointing to the version of the switch. If you&rsquo;re creating a switch for <code>/api/v2</code>, the name should be <code>v2</code>.
+Remember: Switches are used to group together services under the same version of your API.</p>
+<p>Usage: <code>php pionia make:switch v3</code>, will create <code>v3Switch</code> in the <code>switches</code> folder.</p>
+</li>
+</ul>
+<h3 id="list-app-aliases-command">List App Aliases Command<a href="#list-app-aliases-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>app:aliases</code>: This command is used to list all the available aliases in your application. It will display all the inbuilt and custom aliases.</p>
+<p>Usage: <code>php pionia app:aliases</code></p>
+</li>
+</ul>
+<h3 id="clear-cache-command">Clear Cache Command<a href="#clear-cache-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>cache:clear</code>: This command is used to clear the cache in your application no matter the caching driver used.</p>
+<p>Usage: <code>php pionia cache:clear</code></p>
+</li>
+</ul>
+<h3 id="delete-cache-command">Delete Cache Command<a href="#delete-cache-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>cache:delete &lt;key&gt;</code>: This command is used to delete a specific key from the cache in your application no matter the caching driver used.</p>
+<p>Usage: <code>php pionia cache:delete myCachedKey</code></p>
+</li>
+</ul>
+<h3 id="prune-cache-command">Prune Cache Command<a href="#prune-cache-command" class="anchor" aria-hidden="true">#</a> </h3>
+<ul>
+<li>
+<p><code>cache:prune</code>: This command is used to prune the cache in your application no matter the caching driver used. Pruning the cache will remove all expired/stale cache items.</p>
+<p>Usage: <code>php pionia cache:prune</code></p>
+</li>
+</ul>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
