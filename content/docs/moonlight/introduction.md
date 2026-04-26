@@ -24,7 +24,7 @@ Below are the new conventions that MoonLight architecture brings to the table:
 
 Architecture Overview
 
-<img src="./image.png" alt="Moonlight Architecture Overview">
+<img src="images/architecture.png" alt="Moonlight Architecture Overview">
 <!-- add a video showing the same here -->
 
 ### 1. Single API endpoint/route
