@@ -1,6 +1,7 @@
 ---
 title: "Generic Services"
-parent: "documentation"
+slug: "generic-services"
+parent: "services"
 description: "Guides you through services processing in Pionia Framework."
 summary: "All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia."
 date: 2024-06-29 19:57:09.923 +0300
@@ -12,7 +13,7 @@ seo:
   title: "Pionia Services" # custom title (optional)
   description: "Handling Services in Pionia" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<callout tip>}}
@@ -72,8 +73,8 @@ But if you want to use them, make sure you're extending the `GenericService` cla
 
 ## The GenericService
 
-This is the core class that provides the basis for all the actions. It is a class that extends the `BaseRestService` class so you no longer need to do that.
-All available methods can [be found here in the api reference](https://pioniaphp-project.github.io/PioniaCore/classes/Pionia-Generics-Base-GenericService.html).
+This is the core class that provides the basis for all generic CRUD actions. It extends `Pionia\Http\Services\Service`.
+All available methods are covered in this guide and [Advanced generic services](/documentation/services/advanced-generic-services/).
 
 You don't need to interact with this class directly but through the following generic services.
 
@@ -89,7 +90,9 @@ You don't need to interact with this class directly but through the following ge
 Creating you custom generic service can be done as follows:
 
 ```php
-use Pionia\Generics\Base\GenericService;
+use Pionia\Http\Services\GenericService;
+use Pionia\Http\Services\Generics\Mixins\CreateMixin;
+use Pionia\Http\Services\Generics\Mixins\RandomMixin;
 
 class CreateRandomService extends GenericService
 {
@@ -124,7 +127,7 @@ Remember you still need to register all these service as usual. In your request 
 The above request will return 3 random records from the `users` table.
 
 {{<callout note>}}
-`GenericService` inherits from `BaseRestService` which means that all the methods in the `BaseRestService` are available in the `GenericService`.
+`GenericService` inherits from `Service`, so authentication helpers (`mustAuthenticate()`, `can()`, `auth()`) work the same as custom services.
 {{</callout >}}
 
 ## RetrieveCreateUpdateService
@@ -132,7 +135,7 @@ The above request will return 3 random records from the `users` table.
 This generic service provides the `retrieve`, `create` and `update` actions.
 
 ```php
-use Pionia\Generics\Base\RetrieveCreateUpdateService;
+use Pionia\Http\Services\Generics\RetrieveCreateUpdateService;
 
 class StudentService extends RetrieveCreateUpdateService
 {
@@ -147,7 +150,7 @@ This generic service provides the `retrieve`, `list` and `create` actions.
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListCreateService;
+use Pionia\Http\Services\Generics\RetrieveListCreateService;
 
 class StudentService extends RetrieveListCreateService
 {
@@ -162,7 +165,7 @@ This generic service provides the `retrieve`, `list`, `create`, `update` and `de
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListCreateUpdateDeleteService;
+use Pionia\Http\Services\Generics\RetrieveListCreateUpdateDeleteService;
 
 class StudentService extends RetrieveListCreateUpdateDeleteService
 {
@@ -178,7 +181,7 @@ This generic service provides the `retrieve`, `list` and `delete` actions.
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListDeleteService;
+use Pionia\Http\Services\Generics\RetrieveListDeleteService;
 
 class StudentService extends RetrieveListDeleteService
 {
@@ -192,7 +195,7 @@ This generic service provides the `retrieve`, `list` and `random` actions.
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListRandomService;
+use Pionia\Http\Services\Generics\RetrieveListRandomService;
 
 class StudentService extends RetrieveListRandomService
 {
@@ -206,7 +209,7 @@ This generic service provides the `retrieve`, `list`, `update` and `delete` acti
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListUpdateDeleteService;
+use Pionia\Http\Services\Generics\RetrieveListUpdateDeleteService;
 
 class StudentService extends RetrieveListUpdateDeleteService
 {
@@ -221,7 +224,7 @@ This generic service provides the `retrieve`, `list` and `update` actions.
 
 ```php
 
-use Pionia\Generics\Base\RetrieveListUpdateService;
+use Pionia\Http\Services\Generics\RetrieveListUpdateService;
 
 class StudentService extends RetrieveListUpdateService
 {
@@ -236,7 +239,7 @@ This generic service provides all the actions. It is the most generic of all the
 
 ```php
 
-use Pionia\Generics\Base\UniversalGenericService;
+use Pionia\Http\Services\Generics\UniversalGenericService;
 
 class StudentService extends UniversalGenericService
 {
@@ -311,6 +314,30 @@ class StudentService extends RetrieveCreateUpdateService
 
 If this is not defined, then all the columns that are defined in the request will be updated. This param is optional.
 
+Optional fields: append `?` to a column name (e.g. `'bio?'`) so the field is updated only when present in the request.
+
+### `$skipUpdatePrefetch`
+
+When `true`, `update` skips loading the existing row before merge. `preUpdate` receives only request fields plus the primary key — use with `$updateColumns` for predictable payloads:
+
+```php
+public bool $skipUpdatePrefetch = true;
+public ?array $updateColumns = ['title', 'score'];
+```
+
+### `$cacheListTtl` / `$cacheRetrieveTtl`
+
+Cache list and retrieve responses (seconds). `null` disables caching. Keys include table, filters, and request params.
+
+```php
+public ?int $cacheListTtl = 60;
+public ?int $cacheRetrieveTtl = 300;
+```
+
+### Validation errors
+
+Missing required fields in `create` / `update` throw `Pionia\Exceptions\ValidationException` (HTTP **422**). Register `->dontReport(ValidationException::class)` on the exception pipeline if you do not want these logged.
+
 ### $listColumns
 
 This defines the columns that will be returned for all actions that return data back to the end user. It is an array of strings.
@@ -368,20 +395,21 @@ for pagination to kick in, otherwise, each will perform its respective duty with
 
 You can override any of the actions provided by the generic services. This is done by defining the action in the service.
 
+The dispatcher calls **`yourAction(Arrayable $data, FileBag $files, Request $request)`** — declare `Arrayable $data` (and only the parameters you use).
+
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
 
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
 
-    public function createAction(): BaseResponse
+    public function createAction(Arrayable $data): ApiResponse
     {
-        // Your custom logic here
-        $data = $this->request->getData();
+        // Your custom logic here — $data is Arrayable; same as $this->request->getData()
 
-        // perform your own way of creating the record
-
-        return response(0, "your message", $data);
+        return response(0, 'your message', ['id' => $data->get('id')]);
     }
 }
 ```
@@ -394,19 +422,18 @@ This is just normal PHP OOP inheritance.
 You can add your own custom actions to the generic services. This is done by defining the action in the service.
 
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
 
 class StudentService extends RetrieveCreateUpdateService
 {
     public string $table = 'students';
 
-    public function customAction(): BaseResponse
+    public function customAction(Arrayable $data): ApiResponse
     {
         // Your custom logic here
-        $data = $this->request->getData();
 
-        // perform your own custom action
-
-        return response(0, "your message", $data);
+        return response(0, 'your message', $data->only(['field'])->all());
     }
 }
 ```
@@ -583,7 +610,7 @@ The hooks are not to be used outside services that extend the `GenericService` c
 
 ## Securing Generic Services.
 
-The fact that Generic Services extend `BaseRestService` means that all authentication and authorization checks are still in place.
+Generic services use the same auth traits as custom services — protect actions with `@moonlight-auth` and `mustAuthenticate()` where needed.
 
 You can still use `$serviceRequiresAuth` to protect the entire service from unauthenticated access.
 

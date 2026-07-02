@@ -12,11 +12,11 @@ seo:
   title: "Services" # custom title (optional)
   description: "Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<callout tip>}}
-This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/api-tutorial/).
+This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/api-tutorial/). To generate OpenAPI and `/docs` from your actions, see [Documenting your API (Moonlight)](/documentation/api-reference/).
 {{</callout >}}
 
 ## Introduction
@@ -100,7 +100,7 @@ Given the request data:-
 ```json
 {
     "username": "john.doe",
-    "password": "password",
+    "password": "<user-password>",
     "action": "login"
 }
 ```
@@ -389,76 +389,107 @@ All methods available in the `Arrayable` class can be found [here](/documentatio
 
 ## Request Files
 
-If the request contains files, you can access them from the second parameter of the action method. The second parameter is an instance of the `Symfony\Component\HttpFoundation\FileBag` class from `Symfony components`.
-
-Here is an example of how to access files in an action method:
+If the request contains files, use the second parameter (`Pionia\Http\Bag\FileBag`) or `$this->request->getFileByName()` on services that extend `Service`:
 
 ```php
-
 namespace Application\Services;
 
+use Pionia\Http\Bag\FileBag;
 use Pionia\Http\Services\Service;
+use Pionia\Http\UploadedFile;
 use Pionia\Collections\Arrayable;
 
 class UserService extends Service
 {
-    public function loginAction(Arrayable $data, FileBag $files)
+    public function uploadAction(Arrayable $data, FileBag $files)
     {
         $avatar = $files->get('avatar');
 
-        // Your logic here
+        if ($avatar instanceof UploadedFile) {
+            // move, validate, store path in DB
+        }
     }
 }
 ```
 
-The above `$avatar` variable will return an instance of `Symfony\Component\HttpFoundation\File\UploadedFile` which you can use to check and interact with files as you see fit.
+Multipart requests must use `Content-Type: multipart/form-data`. Uploaded files are `Pionia\Http\UploadedFile` instances.
 
 ## Further Request Validation
 
-Pionia provides a way to validate the request data before proceeding with the logic in the action method.
+Validate Moonlight request data before business logic. Prefer **attributes** or **`rules()`** — both use the same pipe syntax and throw `ValidationException` (HTTP 422).
 
-Various helper methods are available to help you achieve this. Let's break down some of them below.
-### requires(string | array $keys)
+### Attributes (automatic)
 
-The `requires` method is used to validate that the request data contains the specified key[s]. The `requires` method takes a string or an array of keys to validate.
-
-If the request data does not contain the specified keys, an exception is thrown with the message `Field $field is required!`.
-
-{{<callout tip>}}
-All keys must be present in the request data for the action to proceed.
-{{</callout>}}
-
-### validate(string $key, Arrayable | Request | Service $requestData)
-
-The `validate` helper method exposes multiple other validators that you can use to validate the request data. The `validate` method takes two parameters: the key of the data you want to validate and an instance of `Arrayable | Request | Service`.
-
-Here is an example of how to use the `validate` helper:
+Rules on the action method run before the body — no manual call inside the action:
 
 ```php
-
-namespace Application\Services;
-
-use Pionia\Http\Services\Service;
 use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
+use Pionia\Validations\Attributes\Validated;
+use Pionia\Validations\Attributes\ValidateField;
 
-class UserService extends Service
+#[Validated(rules: [
+    'email' => 'required|email',
+    'password' => 'required|password|min:8',
+])]
+protected function loginAction(Arrayable $data): ApiResponse
 {
-    public function loginAction(Arrayable $data)
-    {
-        validate('email', $this)->string()->email();
-        // above is similar to below
-        validate('email', $this)->string()->asEmail();
-
-        // Your logic here
-    }
+    // validated — add logic here
+    return response(0, 'Login successful', ['token' => '…']);
 }
 ```
 
-You can find a complete list of validators [here](/documentation/services/validations/).
+Or one field per repeatable attribute:
+
+```php
+#[ValidateField('email', 'required|email')]
+#[ValidateField('password', 'required|password|min:8')]
+protected function loginAction(Arrayable $data): ApiResponse
+{
+    return response(0, 'Login successful', ['token' => '…']);
+}
+```
+
+### `rules()` — inside the action
+
+Use when rules depend on runtime conditions:
+
+```php
+protected function loginAction(Arrayable $data): ApiResponse
+{
+    rules($data, [
+        'email' => 'required|email',
+        'password' => 'required|password|min:8',
+    ]);
+
+    return response(0, 'Login successful', ['token' => '…']);
+}
+```
+
+### `validate()` — single field chain
+
+For one field or dynamic checks:
+
+```php
+validate('email', $data)->required()->email();
+validate('password', $data)->required()->asPassword();
+```
+
+Pass `$data`, `$this`, or `$this->request` as the second argument.
+
+### `$this->requires()` — presence only
+
+Checks keys are present and non-blank. Does not validate format — prefer `required` in `rules()` or attributes:
+
+```php
+$this->requires(['email', 'password']);
+```
+
+Full rule list, custom rules, and `validations()` registry: [Validations](/documentation/services/validation/).
 
 ## Response
 
-All actions must return an instance of `Pionia\Http\Response\BaseResponse`. The `BaseResponse` class provides a way to return a response to the client that conforms to the [Moonlight Paradigm](/moonlight/introduction-to-moonlight-architecture/).
+All actions must return an instance of `Pionia\Http\Response\ApiResponse`. That envelope is what Moonlight clients expect (`returnCode`, `returnMessage`, `returnData`).
 
 Here is an example of how to return a response in an action method:
 
@@ -468,7 +499,7 @@ namespace Application\Services;
 
 use Pionia\Http\Services\Service;
 use Pionia\Collections\Arrayable;
-use Pionia\Http\Response\BaseResponse;
+use Pionia\Http\Response\ApiResponse;
 
 class UserService extends Service
 {
@@ -496,7 +527,7 @@ namespace Application\Services;
 
 use Pionia\Http\Services\Service;
 use Pionia\Collections\Arrayable;
-use Pionia\Http\Response\BaseResponse;
+use Pionia\Http\Response\ApiResponse;
 
 class UserService extends Service
 {

@@ -1,277 +1,218 @@
 ---
 title: "Making Queries"
-description: "Commonly used queries in PORM."
-summary: ""
-date: 024-06-13 14:32:03.100 +0300
-lastmod: 024-06-13 14:32:03.100 +0300
+slug: "making-queries"
+description: "CRUD and common reads with table() and Porm."
+summary: "get, all, save, update, delete, random, chunk, and raw SQL."
+date: 2026-03-01
+lastmod: 2026-03-01
 draft: false
-weight: 810
+weight: 812
 toc: true
+parent: "database"
 seo:
-  title: "Ponia Porm Database" # custom title (optional)
-  description: "Querying the database using the PORM - Pionia ORM." # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  title: "Porm — making queries"
+  description: "Retrieve, insert, update, and delete rows with Porm in Pionia v3."
+  canonical: ""
+  noindex: false
 ---
 
-{{<callout context="tip"  icon="outline/pencil">}}
-This section assumes you have alredy completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started).
+{{<callout context="tip" icon="outline/pencil">}}
+Configure your database first: [Getting started](/documentation/database/configuration-getting-started/).
 {{</callout>}}
 
-## Introduction
+All examples use the `table()` helper (`Pionia\Porm\Core\Porm`). Methods that execute SQL should be called **last** on the chain.
 
-Under this section, we will look at how to make queries to the database using the PORM - Pionia ORM. Queries are used to interact with the database and retrieve data. PORM provides a set of tools and conventions that make it easy to interact with the database in PHP.
-
-## Retrieving Data
-
-You can retrieve a single item from the database or multiple items at ago. In Porm, not all methods query the database. Some methods are used to build the query and return the query object.
-
-### Retrieving a Single Item
-
-To retrieve a single item from the database, you can use the `get` method. This method returns an object or `NULL` if no matching record is found.
+## Retrieving one row — `get()`
 
 ```php
-
-use Porm\Porm;
-
-Porm::from('users')->get(1); // select * from users where id = 1
-
+table('users')->get(1);                    // WHERE id = 1
+table('users')->get(1, 'user_id');         // custom PK column
+table('users')->get(['user_id' => 1, 'active' => 1]);
 ```
 
-If the an integer or string is provided for the `get` method, it is assumed to be the primary key of the table. If an array is provided, it is assumed to be the where clause.
+Returns an `object` or `null`. Array conditions are combined with `AND`.
 
-You can also provide an integer or string and determine the column name to use as the primary key.
+### `getOrThrow()`
+
+Same as `get()` but throws `Pionia\Exceptions\NotFoundException` when no row matches:
 
 ```php
-
-use Porm\Porm;
-
-Porm::from('users')->get(1, 'user_id'); // select * from users where user_id = 1
-
+$user = table('users')->getOrThrow(42, 'User not found');
 ```
 
-Conditions can also be provided as an array. The array should contain the column name as the `key` and the value as the `value`. This is one way of building a where clause.
+### `first()`
+
+Table-level shortcut for a limited read (default one row):
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('users')->get(['user_id' => 1, 'age' => 10]); // select * from users where user_id = 1 and age = 10
-
+$row = table('posts')->first(1, ['published' => 1]);
 ```
 
-All array conditions passed to the `get` method are joined by `AND`.
+On a **Builder** (after `filter()`), `first()` returns the first row of the result set.
 
-`$data` will contain the object or `NULL` if no matching record is found.
-
-{{<callout context="note"  icon="outline/pencil">}}
-The `get` method queries the database. So you should always call the `get` method last.
-{{</callout>}}
-
-### Fetching multiple records
-
-To fetch all data from the table, you can use the `all` method. This method, just like the `get` method, can take up array conditions and also queries the database. Therefore, you should always call the `all` method last.
+## Retrieving many rows — `all()`
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->all();
-
-var_dump($data); // array of data
+$posts = table('posts')->all();
+$posts = table('posts')->columns(['id', 'title'])->all();
+$posts = table('posts')->all(['published' => 1]);
 ```
 
-You can also specify the columns to fetch by using the `columns` method. This is useful when you only need specific columns from the table and can be used before all methods that query the database.
+Returns an array (empty when nothing matches).
+
+For ordering, limits, and complex WHERE clauses, use `filter()` — see [Filtering](/documentation/database/queries-with-filtering/).
+
+## Random rows — `random()`
 
 ```php
-use Porm\Porm;
-
-$data = Porm::from('posts')->columns('id', 'title')->all();
-
-var_dump($data); // array of data
+$post = table('posts')->random();              // one object
+$posts = table('posts')->random(10);           // array
+$posts = table('posts')->random(5, ['active' => 1]);
 ```
 
-You can filter the data by providing the array of conditions to the `all` method just like we did with the `get` method.
+**Strategies** (fourth argument, default `sample`):
+
+| Strategy | Behaviour |
+|----------|-----------|
+| `sample` | Samples primary-key values in range (fast on large tables when unfiltered); falls back to native `ORDER BY RAND()` |
+| `native` | Database `RAND()` / equivalent |
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->all(['id' => 1]); // select * from posts where id = 1
-
-var_dump($data); // array of data
+table('posts')->random(10, null, 'id', 'native');
 ```
 
-The `all` method unlike the `get` method, returns an array of data or an empty array if no matching record is found.
+On joined queries use `join()->…->random()` — see [Relationships](/documentation/database/relationships/).
 
-### Random Records
-
-To get random data from the table, you can use the `random` method. The `random` method takes the number of results to return as the first argument.
+## Insert — `save()` / `saveAll()`
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->random(10);
-
-var_dump($data); // array of data
+$row = table('posts')->save(['title' => 'Hello', 'content' => 'World']);
+$id  = table('posts')->lastSaved();
 ```
 
-You can also pass an array of conditions to the `random` method.
+Pass `returnRow: false` to skip the follow-up SELECT after insert (faster when you only need `lastSaved()`):
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->random(10, ['name' => 'Pionia']);
-
-var_dump($data); // array of data
+table('posts')->save(['title' => 'Hi'], returnRow: false);
 ```
 
-To get just one random item, you can pass 1 or ignore the length.
+Bulk insert:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->random();
-
-var_dump($data); // object of data
+table('posts')->saveAll([
+    ['title' => 'A'],
+    ['title' => 'B'],
+]);
 ```
 
-{{<callout context="note"  icon="outline/pencil">}}
-The `random` method queries the database. So you should always call the `random` method last. Also, if you query one item, random will return an object, but if you define length greater than one, it will return an array.
-{{</callout>}}
+### `saveOrUpdate()`
 
-### Inserting Data
-
-To insert data into the table, you can use the `save` method. The `save` method takes an array of data to insert into the table and **returns the saved object**.
+Insert when the primary key is missing, otherwise update. By default uses a native `UPSERT` / `ON CONFLICT` when the driver supports it:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->save(['title' => 'Hello', 'content' => 'World']);
-
-var_dump($data); // the saved object
+table('users')->saveOrUpdate(['id' => 1, 'name' => 'Ada']);
+table('users')->saveOrUpdate(['id' => 1, 'name' => 'Ada'], nativeUpsert: false); // select-then-update fallback
 ```
 
-{{<callout context="note"  icon="outline/pencil">}}
-The `save` method hits the database. So you should always call the `save` method last.
-{{</callout>}}
+### Increment / decrement columns
 
-### Updating Data
-
-To update data in the table, you can use the `update` method. The `update` method takes an array of data to update in the table and the condition to filter the data on.
-
-This method returns a `PDOStatement` object. You can get the number of rows affected by calling the `rowCount` method on the returned object.
+Update with SQL-side arithmetic — values are bound as parameters:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')
-->update(['title' => 'Hello', 'content' => 'World'], ['id' => 1]);
-// update posts set title = 'Hello', content = 'World' where id = 1
-
-var_dump($data->rowCount()); // the number of rows affected
+table('posts')->update(['views[+]' => 1], ['id' => 42]);
+table('posts')->update(['stock[-]' => 5], ['sku' => 'ABC']);
 ```
 
-{{<callout context="note"  icon="outline/pencil">}}
-The `update` method hits the database. So you should always call the `update` method last.
-{{</callout>}}
+Operators: `[+]`, `[-]`, `[*]`, `[/]` (numeric values only).
 
-### Deleting Data
-
-To delete data from the table, you can use the `delete` method. The `delete` method takes the condition to filter the data on.
-
-This method returns a `PDOStatement` object. You can get the number of rows affected by calling the `rowCount` method on the returned object.
+## Update — `update()`
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->delete(['id' => 1]);
-
-var_dump($data->rowCount()); // the number of rows affected
+$stmt = table('posts')->update(
+    ['title' => 'Updated'],
+    ['id' => 1]
+);
+$stmt->rowCount();
 ```
 
-This method can also be used to delete all data from the table that matches the condition. Passing an empty array will delete all data from the table.
+## Delete — `delete()` / `deleteById()`
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->deleteAll([]);
-
-var_dump($data->rowCount()); // the number of rows affected
+table('posts')->delete(['id' => 1]);
+table('posts')->deleteById(2);
 ```
 
-The two methods `delete` and `deleteAll` do exactly the same thing. `deleteAll` is just an alias for `delete`.
+`deleteAll()` is an alias for `delete()`. An empty condition deletes **all** rows — use with care.
 
-You can also delete data based on the primary key id.
+## Exists — `has()`
 
 ```php
-
-use Porm\Porm;
-
-$id = 2
-$data = Porm::from('posts')->deleteById($id); // delete from posts where id = 2
-
-var_dump($data->rowCount());
+table('posts')->has(['id' => 1]);  // bool
+table('posts')->has(123);          // WHERE id = 123
 ```
 
-## Has Data
+## Batch reads — `chunk()`
 
-To check if data exists in the table, you can use the `has` method. The `has` method takes the condition to filter the data on.
-
-This method returns a boolean value.
+Process large tables in primary-key order without loading everything into memory:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::from('posts')->has(['id' => 1]);
-
-var_dump($data); // true or false
+table('posts')->chunk(100, function (array $rows, int $page): void {
+    foreach ($rows as $row) {
+        // ...
+    }
+}, ['published' => 1], pkField: 'id');
 ```
 
-{{<callout context="note"  icon="outline/pencil">}}
-The `has` method queries the database. So you should always call the `has` method last.
-{{</callout>}}
+The callback receives each batch and the 1-based page index. Iteration stops when a batch is empty.
 
-Passing a string to `has` queries the database for the primary key id.
+## Index hints — `useIndex()`
+
+MySQL index hint (no-op on other drivers):
 
 ```php
-
-use Porm\Porm;
-
-$id = '123'
-$data = Porm::from('posts')->has($id);
-
-var_dump($data); // true or false
+table('posts')->useIndex('idx_published')->filter(['published' => 1])->all();
 ```
 
-## Raw Queries
+## Explain — `explain()`
 
-Before we dive into complex database querying, Let's first look at a basic raw query mechanism that porm presents to us. This can be
-handy especially when you think that the query you need, is not supported by porm by default. However, overusing this feature can
-somehow mean you are not using porm well.
+Returns the database `EXPLAIN` plan for the current table + optional WHERE:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::rawQuery('select * from posts where id = 1');
+$plan = table('posts')->explain(['published' => 1]);
 ```
 
-If the `$data` above comprises one item, then the result will be an object. If it comprises of multiple items, then the result will be an array.
+## Raw SQL — `raw()`
 
-You can also pass conditions to the `rawQuery` method.
+Parameterized queries bypass the fluent builder:
 
 ```php
-
-use Porm\Porm;
-
-$data = Porm::rawQuery('select * from posts where id = :id', ['id' => 1]);
+$row = table('posts')->raw(
+    'SELECT * FROM posts WHERE id = :id',
+    ['id' => 1]
+);
 ```
+
+One row → `object`; multiple → array. Prefer bound parameters over string concatenation.
+
+For fragments inside WHERE arrays, use `Pionia\Porm\Core\Piql::raw()` or `Raw` objects — see [Transactions & raw SQL](/documentation/database/transactions-and-raw-sql/).
+
+## Connection switching — `using()`
+
+Switch the active connection on a `Porm` instance (must be called before `filter()` / `join()`):
+
+```php
+table('events')->using('db_pgsql')->all();
+table('events', null, 'default')->using('analytics')->count();
+```
+
+The third argument to `table()` is equivalent to starting on that connection.
+
+## Debugging
+
+```php
+table('users')->get(1);
+echo table('users')->lastQuery();              // readable SQL (placeholders inlined)
+[$sql, $map] = table('users')->getDatabase()->lastPrepared(); // raw prepared statement + binds
+```
+
+Next: [Filtering](/documentation/database/queries-with-filtering/) · [API reference](/documentation/database/api-reference/).

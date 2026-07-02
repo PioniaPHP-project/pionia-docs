@@ -1,5 +1,6 @@
 ---
 title: "Introduction to MoonLight Architecture"
+slug: "introduction-to-moonlight-architecture"
 description: "This page describes the MoonLight Architecture."
 summary: ""
 date: 2024-05-24T13:45:48.890Z
@@ -22,10 +23,11 @@ MoonLight is a rather new architecture that is based on the commonly used archit
 
 Below are the new conventions that MoonLight architecture brings to the table:
 
-Architecture Overview
+Architecture overview (conceptual):
 
-<img src="image.png" alt="Moonlight Architecture Overview">
-<!-- add a video showing the same here -->
+```text
+Client → /api/v1/ → Switch → Service → *Action → JSON envelope
+```
 
 {{<callout context="tip" title="The car scenario! -- 1" icon="outline/car">}}
 Imagine a scenario of a car, the car can have passengers and multiple passengers. The job of the driver is to controll the rest of the car, and the passengers to behave themselves and not interfere with the driver. The driver has one steering wheel in the entire car. Some cars may have a conductor who is responsible for the passengers instead of the driver. This helps the driver to focus on the road and not the passengers.

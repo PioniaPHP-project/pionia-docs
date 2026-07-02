@@ -1,68 +1,76 @@
 ---
-title: "API Versioning in Moonlight"
-description: "Guides you how the architecture approaches api versioning"
-summary: "Moonlight basically has only one controller, one controller action and one endpoint. To get another version of the api, you just need to roll out a new controller action and a new endpoint. This is how moonlight approaches api versioning."
-date: 2024-05-24T13:45:48.890Z
-lastmod: 2024-05-24T13:45:48.890Z
+title: "API versioning in Moonlight"
+slug: "api-versioning-in-moonlight"
+description: "How switches map to /api/v1/, /api/v2/, and separate service catalogs."
+summary: "One switch per API version; register in environment/settings.ini."
+date: 2026-07-01
+lastmod: 2026-07-02
 draft: false
 weight: 3
-toc: false
+toc: true
 sidebar:
   collapsed: true
 seo:
-  title: "Security in Moonlight" # custom title (optional)
-  description: "" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Moonlight API versioning"
+  description: "Register switches per version in Pionia v3 settings.ini."
+  noindex: false
 ---
 
-## Introdution
+Each **switch** is bound to one API version path (`/api/v1/`, `/api/v2/`, …). A switch lists which services are exposed on that version.
 
-In Moonlight, every switch is directly associated to a version of your api.
-This means that, to get another version of the api, you just need to roll out a new service including only those services
-that are going to be available in the new version of the api. This is how moonlight approaches api versioning.
-
-At its core, Moonlight still uses a controller paradigm but this is just one for your entire application.
-This controller is used capture all exceptions in your services and return a response to the client.
-
-Below is an example of a switch in Moonlight based on Pionia Framework.
+## Define a switch
 
 ```php
-<?php
-namespace application\services;
+namespace Application\Switches;
 
-use Pionia\Core\BaseApiServiceSwitch;
-use application\services\UserService;
+use Application\Services\UserService;
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Switches\ApiSwitch;
 
-class VersionOneSwitch extends BaseApiServiceSwitch
+class V2Switch extends ApiSwitch
 {
-    /**
-     * Register your services here.
-     *
-     * @return array
-     */
-    public function registerServices(): array
+    public static function registerServices(): Arrayable
     {
-        return [
-            'user' => new UserService(), // this service will be available in version one of the api.
-        ];
+        return arr([
+            'user' => UserService::class,
+        ]);
     }
 }
 ```
 
-For the above switch to be available in the application, you need to register it your app routes.
+Scaffold with:
 
-According to Pionia, the routes.php file is used to register the switches that should be auto-dicovered.
-
-```php
-use Pionia\Core\Routing\PioniaRouter;
-
-$router = new PioniaRouter();
-
-/**
-* This registers the switch for version one of the api.
-* This will be served at /api/v1/
-*/
-$router->addSwitchFor("application\switches\MainApiSwitch", "v1");
-
+```bash
+php pionia make:switch V2Switch
 ```
+
+## Register versions
+
+Declare switches in `environment/settings.ini`:
+
+```ini
+[app_switches]
+v1=Application\Switches\MainSwitch
+v2=Application\Switches\V2Switch
+```
+
+The framework registers routes at boot — no `bootstrap/routes.php` required. See [HTTP routing](/documentation/http-routing/) for provider-based registration and advanced cases.
+
+Clients POST to the version prefix:
+
+```json
+POST /api/v2/
+{ "service": "user", "action": "profile" }
+```
+
+Each version has its own ping endpoint: `/api/v1/ping`, `/api/v2/ping`.
+
+## When to add a version
+
+- Breaking action contracts or payload shapes
+- Removing services from the public surface
+- Running old and new implementations in parallel during migration
+
+Non-breaking additions (new actions on existing services) usually stay on the current version.
+
+Related: [Moonlight introduction](/moonlight/introduction-to-moonlight-architecture/) · [Services](/documentation/services/services/) · [HTTP routing](/documentation/http-routing/).

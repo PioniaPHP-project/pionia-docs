@@ -1,113 +1,209 @@
 ---
 title: "Introduction"
-description: "Guides a developer on how to navigate the docs, get started with Pionia and more."
-summary: ""
+slug: "introduction"
+description: "Install Pionia, create a project, boot the API, and ship your first service."
+summary: "Installation paths, bootstrap, first API call, and where to go next."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2024-05-24T13:45:48.890Z
+lastmod: 2026-07-01
 draft: false
 weight: 100
 toc: true
 seo:
-  title: "" # custom title (optional)
-  description: "" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  title: "Introduction to Pionia"
+  description: "Install Pionia with Composer, scaffold an app, and understand AppRealm bootstrap."
+  canonical: ""
+  noindex: false
 ---
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
-## About
+## What you are building
 
-Welcome to the official documentation of pionia - `/ˌpʌɪəˈnɪə/` framework. Pionia is a PHP Rest Framework that is truly RESTful. It is designed to be simple, lightweight, and easy to use. Pionia is built on top of the Moonlight architecture, which is a powerful architecture for powering highly scaling REST projects. Pionia provides a set of tools and conventions that make it easy to build RESTful APIs in PHP.
+Pionia is a PHP API framework centered on **Moonlight**: clients POST JSON like `{ "service": "auth", "action": "login", "email": "…" }` to a versioned URL (`/api/v1/`). Your code lives in **service classes** (`AuthService`, `TodoService`) with one method per **action** (`loginAction`, `listAction`).
 
-This framework was born at Service Cops - East Africa by [JET](https://www.linkedin.com/in/jetezra/) and is maintained by the same team. The framework is open-source and is released under the MIT license.
+You do **not** need Pionia installed globally. You need **PHP 8.5+** and **Composer**.
 
-Documentation organisation.
-
-- [MoonLight Architecture](/moonlight/introduction-to-moonlight-architecture/)
-- [Tutorial](/documentation/api-tutorial/)
-- [App Structure](/documentation/application-structure/)
-- [Requests And Responss](/documentation/requests-and-responses/)
-- [Middleware](/docs/documentation/middleware/)
-- [Security - Authentication and Authorization](/documentation/security/security-authentication-and-authorization/)
-- [Services and Actions](/documentation/services/services/)
-- [Database and Querying](/documentation/database/configuration-getting-started/)
-
-### Get Started
-
-{{<callout context="tip" title="Start with a TO-DO api tutorial" icon="outline/pencil">}}
-
-You can quickly get started with our [To-Do API tutorial](/documentation/api-tutorial/). This guide introduces you to the both the framework and the [Moonlight architecture](/moonlight/introduction-to-moonlight-architecture/). It is the recommended way to start your pionia jungle journey.
-{{</callout>}}
-
-## Why Pionia?
-
-There are various reasons why pionia stands out from other PHP frameworks. From program performance, developer performance, to maintainability, pionia has got you covered.
-
-You can read more about [Why Pionia here](/documentation/why-pionia/).
-
-## Installation
-
-###### Pre-requisites
-
-- PHP 8.0 or higher preferably 8.1. You can download PHP from [php.net](https://www.php.net/manual/en/install.php)
-- Any web server (Apache, Nginx, etc.) for production
-- Composer
-- Any RDBMS of Postgres, MySQL/MariaDB, Oracle, Sybase, MSSQL or SQLite
-
-**Note:** This guide assumes you have Composer installed and running globally. If you don't, you can download it from [getcomposer.org](https://getcomposer.org/) or use the [Composer Docker image](https://hub.docker.com/_/composer).
+## Choose how to create a project
 
 {{< tabs "create-new-project" >}}
-{{< tab "composer" >}}
+{{< tab "Composer (recommended)" >}}
+
+Use this on a new laptop — only Composer is required:
 
 ```bash
-composer create-project pionia/pionia-app my-project
+composer create-project pionia/pionia-app my-api
+cd my-api
 ```
 
-Remember to replace `my-project` with the name of your project.
+`composer create-project` downloads the application template (`pionia/pionia-app`), runs `composer install`, and executes `post-create-project-cmd` (sets `APP_NAME` in `.env` from the folder name).
 
-{{< /tab >}}
-{{< tab "Git templates" >}}
+Start the dev server:
 
-> > >
+```bash
+php pionia serve
+# equivalent:
+composer run serve
+```
 
-1. Select [use this template](https://github.com/new?template_name=Application&template_owner=PioniaPHP-project) on the repository page.
-2. Download directly the compressed file from the [releases page](https://github.com/PioniaPHP-project/Application/releases).
+Default URL: **http://127.0.0.1:8003/** (port from `environment/.env` → `PORT` or `SERVER_PORT`).
 
-> > > {{< /tab >}}
-> > > {{< /tabs >}}
+{{</tab>}}
+{{< tab "pionia new (second app)" >}}
 
-*Nginx configuration*ss
+When you **already** have a Pionia project (or are developing the framework), scaffold another directory from the CLI:
 
-This is just a sample configuration. You can modify it to suit your needs. But make sure your configuration points to the `index.php` file of your project.
+```bash
+# from an existing app root (where ./pionia exists):
+php pionia new billing-api --install --path=..
+
+# from PioniaCore while hacking the framework:
+php example/pionia new billing-api --install --path=..
+```
+
+| Flag | Purpose |
+|------|---------|
+| `--path=/parent/dir` | Where to create the folder (default: current directory) |
+| `--vendor=acme` | Composer vendor segment (default: `app`) |
+| `--install` | Run `composer install` in the new project |
+| `--with-frontend=react-ts` | Scaffold Vite frontend (use with `--install`) |
+
+`pionia new` copies the same stubs as `pionia-app`. It does **not** work on a machine that has never installed Pionia — use `composer create-project` first.
+
+{{</tab>}}
+{{</tabs>}}
+
+## Verify the API
+
+With the server running:
+
+```bash
+curl -s http://127.0.0.1:8003/api/v1/ping
+```
+
+Expected shape (Moonlight envelope):
+
+```json
+{
+  "returnCode": 0,
+  "returnMessage": "OK",
+  "returnData": { "pong": true }
+}
+```
+
+Dispatch an action:
+
+```bash
+curl -s -X POST http://127.0.0.1:8003/api/v1/ \
+  -H 'Content-Type: application/json' \
+  -d '{"service":"welcome","action":"ping"}'
+```
+
+## Project layout (what landed on disk)
+
+| Path | Role |
+|------|------|
+| `bootstrap/application.php` | `return AppRealm::create(__DIR__)` — builds the DI container (singleton) |
+| `environment/settings.ini` | `[app_switches]` maps API versions to switch classes |
+| `public/index.php` | Web entry → `bootHttp()` |
+| `pionia` | CLI entry → `bootConsole()` (same bootstrap as HTTP) |
+| `services/` | Business logic (`*Service` classes, `*Action` methods) |
+| `switches/` | API version wiring (`MainSwitch` → `/api/v1/`) |
+| `providers/` | Optional service providers (`make:provider`) |
+| `environment/` | `.env` + `settings.ini` |
+| `storage/` | Logs, cache, uploads |
+| `worker.php` + `.rr.yaml` | Optional RoadRunner workers |
+
+Helpers (`app()`, `logger()`, `router()`) are available after `AppRealm::create()` completes — not before `require` of `application.php` returns.
+
+## Bootstrap flow
+
+**HTTP**
+
+```text
+public/index.php
+  → require bootstrap/application.php
+  → AppRealm::create()  (registers [app_switches] from settings.ini)
+  → $app->bootHttp()   // or handleRequest() in workers
+```
+
+**CLI**
+
+```text
+./pionia list
+  → require bootstrap/application.php
+  → $app->bootConsole()
+```
+
+Both paths share the same `AppRealm` singleton (`app()` / `realm()` / `container()` are aliases).
+
+## Your first custom service (5 minutes)
+
+```bash
+php pionia make:service Todo
+```
+
+Open `services/TodoService.php`, add an action:
+
+```php
+protected function listAction(\Pionia\Collections\Arrayable $data): \Pionia\Http\Response\ApiResponse
+{
+    return response(0, 'OK', ['items' => []]);
+}
+```
+
+Register the service alias in `switches/MainSwitch.php` inside `registerServices()` if the generator did not already add it:
+
+```php
+return arr([
+    'welcome' => \Application\Services\WelcomeService::class,
+    'todo' => \Application\Services\TodoService::class,
+]);
+```
+
+Call it:
+
+```bash
+curl -s -X POST http://127.0.0.1:8003/api/v1/ \
+  -H 'Content-Type: application/json' \
+  -d '{"service":"todo","action":"list"}'
+```
+
+## CLI without memorizing paths
+
+From the project root:
+
+```bash
+php pionia list
+php pionia make:service Invoice
+php pionia api:docs --ui
+composer run serve
+composer run pionia -- cache:clear   # passes args after --
+```
+
+Commands extend `Pionia\Console\Command` (native console — not third-party CLI libraries). See [Commands](/documentation/commands-pionia-cli/).
+
+## Documentation map
+
+- [API tutorial](/documentation/api-tutorial/) — step-by-step CRUD
+- [Application structure](/documentation/application-structure/)
+- [Services & actions](/documentation/services/services/)
+- [Requests & responses](/documentation/requests-and-responses/)
+- [RoadRunner](/documentation/roadrunner/) — persistent workers
+- [Extending via providers](/documentation/extending/app-providers/) — packages that hook into boot
+
+## Production behind Nginx
+
+Document root = `public/`:
 
 ```nginx
-
-# ...rest of your configurations
-#  projet_name [replace this with your project name]
-    location /projet_name {
-        alias /var/www/html/project_name;
-        try_files $uri $uri/ @project_name;
-    }
-
-    location @project_name {
-        rewrite /project_name/(.*)$ /project_name/index.php?/$1 last;
-   }
-
-# ... rest of your configurations
+root /var/www/my-api/public;
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
 ```
 
-## Contributing
+Use PHP-FPM or RoadRunner behind Nginx; see [RoadRunner](/documentation/roadrunner/).
 
-However, the framework is maintained by a dedicated team and welcomes you as our next contributor on any of our related projects.
+## Upgrading from v2
 
-You can contribute to the framework, documentation or by helping us grow the community through writing articles, tutorials, and sharing your experience with the framework on any media platform.
-
-> The framework itself strips off all the unnecessary features that are found in other frameworks and leaves you with only what you need to build a RESTful API.
-> This means you can also contribute by building plugins and extensions that can be used with the framework.
-
-If you want to contribute to this documentation, you can find the source code on [GitHub](https://github.com/PioniaPHP-project/Application).
-
-Please read the [contributing guidelines](https://github.com/PioniaPHP-project/Pionia-App/contributing.md) before contributing.
-
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/PioniaPHP-project/Pionia-App/code_of_conduct.md)
+See [Upgrading from v2](/documentation/upgrading-from-v2/) for `AppRealm`, `ApiSwitch`, and `ApiResponse` renames.

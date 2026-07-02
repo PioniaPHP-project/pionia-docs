@@ -1,6 +1,6 @@
 ---
 title: "Services"
-parent: "documentation"
+parent: "services"
 description: "Abstracting most of the CRUD work for so that you focus on only complex business logic."
 summary: "Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit."
 date: 2024-07-05 01:06:18.709 +0300
@@ -12,7 +12,7 @@ seo:
   title: "Services" # custom title (optional)
   description: "Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<callout tip>}}
@@ -42,7 +42,7 @@ If you are using our 'pionia console', then you can just name your service `user
 Let's create a service called `TodoService`. In the terminal run the following command.
 
 ```bash
-php pionia gen:service todo
+php pionia make:service todo
 ```
 
 Running the above command will prompt you for two options.
@@ -87,7 +87,7 @@ Choosing option 8 gives you freedom to define your own mixins to extend.
 1. Head over to your `services` folder.
 2. Create a new service with a clear name, such as UserService, AuthService, CartService
 3. Extend Service
-4. Add your own actions each taking in `data`(post request data), `files`(if your service is expecting files) and returning `BaseResponse`.
+4. Add your own actions each taking in `data` (POST body), optional `files`, and returning `ApiResponse`.
 5. Add your logic
 
 ```php {title="services\AuthService.php"}
@@ -95,9 +95,9 @@ namespace Application\Services;
 
 use Exception;
 use Pionia\Collections\Arrayable;
-use Pionia\Http\Response\BaseResponse;
+use Pionia\Http\Response\ApiResponse;
 use Pionia\Http\Services\Service;
-use Symfony\Component\HttpFoundation\FileBag;
+use Pionia\Http\Bag\FileBag;
 
 class AuthService extends Service
 {
@@ -105,7 +105,7 @@ class AuthService extends Service
   * getUserAction action
   * @throws Exception
   */
-  protected function retrieveUserAction(Arrayable $data): BaseResponse
+  protected function retrieveUserAction(Arrayable $data): ApiResponse
    {
      $this->requires('id');
 
@@ -131,7 +131,7 @@ Therefore, you shall be asked the database table name you want to target. This i
 
 However, starting from version 1.1.7, you can target relationships too!
 
-You can read more about this in the [Generic Services Section](/documentation/generic-services/).
+You can read more about this in the [Generic Services section](/documentation/services/generic-services/).
 {{</callout>}}
 
 ## Service Registration
@@ -161,12 +161,12 @@ A single service can be registered in multiple switches. This is useful when you
 
 ## Targeting a service in the request
 
-In the request, you can target a service by determining the `SERVICE` key with your service name as the `key` defined in the `registerServices` method.
+In the request, target a service with the lowercase `service` key:
 
-```js
+```json
 {
-  SERVICE: "user";
-  // rest of your request data.
+  "service": "user",
+  "action": "list"
 }
 ```
 
@@ -223,43 +223,33 @@ for other scenarios.
 In Pionia, we have a global exception handler that catches all exceptions thrown anywhere in the code. This is to ensure that
 the client always gets the same response format.
 
-All exceptions thrown are caught will raise a 500 status code and the message of the exception will be sent back to the client
-as the `returnMessage`.
+Uncaught throwables flow through the [exception pipeline](/documentation/exceptions/). Status codes depend on the exception type:
 
-Therefore, in your services and actions, you can throw exceptions as you see fit. And you don't need to catch them at all!
+| Exception | HTTP status |
+|-----------|---------------|
+| `ValidationException` | 422 |
+| `ResourceNotFoundException` | 404 |
+| `HttpException` | As defined on the exception |
+| Other | 500 (message hidden in production) |
+
+Throw `ValidationException` for client input errors; use plain `Exception` only for unexpected server faults. Prefer `rules()` or `#[Validated]` on actions — see [Validations](/documentation/services/validation/).
 
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
+use Pionia\Validations\Attributes\Validated;
 
-protected function getTodoAction($data): BaseResponse
+#[Validated(rules: ['id' => 'required|integer'])]
+protected function getTodoAction(Arrayable $data): ApiResponse
 {
     $this->mustAuthenticate();
 
-    if(blank($data->get('id'))){
-        throw new \Exception('Todo id is required'); // will be caught globally!
-    }
+    $id = $data->get('id');
 
-    // rest of actions logic
+    // rest of action logic
 
-    return response(200, 'Todo fetched successfully', $todo);
+    return response(0, 'Todo fetched successfully', $todo);
 }
 ```
 
-Please note that all exceptions are caught globally and sent back to the client. Therefore, you do not need to catch exceptions in your services.
-Developers need to set clean, descriptive exception messages in their exceptions to help the client understand what went wrong.
-
-## Deactivating actions in a service
-
-BaseRestService provides a parameter `$deactivatedActions` that can be used to register all deactivated actions in a service.
-This is useful when you want to deactivate an action in a service without deleting it.
-
-```php
-class TodoService extends Service
-{
-    public array $deactivatedActions = ['getTodo']; // one or more actions to deactivate.
-
-}
-```
-
-{{<callout note>}}
-Deactivated actions will not be called by the switcher. Therefore, they will not be accessible by the client.
-{{</callout>}}
+Uncaught throwables flow through the [exception pipeline](/documentation/exceptions/) — use clear exception messages for clients.

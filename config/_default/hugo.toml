@@ -80,6 +80,16 @@ weight = 80
 name = "date"
 weight = 10
 
+[[redirects]]
+from = "/documentation/services/validations/"
+to = "/documentation/services/validation/"
+status = 301
+
+[[redirects]]
+from = "/documentation/services/validations"
+to = "/documentation/services/validation/"
+status = 301
+
 [imaging]
 anchor = "Center"
 bgColor = "#ffffff"

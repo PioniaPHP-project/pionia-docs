@@ -1,17 +1,23 @@
 ---
 title: "Security"
-description: "Guides you on how Pionia approaches security through authentication and authorization."
-summary: ""
-date: 2023-09-07T16:06:50+02:00
-lastmod: 2023-09-07T16:06:50+02:00
+description: "Authentication backends and service-level authorization in Pionia v3."
+summary: "Protect Moonlight actions with backends, can(), and mustAuthenticate()."
+date: 2026-07-01
+lastmod: 2026-07-01
 draft: false
 weight: 800
-toc: true
+toc: false
+parent: "documentation"
 seo:
-  title: "" # custom title (optional)
-  description: "" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Security"
+  description: "Authentication and authorization guides for Pionia apps."
+  noindex: false
 ---
 
-{{<picture src="pionia.png" alt="Pionia Logo">}}
+| Guide | Topic |
+|-------|--------|
+| [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Backends, `ContextUserObject`, `can()`, secrets |
+| [Middleware](/documentation/middleware/) | Request/response pipeline |
+| [Validations](/documentation/services/validation/) | Input validation on actions |
+
+Moonlight actions declare auth with `@moonlight-auth` PHPDoc tags. See [API reference](/documentation/api-reference/) for OpenAPI export of auth requirements.

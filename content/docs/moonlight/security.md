@@ -1,5 +1,6 @@
 ---
 title: "Security in moonlight"
+slug: "security-in-moonlight"
 description: "This is the security documentation for MoonLight architecture. It explains how MoonLight powered reap some security benefits."
 summary: "All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST."
 date: 2024-05-24T13:45:48.890Z
@@ -39,10 +40,10 @@ Example below shows how the logs are stored in the server:
 
 This is where we have our first problem that we need to address. The query params are logged in the web server level. This is a security risk.
 
-However much this is is a rare case, imagine logging in via a GET request as below:
+However much this is is a rare case, imagine logging in via a GET request as below (placeholder credentials — never send real passwords in query strings):
 
 ```json
-  https://example.com/api/v1/login?username=example&password=example
+  https://example.com/api/v1/login?username=demo&password=<never-do-this>
 ```
 
 The parameters `username` and `password` are logged in the web server level in the raw format. This implies that, however much the passwords are encrypted in the database, they are exposed in the logs. Any malicious user with access to the logs can easily get the password and username.
@@ -82,15 +83,18 @@ If an action say, `addCart` requires a certain permission, the action itself men
 Example below shows how an action can be protected in pionia:
 
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
+use Pionia\Http\Services\Service;
 
-class TodoService extends BaseRestService
+class TodoService extends Service
 {
-    // your other actions here
-
-    public function getTodo()
+    protected function getTodoAction(Arrayable $data): ApiResponse
     {
-      $this->can('view-todo'); // user must have the permission to view todo
-        // your action here
+        $this->can('view-todo');
+
+        $id = $data->get('id');
+        return response(0, null, db('todos')->get($id));
     }
 }
 ```

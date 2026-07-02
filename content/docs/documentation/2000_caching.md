@@ -1,32 +1,98 @@
 ---
 title: "Caching in Pionia"
-description: "Guides us through the process of caching data in Pionia."
-summary: "Pionia requests are all POST however, POST requests are not cached yet some may be getting data, this guides shows us how to cache requests."
-date: 2024-10-07 18:34:56.793 +0300
-lastmod: 2024-10-07 18:34:56.793 +0300
+slug: "caching-in-pionia"
+description: "PSR-16 cache layer, stores, and GenericService response caching."
+summary: "Native CacheManager with filesystem, Redis, APCu, database, and array stores."
+date: 2026-07-01
+lastmod: 2026-07-01
 draft: false
 weight: 2000
 toc: true
+parent: "documentation"
 seo:
-  title: "Caching in Pionia" # custom title (optional)
-  description: "Guides on how to cache data using Pionia Framework." # custom description (recommended)
-  noindex: true # false (default) or true
+  title: "Caching in Pionia"
+  description: "Configure and use PioniaCache with multiple backends."
+  canonical: ""
+  noindex: false
 ---
 
-# Background.
+Pionia v3 ships a **native PSR-16 cache layer** (`PioniaCache` + `CacheManager`).
 
-Caching in Pionia is highly necessary and this guide will help us to understand the "why" and "how".
+Because Moonlight APIs use **POST** for reads and writes, HTTP caches do not apply — use application-level caching instead.
 
-Pionia uses a single endpoint architecture, this therefore means that all requests come via a single http verb "POST", however,
-POST requests are never cached anywhere, that is, on the server or in the browsers. This is attributed to the fact that
-traditional browsers and servers have been made in a way that POST requests are only used to `CREATE` resources on the server.
+## Choose a store
 
-However, Pionia uses `POST` verb for get too! Since all requests are coming through one window(endpoint), we cannot be switching verbs at
-that point, <b>at least, this is not supported yet.</b>
+`environment/settings.ini`:
 
-## Pionia Caching at a glance!
+```ini
+[cache]
+STORE=filesystem
+TTL=3600
 
-Pionia caching is not a hard concept. Since the entire caching is just a wrapper on top of the Symfony caching mechanism.
-All Caching adaptors supported by symfony are also supported here. By default, `FilesystemAdapter` is active by default.
-However, when going to production, however much this might even satisfy your basic needs, we recommend stronger, reliable and faster adaptors
-like `Memcached` or `Redis`.
+[cache_filesystem]
+path=storage/cache
+
+[cache_redis]
+host=127.0.0.1
+port=6379
+prefix=pionia:
+```
+
+| Store | `STORE` value | Best for |
+|-------|---------------|----------|
+| Filesystem | `filesystem` (default) | Single server, no extensions |
+| Array | `array` | Tests, per-worker memory |
+| Null | `null` | Disable caching without code changes |
+| Database | `database` | Shared cache via PDO |
+| APCu | `apcu` | RoadRunner / FPM workers on one host |
+| Redis | `redis` | Production clusters |
+
+Aliases: `file`, `memory`, `void`, `db`.
+
+## Use in code
+
+```php
+app()->cacheInstance()->set('rates', $rates, 300);
+$value = app()->cacheInstance()->get('rates');
+
+// Named store
+app()->cache()->store('redis')->set('session:1', $payload, 900);
+```
+
+## CLI
+
+```bash
+php pionia cache:clear
+php pionia cache:prune
+php pionia cache:delete my_key
+```
+
+## GenericService list/retrieve cache
+
+On services extending `GenericService`:
+
+```php
+public ?int $cacheListTtl = 60;      // seconds, null = off
+public ?int $cacheRetrieveTtl = 300;
+```
+
+Cache keys include table, filters, pagination, and request parameters. Use for expensive list/retrieve endpoints; invalidate with `recached()` on the service when data changes (see [Actions](/documentation/services/actions/)).
+
+## Custom adapters
+
+Register in a `BaseProvider`:
+
+```php
+public function configureCaching(\Pionia\Cache\CacheManager $cache): void
+{
+    $cache->extend('memcached', function ($app, array $config) {
+        return new MemcachedCacheAdapter(/* ... */);
+    });
+}
+```
+
+## RoadRunner note
+
+Each worker has its own memory. Use **Redis**, **database**, or **filesystem** stores when cache must be shared across workers.
+
+Related: [Performance (Porm)](/documentation/database/performance/) · [Generic services](/documentation/services/generic-services/).
