@@ -1,6 +1,7 @@
 ---
 title: "Advanced Generic Services"
-parent: "600_generic_services"
+slug: "advanced-generic-services"
+parent: "services"
 description: "Guides the developer in the advanced usages on Pionia Generic Services."
 summary: "Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them."
 date: 2024-06-29 19:57:09.923 +0300
@@ -12,7 +13,7 @@ seo:
   title: "Pionia Generic Services- Advanced" # custom title (optional)
   description: "Handling Advanced Generic Services in Pionia" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<callout tip>}}
@@ -31,6 +32,8 @@ The first advanced operation we will look at is relationships. Pionia Generic Se
 
 Remember that Pionia as the framework does not have a built-in Model Layer. Therefore, generic services are the best way to interact with related data.
 
+See the full [Relationships & joins](/documentation/database/relationships/) guide for ON/USING formats, `JoinOn` helpers, and manual `table()->join()` usage.
+
 ## Properties and Methods
 
 This feature is only available in all services that extend the `Pionia\Services\GenericService` class. But by default,
@@ -46,13 +49,11 @@ Remember, that we still need our base table to be defined in the `$table` proper
 public string $table = 'products';
 
 public array $joins = [
-    'category' => ['id' => 'category_id']
+    'category' => ['category_id' => 'id'],
 ];
-
 ```
 
-The above implies that we have a `products` table and a `category` table.
-The `products` table has a `category_id` column that relates to the `id` column in the `category` table.
+The above joins `products` to `category`: `products.category_id = category.id` (base column => joined column).
 
 ### $joinTypes
 
@@ -64,7 +65,7 @@ public array $joinTypes = [
 ];
 ```
 
-If you had defined an alias on your table, you can define the `$joinAlias` property to use the alias in the query.
+If you had defined an alias on your base table, set `$baseAlias` and use `$joinAliases` for joined tables:
 
 ```php
     public ?array $joinAliases = [

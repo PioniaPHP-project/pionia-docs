@@ -1,15 +1,29 @@
 ---
 title: "Extending Pionia"
-description: "Building on top of Pionia for Pionia developers."
-summary: "Pionia, through App Providers, allows you to extend the framework to suit your needs. This section will guide you on how to extend Pionia."
+description: "Packages, providers, and hooks for framework and application authors."
+summary: "How to extend Pionia with Composer packages and service providers."
 date: 2024-10-28 07:22:12.958 +0300
-lastmod: 2024-10-28 07:22:12.958 +0300
+lastmod: 2026-07-01 12:00:00.000 +0000
 draft: false
 weight: 6000
 toc: true
 seo:
-  title: "Extending Pionia" # custom title (optional)
-  description: "Building on top of Pionia for Pionia developers." # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  title: "Extending Pionia"
+  description: "Packages and providers for extending Pionia applications."
+  canonical: ""
+  noindex: false
 ---
+
+## Overview
+
+Most teams extend Pionia in two ways:
+
+1. **Application code** — services, switches, middleware under `Application\` in your repo.
+2. **Composer packages** — reusable libraries; some packages also ship a **provider** to register middleware, routes, or commands automatically.
+
+| Guide | Audience |
+|-------|----------|
+| [Composer packages](/documentation/extending/composer-packages/) | Package authors (plugins + providers) |
+| [App providers](/documentation/extending/app-providers/) | Provider hook reference and registration |
+
+Start with [Composer packages](/documentation/extending/composer-packages/) if you are publishing to Packagist. Use [App providers](/documentation/extending/app-providers/) when you need the full hook list and boot order.

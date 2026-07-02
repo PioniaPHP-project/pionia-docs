@@ -1,91 +1,67 @@
 ---
-title: "Database"
-description: "Database querying using PORM - Pionia ORM"
-summary: ""
-date: 024-06-13 14:32:03.100 +0300
-lastmod: 024-06-13 14:32:03.100 +0300
+title: "Database (Porm)"
+description: "Query the database with Porm — Pionia's fluent SQL layer."
+summary: "Configuration, CRUD, filtering, joins, pagination, connections, and the full Porm API."
+date: 2026-03-01
+lastmod: 2026-03-01
 draft: false
 weight: 1100
 toc: true
+parent: "documentation"
 seo:
-  title: "Ponia Porm Database" # custom title (optional)
-  description: "Querying the database using the PORM - Pionia ORM." # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  title: "Porm — Pionia database layer"
+  description: "Complete guide to Porm: table(), filter(), joins, WHERE DSL, pagination, and connections."
+  canonical: ""
+  noindex: false
 ---
 
-[//]: #
-[//]: # '{{<callout context="tip"  icon="outline/pencil">}}'
-[//]: # "This section assumes you have already set up your project and have already gone through the [Api Tutorial](/documentation/api-tutorial/) guide atleast."
-[//]: # "{{</callout>}}"
-[//]: #
-[//]: # "## Introduction."
-[//]: #
-[//]: # "Pionia uses PORM (Pionia ORM) to interact with the database. PORM is a simple and lightweight ORM that is built on top of the [medoo framework](https://medoo.in/). PORM provides a set of tools and conventions that make it easy to interact with the database in PHP. PORM is designed to be simple, lightweight, and easy to use."
-[//]: #
-[//]: # "## Installation"
-[//]: #
-[//]: # "If you want to check out PORM alone or want to use it outside the Pionia framework, you can install it via composer."
-[//]: #
-[//]: # "```bash"
-[//]: # "composer require pionia/porm"
-[//]: # "```"
-[//]: #
-[//]: # '{{<callout context="note"  icon="outline/pencil">}}'
-[//]: # "If you are using Pionia, you do not need to install PORM separately. PORM is already included in the Pionia framework."
-[//]: # "{{</callout>}}"
-[//]: #
-[//]: # "## Configuration"
-[//]: #
-[//]: # "Configuring PORM is simple. All you need is the settings.ini file in the root of your project. The settings.ini file should contain the following:"
-[//]: #
-[//]: # "```ini"
-[//]: # "[db]"
-[//]: # "database ="
-[//]: # "username ="
-[//]: # "type ="
-[//]: # "host ="
-[//]: # "password ="
-[//]: # "port ="
-[//]: # "```"
-[//]: #
-[//]: # '{{<callout context="note"  icon="outline/pencil">}}'
-[//]: # "If you are using Pionia, you do not need to configure PORM separately. PORM is already configured in the Pionia framework."
-[//]: # "{{</callout>}}"
-[//]: #
-[//]: # "### Multiple Database Connections"
-[//]: #
-[//]: # "If you want to connect to multiple databases, you can do so by adding the database connection settings to the `settings.ini` file. You can then specify the database connection to use when querying the database."
-[//]: #
-[//]: # "```ini"
-[//]: # "; other settings"
-[//]: #
-[//]: # "[db]"
-[//]: # "database ="
-[//]: # "username ="
-[//]: # "type ="
-[//]: # "host ="
-[//]: # "password ="
-[//]: # "port ="
-[//]: #
-[//]: # "[db2]"
-[//]: # "database ="
-[//]: # "username ="
-[//]: # "type ="
-[//]: # "host ="
-[//]: # "password ="
-[//]: # "port ="
-[//]: #
-[//]: # "; other settings"
-[//]: #
-[//]: # "```"
-[//]: #
-[//]: # "You can then specify the database connection to use when querying the database."
-[//]: #
-[//]: # "```php"
-[//]: # "use Porm\\Porm;"
-[//]: #
-[//]: # "Porm::from('posts')->using('db2'); // will connect to the db2 database"
-[//]: # "```"
-[//]: #
-[//]: # "By default, PORM will use the default database connection(db) to query the database."
+Pionia includes **Porm** (Pionia ORM) — a Medoo-inspired **query builder**, not a full ORM. There are no models or migrations in the framework; you work with tables, arrays, and a fluent API.
+
+## Quick start
+
+```php
+// Global helpers (recommended)
+$row = table('users')->get(1);
+$rows = table('users')->filter(['active' => 1])->limit(10)->all();
+
+// Named connection from environment/settings.ini
+table('orders', null, 'db_pgsql')->save(['total' => 99]);
+```
+
+{{<callout context="note" icon="outline/information-circle">}}
+Porm is built into your Pionia app. Use `table()` or `db()` — not legacy `Porm\Porm::from()` patterns from older tutorials.
+{{</callout>}}
+
+## Guide map
+
+| Topic | Page |
+|-------|------|
+| Configuration & entry points | [Getting started](/documentation/database/configuration-getting-started/) |
+| CRUD & reads | [Making queries](/documentation/database/making-queries/) |
+| `filter()`, `orderBy`, `limit` | [Filtering](/documentation/database/queries-with-filtering/) |
+| WHERE operators & clause keys | [WHERE DSL reference](/documentation/database/where-dsl/) |
+| Joins & aliases | [Relationships & joins](/documentation/database/relationships/) |
+| `count`, `sum`, `Agg` builder | [Aggregation](/documentation/database/using-functions-aggregation/) |
+| `PaginationCore` & list APIs | [Pagination](/documentation/database/pagination/) |
+| Multi-DB & pooling | [Connections](/documentation/database/connections/) |
+| Transactions & raw SQL | [Transactions & raw SQL](/documentation/database/transactions-and-raw-sql/) |
+| `chunk`, `random`, `explain` | [Performance](/documentation/database/performance/) |
+| Method cheat sheet | [API reference](/documentation/database/api-reference/) |
+
+## Query modes
+
+```text
+table('users')
+  ├─ Direct mode   → get(), save(), update(), delete(), has(), random(), …
+  ├─ filter()      → Builder (where, orderBy, limit, all, count, …)
+  └─ join()        → Join (left, inner, right, full, all, count, random, …)
+```
+
+After `filter()` or `join()`, table-level write methods (`save`, `get`, etc.) are not available on the same chain — finish with `all()`, `get()`, or `count()` on the builder.
+
+## Related docs
+
+- [Generic services](/documentation/services/generic-services/) — CRUD over Porm via `GenericService`
+- [Advanced generic services](/documentation/services/advanced-generic-services/) — joins, column aliases, pagination from HTTP
+- [RoadRunner](/documentation/roadrunner/) — `ConnectionManager` keeps PDO alive across requests
+- [Helpers](/documentation/helpers/) — `table()`, `db()`, `connectionManager()`

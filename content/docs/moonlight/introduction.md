@@ -1,5 +1,6 @@
 ---
 title: "Introduction to MoonLight Architecture"
+slug: "introduction-to-moonlight-architecture"
 description: "This page describes the MoonLight Architecture."
 summary: ""
 date: 2024-05-24T13:45:48.890Z
@@ -22,10 +23,11 @@ MoonLight is a rather new architecture that is based on the commonly used archit
 
 Below are the new conventions that MoonLight architecture brings to the table:
 
-Architecture Overview
+Architecture overview (conceptual):
 
-<img src="architecture.png" alt="Moonlight Architecture Overview">
-<!-- add a video showing the same here -->
+```text
+Client → /api/v1/ → Switch → Service → *Action → JSON envelope
+```
 
 ### 1. Single API endpoint/route
 

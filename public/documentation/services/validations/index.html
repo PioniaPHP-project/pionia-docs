@@ -12,12 +12,12 @@
 </script>
 
 
-<link rel="stylesheet" href="/main.01b0834d5af51b24812d02878d09c8d7677d6b8af13164fb50215889dc19aaefd0e9366c13b45a9a57ae481dfd1836bce46b5ebfe461d56e3498b9443d8c5e27.css" integrity="sha512-AbCDTVr1GySBLQKHjQnI12d9a4rxMWT7UCFYidwZqu/Q6TZsE7RamleuSB39GDa85Gtev&#43;Rh1W40mLlEPYxeJw==" crossorigin="anonymous">
+<link rel="stylesheet" href="/main.9ed853d79800eb30af47084c0d9d5d79430d07ba3263866f4dd632d3c38922ecff70736a27f6cda2bd633327128bd79c3e3232f0dca5d9434998639cf189a515.css" integrity="sha512-nthT15gA6zCvRwhMDZ1deUMNB7oyY4ZvTdYy08OJIuz/cHNqJ/bNor1jMycSi9ecPjIy8Nyl2UNJmGOc8YmlFQ==" crossorigin="anonymous">
 
 <noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/services/validations/">
   <link rel="canonical" href="http://localhost:1313/documentation/services/validations/">
-<title>Services</title>
-<meta name="description" content="Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!">
+<title>Pionia service validation</title>
+<meta name="description" content="Validate Moonlight request data with attributes, rules(), or validate() chains.">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -44,15 +44,15 @@
       >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="Validations">
-<meta property="og:description" content="Getting started with Pionia Service Actions">
+<meta property="og:description" content="ValidationException, rules(), attributes, and custom validation rules.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/services/validations/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2024-10-07T20:24:56+03:00">
-<meta property="article:modified_time" content="2024-10-07T20:24:56+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:published_time" content="2026-07-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2024-11-24T01:34:32+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Validations">
-<meta name="twitter:description" content="Getting started with Pionia Service Actions">
+<meta name="twitter:description" content="ValidationException, rules(), attributes, and custom validation rules.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -160,6 +160,10 @@
   </li>
 
   <li>
+      <a href="/documentation/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
       <a href="/documentation/why-pionia/">Why Pionia?</a>
   </li>
 
@@ -168,7 +172,11 @@
   </li>
 
   <li>
-      <a href="/documentation/api-tutorial/">API Tutorial</a>
+      <a href="/documentation/api-tutorial/">API tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/collections/">Collections (Arrayable)</a>
   </li>
 
   <li>
@@ -184,12 +192,12 @@
       <a href="/documentation/services/actions/">Actions</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
-  </li>
-
   <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
   </li>
 
   <li>
@@ -200,7 +208,43 @@
   </li>
 
   <li>
+      <a href="/documentation/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/middleware/">Middleware</a>
+  </li>
+
+  <li>
       <a href="/documentation/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/exceptions/">Exceptions &amp; error handling</a>
   </li>
 
   <li>
@@ -209,14 +253,14 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
-  </li>
-
-  <li>
-      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/frontend-integration-vite/">Frontend Integration (Vite)</a>
   </li>
 
   <li>
@@ -225,7 +269,7 @@
 
   <li>
     <details open>
-      <summary>Database</summary>
+      <summary>Database (Porm)</summary>
       <ul class="list-unstyled list-nested">
 
   <li>
@@ -241,18 +285,38 @@
   </li>
 
   <li>
-      <a href="/documentation/database/relationships/">Relationships</a>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
   </li>
 
   <li>
       <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
   </li>
-      </ul>
-    </details>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
   </li>
 
   <li>
-      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -260,7 +324,11 @@
   </li>
 
   <li>
-      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
+      <a href="/documentation/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/helpers/">Pionia Helpers</a>
   </li>
 
   <li>
@@ -269,7 +337,7 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/documentation/extending/pionia-packagesplugins/">Pionia Packages(Plugins)</a>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
   </li>
 
   <li>
@@ -296,7 +364,7 @@
   </li>
 
   <li>
-      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
+      <a href="/moonlight/api-versioning-in-moonlight/">API versioning in Moonlight</a>
   </li>
       </ul>
     </details>
@@ -454,6 +522,10 @@
   </li>
 
   <li>
+      <a href="/documentation/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
       <a href="/documentation/why-pionia/">Why Pionia?</a>
   </li>
 
@@ -462,7 +534,11 @@
   </li>
 
   <li>
-      <a href="/documentation/api-tutorial/">API Tutorial</a>
+      <a href="/documentation/api-tutorial/">API tutorial</a>
+  </li>
+
+  <li>
+      <a href="/documentation/collections/">Collections (Arrayable)</a>
   </li>
 
   <li>
@@ -478,12 +554,12 @@
       <a href="/documentation/services/actions/">Actions</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
-  </li>
-
   <li>
       <a href="/documentation/services/generic-services/">Generic Services</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/services/validations/">Validations</a>
   </li>
 
   <li>
@@ -494,7 +570,43 @@
   </li>
 
   <li>
+      <a href="/documentation/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/middleware/">Middleware</a>
+  </li>
+
+  <li>
       <a href="/documentation/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/exceptions/">Exceptions &amp; error handling</a>
   </li>
 
   <li>
@@ -503,14 +615,14 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/documentation/security/security-authentication-and-authorization/">Security - Authentication and Authorization</a>
-  </li>
-
-  <li>
-      <a href="/documentation/security/example-jwt-authentication/">Example - JWT Authentication</a>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/frontend-integration-vite/">Frontend Integration (Vite)</a>
   </li>
 
   <li>
@@ -519,7 +631,7 @@
 
   <li>
     <details open>
-      <summary>Database</summary>
+      <summary>Database (Porm)</summary>
       <ul class="list-unstyled list-nested">
 
   <li>
@@ -535,18 +647,38 @@
   </li>
 
   <li>
-      <a href="/documentation/database/relationships/">Relationships</a>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
   </li>
 
   <li>
       <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
   </li>
-      </ul>
-    </details>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
   </li>
 
   <li>
-      <a href="/documentation/commands-pionia-cli/">Commands( Pionia CLI)</a>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
   </li>
 
   <li>
@@ -554,7 +686,11 @@
   </li>
 
   <li>
-      <a href="/documentation/pionia-helpers/">Pionia Helpers</a>
+      <a href="/documentation/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/helpers/">Pionia Helpers</a>
   </li>
 
   <li>
@@ -563,7 +699,7 @@
       <ul class="list-unstyled list-nested">
 
   <li>
-      <a href="/documentation/extending/pionia-packagesplugins/">Pionia Packages(Plugins)</a>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
   </li>
 
   <li>
@@ -590,7 +726,7 @@
   </li>
 
   <li>
-      <a href="/moonlight/api-versioning-in-moonlight/">API Versioning in Moonlight</a>
+      <a href="/moonlight/api-versioning-in-moonlight/">API versioning in Moonlight</a>
   </li>
       </ul>
     </details>
@@ -607,36 +743,32 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#creating-an-action">Creating an Action</a></li>
-    <li><a href="#request-and-response">Request and Response</a>
+    <li><a href="#quick-choice">Quick choice</a></li>
+    <li><a href="#attributes-recommended-for-actions">Attributes (recommended for actions)</a>
       <ul>
-        <li><a href="#request-action">Request Action</a></li>
+        <li><a href="#validated--multiple-fields"><code>#[Validated]</code> — multiple fields</a></li>
+        <li><a href="#validatefield--repeatable-one-field-per-attribute"><code>#[ValidateField]</code> — repeatable, one field per attribute</a></li>
       </ul>
     </li>
-    <li><a href="#accessing-request-data">Accessing Request Data</a>
+    <li><a href="#rules--imperative-validation"><code>rules()</code> — imperative validation</a>
       <ul>
-        <li><a href="#getkey-default--null">get($key, $default = null)</a></li>
-        <li><a href="#getorthrowkey-throwablestringnull-exception--null">getOrThrow($key, Throwable|string|null $exception = null)</a></li>
-        <li><a href="#getstringkey">getString($key)</a></li>
-        <li><a href="#getintkey">getInt($key)</a></li>
-        <li><a href="#getfloatkey">getFloat($key)</a></li>
-        <li><a href="#getboolkey">getBool($key)</a></li>
-        <li><a href="#getjsonkey">getJson($key)</a></li>
-        <li><a href="#getarraykey">getArray($key)</a></li>
-        <li><a href="#getarrayablekey">getArrayable($key)</a></li>
-        <li><a href="#getakey-classname">getA($key, $className)</a></li>
-        <li><a href="#getpositiveintegerkey">getPositiveInteger($key)</a></li>
-        <li><a href="#getnegativeintegerkey">getNegativeInteger($key)</a></li>
+        <li><a href="#available-rules">Available rules</a></li>
       </ul>
     </li>
-    <li><a href="#request-files">Request Files</a></li>
-    <li><a href="#further-request-validation">Further Request Validation</a>
+    <li><a href="#custom-rules">Custom rules</a>
       <ul>
-        <li><a href="#requiresstring--array-keys">requires(string | array $keys)</a></li>
-        <li><a href="#validatestring-key-arrayable--request--service-requestdata">validate(string $key, Arrayable | Request | Service $requestData)</a></li>
+        <li><a href="#in-a-provider-recommended">In a provider (recommended)</a></li>
+        <li><a href="#at-bootstrap">At bootstrap</a></li>
+        <li><a href="#class-based-rules">Class-based rules</a></li>
+        <li><a href="#use-custom-rules">Use custom rules</a></li>
       </ul>
     </li>
+    <li><a href="#validate--chainable-single-field"><code>validate()</code> — chainable (single field)</a></li>
+    <li><a href="#this-requires--presence-only"><code>$this-&gt;requires()</code> — presence only</a></li>
+    <li><a href="#genericservice">GenericService</a></li>
+    <li><a href="#manual-throws">Manual throws</a></li>
+    <li><a href="#exception-pipeline">Exception pipeline</a></li>
+    <li><a href="#response-shape">Response shape</a></li>
   </ul>
 </nav>
 </div>
@@ -652,59 +784,133 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#creating-an-action">Creating an Action</a></li>
-    <li><a href="#request-and-response">Request and Response</a>
+    <li><a href="#quick-choice">Quick choice</a></li>
+    <li><a href="#attributes-recommended-for-actions">Attributes (recommended for actions)</a>
       <ul>
-        <li><a href="#request-action">Request Action</a></li>
+        <li><a href="#validated--multiple-fields"><code>#[Validated]</code> — multiple fields</a></li>
+        <li><a href="#validatefield--repeatable-one-field-per-attribute"><code>#[ValidateField]</code> — repeatable, one field per attribute</a></li>
       </ul>
     </li>
-    <li><a href="#accessing-request-data">Accessing Request Data</a>
+    <li><a href="#rules--imperative-validation"><code>rules()</code> — imperative validation</a>
       <ul>
-        <li><a href="#getkey-default--null">get($key, $default = null)</a></li>
-        <li><a href="#getorthrowkey-throwablestringnull-exception--null">getOrThrow($key, Throwable|string|null $exception = null)</a></li>
-        <li><a href="#getstringkey">getString($key)</a></li>
-        <li><a href="#getintkey">getInt($key)</a></li>
-        <li><a href="#getfloatkey">getFloat($key)</a></li>
-        <li><a href="#getboolkey">getBool($key)</a></li>
-        <li><a href="#getjsonkey">getJson($key)</a></li>
-        <li><a href="#getarraykey">getArray($key)</a></li>
-        <li><a href="#getarrayablekey">getArrayable($key)</a></li>
-        <li><a href="#getakey-classname">getA($key, $className)</a></li>
-        <li><a href="#getpositiveintegerkey">getPositiveInteger($key)</a></li>
-        <li><a href="#getnegativeintegerkey">getNegativeInteger($key)</a></li>
+        <li><a href="#available-rules">Available rules</a></li>
       </ul>
     </li>
-    <li><a href="#request-files">Request Files</a></li>
-    <li><a href="#further-request-validation">Further Request Validation</a>
+    <li><a href="#custom-rules">Custom rules</a>
       <ul>
-        <li><a href="#requiresstring--array-keys">requires(string | array $keys)</a></li>
-        <li><a href="#validatestring-key-arrayable--request--service-requestdata">validate(string $key, Arrayable | Request | Service $requestData)</a></li>
+        <li><a href="#in-a-provider-recommended">In a provider (recommended)</a></li>
+        <li><a href="#at-bootstrap">At bootstrap</a></li>
+        <li><a href="#class-based-rules">Class-based rules</a></li>
+        <li><a href="#use-custom-rules">Use custom rules</a></li>
       </ul>
     </li>
+    <li><a href="#validate--chainable-single-field"><code>validate()</code> — chainable (single field)</a></li>
+    <li><a href="#this-requires--presence-only"><code>$this-&gt;requires()</code> — presence only</a></li>
+    <li><a href="#genericservice">GenericService</a></li>
+    <li><a href="#manual-throws">Manual throws</a></li>
+    <li><a href="#exception-pipeline">Exception pipeline</a></li>
+    <li><a href="#response-shape">Response shape</a></li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+			<p>: false</p>
+<hr>
+<p>Client errors (missing fields, bad input) should return <strong>422 Unprocessable Entity</strong>. Pionia throws <code>Pionia\Exceptions\ValidationException</code> — the exception pipeline maps it automatically.</p>
+<h2 id="quick-choice">Quick choice<a href="#quick-choice" class="anchor" aria-hidden="true">#</a> </h2>
+<p>| Style | When |</p>
+<p>|&mdash;&mdash;-|&mdash;&mdash;|</p>
+<p>| <strong><code>#[Validated]</code> / <code>#[ValidateField]</code></strong> | Declare rules on the action method — runs automatically before the body |</p>
+<p>| <strong><code>rules($data, [...])</code></strong> | Multiple fields inside the action — imperative or conditional |</p>
+<p>| <strong><code>validate('field', $data)-&gt;…</code></strong> | One field, custom chain, or dynamic checks |</p>
+<p>| <strong><code>$this-&gt;requires([...])</code></strong> | Presence only (no format checks) — prefer <code>required</code> in <code>rules()</code> instead |</p>
+<p>| <strong>GenericService columns</strong> | CRUD scaffolding (<code>$createColumns</code>, <code>$updateColumns</code>) |</p>
+<h2 id="attributes-recommended-for-actions">Attributes (recommended for actions)<a href="#attributes-recommended-for-actions" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Attach validation rules to action methods. Pionia runs them automatically in <code>processAction()</code> <strong>before</strong> your action body — no manual <code>rules()</code> call needed.</p>
+<h3 id="validated--multiple-fields"><code>#[Validated]</code> — multiple fields<a href="#validated--multiple-fields" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\ApiResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\Attributes\Validated</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[Validated(rules: [
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|email&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|password|min:8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;password_confirmation&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|confirmed:password&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|in:admin,user,guest&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">])]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">registerAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// $data is already validated — business logic only
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Registered&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="validatefield--repeatable-one-field-per-attribute"><code>#[ValidateField]</code> — repeatable, one field per attribute<a href="#validatefield--repeatable-one-field-per-attribute" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\Attributes\ValidateField</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[ValidateField(&#39;email&#39;, &#39;required|email&#39;)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">#[ValidateField(&#39;password&#39;, &#39;required|password|min:8&#39;)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;token&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;…&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>You can combine both attribu<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the <a href="/documentation/api-tutorial/">tutorial</a>.</p>
+      <p>Attributes use the same pipe syntax and custom rules as <code>rules()</code>. Register custom rules once via <code>validations()-&gt;extend()</code> or <code>configureValidations()</code> on a provider.</p>
 
     </div>
   </div>
 </div>
-
-<h2 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Actions are the actual logic that is executed when a request is made to the API. Actions are the central logic for the entire app. They are responsible for handling the request, processing the data, and returning the response.</p>
-<p>In Pionia, <code>actions</code> MUST be defined in services. If you haven&rsquo;t created a service yet, you can check out the <a href="/documentation/services/services/">services documentation</a>.</p>
-<h2 id="creating-an-action">Creating an Action<a href="#creating-an-action" class="anchor" aria-hidden="true">#</a> </h2>
-<p>In Pionia, an action is a method in a service class. To create an action, you need to create a method in the service class. The method should be public and should have the <code>Action</code> suffix such as <code>loginAction</code>.</p>
-<p>Here is an example of an action in a service class:</p>
+extend()<code>or</code>configureValidations()` on a provider.</p>
+<p>{{</callout>}}</p>
+<h2 id="rules--imperative-validation"><code>rules()</code> — imperative validation<a href="#rules--imperative-validation" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Call inside an action when you need conditional rules or prefer inline validation:</p>
 
 
 
@@ -714,210 +920,38 @@
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">registerAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">rules</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|email&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|password|min:8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;password_confirmation&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|confirmed:password&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|in:admin,user,guest&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;integer|min:18&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;website&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;nullable|url&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;invite_code&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;nullable|uuid&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;tags&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;array|min:1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// business logic…
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>In the above example, we have created a <code>loginAction</code> method in the <code>UserService</code> class. The method takes an <code>Arrayable</code> object as a parameter. The <code>Arrayable</code> object contains the data sent in the <code>POST</code> request body.
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>You can define other helper methods in the service class to help with the logic in the action method. Anything that is not suffixed with <code>Action</code> is considered a helper method and is not accessible via the API as an endpoint.</p>
-
-    </div>
-  </div>
-</div>
-</p>
-<h2 id="request-and-response">Request and Response<a href="#request-and-response" class="anchor" aria-hidden="true">#</a> </h2>
-<p>The action method takes an <code>Arrayable</code> object as a parameter. The <code>Arrayable</code> object contains the data sent in the request body. You can access the data using the <code>get</code> method of the <code>Arrayable</code> object.</p>
-<h3 id="request-action">Request Action<a href="#request-action" class="anchor" aria-hidden="true">#</a> </h3>
-<p>To define an action being targeted in your request, you have to specify the <code>ACTION</code> or <code>action</code> key in the request body. The value of the <code>ACTION</code> key should be the name of the action method in the service class.</p>
-<p>Here is an example of a request body:</p>
-<p>Assuming we have an action <code>loginAction</code> in the UserService class, the request body should look like this:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;login&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The above can also be targeted like this:-</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;login-action&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Or by simply the actual method name as the action:-</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;loginAction&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h2 id="accessing-request-data">Accessing Request Data<a href="#accessing-request-data" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Request data comes in various formats such as JSON, form data, etc. The <code>Arrayable</code> object provides a unified way to access the data regardless of the format.</p>
-<h3 id="getkey-default--null">get($key, $default = null)<a href="#getkey-default--null" class="anchor" aria-hidden="true">#</a> </h3>
-<p>Since the request data is received as a Pionia Collections <code>Arrayable</code> object, you can access the data using the <code>get</code> method. The <code>get</code> method takes two parameters: the key of the data you want to access and the default value to return if the key is not found.</p>
-<p>Given the request data:-</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;username&#34;</span><span class="p">:</span> <span class="s2">&#34;john.doe&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;password&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;login&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>We can access the <code>username</code> and <code>password</code> fields in our action as follows:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The get method also takes on an optional second parameter which is the default value to return if the key is not found. For example, if the <code>limit</code> key is not found in the request data below, the <code>get</code> method will return assign it to 10.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$limit</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>You can henceforth use <code>$limit</code> in your logic without expecting any null values.</p>
-<h3 id="getorthrowkey-throwablestringnull-exception--null">getOrThrow($key, Throwable|string|null $exception = null)<a href="#getorthrowkey-throwablestringnull-exception--null" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This method is similar to the <code>get</code> method but throws an exception if the key is not found in the request data. The <code>getOrThrow</code> method takes two parameters: the key of the data you want to access and an optional exception to throw if the key is not found.
-If no exception is provided, a normal php Exception is thrown with the message <code>$key not found</code>.</p>
-<p>This operation also prevents the code below from executing if the key is not found.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getOrThrow</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getOrThrow</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">&#39;Password cannot be empty&#39;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>This ensures that you do not proceed with null values in your logic.</p>
-<h3 id="getstringkey">getString($key)<a href="#getstringkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a <code>string</code> or <code>null</code>. If the value is not a string, it is cast to a string.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getintkey">getInt($key)<a href="#getintkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as an <code>int</code> or <code>null</code>. If the value is not an integer, it is cast to an integer.</p>
+<p>Array syntax works too:</p>
 
 
 
@@ -927,234 +961,36 @@ If no exception is provided, a normal php Exception is thrown with the message <
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">rules</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$age</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getInt</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span></span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="getfloatkey">getFloat($key)<a href="#getfloatkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a <code>float</code> or <code>null</code>. If the value is not a float, it is cast to a float.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$price</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getFloat</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getboolkey">getBool($key)<a href="#getboolkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a <code>bool</code> or <code>null</code>. If the value is not a boolean, it is cast to a boolean.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$is_active</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getBool</span><span class="p">(</span><span class="s1">&#39;is_active&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getjsonkey">getJson($key)<a href="#getjsonkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a <code>json</code> or <code>null</code>. If the value is not a json, it is cast to a json.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$json</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getJson</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getarraykey">getArray($key)<a href="#getarraykey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as an <code>array</code> or <code>null</code>. If the value is not an array, it is cast to an array.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$array</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getArray</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getarrayablekey">getArrayable($key)<a href="#getarrayablekey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as an <code>Arrayable</code> object or <code>null</code>. If the value is not an array, it is cast to an array.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$arrayable</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getArrayable</span><span class="p">(</span><span class="s1">&#39;arrayable&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getakey-classname">getA($key, $className)<a href="#getakey-classname" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as an object of the specified class. If the value is not an object of the specified class, an exception is thrown.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getA</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nx">User</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getpositiveintegerkey">getPositiveInteger($key)<a href="#getpositiveintegerkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a positive integer or <code>null</code>. If the value is not a positive integer, an exception is thrown.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$age</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getPositiveInteger</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="getnegativeintegerkey">getNegativeInteger($key)<a href="#getnegativeintegerkey" class="anchor" aria-hidden="true">#</a> </h3>
-<p>This returns the value of the key as a negative integer or <code>null</code>. If the value is not a negative integer, an exception is thrown.</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$age</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getNegativeInteger</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>All methods available in the <code>Arrayable</code> class can be found <a href="/documentation/collections/">here</a>.</p>
-<h2 id="request-files">Request Files<a href="#request-files" class="anchor" aria-hidden="true">#</a> </h2>
-<p>If the request contains files, you can access them from the second parameter of the action method. The second parameter is an instance of the <code>Symfony\Component\HttpFoundation\FileBag</code> class from <code>Symfony components</code>.</p>
-<p>Here is an example of how to access files in an action method:</p>
+<p><code>nullable</code> / <code>sometimes</code> skip remaining rules when the field is missing or blank.</p>
+<h3 id="available-rules">Available rules<a href="#available-rules" class="anchor" aria-hidden="true">#</a> </h3>
+<p>| Rule | Meaning |</p>
+<p>|&mdash;&mdash;|&mdash;&mdash;&mdash;|</p>
+<p>| <code>required</code> | Present and non-blank |</p>
+<p>| <code>nullable</code>, <code>sometimes</code> | Optional — skip other rules when empty |</p>
+<p>| <code>string</code>, <code>integer</code> / <code>int</code>, <code>numeric</code>, <code>number</code>, <code>float</code>, <code>boolean</code> / <code>bool</code>, <code>array</code> | Type checks (<code>integer</code> accepts JSON numeric strings) |</p>
+<p>| <code>email</code>, <code>url</code>, <code>ip</code>, <code>slug</code>, <code>uuid</code>, <code>password</code>, <code>date</code> | Format validators |</p>
+<p>| <code>phone</code> / <code>phone:+254</code> | Phone pattern; optional country prefix |</p>
+<p>| <code>min:n</code> | Min length (string), value (number), or items (array) |</p>
+<p>| <code>max:n</code> | Max length, value, or items |</p>
+<p>| <code>between:min,max</code> | Numeric or string length range |</p>
+<p>| <code>in:a,b,c</code> | Allow-list |</p>
+<p>| <code>not_in:a,b,c</code> | Deny-list |</p>
+<p>| <code>regex:pattern</code> | PCRE pattern |</p>
+<p>| <code>confirmed:field</code> / <code>matches:field</code> | Must equal another field |</p>
+<p>| <code>required_with:field</code> | Required when another field is present |</p>
+<p>| <code>required_without:field</code> | Required when another field is absent |</p>
+<p>| <em>custom</em> | Any name registered on <code>validations()</code> |</p>
+<p>All failures throw <strong><code>ValidationException</code></strong> (HTTP 422).</p>
+<h2 id="custom-rules">Custom rules<a href="#custom-rules" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Register reusable rules once on the shared <code>ValidationManager</code> singleton. Attributes, <code>rules()</code>, and <code>validate()-&gt;rule()</code> all use the same registry.</p>
+<h3 id="in-a-provider-recommended">In a provider (recommended)<a href="#in-a-provider-recommended" class="anchor" aria-hidden="true">#</a> </h3>
 
 
 
@@ -1164,43 +1000,38 @@ If no exception is provided, a normal php Exception is thrown with the message <
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Base\Provider\Provider</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\ValidationContext</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\ValidationManager</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AppProvider</span> <span class="k">extends</span> <span class="nx">Provider</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">,</span> <span class="nx">FileBag</span> <span class="nv">$files</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$avatar</span> <span class="o">=</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;avatar&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">configureValidations</span><span class="p">(</span><span class="nx">ValidationManager</span> <span class="nv">$validations</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$validations</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;kenya_phone&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">ValidationContext</span> <span class="nv">$ctx</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/^\+254/&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$ctx</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nv">$ctx</span><span class="o">-&gt;</span><span class="na">fail</span><span class="p">(</span><span class="s1">&#39;Phone must be a Kenyan number&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The above <code>$avatar</code> variable will return an instance of <code>Symfony\Component\HttpFoundation\File\UploadedFile</code> which you can use to check and interact with files as you see fit.</p>
-<h2 id="further-request-validation">Further Request Validation<a href="#further-request-validation" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Pionia provides a way to validate the request data before proceeding with the logic in the action method.</p>
-<p>Various helper methods are available to help you achieve this. Let&rsquo;s break down some of them below.</p>
-<h3 id="requiresstring--array-keys">requires(string | array $keys)<a href="#requiresstring--array-keys" class="anchor" aria-hidden="true">#</a> </h3>
-<p>The <code>requires</code> method is used to validate that the request data contains the specified key[s]. The <code>requires</code> method takes a string or an array of keys to validate.</p>
-<p>If the request data does not contain the specified keys, an exception is thrown with the message <code>Field $field is required!</code>.</p>
-<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>All keys must be present in the request data for the action to proceed.</p>
-
-    </div>
-  </div>
-</div>
-
-<h3 id="validatestring-key-arrayable--request--service-requestdata">validate(string $key, Arrayable | Request | Service $requestData)<a href="#validatestring-key-arrayable--request--service-requestdata" class="anchor" aria-hidden="true">#</a> </h3>
-<p>The <code>validate</code> helper method exposes multiple other validators that you can use to validate the request data. The <code>validate</code> method takes two parameters: the key of the data you want to validate and an instance of <code>Arrayable | Request | Service</code>.</p>
-<p>Here is an example of how to use the <code>validate</code> helper:</p>
+<h3 id="at-bootstrap">At bootstrap<a href="#at-bootstrap" class="anchor" aria-hidden="true">#</a> </h3>
 
 
 
@@ -1210,28 +1041,208 @@ If no exception is provided, a normal php Exception is thrown with the message <
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">validations</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;sku&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">ValidationContext</span> <span class="nv">$ctx</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/^[A-Z]{2}-\d{4}$/&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$ctx</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">()))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$ctx</span><span class="o">-&gt;</span><span class="na">fail</span><span class="p">(</span><span class="s1">&#39;Invalid SKU format&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="class-based-rules">Class-based rules<a href="#class-based-rules" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Implement <code>Pionia\Validations\Contracts\ValidationRuleContract</code> and register the class name — the manager instantiates it once per rule:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\Contracts\ValidationRuleContract</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Validations\ValidationContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">EvenNumberRule</span> <span class="k">implements</span> <span class="nx">ValidationRuleContract</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">loginAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// above is similar to below
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">asEmail</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// Your logic here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">validate</span><span class="p">(</span><span class="nx">ValidationContext</span> <span class="nv">$context</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">is_numeric</span><span class="p">(</span><span class="nv">$context</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">())</span> <span class="o">||</span> <span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">())</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">fail</span><span class="p">(</span><span class="s1">&#39;Value must be an even number&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validations</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;even&#39;</span><span class="p">,</span> <span class="nx">EvenNumberRule</span><span class="o">::</span><span class="na">class</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="use-custom-rules">Use custom rules<a href="#use-custom-rules" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[Validated(rules: [&#39;phone&#39; =&gt; &#39;required|kenya_phone&#39;])]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">saveAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span> <span class="p">{</span> <span class="cm">/* … */</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">rules</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;phone&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|kenya_phone&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;phone&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">rule</span><span class="p">(</span><span class="s1">&#39;kenya_phone&#39;</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Parameters after <code>:</code> are available as <code>$ctx-&gt;parameter</code> (e.g. <code>tier:gold</code> → <code>'gold'</code>).</p>
+<h2 id="validate--chainable-single-field"><code>validate()</code> — chainable (single field)<a href="#validate--chainable-single-field" class="anchor" aria-hidden="true">#</a> </h2>
+<p>For one-off or dynamic checks inside an action:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">asPassword</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;phone&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">rule</span><span class="p">(</span><span class="s1">&#39;kenya_phone&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">between</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Pass <code>$data</code>, <code>$this</code>, or <code>$this-&gt;request</code> as the second argument.</p>
+<h2 id="this-requires--presence-only"><code>$this-&gt;requires()</code> — presence only<a href="#this-requires--presence-only" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Checks that keys exist and are non-blank. Does <strong>not</strong> validate format — use <code>required</code> in <code>rules()</code> or attributes instead:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">([</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span>           <span class="c1">// quick presence check
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">rules</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|integer&#39;</span><span class="p">]);</span> <span class="c1">// presence + format
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="genericservice">GenericService<a href="#genericservice" class="anchor" aria-hidden="true">#</a> </h2>
+<p>When <code>$createColumns</code> or <code>$updateColumns</code> are set, missing <strong>required</strong> fields throw <code>ValidationException</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Generics\UniversalGenericService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PostService</span> <span class="k">extends</span> <span class="nx">UniversalGenericService</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;posts&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$createColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$updateColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body?&#39;</span><span class="p">];</span> <span class="c1">// title? = optional
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>You can find a complete list of validators <a href="/documentation/services/validation/">here</a>.</p>
+<p>Optional columns: suffix with <code>?</code> (e.g. <code>'bio?'</code>). File uploads use <code>$fileColumns</code>.</p>
+<h2 id="manual-throws">Manual throws<a href="#manual-throws" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Prefer <code>rules()</code> or attributes. Use manual throws only for domain rules that do not map to field rules:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Exceptions\ValidationException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nv">$stock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nx">ValidationException</span><span class="p">(</span><span class="s1">&#39;Insufficient stock&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="exception-pipeline">Exception pipeline<a href="#exception-pipeline" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">exceptions</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">dontReport</span><span class="p">(</span><span class="nx">ValidationException</span><span class="o">::</span><span class="na">class</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>See <a href="/documentation/exceptions/">Exceptions</a>.</p>
+<h2 id="response-shape">Response shape<a href="#response-shape" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">422</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="err">&#34;email</span> </span></span></code></pre></div>
+  </figure>
+</div>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/b5628d42dbe0fb9932340ef1dcd463db6c7ae62b">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on November 24, 2024
+    </a>
+  </div>
+
 				
 
 
@@ -1273,7 +1284,7 @@ If no exception is provided, a normal php Exception is thrown with the message <
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/services/actions/" class="stretched-link text-reset text-decoration-none">Actions</a>
+					<a href="/documentation/services/generic-services/" class="stretched-link text-reset text-decoration-none">Generic Services</a>
 				</div>
 			</div>
 		</div>
@@ -1282,7 +1293,7 @@ If no exception is provided, a normal php Exception is thrown with the message <
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/services/generic-services/" class="stretched-link text-reset text-decoration-none">Generic Services</a>
+					<a href="/documentation/services/advanced-generic-services/" class="stretched-link text-reset text-decoration-none">Advanced Generic Services</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1334,6 +1345,8 @@ If no exception is provided, a normal php Exception is thrown with the message <
 
 
 
+
+<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 <script async
   src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
   integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">

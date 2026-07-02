@@ -1,25 +1,180 @@
 ---
-title: "Commands( Pionia CLI)"
+title: "Commands (Pionia CLI)"
+slug: "commands-pionia-cli"
 description: "Guides you on to use Pionia CLI and adding custom commands"
-summary: "Avails the availble commands in our Pionia CLI and how you can your custom commands."
+summary: "Available commands in Pionia CLI and how to add custom commands."
 date: 2024-10-07 19:48:09.318 +0300
-lastmod: 2024-10-07 19:48:09.318 +0300
+lastmod: 2026-07-02
 draft: false
-weight: 2000
+weight: 3000
 toc: true
 seo:
   title: "Commands(Pionia CLI)" # custom title (optional)
   description: "Guides on how to interact with Pionia CLI." # custom description (recommended)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
-Pionia CLI is a command-line interface that allows you to interact with Pionia. It is a tool that helps you to manage your Pionia instance. It is a powerful tool that allows you to perform various operations on your Pionia instance. This guide will help you understand the available commands in Pionia CLI and how you can add your custom commands.
+Pionia CLI is the command-line interface for your application. It boots the same **`AppRealm`** as HTTP via `bootstrap/application.php` → `bootConsole()`.
 
-Pionia CLI also extends `PioniaApplication` instance in your `bootstrap/application.php`. This means you can access all the methods and properties of the `PioniaApplication` instance in your custom commands.
+v3 uses a **native console** (`Pionia\Console\Application`). Commands extend `Pionia\Console\Command`; arguments and options use `Pionia\Console\Input\InputArgument` and `InputOption`. Run the CLI from your project root as `php pionia …` or `composer run pionia -- …`.
+
+Custom commands live in `commands/` (generate with `make:command`).
+
+## Built-in commands (v3)
+
+Run `php pionia list` for the live registry in your app. Built-in commands ship with the framework; your app may add more under `commands/`.
+
+### Global
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `new {name}` | `pionia:new`, `create` | Scaffold a new application directory |
+| `serve` | `server`, `start`, `run` | PHP built-in dev server |
+| `runserver` | `roadrunner`, `rr:serve` | RoadRunner persistent workers |
+| `runserver:logs` | `rr:logs`, `roadrunner:logs`, `logs:rr` | Tail RoadRunner logs (formatted) |
+| `stopserver` | `roadrunner:stop`, `rr:stop` | Stop detached RoadRunner |
+| `rr:setup` | `runserver:setup` | Download `./rr` binary |
+| `optimize` | — | Production autoload + OPcache preload + bootstrap caches |
+| `optimize:preload` | — | Regenerate OPcache preload only |
+| `optimize:clear` | `clear-optimize` | Remove generated optimization artifacts |
+| `app:aliases` | `alias`, `aliases`, `list:aliases` | List path aliases registered in AppRealm |
+| `shell` | `tinker`, `repl`, `pionia:shell` | Interactive REPL |
+
+**`new`** — `php pionia new my-app --install --with-frontend=react-ts`  
+Options: `--path=`, `--vendor=`, `--with-frontend=`, `--install`
+
+**`serve`** — `php pionia serve --port=8003 --host=127.0.0.1`  
+Options: `--port`, `--host`, `--tries=10`, `--no-reload`  
+Default port: **8003** (from `PORT` / `SERVER_PORT` in `.env`, or `[server]` / `[roadrunner]` in `settings.ini`)
+
+**`runserver`** — `php pionia runserver --detach --port=8003`  
+Options: `--config=`, `--worker=`, `--host=`, `--port=`, `--detach`, `--log=`, `--raw`
+
+**`runserver:logs`** — `php pionia runserver:logs --wait`  
+Options: `--log=`, `--lines=50`, `--no-follow`, `--wait`, `--raw`
+
+**`stopserver`** — `php pionia stopserver --force`  
+Options: `--config=`, `--port=`, `--force`
+
+**`rr:setup`** — `php pionia rr:setup` (alias: `composer rr:setup`)  
+Downloads the RoadRunner binary into the app root. Option: `--force`
+
+**`optimize`** — `php pionia optimize --production`  
+Opt-in production mode: installs `bootstrap/preload.php`, `php.ini.production.example`, and `[performance]` settings, then runs autoload + preload generation.  
+Options: `--production`, `--no-scaffold`, `--no-preload`, `--no-autoload`, `--authoritative`, `--bootstrap-cache`
+
+**`optimize:preload`** — `php pionia optimize:preload --snapshot`  
+Regenerate `storage/bootstrap/preload.php` only. Options: `--snapshot`, `--from-stats`, `--strategy=curated|stats|hybrid`
+
+**`optimize:clear`** — removes generated artifacts. Option: `--scaffold` to remove opt-in files too.
+
+**`app:aliases`** — lists built-in and custom path aliases (`LOGS_DIR`, `SERVICES_DIR`, etc.) with resolved paths and whether each maps to a directory.
+
+### API documentation
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `api:docs` | `make:api-docs`, `docs:api` | Generate OpenAPI + Markdown from `@moonlight-*` tags |
+| `api:catalog` | `docs:catalog` | Print service/action catalog JSON |
+
+**`api:docs`** — `php pionia api:docs --ui --check`  
+Options: `--format=openapi,markdown`, `--output=docs/api`, `--ui`, `--check`
+
+**`api:catalog`** — `php pionia api:catalog -o docs/api/catalog.json`  
+Options: `--output=` (file; default stdout)
+
+Full tag reference, examples, and `/docs` setup: **[Documenting your API (Moonlight)](/documentation/api-reference/)**.
+
+### App
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `app:aliases` | `alias`, `aliases`, `list:aliases` | List container aliases |
+
+### Cache
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `cache:clear` | `cache:c`, `c:c` | Wipe the active cache store |
+| `cache:prune` | `cache:p`, `c:p` | Remove expired entries |
+| `cache:delete {key}` | `cache:d`, `c:d`, `uncache` | Delete one key |
+
+See [Caching](/documentation/caching-in-pionia/).
+
+### Frontend (Vite)
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `frontend:scaffold` | `f:scaffold`, `frontend:s` | Create Vite app in `frontend/` |
+| `frontend:dev` | `f:dev` | Vite dev server (proxies `/api`) |
+| `frontend:build` | `f:build`, `frontend:b` | Build and deploy to `public/` |
+| `frontend:clean` | `f:clean` | Remove built assets from `public/` |
+| `frontend:drop` | `f:drop` | Delete `frontend/` and settings |
+
+**`frontend:scaffold`** — `php pionia frontend:scaffold --framework=react-ts --yes`  
+Options: `--framework=`, `--directory=frontend`, `--package-manager=`, `--yes`
+
+**`frontend:dev`** — `php pionia frontend:dev --port=5173`
+
+**`frontend:drop`** — `php pionia frontend:drop --force`
+
+### Maintenance
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `maintenance:on` | `down` | Enable HTTP 503 gate |
+| `maintenance:off` | `up` | Disable maintenance mode |
+
+**`maintenance:on`** — `php pionia maintenance:on --message="Deploying" --retry-after=300 --bypass="$(openssl rand -hex 16)"`  
+Options: `--message=`, `--retry-after=`, `--bypass=` / `--secret=`
+
+See [Maintenance mode](/documentation/maintenance/).
+
+### Stats
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `stats:view` | `stats`, `viewstats` | Request metrics in the terminal |
+
+**`stats:view`** — `php pionia stats:view --json --reset`  
+Options: `--json`, `--top=10`, `--reset`
+
+See [Developer stats](/documentation/developer-stats/).
+
+### Code generation (`make:`)
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `make:service {name}` | `gen:service`, `g:s`, `service` | Scaffold a service class |
+| `make:switch {name}` | `g:sw`, `switch` | Scaffold an API switch (e.g. `v2`) |
+| `make:middleware {name}` | `gen:middleware`, `g:m` | Scaffold middleware |
+| `make:auth {name}` | `gen:auth`, `g:a` | Scaffold an authentication backend |
+| `make:command {name}` | `gen:command`, `g:c`, `command` | Scaffold a custom CLI command |
+| `make:provider {name}` | `gen:provider`, `g:p`, `provider` | Scaffold a service provider |
+
+Examples:
+
+```bash
+php pionia make:service todo
+php pionia make:switch v2
+php pionia make:middleware cors
+php pionia make:auth jwt
+php pionia make:command reports:Generate
+```
+
+### Help
+
+```bash
+php pionia list
+php pionia help runserver
+php pionia help frontend:scaffold
+```
+
+See also: [Introduction](/documentation/introduction/) · [RoadRunner](/documentation/roadrunner/) · [Background work](/documentation/background-work/).
 
 ## Adding Custom Commands
 
-Pionia Commmands extend the `Pionia\Console\BaseCommand` class. This class provides a set of methods that you can use to interact with the command line. To create a new command, you need to create a new class that extends the `BaseCommand` class. The class should be placed in the `commands` directory. However much you can create these commands manually, Pionia CLI provides a command that you can use to generate a new command.
+Pionia commands extend `Pionia\Console\Command`. Place classes in `commands/` (or generate one with `make:command`).
 
 To create a new command, you can run the following command:
 
@@ -101,12 +256,10 @@ On complete setup, the command will generate a new command class in the `command
 
   namespace Application\Commands;
 
-  use Pionia\Console\BaseCommand;
-  use Symfony\Component\Console\Command\Command;
-  use Symfony\Component\Console\Input\InputArgument;
-  use Symfony\Component\Console\Input\InputOption;
+  use Pionia\Console\Command;
+  use Pionia\Console\Input\InputOption;
 
-  class PasswordGeneratorCommand extends BaseCommand
+  class PasswordGeneratorCommand extends Command
   {
     /** The aliases for the command. */
     protected array $aliases = ['gen-pwd'];
@@ -243,86 +396,6 @@ To pass the length of the password, you can use the `--length` option:
 php pionia gen-pwd --length=20
 ```
 
-## Inbuilt Commands
-
-To view the available commands in Pionia CLI, you can run the following command:
-
-### List Commands
-
-```bash
-php pionia list
-```
-
-This command will display all the available commands in Pionia CLI. You can also get help for a specific command by running the following command:
-
-### Help Command
-
-```bash
-php pionia help <command>
-```
-
-The above command will display the help message, description, arguments,  usage, and options for the specified command.
-
-As of now, the following commands are available in Pionia CLI:
-
-### Serve Command
-
-- `serve`: This command is used to start the Pionia development server. It will start the server on the specified port or retry on the next available port if the specified port is already in use. It can be aliased as `php pionia server`, `php pionia run`, `php pionia start`. Also, you can specify the port number using the `--port` option.
-
-  Usage: `php pionia serve --port=8000`
-
-### Make Commands
-
-- `make:command <name>`: This command is used to create a new command in your Pionia instance. It will create a new command class in the `app/Commands` directory. You can specify the name of the command as an argument.
-
-  Usage: `php pionia make:command MyCommand`
-Details on how to generate a new custom command can be found in the [adding custom commnds section](#adding-custom-commands).
-
-### Make Auth Command
-
-- `make:auth <name>`: This command is used to a new Authentication Backend in your Pionia instance. It will create a new Authentication class in the `authentications` directory. You can specify the name of the Authentication as an argument.
-
-  Usage: `php pionia make:auth jwt`
-
-### Make Service Command
-
-- `make:service <name>`: This command is used to create a new service in your application. It will create a new service class in the `services` directory. You can specify the name of the service as an argument. It can also be used to create both `generic` and `basic` services.
-
-  Usage: `php pionia make:service auth` will generate `AuthService`
-
-### Make Middleware Command
-
-- `make:middleware <name>`: This command is used to create a new middleware in your application. It will create a new middleware class in the `middlewares` directory. You can specify the name of the middleware as an argument.
-
-  Usage: `php pionia make:middleware slackLogger`
-
-### Make Switch Command
-
-- `make:switch <name>`: This command is used to create a new switch in your application. It will create a new switch class in the `switches` directory. You can specify the name of the switch as an argument. The `name` argument should be pointing to the version of the switch. If you're creating a switch for `/api/v2`, the name should be `v2`.
-Remember: Switches are used to group together services under the same version of your API.
-
-  Usage: `php pionia make:switch v3`, will create `v3Switch` in the `switches` folder.
-
-### List App Aliases Command
-
-- `app:aliases`: This command is used to list all the available aliases in your application. It will display all the inbuilt and custom aliases.
-
-  Usage: `php pionia app:aliases`
-
-### Clear Cache Command
-
-- `cache:clear`: This command is used to clear the cache in your application no matter the caching driver used.
-
-  Usage: `php pionia cache:clear`
-
-### Delete Cache Command
-
-- `cache:delete <key>`: This command is used to delete a specific key from the cache in your application no matter the caching driver used.
-
-  Usage: `php pionia cache:delete myCachedKey`
-
-### Prune Cache Command
-
-- `cache:prune`: This command is used to prune the cache in your application no matter the caching driver used. Pruning the cache will remove all expired/stale cache items.
-
-  Usage: `php pionia cache:prune`
+{{<callout context="note" icon="outline/information-circle">}}
+The sections below walk through building this command step by step. For the full built-in command reference, see [Built-in commands (v3)](#built-in-commands-v3) above.
+{{</callout>}}

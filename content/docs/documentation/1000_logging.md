@@ -1,5 +1,6 @@
 ---
 title: "Logging in Pionia"
+slug: "logging-in-pionia"
 description: "Guides us through the process of logging in pionia."
 summary: "As a developer, you need to log information about the application's state, errors, and other important information. This guide will show you how to log in pionia."
 date: 2024-06-29 21:06:45.763 +0300
@@ -10,7 +11,7 @@ toc: true
 seo:
   title: "Logging in Pionia" # custom title (optional)
   description: "Guides us through the process of logging in pionia." # custom description (recommended)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 At its core, Pionia uses the [Monolog](https://github.com/Seldaek/monolog) library to handle logging.
@@ -30,19 +31,13 @@ Anywhere in your app, just call the `logger` constant to log messages. The follo
 ```php
 public function getItem(): ?object
 {
-    logger->info("Getting item");
-    logger->debug("Getting item");
-    logger->critical("Getting item");
-    logger->error("Getting item");
-    logger->warning("Getting item");
-    logger->notice("Getting item");
-    logger->alert("Getting item");
-    logger->emergency("Getting item");
+    logger()->info('Getting item');
+    logger()->debug('Getting item');
     $data = $this->request->getData();
     $this->requires([$this->pk_field]);
-    $id = $data[$this->pk_field];
-    $item = Porm::from($this->table)->columns($this->listColumns)->get($id);
-    logger->info("Gotten item");
+    $id = $data->get($this->pk_field);
+    $item = table($this->table)->columns($this->listColumns)->get($id);
+    logger()->info('Gotten item');
     return $item;
 }
 ```

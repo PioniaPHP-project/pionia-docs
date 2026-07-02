@@ -32,6 +32,16 @@
 
 # Redirects and rewrites — https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
 
+[[redirects]]
+  from = "/documentation/services/validations/"
+  to = "/documentation/services/validation/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/services/validations"
+  to = "/documentation/services/validation/"
+  status = 301
+
 # Custom headers — https://docs.netlify.com/routing/headers/#syntax-for-the-netlify-configuration-file
 [[headers]]
   for = "/*"

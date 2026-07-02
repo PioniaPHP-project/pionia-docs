@@ -1,1 +1,85 @@
-// Put your custom SCSS code here
+//
+// Pionia docs overrides
+//
+
+// Doks shortcode accepts "warning" and "info" but only ships styles for
+// "caution" and "note". Docs use context="warning" (triangle icon), which
+// otherwise falls back to --bs-gray-100 (#f8f9fa) in dark mode.
+
+.callout.callout-warning {
+    border-color: var(--sl-color-orange);
+    background-color: var(--sl-color-orange-high);
+
+    .callout-icon,
+    .callout-title,
+    .callout-body a {
+        color: var(--sl-color-orange-low);
+    }
+
+    .callout-body,
+    .callout-body a:hover,
+    .callout-body a:active {
+        color: var(--sl-color-white);
+    }
+}
+
+.callout.callout-info {
+    border-color: var(--sl-color-blue);
+    background-color: var(--sl-color-blue-high);
+
+    .callout-icon,
+    .callout-title,
+    .callout-body a {
+        color: var(--sl-color-blue-low);
+    }
+
+    .callout-body,
+    .callout-body a:hover,
+    .callout-body a:active {
+        color: var(--sl-color-white);
+    }
+}
+
+@include color-mode(dark) {
+    .callout.callout-warning {
+        border-color: var(--sl-color-orange);
+        background-color: var(--sl-color-orange-low);
+
+        .callout-icon,
+        .callout-title,
+        .callout-body a {
+            color: var(--sl-color-orange-high);
+        }
+
+        .callout-body,
+        .callout-body a:hover,
+        .callout-body a:active {
+            color: var(--sl-color-white);
+        }
+
+        code:not(:where(.not-content *)) {
+            color: var(--ec-codeFg);
+        }
+    }
+
+    .callout.callout-info {
+        border-color: var(--sl-color-blue);
+        background-color: var(--sl-color-blue-low);
+
+        .callout-icon,
+        .callout-title,
+        .callout-body a {
+            color: var(--sl-color-blue-high);
+        }
+
+        .callout-body,
+        .callout-body a:hover,
+        .callout-body a:active {
+            color: var(--sl-color-white);
+        }
+
+        code:not(:where(.not-content *)) {
+            color: var(--ec-codeFg);
+        }
+    }
+}

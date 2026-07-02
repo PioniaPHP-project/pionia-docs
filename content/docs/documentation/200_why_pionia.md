@@ -1,5 +1,6 @@
 ---
 title: "Why Pionia?"
+slug: "why-pionia"
 description: "Explains why you should use Pionia over other frameworks"
 summary: ""
 date: 2024-05-24T13:45:48.890Z
@@ -11,7 +12,7 @@ seo:
   title: "" # custom title (optional)
   description: "" # custom description (recommended)
   canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
@@ -64,7 +65,7 @@ are some of the reasons why you should consider using Pionia:
 
 10. **Frontend Scaffolding and Serving**: Pionia is a backend REST framework. But we also scaffold most frameworks especially those supported by `vite`.
     We also have a clean way of serving these frameworks' build files and assets at the root of the Pionia backend.
-    This is especially useful when you want to serve your frontend and backend from the same server. You can read more about this in the [Frontend Scaffolding and Serving Section](/documentation/frontend-scaffolding-and-serving/).
+    This is especially useful when you want to serve your frontend and backend from the same server. You can read more in [Frontend integration (Vite)](/documentation/frontend-integration-vite/).
 
 11. We also take most of the other advantages listed by most other frameworks like inbuilt logging, error handling, and many more.
 

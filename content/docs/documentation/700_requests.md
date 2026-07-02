@@ -1,418 +1,201 @@
 ---
 title: "Requests and Responses"
+slug: "requests-and-responses"
 description: "Guides us through the process of handling requests and responses in pionia."
-summary: "All actions take up request data as associated array, and return a BaseResponse object. This guide will show you how to handle requests and responses in pionia."
+summary: "Moonlight actions receive Arrayable request data and return ApiResponse envelopes."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2024-05-24T13:45:48.890Z
+lastmod: 2026-07-02
 draft: false
 weight: 700
 toc: true
 seo:
   title: "Requests and Responses" # custom title (optional)
   description: "Guides us through the process of handling requests and responses in pionia." # custom description (recommended)
-  noindex: true # false (default) or true
+  noindex: false # false (default) or true
 ---
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
 ## Handling Requests and Responses
 
-In Pionia all actions take up request data as associated array, and return a BaseResponse object. This guide will show you how to handle requests and responses in pionia.
+In Pionia, every action receives request fields as **`Pionia\Collections\Arrayable`** (not a plain PHP `array`) and returns an **`ApiResponse`** envelope. This guide covers HTTP entry points, reading `$data`, validation, and responses.
+
+{{< callout note >}}
+`Arrayable` wraps JSON and form fields with typed getters (`getString`, `getInt`, …). See [Collections (Arrayable)](/documentation/collections/) and [Actions](/documentation/services/actions/) for the full accessor reference.
+{{</ callout >}}
 
 ### Request
 
-Pionia framework supports only HTTP verbs due to its single endpoint nature. The supported HTTP verbs are:
+Moonlight APIs use versioned paths. Common patterns:
 
-- GET
-  This is used to `ping` api endpoints for every api version you roll out. This implies that every time you create a new switch, you get this action for free.
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/api/v1/ping` | Health check |
+| POST | `/api/v1/` | Dispatch `{ "service", "action", ...params }` |
+| GET | `/api/v1/{service}/{action}/` | Optional query-string dispatch |
 
-{{<callout context="tip" title="GET Request" icon="outline/pencil">}}
-Remember all switches are matching a certain version of your api. The default `MainApiSwitch` matches `v1` of your api.
+```bash
+curl -s http://127.0.0.1:8003/api/v1/ping
+curl -s -X POST http://127.0.0.1:8003/api/v1/ \
+  -H 'Content-Type: application/json' \
+  -d '{"service":"welcome","action":"ping"}'
+```
+
+{{<callout context="tip" title="Ping endpoint" icon="outline/pencil">}}
+Use **`GET /api/v1/ping`** for health checks. Each switch version gets its own ping route.
 {{</callout>}}
 
-If you want to ping the `v1` of your api, you can use the `GET` request.
-
-```
-GET http://localhost:8000/api/v1/
-```
-
-This will respond with the following:
-
-```json
-{
-  "returnCode": 0,
-  "returnMessage": "pong",
-  "returnData": {
-    "framework": "Pionia",
-    "version": "1.1.7",
-    "port": 8000,
-    "uri": "/api/v1/",
-    "schema": "http"
-  },
-  "extraData": null
-}
-```
-
-This is the only use of the `GET` verb in Pionia. All other actions are done using the `POST` verb.
-
-- POST
-
-Every request you make to Pionia is `POST`. This is because Pionia is a single endpoint framework.
-
-So for all the examples that will be mentioned below, you will assume the `POST` verb.
+**POST** is the primary dispatch verb — send JSON with `service` and `action` keys plus any parameters.
 
 ### Endpoint
 
-The endpoint is the URL where your api is hosted. In Pionia, the endpoint is the same for every version of your api. The only thing that changes is the request body.
-Each `switch` matches an endpoint. The default `MainApiSwitch` matches the `/api/v1/` endpoint.
+Each **switch** registers an API version (e.g. `v1` → `/api/v1/`). Register switches in `environment/settings.ini`:
 
-All switches alongside their versions are registered in the `routes.php` file. This file is located in the `app` directory.
-
-The highligted code below shows how the `MainApiSwitch` is registered in the `routes.php` file.
-If no version is defined, then Pionia assumes `v1` as the default version.
-
-```php {title="app/routes.php" lineNos=1 hl_Lines=7}
-<?php
-
-use Pionia\Core\Routing\PioniaRouter;
-
-$router = new PioniaRouter();
-
-$router->addSwitchFor("application\switches\MainApiSwitch");
-
-return $router->getRoutes();
-
+```ini
+[app_switches]
+v1=Application\Switches\MainSwitch
 ```
 
-To add a second version of the api, you can add a new switch and register it in the `routes.php` file.
+To add a second API version, add another line:
 
-```php {title="app/routes.php" lineNos=1 hl_Lines=7}
-<?php
-use Pionia\Core\Routing\PioniaRouter;
-
-$router = new PioniaRouter();
-
-$router->addSwitchFor("application\switches\MainApiSwitch")
-         ->addSwitchFor("application\switches\SecondApiSwitch", "v2");
-
-return $router->getRoutes();
+```ini
+[app_switches]
+v1=Application\Switches\MainSwitch
+v2=Application\Switches\SecondSwitch
 ```
 
-This will register the `SecondApiSwitch` to the `/api/v2/` endpoint.
+This registers `SecondSwitch` at `/api/v2/`.
 
 {{<callout context="note" title="Note" icon="outline/pencil">}}
-This also implies that all switches registered in the `routes.php` originate from the `/api/` endpoint.
+All switches registered via `[app_switches]` are mounted under the `/api/` prefix (e.g. `/api/v1/`, `/api/v2/`).
 
-This is all you need to know about Pionia Routing!
+For how routes are matched and cached in production, see [HTTP routing](/documentation/http-routing/).
 {{</callout>}}
 
 ### Request Data
 
-Pionia supports both `JSON` and `FormData` data. Whereas using both is possible, it is recommended to use `JSON` data unless you are uploading files.
+Pionia supports both **JSON** and **multipart form** bodies. Prefer JSON unless you are uploading files.
 
-Every `action` has access to the request `data` as an associated array. This data is passed to the `action` as the first argument.
-
-```php
-<?php
-public function action(array $data): BaseResponse
-{
-    // your code here
-}
-```
-
-You can access the data in the `action` as shown below:
+Every `*Action` method receives the decoded body as **`Arrayable $data`** — the first parameter:
 
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Response\ApiResponse;
 
-<?php
-
-public function action(array $data): BaseResponse
+protected function createUserAction(Arrayable $data): ApiResponse
 {
-    $name = $data['name'];
-    $email = $data['email'];
+  $name = $data->getString('name');
+  $email = $data->getString('email');
 
-    // your code here
+  // your logic here
 }
 ```
 
-However, the above data won't include the `files` if you are uploading files, you can access them from the second parameter `$files`.
+Use **`$data->get('key', $default)`** or typed getters (`getString`, `getInt`, `getBool`, `getArray`, …). Do **not** use `$data['name']` — `Arrayable` is an object, not a native array.
 
-{{<callout context="note" title="Note" icon="outline/pencil">}}
-The `files` parameter is a symfony `FileBag` object. A file bag is generally a collection of uploaded files.
-{{</callout>}}
+`$this->request->getData()` on `Service` returns the same `Arrayable` instance for the current request.
 
-To get one file from the file bag, you can use the `get` method.
+### File uploads
 
-```php {hl_lines=[5]}
-
-public function action(array $data, FileBag $files): BaseResponse
-{
-    $file = $files->get('file');
-
-    $name = $data['name'];
-    $email = $data['email'];
-
-    // your code here
-}
-```
-
-### Marking Request Data as required
-
-In your action you can define data that must be present in the request.
-This is done by calling the `requires` method on the service instance.
+When the client sends `multipart/form-data`, non-file fields are still on `$data`. Uploaded files are **not** in `$data` — use the optional second parameter **`FileBag $files`** or `$this->request->getFileByName('avatar')`:
 
 ```php
+use Pionia\Collections\Arrayable;
+use Pionia\Http\Bag\FileBag;
+use Pionia\Http\Response\ApiResponse;
 
-<?php
-
-public function action(array $data): BaseResponse
+protected function uploadAction(Arrayable $data, FileBag $files): ApiResponse
 {
-    $this->requires(['name', 'email']);
+  $file = $files->get('avatar');
+  $title = $data->getString('title');
 
-    $name = $data['name'];
-    $email = $data['email'];
-
-    // your code here
+  // your logic here
 }
 ```
 
-This will check if the `$data` array or the `$files` FileBag contains the `name` and `email` keys. If any of the keys are missing, the action will abort.
+See [Actions — request files](/documentation/services/actions/#request-files).
 
-You can also use the method to check one key at a time.
+### Required fields
+
+For **presence only**, call `$this->requires()` (reads `$this->request->getData()` internally):
 
 ```php
-
-<?php
-
-public function action(array $data): BaseResponse
+protected function retrieveAction(Arrayable $data): ApiResponse
 {
-    $this->requires('name'); // can  be a string too
+  $this->requires('id');
 
-    $name = $data['name'];
-    $email = $data['email'];
-
-    // your code here
+  $id = $data->get('id');
+  // …
 }
 ```
 
-> Whereas you can use the `requires` method on a single key, you should always prefer checking all your keys at once using an array.
+For presence **and** format, prefer attributes or `rules()` with `required`:
 
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
+```php
+#[Validated(rules: ['name' => 'required|string', 'email' => 'required|email'])]
+protected function registerAction(Arrayable $data): ApiResponse
 {
-    $this->requires(['name', 'email']);
-
-    $name = $data['name'];
-    $email = $data['email'];
-
-    // your code here
+  $name = $data->getString('name');
+  $email = $data->getString('email');
+  // …
 }
 ```
 
-## Validating Request Data
+`requires()` throws `FailedRequiredException`. `rules()` and attributes throw `ValidationException` (HTTP 422).
 
-Pionia provides a simple way to validate request data. Helper methods are already available on the service instance.
+## Validating request data
 
-For all the helper methods provided, you can override the underlying regex pattern by passing a custom pattern as the second argument.
+### Attributes (recommended)
 
-### Email
+Rules on the action method run automatically before the body:
 
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
+```php
+use Pionia\Validations\Attributes\Validated;
+
+#[Validated(rules: [
+    'email' => 'required|email',
+    'password' => 'required|password|min:8',
+    'password_confirmation' => 'required|confirmed:password',
+    'age' => 'integer|min:18',
+    'nickname' => 'nullable|string|min:2',
+])]
+protected function registerAction(Arrayable $data): ApiResponse
 {
-    $this->asEmail($data['email']);
-
-    // your code here
+  // business logic
 }
 ```
 
-### URL
+See [Validations](/documentation/services/validation/) for `#[ValidateField]`, custom rules, and the full rule list.
 
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asUrl($data['url']);
+### `rules()` — inside the action
 
-    // your code here
-}
+```php
+rules($data, [
+    'email' => 'required|email',
+    'password' => 'required|password|min:8',
+    'password_confirmation' => 'required|confirmed:password',
+    'age' => 'integer|min:18',
+    'nickname' => 'nullable|string|min:2',
+]);
 ```
 
-### IP
+### `validate()` — single field chain
 
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asIp($data['ip']);
-
-    // your code here
-}
+```php
+validate('email', $data)->required()->email();
+validate('password', $data)->required()->asPassword();
 ```
 
-### Slug
+Pass **`Arrayable $data`**, `$this`, or `$this->request` as the second argument.
 
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asSlug($data['slug']);
-
-    // your code here
-}
-```
-
-### International Phone Number
-
-You can also validate international phone numbers. The second argument is the country code you want to validate against. This is optional.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asPhoneNumber($data['phone'], '+254');
-
-    // your code here
-}
-```
-
-### Password
-
-Strong Passwords have rules that they must adhere to. You can validate passwords using the `asPassword` method.
-Rules considered are:
-
-- At least one uppercase letter
-- At least one lowercase letter
-- At least one digit
-- At least one special character
-- At least 8 characters long
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asPassword($data['password']);
-
-    // your code here
-}
-```
-
-### Number
-
-This checks for both Integers and Floats.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asNumber($data['number']);
-
-    // your code here
-}
-```
-
-### Numeric
-
-This checks for numbers and numbers in string format.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asNumeric($data['numeric']);
-
-    // your code here
-}
-```
-
-### Numeric Integers
-
-This checks for integers and integers in string format.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asNumericInt($data['int']);
-
-    // your code here
-}
-```
-
-### Mac Address
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asMac($data['mac']);
-
-    // your code here
-}
-```
-
-### Domain
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->asDomain($data['domain']);
-
-    // your code here
-}
-```
-
-### Should Be
-
-This is a special method that allows you to define a custom validation. The second argument can be a regex or anything to match.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->shouldBe($data['custom'], '/^([a-zA-Z0-9\s_\\.\-:])+$/');
-
-    // your code here
-}
-```
-
-### All Should Be
-
-Checks if all the keys in the array are valid. The second argument is the validation method to use.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->allShouldBe($data, '/^([a-zA-Z0-9\s_\\.\-:])+$/');
-
-    // your code here
-}
-```
-
-### Custom Validation
-
-You can also define a custom validation using the validate method. The method should return a boolean or int.
-
-```php {hl_lines=4}
-<?php
-public function action(array $data): BaseResponse
-{
-    $this->validate(string $regex, mixed $data, $message = 'Invalid data');
-
-    // your code here
-}
-```
+All validation failures throw **`ValidationException`** (HTTP 422).
 
 ## Response
 
 All responses that hit the application server return a `200 OK` status code. And as a result, Pionia returns back the power to define
-the return code of the response. This is done by returning a `BaseResponse` object.
+the return code of the response. This is done by returning an `ApiResponse` object.
 
-Pionia returns a `BaseResponse` object for every action. This object is used to send responses back to the client.
+Pionia returns an `ApiResponse` object for every action. This object is used to send responses back to the client.
 
 This response consists of the following fields:
 
@@ -428,12 +211,34 @@ In Pionia, wherever you're, you can throw an exception. This will be caught by t
 Therefore, to abort any action or task on going, you can just throw an exception with clear message.
 
 ```php
-<?php
-public function action(array $data): BaseResponse
+use Pionia\Collections\Arrayable;
+use Pionia\Exceptions\ValidationException;
+use Pionia\Http\Response\ApiResponse;
+
+protected function saveAction(Arrayable $data): ApiResponse
 {
-    throw new Exception('This is an exception message that will stop this action from proceeding');
+    throw new ValidationException('This stops the action with HTTP 422');
 }
 ```
+
+See [Exceptions & error handling](/documentation/exceptions/) for status codes and the pipeline.
+
+## Static assets & SPA
+
+| URL | Source | Purpose |
+|-----|--------|---------|
+| `/` | `public/index.html` or framework welcome page | Home / SPA shell |
+| `/static/{path}` | `public/static/` | Your CSS, images, uploads served as files |
+| `/media/{path}` | `storage/media/` | User media from disk |
+| `/__pionia/{path}` | Framework bundle | Welcome page CSS, logos (do not copy into your app) |
+
+`php pionia serve` and RoadRunner both route static paths through Pionia's HTTP kernel. After a Vite build, `public/index.html` and hashed assets are served from `public/`.
+
+SPA client routes (e.g. `/dashboard`) fall back to `index.html` when configured — see [Frontend integration](/documentation/frontend-integration-vite/).
+
+{{<callout context="note" icon="outline/information-circle">}}
+Only `public/static/` is wired to `/static/`. A nested `public/public/static/` folder is **not** served unless you add custom routes.
+{{</callout>}}
 
 {{<callout context="note" title="Note" icon="outline/pencil">}}
 By default, Pionia reserves `returnCode` of `0` for successful responses. This is just a convention, and you can use any other code you want.

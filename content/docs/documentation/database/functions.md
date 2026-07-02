@@ -1,23 +1,29 @@
 ---
 title: "Using Functions - Aggregation"
-description: "Database querying using PORM - Pionia ORM"
-summary: ""
-date: 24-06-14 09:28:27.396 +0300
-lastmod: 24-06-14 09:28:27.396 +0300
+slug: "using-functions-aggregation"
+description: "count, sum, avg, and the Agg builder."
+summary: "Table-level aggregates and Agg expressions."
+date: 2026-03-01
+lastmod: 2026-03-01
 draft: false
-weight: 810
+weight: 816
 toc: true
+parent: "database"
 seo:
-  title: "Ponia Porm Database" # custom title (optional)
-  description: "Querying the database using the PORM - Pionia ORM." # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: true # false (default) or true
+  title: "Porm — aggregation"
+  description: "count, sum, avg, and the Agg builder in Pionia v3."
+  canonical: ""
+  noindex: false
 ---
 
 {{<callout context="tip"  icon="outline/pencil">}}
-This section assumes you have alredy completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started).
+This section assumes you have already completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started/).
 
-Also, for basic knowledge and understanding, please first look at the [Making Queries Section](/documentation/database/making-queries)
+Also read [Making queries](/documentation/database/making-queries/) and the [API reference](/documentation/database/api-reference/).
+{{</callout>}}
+
+{{<callout context="note" icon="outline/information-circle">}}
+v3 uses `table()` and namespaces under `Pionia\Porm\`. Examples below use `table('users')` — equivalent to the legacy `table('users')` style.
 {{</callout>}}
 
 # Introduction
@@ -35,27 +41,27 @@ The `count` function is used to count the number of records in the database. Thi
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->count(); // select count(*) from users
+table('users')->count(); // select count(*) from users
 ```
 
 You can also provide a column name to count the number of records in the database that have a value in the specified column.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->count('age'); // select count(age) from users
+table('users')->count('age'); // select count(age) from users
 ```
 
 You can also provide conditions to count the number of records in the database that meet certain conditions.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->count('age', ['age' => 10]); // select count(*) from users where age = 10
+table('users')->count('age', ['age' => 10]); // select count(*) from users where age = 10
 ```
 
 The `count` function returns the number of records in the database that meet the specified conditions.
@@ -66,18 +72,18 @@ The `sum` function is used to calculate the sum of the values in a column in the
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->sum('age'); // select sum(age) from users
+table('users')->sum('age'); // select sum(age) from users
 ```
 
 You can also provide conditions to calculate the sum of the values in a column in the database that meet certain conditions.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->sum('age', ['age' => 10]); // select sum(age) from users where age = 10
+table('users')->sum('age', ['age' => 10]); // select sum(age) from users where age = 10
 ```
 
 The `sum` function returns the sum of the values in the column in the database that meet the specified conditions.
@@ -94,18 +100,18 @@ The `avg` function is used to calculate the average of the values in a column in
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->avg('age'); // select avg(age) from users
+table('users')->avg('age'); // select avg(age) from users
 ```
 
 You can also provide conditions to calculate the average of the values in a column in the database that meet certain conditions.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->avg('age', ['age' => 10]); // select avg(age) from users where age = 10
+table('users')->avg('age', ['age' => 10]); // select avg(age) from users where age = 10
 ```
 
 The `avg` function returns the average of the values in the column in the database that meet the specified conditions.
@@ -116,18 +122,18 @@ The `max` function is used to calculate the maximum value in a column in the dat
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->max('age'); // select max(age) from users
+table('users')->max('age'); // select max(age) from users
 ```
 
 You can also provide conditions to calculate the maximum value in a column in the database that meet certain conditions.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->max('age', ['age' => 10]); // select max(age) from users where age = 10
+table('users')->max('age', ['age' => 10]); // select max(age) from users where age = 10
 ```
 
 The `max` function returns the maximum value in the column in the database that meet the specified conditions.
@@ -138,18 +144,18 @@ The `min` function is used to calculate the minimum value in a column in the dat
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->min('age'); // select min(age) from users
+table('users')->min('age'); // select min(age) from users
 ```
 
 You can also provide conditions to calculate the minimum value in a column in the database that meet certain conditions.
 
 ```php
 
-use Porm\Porm;
+use Pionia\Porm\Database\Aggregation\Agg;
 
-Porm::from('users')->min('age', ['age' => 10]); // select min(age) from users where age = 10
+table('users')->min('age', ['age' => 10]); // select min(age) from users where age = 10
 ```
 
 The `min` function returns the minimum value in the column in the database that meet the specified conditions.
@@ -172,7 +178,7 @@ You must finally call the `build` method to get the actually build your generate
 
 ```php
 
-use Porm\database\aggregation\Agg;
+use Pionia\Porm\Database\Aggregation\Agg;
 
 $agg = Agg::builder()
 // add here your aggregation functions
@@ -185,7 +191,7 @@ Agg builder comes with a number of methods that can be used to build the aggrega
 
 ```php
 
-use Porm\database\aggregation\Agg;
+use Pionia\Porm\Database\Aggregation\Agg;
 
 $agg = Agg::builder()
     ->random('name', 'names') // rand(names) as names
@@ -196,7 +202,7 @@ $agg = Agg::builder()
 
 ```php
 
-use Porm\database\aggregation\Agg;
+use Pionia\Porm\Database\Aggregation\Agg;
 
 $agg = Agg::builder()
     ->avg('age', 'average_age') // avg(age) as average_age
@@ -209,7 +215,7 @@ Compare the value of two columns in the database. In comparison we use operators
 
 ```php
 
-use Porm\database\aggregation\Agg;
+use Pionia\Porm\Database\Aggregation\Agg;
 
 $agg = Agg::builder()
     ->columnsCompare('price', '>', '10') // age > 10
@@ -222,7 +228,7 @@ Used to add a like condition to a query
 
 ```php
 
-$user = Porm::from("todos")
+$user = table("todos")
           ->get(Agg::builder()
                 ->like('title', $name)
                 ->build()
@@ -238,7 +244,7 @@ Used to add a not like condition to a query
 
 ```php
 
-$user = Porm::from("todos")
+$user = table("todos")
           ->get(Agg::builder()
                 ->notLike('title', $name)
                 ->build()
@@ -254,7 +260,7 @@ Used to divide a column by a certain value in the database
 
 ```php
 
-$user = Porm::from("todos")
+$user = table("todos")
             ->get(Agg::builder()
                 ->div('total', 5)
                 ->build()
@@ -269,7 +275,7 @@ Adds a between check on a column. It checks if the value of the given column is 
 
 ```php
 
-$results = Porm::from("todos")
+$results = table("todos")
     ->where(Agg::builder()
         ->between('id', [1, 10])
         ->build()
@@ -283,7 +289,7 @@ $results = Porm::from("todos")
 Checks if the value of the given column is `not between` the given points.
 
 ```php
-$results = Porm::from("todos")
+$results = table("todos")
     ->where(Agg::builder()
         ->notBetween('id', [1, 10])
         ->build()
@@ -297,7 +303,7 @@ Jsonify the given value and assigns it to the given column.
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->jsonified('someAlias', ['x'=>1, 'y'=>5])
                 ->build()
@@ -313,7 +319,7 @@ Multiplies a column by a certain value in the database
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->of('age', 10)
                 ->build()
@@ -329,7 +335,7 @@ Subtracts a column by a certain value in the database
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->minus('age', 10)
                 ->build()
@@ -345,7 +351,7 @@ Adds a column by a certain value in the database
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->plus('age', 10)
                 ->build()
@@ -361,7 +367,7 @@ Opposite of eq. Checks if the value of the given column is `equal` to the given 
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->eq('age', 10)
                 ->build()
@@ -377,7 +383,7 @@ Opposite of eq. Checks if the value of the given is `not equal` to the given val
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->filter(Agg::builder()
                 ->neq('age', 10)
                 ->build()
@@ -393,7 +399,7 @@ Assigns the current timestamp to the given alias or column.
 
 ```php
 
-Porm::from("todos")
+table("todos")
         ->update(Agg::builder()->now("updated_at")->build(), 1); // update todos set updated_at = now() where id =1
 
 ```
@@ -403,7 +409,7 @@ Porm::from("todos")
 Check if the column value is `less than` the given value.
 
 ```php
-Porm::from("todos")
+table("todos")
     ->where(Agg::builder()->lt('age', 20)->build())
     ->all();
 ```
@@ -414,7 +420,7 @@ Checks if the column value is `less than or equal` to the given value.
 
 ```php
 
-Porm::from("todos")
+table("todos")
     ->where(Agg::builder()->lte('age', 20)->build())
     ->all();
 
@@ -426,7 +432,7 @@ Checks if the column value is `greater than` the given value.
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->where(Agg::builder()->gt('age', 20)->build())
             ->all();
 ```
@@ -437,7 +443,7 @@ Checks if the column value is `greater than or equal` the given value.
 
 ```php
 
-Porm::from("todos")
+table("todos")
             ->where(Agg::builder()->gte('age', 20)->build())
             ->all();
 ```
