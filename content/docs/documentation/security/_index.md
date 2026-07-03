@@ -17,6 +17,7 @@ seo:
 | Guide | Topic |
 |-------|--------|
 | [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Backends, `ContextUserObject`, `can()`, secrets |
+| [Security utilities](/documentation/security/security-utilities/) | `security()`, tokens, OTPs, hashing, encryption |
 | [Middleware](/documentation/middleware/) | Request/response pipeline |
 | [Validations](/documentation/services/validation/) | Input validation on actions |
 

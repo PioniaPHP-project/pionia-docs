@@ -102,6 +102,27 @@ $port = serverPort(9001);          // CLI override
 setEnv('RUNTIME_FLAG', '1');       // request-scoped
 ```
 
+### security() and secure_* helpers
+
+`security()` returns the `Pionia\Security\Security` singleton. Every method has a snake_case helper — use whichever reads better in your action.
+
+| Category | Examples |
+|----------|----------|
+| Random / IDs | `secure_token()`, `secure_otp()`, `secure_uuid()`, `secure_ulid()`, `secure_password()` |
+| Passwords | `hash_password()`, `verify_password()` — use PHP's `password_needs_rehash()` or `security()->needsRehash()` |
+| Hashing | `secure_hash()`, `secure_hmac()`, `verify_hmac()`, `secure_equals()` |
+| Symmetric crypto | `encrypt()`, `decrypt()` (needs `APP_KEY` + `ext-sodium`) |
+| Public-key crypto | `security_key_pair()`, `encrypt_with_public_key()`, `rsa_encrypt()` |
+| Validators | `is_uuid()`, `is_ulid()`, `is_otp()`, `is_token()` |
+
+Full reference: [Security utilities](/documentation/security/security-utilities/).
+
+```php
+$token = secure_token();
+$hash = hash_password($plain);
+$sealed = encrypt_with_public_key('payload', $publicKey);
+```
+
 ---
 
 ## Additional helpers
