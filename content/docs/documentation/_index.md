@@ -1,61 +1,75 @@
 ---
 title: "Documentation"
 description: "Official guides for building applications with Pionia v3."
-summary: "From first API call to production: services, Porm, RoadRunner, frontend, and operations."
+summary: "From first API call to production: DeskFlow tutorial, Porm, RoadRunner, and frontend."
 date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
-weight: 800
+weight: 10
 toc: true
+doc_type: topic
 seo:
   title: "Pionia Framework documentation"
   description: "Learn Pionia v3 — Moonlight API, Porm database layer, GenericService CRUD, RoadRunner, and Vite frontend."
-  canonical: ""
-  noindex: false
 ---
 
-Pionia is a PHP 8.5+ framework for **versioned JSON APIs** (`POST /api/v1/` with `{ "service", "action" }`), optional **Vite SPAs**, and **persistent workers** via RoadRunner. Business logic lives in **services** in your app; the database layer is **Porm** (fluent SQL in your project).
+Everything you need to build **versioned JSON APIs** with Pionia v3 — using the **DeskFlow** task board as our running example.
 
-## Start here
+## First steps
 
-| Step | Guide |
-|------|--------|
-| 1 | [Introduction](/documentation/introduction/) — install, scaffold, first ping |
-| 2 | [Application structure](/documentation/application-structure/) — folders, bootstrap, `[app_switches]` |
-| 3 | [API tutorial](/documentation/api-tutorial/) — first switch, service, and Moonlight call |
-| 4 | [Services](/documentation/services/services/) — actions, envelopes, registration |
-| 5 | [Database (Porm)](/documentation/database/) — queries, filters, joins, pagination |
+New to PHP or Pionia? Start here.
 
-## Core topics
+| Guide | Description |
+|-------|-------------|
+| [Introduction](/documentation/getting-started/introduction/) | Install with Composer, first ping |
+| [PHP basics](/documentation/getting-started/php-basics/) | Minimum PHP before the tutorial |
+| [API tutorial Part 1](/documentation/getting-started/api-tutorial/) | `task.list` for Northwind Studio |
+| [Glossary](/documentation/getting-started/glossary/) | service, action, switch, envelope |
 
-| Area | Guides |
-|------|--------|
-| **API & Moonlight** | [Actions](/documentation/services/actions/) · [Generic services](/documentation/services/generic-services/) · [Documenting your API](/documentation/api-reference/) |
-| **Data** | [Making queries](/documentation/database/making-queries/) · [Filtering](/documentation/database/queries-with-filtering/) · [Joins](/documentation/database/relationships/) · [Pagination](/documentation/database/pagination/) |
-| **HTTP** | [HTTP routing](/documentation/http-routing/) · [Requests & responses](/documentation/requests-and-responses/) · [Collections](/documentation/collections/) · [Middleware](/documentation/middleware/) · [Exceptions](/documentation/exceptions/) |
-| **Operations** | [CLI commands](/documentation/commands-pionia-cli/) · [RoadRunner](/documentation/roadrunner/) · [Production performance](/documentation/production-performance/) · [Maintenance mode](/documentation/maintenance/) · [Developer stats](/documentation/developer-stats/) |
-| **Platform** | [Caching](/documentation/caching-in-pionia/) · [Logging](/documentation/logging-in-pionia/) · [Background work](/documentation/background-work/) · [Helpers](/documentation/helpers/) · [Frontend (Vite)](/documentation/frontend-integration-vite/) |
+## Pick your learning path
 
-## Production checklist
+{{< card-grid >}}
+{{< link-card title="Try the tutorial" description="Build DeskFlow hands-on from Part 1." href="/documentation/getting-started/api-tutorial/" >}}
+{{< link-card title="Read the guides" description="Moonlight overview → Services → Validation." href="/documentation/building-api/moonlight-overview/" >}}
+{{< link-card title="Browse examples" description="Copy-paste curl payloads and JSON." href="/documentation/examples/" >}}
+{{< /card-grid >}}
 
-1. **Environment** — configure `environment/settings.ini` and `.env` (`DEBUG`, database, cache, tokens).
-2. **Deploy optimization** — `composer install --no-dev -o` then `php pionia optimize --production`.
-3. **RoadRunner** — `php pionia runserver` for worker mode; enable `[jobs]` when using queued work.
-4. **Maintenance** — `php pionia maintenance:on` during deploys; workers re-read settings without restart.
-5. **Observability** — `/stats` dashboard, `stats:view` CLI, and `logger()` / `report()` for errors.
-6. **API docs** — `php pionia api:docs` for OpenAPI; expose `/docs` with `DOCS_ENABLED` or `DEBUG`.
+## How the documentation is organized
 
-## Quick start (existing project)
+| Type | Reader goal | Examples |
+|------|-------------|----------|
+| **Tutorials** | Hands-on; build DeskFlow step by step | [API tutorial](/documentation/getting-started/api-tutorial/) |
+| **Topic guides** | Understand concepts | [Moonlight overview](/documentation/building-api/moonlight-overview/), [Auth](/documentation/security/security-authentication-and-authorization/) |
+| **Reference** | Look up APIs and config | [Helpers](/documentation/extending/helpers/), [Porm API](/documentation/database/api-reference/) |
+| **How-to guides** | One task, one recipe | [RoadRunner](/documentation/operations/roadrunner/), [Maintenance](/documentation/operations/maintenance/) |
 
-```bash
-php pionia serve
-curl -s http://127.0.0.1:8003/api/v1/ping
-```
+## Getting help
 
-New project? Start with the [Introduction](/documentation/introduction/) — `composer create-project pionia/pionia-app my-api` or `php pionia new my-api --install`.
+- **Common mistakes** — each guide ends with a troubleshooting section
+- **Logs** — `storage/logs/` with `DEBUG=true` in `.env`
+- **GitHub** — [PioniaPHP-project](https://github.com/PioniaPHP-project)
+- **Stats** — `/stats` when `DEBUG` or `STATS_ENABLED` is on
 
-## Related
+## The API layer
 
-- [Moonlight architecture](/moonlight/introduction-to-moonlight-architecture/) — switches, versioning, security model
-- [Upgrading from v2](/documentation/upgrading-from-v2/) — migration notes for older apps
-- [Frontend (Vite)](/documentation/frontend-integration-vite/) — scaffold, dev proxy, production build
+[Services](/documentation/building-api/services/) · [Actions](/documentation/building-api/actions/) · [Validation](/documentation/building-api/validation/) · [Generic services](/documentation/building-api/generic-services/) · [Moonlight overview](/documentation/building-api/moonlight-overview/) · [Documenting your API](/documentation/building-api/api-reference/)
+
+## The data layer (Porm)
+
+[Getting started](/documentation/database/configuration-getting-started/) · [Making queries](/documentation/database/making-queries/) · [Filtering](/documentation/database/queries-with-filtering/) · [Joins](/documentation/database/relationships/) · [Pagination](/documentation/database/pagination/)
+
+## The HTTP layer
+
+[Requests & responses](/documentation/http/requests-and-responses/) · [Middleware](/documentation/http/middleware/) · [Exceptions](/documentation/http/exceptions/) · [Routing](/documentation/http/http-routing/)
+
+## Security
+
+[Authentication](/documentation/security/security-authentication-and-authorization/) · [Security utilities](/documentation/security/security-utilities/)
+
+## Frontend & operations
+
+[Vite integration](/documentation/frontend/vite-integration/) · [RoadRunner](/documentation/operations/roadrunner/) · [Production performance](/documentation/operations/production-performance/) · [CLI](/documentation/operations/commands/) · [Caching](/documentation/operations/caching/) · [Logging](/documentation/operations/logging/)
+
+## Extending Pionia
+
+[App providers](/documentation/extending/app-providers/) · [Composer packages](/documentation/extending/composer-packages/) · [Maintainer notes](/documentation/extending/maintainer-notes/)

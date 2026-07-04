@@ -120,4 +120,4 @@ allow_object_cast = 1
 
 Or per connection: `Connection::open([..., 'allow_object_cast' => true])` / `PORM_ALLOW_OBJECT_CAST=true`.
 
-Related: [Getting started](/documentation/database/configuration-getting-started/) · [RoadRunner](/documentation/roadrunner/).
+Related: [Getting started](/documentation/database/configuration-getting-started/) · [RoadRunner](/documentation/operations/roadrunner/).

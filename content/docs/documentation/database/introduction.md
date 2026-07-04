@@ -17,7 +17,7 @@ seo:
 ---
 
 {{<callout context="tip" icon="outline/pencil">}}
-Complete the [API tutorial](/documentation/api-tutorial/) first if you are new to Pionia.
+Complete the [API tutorial](/documentation/getting-started/api-tutorial/) first if you are new to Pionia.
 {{</callout>}}
 
 ## What is Porm?

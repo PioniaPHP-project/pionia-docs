@@ -5,7 +5,7 @@ summary: "How to extend Pionia with Composer packages and service providers."
 date: 2024-10-28 07:22:12.958 +0300
 lastmod: 2026-07-01 12:00:00.000 +0000
 draft: false
-weight: 6000
+weight: 800
 toc: true
 seo:
   title: "Extending Pionia"

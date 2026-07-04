@@ -134,4 +134,4 @@ pionia()->appItemsCacheTTL = 3600; // seconds; 0 = indefinite (default)
 3. Prefer unique API version strings in `routes()` (e.g. your package name) to avoid switch collisions.
 4. Keep `onBooted()` lean — heavy work belongs in commands or async jobs.
 
-See also: [Middleware](/documentation/middleware/), [Authentication](/documentation/security/security-authentication-and-authorization/), and [Exceptions](/documentation/exceptions/).
+See also: [Middleware](/documentation/http/middleware/), [Authentication](/documentation/security/security-authentication-and-authorization/), and [Exceptions](/documentation/http/exceptions/).

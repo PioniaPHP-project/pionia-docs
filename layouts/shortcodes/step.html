@@ -1,0 +1,13 @@
+{{- $n := .Get "number" | default "1" -}}
+{{- $title := .Get "title" | default "Step" -}}
+{{- $time := .Get "time" -}}
+<div class="doc-step mt-4 mb-3">
+  <h3 class="h5 doc-step-heading">
+    <span class="doc-step-badge">Step {{ $n }}</span>
+    {{ $title }}
+    {{- with $time -}}<span class="doc-step-time text-muted ms-2">{{ . }}</span>{{- end -}}
+  </h3>
+  <div class="doc-step-body">
+    {{ .Inner | markdownify }}
+  </div>
+</div>

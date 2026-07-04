@@ -1,100 +1,1440 @@
-<!doctype html><html lang=en data-bs-theme=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=preload href=https://pionia.netlify.app/fonts/vendor/jost/jost-v4-latin-regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://pionia.netlify.app/fonts/vendor/jost/jost-v4-latin-500.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://pionia.netlify.app/fonts/vendor/jost/jost-v4-latin-700.woff2 as=font type=font/woff2 crossorigin><script src=/js/color-mode.86a91f050a481d0a3f0c72ac26543cb6228c770875981c58dcbc008fd3f875c8.js integrity="sha256-hqkfBQpIHQo/DHKsJlQ8tiKMdwh1mBxY3LwAj9P4dcg="></script><link rel=stylesheet href="/main.9ef2ad6028a66cdaba1fb199a39ed63e84bfd392f9bdaa38b4bde8e1c17a9264bad226f2b9953cc4f96bfe67de57cbcb321f8b705f839ba4162c5103dac22a4f.css" integrity="sha512-nvKtYCimbNq6H7GZo57WPoS/05L5vao4tL3o4cF6kmS60ibyuZU8xPlr/mfeV8vLMh+LcF+Dm6QWLFED2sIqTw==" crossorigin=anonymous><noscript><style>img.lazyload{display:none}</style></noscript><base href=https://pionia.netlify.app/documentation/database/relationships/><link rel=canonical href=https://pionia.netlify.app/documentation/database/relationships/><title>Porm joins and relationships</title>
-<meta name=description content="Complete guide to Porm joins: ON formats, aliases, fluent where, and GenericService."><link rel=icon href=/favicon.ico sizes=32x32><link rel=icon href=/favicon.svg type=image/png><link rel=apple-touch-icon href=/apple-touch-icon.png sizes=180x180 type=image/png><link rel=icon href=/favicon-192x192.png sizes=192x192 type=image/png><link rel=icon href=/favicon-512x512.png sizes=512x512 type=image/png><link rel=manifest href=/manifest.webmanifest><meta property="og:title" content="Relationships & Joins"><meta property="og:description" content="Join tables with Porm — ON clauses, aliases, GenericService, and the Join builder."><meta property="og:type" content="article"><meta property="og:url" content="https://pionia.netlify.app/documentation/database/relationships/"><meta property="og:image" content="https://pionia.netlify.app/favicon.ico"><meta property="article:section" content="docs"><meta property="article:published_time" content="2026-03-01T00:00:00+00:00"><meta property="article:modified_time" content="2024-10-07T22:51:58+03:00"><meta property="og:site_name" content="Pionia Framework"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://pionia.netlify.app/favicon.ico"><meta name=twitter:title content="Relationships & Joins"><meta name=twitter:description content="Join tables with Porm — ON clauses, aliases, GenericService, and the Join builder."><meta name=twitter:site content="@pionia"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://pionia.netlify.app/","name":"Pionia Framework","position":1},{"@type":"ListItem","item":"https://pionia.netlify.app/docs/","name":"Docs","position":2},{"@type":"ListItem","item":"https://pionia.netlify.app/docs/documentation/","name":"Documentation","position":3},{"@type":"ListItem","item":"https://pionia.netlify.app/docs/documentation/database/","name":"Database ( Porm)","position":4},{"@type":"ListItem","name":"Relationships \u0026 Joins","position":5}]}</script></head><body class="single section docs" data-bs-spy=scroll data-bs-target=#toc data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll=true tabindex=0><div class=sticky-top><div class=header-bar></div><header class="navbar navbar-expand-lg"><div class=container-sm><a class="navbar-brand me-auto me-lg-3" href=/>Pionia</a>
-<button type=button id=searchToggleMobile class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button class="btn btn-link d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavSection aria-controls=offcanvasNavSection aria-label="Open section navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 19m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 5m-1 0a1 1 0 102 0 1 1 0 10-2 0"/></svg></button><div class="offcanvas offcanvas-start d-lg-none" tabindex=-1 id=offcanvasNavSection aria-labelledby=offcanvasNavSectionLabel><div class=header-bar></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavSectionLabel>Docs</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class=offcanvas-body><aside class="doks-sidebar mt-n3"><nav id=doks-docs-nav aria-label="Tertiary navigation"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details open open><summary>Documentation</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/introduction/>Introduction</a></li><li><a href=/documentation/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/application-structure/>Application Structure</a></li><li><a href=/documentation/api-tutorial/>API tutorial</a></li><li><a href=/documentation/collections/>Collections (Arrayable)</a></li><li><details open><summary>Services</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/services/services/>Services</a></li><li><a href=/documentation/services/actions/>Actions</a></li><li><a href=/documentation/services/generic-services/>Generic Services</a></li><li><a href=/documentation/services/validation/>Validations</a></li><li><a href=/documentation/services/advanced-generic-services/>Advanced Generic Services</a></li></ul></details></li><li><a href=/documentation/maintenance/>Maintenance mode</a></li><li><a href=/documentation/roadrunner/>RoadRunner</a></li><li><a href=/documentation/production-performance/>Production performance</a></li><li><a href=/documentation/api-reference/>Documenting your API (Moonlight)</a></li><li><a href=/documentation/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/http-routing/>HTTP routing</a></li><li><a href=/documentation/middleware/>Middleware</a></li><li><a href=/documentation/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/background-work/>Background work</a></li><li><a href=/documentation/exceptions/>Exceptions & error handling</a></li><li><details open><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li></ul></details></li><li><a href=/documentation/frontend-integration-vite/>Frontend Integration (Vite)</a></li><li><a href=/documentation/logging-in-pionia/>Logging in Pionia</a></li><li><details open open><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li class=active><a aria-current=page href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><a href=/documentation/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/commands-pionia-cli/>Commands (Pionia CLI)</a></li><li><a href=/documentation/helpers/>Pionia Helpers</a></li><li><details open><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></details></li><li><details open><summary>Moonlight Architecture</summary><ul class="list-unstyled list-nested"><li><a href=/moonlight/introduction-to-moonlight-architecture/>Introduction to MoonLight Architecture</a></li><li><a href=/moonlight/security-in-moonlight/>Security in moonlight</a></li><li><a href=/moonlight/api-versioning-in-moonlight/>API versioning in Moonlight</a></li></ul></details></li></ul></nav></nav></aside></div></div><button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavMain aria-controls=offcanvasNavMain aria-label="Open main navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg></button><div class="offcanvas offcanvas-end h-auto" tabindex=-1 id=offcanvasNavMain aria-labelledby=offcanvasNavMainLabel><div class="header-bar d-lg-none"></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavMainLabel>Pionia</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between"><ul class="navbar-nav flex-grow-1"><li class=nav-item><a class=nav-link href=https://pionia.netlify.app/documentation/introduction/>Documentation</a></li><li class=nav-item><a class=nav-link href=https://pionia.netlify.app/moonlight/introduction-to-moonlight-architecture/>Moonlight</a></li><li class=nav-item><a class=nav-link href=https://pionia.netlify.app/documentation/api-tutorial/>Tutorial</a></li></ul><button type=button id=searchToggleDesktop class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button id=buttonColorMode class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type=button aria-label="Toggle theme"><svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132.0.263.0.393.0a7.5 7.5.0 007.92 12.446A9 9 0 1112 2.992z"/></svg><svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 108 0 4 4 0 10-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"/></svg></button><ul id=socialMenu class="nav mx-auto flex-row order-lg-4"><li class=nav-item><a class="nav-link social-link" href=https://github.com/PioniaPHP-project/pionia-docs><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg><small class="ms-2 visually-hidden">GitHub</small></a></li></ul><a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href=https://pionia.netlify.app/documentation/introduction/#get-started role=button>Get started</a></div></div><a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href=https://pionia.netlify.app/documentation/introduction/#get-started role=button>Get started</a></div></header></div><div class=modal id=searchModal tabindex=-1 aria-labelledby=searchModalLabel aria-hidden=true><div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down"><div class=modal-content><div class=modal-header><h1 class="modal-title fs-5 visually-hidden" id=searchModalLabel>Search</h1><button type=button class="btn-close visually-hidden" data-bs-dismiss=modal aria-label=Close></button><div class="search-input flex-grow-1 d-none"><form id=search-form class=search-form action=# method=post accept-charset=UTF-8 role=search><label for=query class=visually-hidden>Search</label><div class=d-flex><input type=search id=query name=query class="search-text form-control form-control-lg" placeholder=Search aria-label=Search maxlength=128 autocomplete=off>
-<button type=button class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss=modal aria-label=Close>Cancel</button></div></form></div></div><div class=modal-body><p class="search-loading status message d-none mt-3 text-center">Loading search index…</p><p class="search-no-recent message d-none mt-3 text-center">No recent searches</p><p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class=query-no-results>Query here</span></strong>"</p><div id=searchResults class=search-results></div><template><article class="search-result list-view"><div class="card my-3"><div class=card-body><header><h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href=#>Title here</a></h2><div class=submitted><time class=created-date>Date here</time></div></header><div class=content>Summary here</div></div></div></article></template></div><div class=modal-footer><ul class="list-inline me-auto d-none d-md-block"><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4m3 3-3-3 3-3"/></g></svg></kbd><span class=DocSearch-Label>to select</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8m3-3-3 3-3-3"/></g></svg></kbd><kbd class=me-2><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8m3 3-3-3-3 3"/></g></svg></kbd><span class=DocSearch-Label>to navigate</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993.0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016s1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5s-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864.0 1.6425 1.031 1.5443 2.2492h-2.956"/></g></svg></kbd><span class=DocSearch-Label>to close</span></li></ul><p class=d-md-none>Search by <a class=text-decoration-none href=https://github.com/nextapps-de/flexsearch>FlexSearch</a></p></div></div></div></div><div class="wrap container-sm" role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details open open><summary>Documentation</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/introduction/>Introduction</a></li><li><a href=/documentation/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/application-structure/>Application Structure</a></li><li><a href=/documentation/api-tutorial/>API tutorial</a></li><li><a href=/documentation/collections/>Collections (Arrayable)</a></li><li><details open><summary>Services</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/services/services/>Services</a></li><li><a href=/documentation/services/actions/>Actions</a></li><li><a href=/documentation/services/generic-services/>Generic Services</a></li><li><a href=/documentation/services/validation/>Validations</a></li><li><a href=/documentation/services/advanced-generic-services/>Advanced Generic Services</a></li></ul></details></li><li><a href=/documentation/maintenance/>Maintenance mode</a></li><li><a href=/documentation/roadrunner/>RoadRunner</a></li><li><a href=/documentation/production-performance/>Production performance</a></li><li><a href=/documentation/api-reference/>Documenting your API (Moonlight)</a></li><li><a href=/documentation/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/http-routing/>HTTP routing</a></li><li><a href=/documentation/middleware/>Middleware</a></li><li><a href=/documentation/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/background-work/>Background work</a></li><li><a href=/documentation/exceptions/>Exceptions & error handling</a></li><li><details open><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li></ul></details></li><li><a href=/documentation/frontend-integration-vite/>Frontend Integration (Vite)</a></li><li><a href=/documentation/logging-in-pionia/>Logging in Pionia</a></li><li><details open open><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li class=active><a aria-current=page href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><a href=/documentation/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/commands-pionia-cli/>Commands (Pionia CLI)</a></li><li><a href=/documentation/helpers/>Pionia Helpers</a></li><li><details open><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></details></li><li><details open><summary>Moonlight Architecture</summary><ul class="list-unstyled list-nested"><li><a href=/moonlight/introduction-to-moonlight-architecture/>Introduction to MoonLight Architecture</a></li><li><a href=/moonlight/security-in-moonlight/>Security in moonlight</a></li><li><a href=/moonlight/api-versioning-in-moonlight/>API versioning in Moonlight</a></li></ul></details></li></ul></nav></div><nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation"><div class=page-links><h3>On this page</h3><nav id=toc><ul><li><a href=#mental-model>Mental model</a></li><li><a href=#join-types>Join types</a></li><li><a href=#on--using-formats>ON / USING formats</a><ul><li><a href=#1-map-recommended-for-fk-joins>1. Map (recommended for FK joins)</a></li><li><a href=#2-raw-sql-expression>2. Raw SQL expression</a></li><li><a href=#3-using--shared-column-names>3. <code>USING</code> — shared column name(s)</a></li><li><a href=#4-dotted-map-keys>4. Dotted map keys</a></li></ul></li><li><a href=#columns--aliases>Columns & aliases</a></li><li><a href=#filtering-joined-queries>Filtering joined queries</a></li><li><a href=#single-row--get--first>Single row — <code>get()</code> / <code>first()</code></a></li><li><a href=#count--random>Count & random</a></li><li><a href=#multiple-joins>Multiple joins</a></li><li><a href=#pagination>Pagination</a></li><li><a href=#eager-loading-without-joins--joinloader>Eager loading without joins — <code>JoinLoader</code></a></li><li><a href=#genericservice-joins>GenericService joins</a></li><li><a href=#what-joins-do-not-do-yet>What joins do not do (yet)</a></li><li><a href=#tips>Tips</a></li></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Relationships & Joins</h1><nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation"><details><summary>On this page</summary><div class=page-links><nav id=TableOfContents><ul><li><a href=#mental-model>Mental model</a></li><li><a href=#join-types>Join types</a></li><li><a href=#on--using-formats>ON / USING formats</a><ul><li><a href=#1-map-recommended-for-fk-joins>1. Map (recommended for FK joins)</a></li><li><a href=#2-raw-sql-expression>2. Raw SQL expression</a></li><li><a href=#3-using--shared-column-names>3. <code>USING</code> — shared column name(s)</a></li><li><a href=#4-dotted-map-keys>4. Dotted map keys</a></li></ul></li><li><a href=#columns--aliases>Columns & aliases</a></li><li><a href=#filtering-joined-queries>Filtering joined queries</a></li><li><a href=#single-row--get--first>Single row — <code>get()</code> / <code>first()</code></a></li><li><a href=#count--random>Count & random</a></li><li><a href=#multiple-joins>Multiple joins</a></li><li><a href=#pagination>Pagination</a></li><li><a href=#eager-loading-without-joins--joinloader>Eager loading without joins — <code>JoinLoader</code></a></li><li><a href=#genericservice-joins>GenericService joins</a></li><li><a href=#what-joins-do-not-do-yet>What joins do not do (yet)</a></li><li><a href=#tips>Tips</a></li></ul></nav></div></details></nav><p>Porm joins are <strong>explicit</strong> — there is no magic relationship graph. You call <code>join()</code> on a <code>table()</code> query, chain <code>inner()</code> / <code>left()</code> / <code>right()</code> / <code>full()</code>, then finish with <code>all()</code>, <code>get()</code>, <code>first()</code>, or <code>count()</code>.</p><div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg class="outline/pencil svg-inline callout-icon me-2 mb-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg><div class=callout-content><div class=callout-body><p><a href=/documentation/services/advanced-generic-services/>Generic services</a> automate the same join definitions via <code>$joins</code>, <code>$joinTypes</code>, and <code>$joinAliases</code> on a service class (see <a href=#generic-service-joins>GenericService joins</a> below).</p></div></div></div><h2 id=mental-model>Mental model<a href=#mental-model class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>table(&#39;orders&#39;, &#39;o&#39;)          ← base table (+ optional alias)
-</span></span><span class=line><span class=cl>  -&gt;columns([...])            ← always qualify columns when joined
-</span></span><span class=line><span class=cl>  -&gt;join()                     ← enter Join builder (no more save/delete on this chain)
-</span></span><span class=line><span class=cl>    -&gt;left(&#39;users&#39;, $on, &#39;u&#39;)  ← join type + ON/USING + join alias
-</span></span><span class=line><span class=cl>    -&gt;where(&#39;o.status&#39;, &#39;paid&#39;)
-</span></span><span class=line><span class=cl>    -&gt;all();</span></span></code></pre></div></figure></div><table><thead><tr><th>Mode</th><th>Entry</th><th>Terminal methods</th></tr></thead><tbody><tr><td>Table</td><td><code>table('t')</code></td><td><code>get</code>, <code>save</code>, <code>all</code>, …</td></tr><tr><td>Filter builder</td><td><code>->filter()</code></td><td><code>all</code>, <code>get</code>, <code>count</code>, …</td></tr><tr><td><strong>Join builder</strong></td><td><code>->join()</code></td><td><code>all</code>, <code>get</code>, <code>first</code>, <code>count</code>, <code>random</code></td></tr></tbody></table><h2 id=join-types>Join types<a href=#join-types class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Method</th><th>Alias</th><th>SQL</th></tr></thead><tbody><tr><td><code>inner($table, $on, $alias?)</code></td><td><code>innerJoin()</code></td><td><code>INNER JOIN</code></td></tr><tr><td><code>left($table, $on, $alias?)</code></td><td><code>leftJoin()</code></td><td><code>LEFT JOIN</code></td></tr><tr><td><code>right($table, $on, $alias?)</code></td><td><code>rightJoin()</code></td><td><code>RIGHT JOIN</code></td></tr><tr><td><code>full($table, $on, $alias?)</code></td><td><code>fullJoin()</code></td><td><code>FULL OUTER JOIN</code></td></tr></tbody></table><p>Signature: <strong><code>($joinedTable, $onOrUsing, $alias)</code></strong> — the third argument is the <strong>alias for the joined table</strong>, not the base table. If omitted, the table name is used as the alias.</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>use</span> <span class=nx>Pionia\Porm\Database\Builders\JoinOn</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;sample_table&#39;</span><span class=p>,</span> <span class=s1>&#39;st&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span><span class=s1>&#39;st.name&#39;</span><span class=p>,</span> <span class=s1>&#39;c.name(company_name)&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>leftJoin</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;c&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span></span></span></code></pre></div></figure></div><h2 id=on--using-formats>ON / USING formats<a href=#on--using-formats class=anchor aria-hidden=true>#</a></h2><p>Piql (under the hood) accepts four shapes for the second argument:</p><h3 id=1-map-recommended-for-fk-joins>1. Map (recommended for FK joins)<a href=#1-map-recommended-for-fk-joins class=anchor aria-hidden=true>#</a></h3><p><strong><code>[baseColumn => joinedColumn]</code></strong> — expands to<br><code>ON {base_table}.{baseColumn} = {alias}.{joinedColumn}</code>.</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=c1>// sample_table.company → company.id
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;company&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;id&#39;</span><span class=p>],</span> <span class=s1>&#39;c&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// products.category_id → categories.id
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;categories&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;category_id&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;id&#39;</span><span class=p>])</span></span></span></code></pre></div></figure></div><p>Use <code>JoinOn::map('company', 'id')</code> for readability.</p><h3 id=2-raw-sql-expression>2. Raw SQL expression<a href=#2-raw-sql-expression class=anchor aria-hidden=true>#</a></h3><p>Full <code>ON</code> expression as a string (you quote columns / qualify names):</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;categories&#39;</span><span class=p>,</span> <span class=s1>&#39;products.category_id = categories.id&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;users&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>expression</span><span class=p>(</span><span class=s1>&#39;orders.user_id = users.id AND users.active = 1&#39;</span><span class=p>))</span></span></span></code></pre></div></figure></div><h3 id=3-using--shared-column-names>3. <code>USING</code> — shared column name(s)<a href=#3-using--shared-column-names class=anchor aria-hidden=true>#</a></h3><p>Pass a <strong>string</strong> (one column) or <strong>indexed array</strong> (multiple columns):</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;profiles&#39;</span><span class=p>,</span> <span class=s1>&#39;user_id&#39;</span><span class=p>)</span>           <span class=c1>// USING (&#34;user_id&#34;)
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;link&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;order_id&#39;</span><span class=p>,</span> <span class=s1>&#39;line_id&#39;</span><span class=p>])</span> <span class=c1>// USING (&#34;order_id&#34;, &#34;line_id&#34;)
-</span></span></span></code></pre></div></figure></div><p><code>JoinOn::using('user_id')</code> documents intent.</p><h3 id=4-dotted-map-keys>4. Dotted map keys<a href=#4-dotted-map-keys class=anchor aria-hidden=true>#</a></h3><p>For multi-table chains, keys may include the table/alias prefix:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;tag&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;stj.tag_id&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;id&#39;</span><span class=p>],</span> <span class=s1>&#39;t&#39;</span><span class=p>)</span></span></span></code></pre></div></figure></div><h2 id=columns--aliases>Columns & aliases<a href=#columns--aliases class=anchor aria-hidden=true>#</a></h2><p>Always list columns explicitly when joining — avoid <code>*</code> on both tables (name collisions).</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;orders&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;o.id&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;o.total&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;u.email(customer_email)&#39;</span><span class=p>,</span>  <span class=c1>// AS customer_email
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;users&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;user_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;u&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span></span></span></code></pre></div></figure></div><p><strong>Base table alias:</strong> <code>table('stock', 'st')</code> or GenericService <code>$baseAlias = 'st'</code>.</p><p><strong>Result alias:</strong> <code>column(alias)</code> in the column list — same as non-join queries.</p><h2 id=filtering-joined-queries>Filtering joined queries<a href=#filtering-joined-queries class=anchor aria-hidden=true>#</a></h2><p>On the Join builder use <strong><code>where()</code></strong> (fluent or array) or <strong><code>filter($array)</code></strong> (sugar over <code>where</code>):</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;orders&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;users&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;user_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;u&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>where</span><span class=p>(</span><span class=s1>&#39;o.status&#39;</span><span class=p>,</span> <span class=s1>&#39;paid&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>where</span><span class=p>(</span><span class=s1>&#39;u.country&#39;</span><span class=p>,</span> <span class=s1>&#39;UG&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>orderBy</span><span class=p>([</span><span class=s1>&#39;o.created_at&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;DESC&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>limit</span><span class=p>(</span><span class=mi>20</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// array style
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>-&gt;</span><span class=na>filter</span><span class=p>([</span><span class=s1>&#39;o.status&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;paid&#39;</span><span class=p>,</span> <span class=s1>&#39;u.active&#39;</span> <span class=o>=&gt;</span> <span class=mi>1</span><span class=p>])</span></span></span></code></pre></div></figure></div><p>Fluent operators (<code>starts_with</code>, <code>in</code>, …) work here too — see <a href=/documentation/database/queries-with-filtering/>Filtering</a>.</p><h2 id=single-row--get--first>Single row — <code>get()</code> / <code>first()</code><a href=#single-row--get--first class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$row</span> <span class=o>=</span> <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;sample_table&#39;</span><span class=p>,</span> <span class=s1>&#39;st&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span><span class=s1>&#39;st.name&#39;</span><span class=p>,</span> <span class=s1>&#39;c.name(company_name)&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;c&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>where</span><span class=p>(</span><span class=s1>&#39;st.id&#39;</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>first</span><span class=p>();</span></span></span></code></pre></div></figure></div><h2 id=count--random>Count & random<a href=#count--random class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$total</span> <span class=o>=</span> <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;orders&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;users&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;user_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;u&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>where</span><span class=p>(</span><span class=s1>&#39;o.status&#39;</span><span class=p>,</span> <span class=s1>&#39;open&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>count</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nv>$pick</span> <span class=o>=</span> <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;products&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;categories&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;category_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>random</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;products.active&#39;</span> <span class=o>=&gt;</span> <span class=mi>1</span><span class=p>]);</span></span></span></code></pre></div></figure></div><h2 id=multiple-joins>Multiple joins<a href=#multiple-joins class=anchor aria-hidden=true>#</a></h2><p>Chain before executing:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;line_items&#39;</span><span class=p>,</span> <span class=s1>&#39;li&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span><span class=s1>&#39;li.qty&#39;</span><span class=p>,</span> <span class=s1>&#39;o.id(order_id)&#39;</span><span class=p>,</span> <span class=s1>&#39;p.name&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>inner</span><span class=p>(</span><span class=s1>&#39;orders&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;order_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;o&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;products&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;product_id&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;p&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span></span></span></code></pre></div></figure></div><p>Order matters: each join sees tables already in the query.</p><h2 id=pagination>Pagination<a href=#pagination class=anchor aria-hidden=true>#</a></h2><p>Use <code>PaginationCore</code> with a base alias and return the join chain from <code>init()</code>:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$pagination</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>PaginationCore</span><span class=p>(</span><span class=nv>$req</span><span class=p>,</span> <span class=s1>&#39;sample_table&#39;</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=k>null</span><span class=p>,</span> <span class=s1>&#39;st&#39;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$page</span> <span class=o>=</span> <span class=nv>$pagination</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span><span class=s1>&#39;st.id&#39;</span><span class=p>,</span> <span class=s1>&#39;st.name&#39;</span><span class=p>,</span> <span class=s1>&#39;c.name(company_name)&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>init</span><span class=p>(</span><span class=nx>fn</span> <span class=p>(</span><span class=nv>$q</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=nv>$q</span><span class=o>-&gt;</span><span class=na>join</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>        <span class=o>-&gt;</span><span class=na>left</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=nx>JoinOn</span><span class=o>::</span><span class=na>map</span><span class=p>(</span><span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>),</span> <span class=s1>&#39;c&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=o>-&gt;</span><span class=na>orderBy</span><span class=p>([</span><span class=s1>&#39;st.id&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;DESC&#39;</span><span class=p>]))</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>paginate</span><span class=p>();</span></span></span></code></pre></div></figure></div><p>See <a href=/documentation/database/pagination/>Pagination</a>.</p><h2 id=eager-loading-without-joins--joinloader>Eager loading without joins — <code>JoinLoader</code><a href=#eager-loading-without-joins--joinloader class=anchor aria-hidden=true>#</a></h2><p>When you already fetched parent rows (e.g. from a simple <code>filter()->all()</code>) and need related records, use <code>JoinLoader::eager()</code> instead of querying inside a loop:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>use</span> <span class=nx>Pionia\Porm\Database\Builders\JoinLoader</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nv>$items</span> <span class=o>=</span> <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;sample_table&#39;</span><span class=p>,</span> <span class=s1>&#39;st&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>filter</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$items</span> <span class=o>=</span> <span class=nx>JoinLoader</span><span class=o>::</span><span class=na>eager</span><span class=p>(</span><span class=nv>$items</span><span class=p>,</span> <span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=s1>&#39;company&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span><span class=p>,</span> <span class=s1>&#39;company_row&#39;</span><span class=p>);</span></span></span></code></pre></div></figure></div><p>This runs one <code>WHERE IN</code> on the related table and attaches each match as <code>company_row</code> on the parent. Pass a connection name as the last argument when not using <code>default</code>.</p><h2 id=genericservice-joins>GenericService joins<a href=#genericservice-joins class=anchor aria-hidden=true>#</a></h2><p>Declare joins on services extending <code>GenericService</code> / <code>UniversalGenericService</code>:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>use</span> <span class=nx>Pionia\Http\Services\JoinType</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>SampoloService</span> <span class=k>extends</span> <span class=nx>UniversalGenericService</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nx>string</span> <span class=nv>$table</span> <span class=o>=</span> <span class=s1>&#39;sample_table&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=o>?</span><span class=nx>string</span> <span class=nv>$baseAlias</span> <span class=o>=</span> <span class=s1>&#39;st&#39;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=o>?</span><span class=k>array</span> <span class=nv>$joins</span> <span class=o>=</span> <span class=p>[</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;company&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span><span class=s1>&#39;company&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;id&#39;</span><span class=p>],</span>  <span class=c1>// st.company = company.id
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>];</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=o>?</span><span class=k>array</span> <span class=nv>$joinTypes</span> <span class=o>=</span> <span class=p>[</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;company&#39;</span> <span class=o>=&gt;</span> <span class=nx>JoinType</span><span class=o>::</span><span class=na>LEFT</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=p>];</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=o>?</span><span class=k>array</span> <span class=nv>$joinAliases</span> <span class=o>=</span> <span class=p>[</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;company&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;c&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=p>];</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=o>?</span><span class=k>array</span> <span class=nv>$listColumns</span> <span class=o>=</span> <span class=p>[</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;st.id(id)&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;st.name(name)&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>        <span class=s1>&#39;c.name(company_name)&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=p>];</span>
-</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure></div><table><thead><tr><th>Property</th><th>Purpose</th></tr></thead><tbody><tr><td><code>$joins</code></td><td>Joined table => ON map (<code>[baseCol => joinedCol]</code>)</td></tr><tr><td><code>$joinTypes</code></td><td>Per-table <code>JoinType::INNER|LEFT|RIGHT|FULL</code></td></tr><tr><td><code>$joinAliases</code></td><td>Short alias for joined table in SELECT/WHERE</td></tr><tr><td><code>$baseAlias</code></td><td>Alias for the service <code>$table</code> in queries</td></tr><tr><td><code>$dontRelate</code> (request)</td><td>Skip joins; query base table only</td></tr></tbody></table><p><strong>Map direction:</strong> keys are columns on the <strong>base</strong> (<code>$table</code>) side; values are columns on the <strong>joined</strong> table — matching Piql’s <code>ON base.key = joined.value</code>.</p><p>Clients can pass <code>dontRelate: true</code> in the API body to list without joins. See <a href=/documentation/services/advanced-generic-services/>Advanced generic services</a>.</p><h2 id=what-joins-do-not-do-yet>What joins do not do (yet)<a href=#what-joins-do-not-do-yet class=anchor aria-hidden=true>#</a></h2><ul><li>No automatic relationship inference from foreign keys</li><li>No insert/update across joined tables in one call (writes target <code>$table</code> only)</li><li>No <code>crossJoin</code> helper (use raw SQL if required)</li><li>SQLite has limited <code>FULL OUTER JOIN</code> support — prefer <code>left</code> + <code>union</code> patterns on SQLite</li></ul><h2 id=tips>Tips<a href=#tips class=anchor aria-hidden=true>#</a></h2><ol><li><strong>Alias early</strong> — <code>table('t', 't')</code> and <code>$joinAliases</code> prevent ambiguous columns.</li><li><strong>Prefer <code>JoinOn::map()</code></strong> over raw strings for FK joins — easier to test and refactor.</li><li><strong>LEFT vs INNER</strong> — use <code>LEFT</code> when the base row should appear without a match (nullable FK).</li><li><strong>Count before paginate</strong> — <code>PaginationCore</code> runs <code>count()</code> on the same join chain; keep filters on the join builder inside <code>init()</code>.</li></ol><p>Related: <a href=/documentation/database/where-dsl/>WHERE DSL</a> · <a href=/documentation/database/api-reference/>API reference</a> · <a href=/documentation/services/generic-services/>Generic services</a>.</p><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"><div class=last-modified><a href=https://github.com/PioniaPHP-project/pionia-docs/commit/71db90c9c867145fe6f2a20b9fb6cf9abb9157fe><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-Last updated on October 7, 2024</a></div><div class=edit-page><a href=https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/database/relationships.md><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828.0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-Edit this page on GitHub</a></div></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M5 12l6 6"/><path d="M5 12l6-6"/></svg></div><div class="d-flex flex-column"><div class=text-body-secondary>Prev</div><a href=/documentation/database/where-dsl/ class="stretched-link text-reset text-decoration-none">WHERE DSL Reference</a></div></div></div><div class=m-2></div><div class="card text-end w-100"><div class="card-body d-flex justify-content-end"><div class="d-flex flex-column"><div class=text-body-secondary>Next</div><a href=/documentation/database/using-functions-aggregation/ class="stretched-link text-reset text-decoration-none">Using Functions - Aggregation</a></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div></main></div></div></div><footer class="footer text-muted"><div class=container-sm><div class=row><div class="col-lg-8 text-center text-lg-start"><ul class=list-inline><li class=list-inline-item><a class=text-muted href=/privacy/>Privacy Policy</a></li></ul></div><div class="col-lg-8 text-center text-lg-end"><ul class=list-inline><li class=list-inline-item>Brought to you by <a class=text-muted href=https://servicecops.com/>Service Cops</a></li></ul></div></div></div></footer><script async src=/js/app.47b84f3b640408af6efe7bf4add1a36f5b9c6227fbae7b8bcdf0c9ce42fefc54.js integrity="sha256-R7hPO2QECK9u/nv0rdGjb1ucYif7rnuLzfDJzkL+/FQ="></script><script async src=https://scripts.simpleanalyticscdn.com/latest.js></script><script async src=/js/flexsearch.b6f80717bc68cd38b6ded7a061f96a73896db6be17a6582f09a63a6040040919.js integrity="sha256-tvgHF7xozTi23tegYflqc4lttr4XplgvCaY6YEAECRk="></script><script async src=/js/search-modal.4e30271fef6fac86c3b4143167e9784bd3f7037ce1045d03a321e7e799e91476.js integrity="sha256-TjAnH+9vrIbDtBQxZ+l4S9P3A3zhBF0DoyHn55npFHY="></script><div class="d-inline-flex fixed-bottom-right pb-4 pe-4"><button id=toTop type=button class="btn btn-primary rounded-circle ms-auto p-2"><span class=visually-hidden>Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 15l6-6 6 6"/></svg></button></div></body></html>
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f14b3e296de1d0b69e75af684b62a4a912a2cadab04e36123407cd8388204f1d.js"
+  integrity="sha256-8Us&#43;KW3h0Laeda9oS2KkqRKiytqwTjYSNAfNg4ggTx0=">
+</script>
+
+
+<link rel="stylesheet" href="/main.2dda91215349f6c3fced0f77b8d86a0aa0b6438f2eb9046610539fd6fb83fd28b017f8218d9baca27fc203bf4f40b3f37ea6308c564d9e26cd0611bfc6ea3cc7.css" integrity="sha512-LdqRIVNJ9sP87Q93uNhqCqC2Q48uuQRmEFOf1vuD/SiwF/ghjZuson/CA79PQLPzfqYwjFZNnibNBhG/xuo8xw==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/database/relationships/">
+  <link rel="canonical" href="http://localhost:1313/documentation/database/relationships/">
+<title>Porm joins and relationships</title>
+<meta name="description" content="Complete guide to Porm joins: ON formats, aliases, fluent where, and GenericService.">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/png">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="Relationships &amp; Joins">
+<meta property="og:description" content="Join tables with Porm — ON clauses, aliases, GenericService, and the Join builder.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/documentation/database/relationships/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2026-07-02T17:00:53+03:00"><meta property="og:site_name" content="Pionia Framework">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Relationships &amp; Joins">
+<meta name="twitter:description" content="Join tables with Porm — ON clauses, aliases, GenericService, and the Join builder.">
+<meta name="twitter:site" content="@pionia">
+
+    
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Pionia Framework",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/documentation/",
+       "name": "Documentation",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/documentation/database/",
+       "name": "Database ( Porm)",
+       "position": 4
+     },
+     {
+       "@type": "ListItem",
+       "name": "Relationships \u0026 Joins",
+       "position": 5
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<div class="header-bar"></div>
+<header class="navbar navbar-expand-lg">
+  <div class="container-sm">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">
+      Pionia
+      <span class="docs-version-badge">Docs v3</span>
+    </a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+    <details open>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/api-tutorial/">API tutorial — Part 1</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validations</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open open>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/docs/examples/">Examples</a>
+  </li>
+  </ul>
+</nav>
+
+  
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Documentation<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 9l6 6l6 -6"></path>
+                  </svg>
+                </a>
+                <ul class="dropdown-menu shadow rounded border-0">
+                  <li><a class="dropdown-item" href="http://localhost:1313/documentation/getting-started/introduction/">Getting Started</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:1313/documentation/building-api/">Building your API</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:1313/documentation/database/">Database</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:1313/documentation/operations/roadrunner/">Operations</a></li>
+                  </ul>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:1313/resources/">Resources</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/PioniaPHP-project/pionia-docs"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          </ul>
+        
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="http://localhost:1313/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="http://localhost:1313/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-sm" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+			
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>Documentation</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+    <details open>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/api-tutorial/">API tutorial — Part 1</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validations</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open open>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/docs/examples/">Examples</a>
+  </li>
+  </ul>
+</nav>
+
+  
+
+		</div>
+		
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#mental-model">Mental model</a></li>
+    <li><a href="#join-types">Join types</a></li>
+    <li><a href="#on--using-formats">ON / USING formats</a>
+      <ul>
+        <li><a href="#1-map-recommended-for-fk-joins">1. Map (recommended for FK joins)</a></li>
+        <li><a href="#2-raw-sql-expression">2. Raw SQL expression</a></li>
+        <li><a href="#3-using--shared-column-names">3. <code>USING</code> — shared column name(s)</a></li>
+        <li><a href="#4-dotted-map-keys">4. Dotted map keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#columns--aliases">Columns &amp; aliases</a></li>
+    <li><a href="#filtering-joined-queries">Filtering joined queries</a></li>
+    <li><a href="#single-row--get--first">Single row — <code>get()</code> / <code>first()</code></a></li>
+    <li><a href="#count--random">Count &amp; random</a></li>
+    <li><a href="#multiple-joins">Multiple joins</a></li>
+    <li><a href="#pagination">Pagination</a></li>
+    <li><a href="#eager-loading-without-joins--joinloader">Eager loading without joins — <code>JoinLoader</code></a></li>
+    <li><a href="#genericservice-joins">GenericService joins</a></li>
+    <li><a href="#what-joins-do-not-do-yet">What joins do not do (yet)</a></li>
+    <li><a href="#tips">Tips</a></li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9">
+		
+			<h1>Relationships &amp; Joins</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mental-model">Mental model</a></li>
+    <li><a href="#join-types">Join types</a></li>
+    <li><a href="#on--using-formats">ON / USING formats</a>
+      <ul>
+        <li><a href="#1-map-recommended-for-fk-joins">1. Map (recommended for FK joins)</a></li>
+        <li><a href="#2-raw-sql-expression">2. Raw SQL expression</a></li>
+        <li><a href="#3-using--shared-column-names">3. <code>USING</code> — shared column name(s)</a></li>
+        <li><a href="#4-dotted-map-keys">4. Dotted map keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#columns--aliases">Columns &amp; aliases</a></li>
+    <li><a href="#filtering-joined-queries">Filtering joined queries</a></li>
+    <li><a href="#single-row--get--first">Single row — <code>get()</code> / <code>first()</code></a></li>
+    <li><a href="#count--random">Count &amp; random</a></li>
+    <li><a href="#multiple-joins">Multiple joins</a></li>
+    <li><a href="#pagination">Pagination</a></li>
+    <li><a href="#eager-loading-without-joins--joinloader">Eager loading without joins — <code>JoinLoader</code></a></li>
+    <li><a href="#genericservice-joins">GenericService joins</a></li>
+    <li><a href="#what-joins-do-not-do-yet">What joins do not do (yet)</a></li>
+    <li><a href="#tips">Tips</a></li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			<p>Porm joins are <strong>explicit</strong> — there is no magic relationship graph. You call <code>join()</code> on a <code>table()</code> query, chain <code>inner()</code> / <code>left()</code> / <code>right()</code> / <code>full()</code>, then finish with <code>all()</code>, <code>get()</code>, <code>first()</code>, or <code>count()</code>.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/pencil svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4L18.5 9.5a2.828 2.828.0 10-4-4L4 16v4"/><path d="M13.5 6.5l4 4"/></svg>
+  <div class="callout-content">
+    
+    <div class="callout-body">
+      <p><a href="/documentation/building-api/advanced-generic-services/">Generic services</a> automate the same join definitions via <code>$joins</code>, <code>$joinTypes</code>, and <code>$joinAliases</code> on a service class (see <a href="#generic-service-joins">GenericService joins</a> below).</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="mental-model">Mental model<a href="#mental-model" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">table(&#39;orders&#39;, &#39;o&#39;)          ← base table (+ optional alias)
+</span></span><span class="line"><span class="cl">  -&gt;columns([...])            ← always qualify columns when joined
+</span></span><span class="line"><span class="cl">  -&gt;join()                     ← enter Join builder (no more save/delete on this chain)
+</span></span><span class="line"><span class="cl">    -&gt;left(&#39;users&#39;, $on, &#39;u&#39;)  ← join type + ON/USING + join alias
+</span></span><span class="line"><span class="cl">    -&gt;where(&#39;o.status&#39;, &#39;paid&#39;)
+</span></span><span class="line"><span class="cl">    -&gt;all();</span></span></code></pre></div>
+  </figure>
+</div>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Entry</th>
+<th>Terminal methods</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table</td>
+<td><code>table('t')</code></td>
+<td><code>get</code>, <code>save</code>, <code>all</code>, …</td>
+</tr>
+<tr>
+<td>Filter builder</td>
+<td><code>-&gt;filter()</code></td>
+<td><code>all</code>, <code>get</code>, <code>count</code>, …</td>
+</tr>
+<tr>
+<td><strong>Join builder</strong></td>
+<td><code>-&gt;join()</code></td>
+<td><code>all</code>, <code>get</code>, <code>first</code>, <code>count</code>, <code>random</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="join-types">Join types<a href="#join-types" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Alias</th>
+<th>SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inner($table, $on, $alias?)</code></td>
+<td><code>innerJoin()</code></td>
+<td><code>INNER JOIN</code></td>
+</tr>
+<tr>
+<td><code>left($table, $on, $alias?)</code></td>
+<td><code>leftJoin()</code></td>
+<td><code>LEFT JOIN</code></td>
+</tr>
+<tr>
+<td><code>right($table, $on, $alias?)</code></td>
+<td><code>rightJoin()</code></td>
+<td><code>RIGHT JOIN</code></td>
+</tr>
+<tr>
+<td><code>full($table, $on, $alias?)</code></td>
+<td><code>fullJoin()</code></td>
+<td><code>FULL OUTER JOIN</code></td>
+</tr>
+</tbody>
+</table>
+<p>Signature: <strong><code>($joinedTable, $onOrUsing, $alias)</code></strong> — the third argument is the <strong>alias for the joined table</strong>, not the base table. If omitted, the table name is used as the alias.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Porm\Database\Builders\JoinOn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;sample_table&#39;</span><span class="p">,</span> <span class="s1">&#39;st&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span><span class="s1">&#39;st.name&#39;</span><span class="p">,</span> <span class="s1">&#39;c.name(company_name)&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="on--using-formats">ON / USING formats<a href="#on--using-formats" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Piql (under the hood) accepts four shapes for the second argument:</p>
+<h3 id="1-map-recommended-for-fk-joins">1. Map (recommended for FK joins)<a href="#1-map-recommended-for-fk-joins" class="anchor" aria-hidden="true">#</a> </h3>
+<p><strong><code>[baseColumn =&gt; joinedColumn]</code></strong> — expands to<br>
+<code>ON {base_table}.{baseColumn} = {alias}.{joinedColumn}</code>.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// sample_table.company → company.id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;company&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// products.category_id → categories.id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;category_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span><span class="p">])</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Use <code>JoinOn::map('company', 'id')</code> for readability.</p>
+<h3 id="2-raw-sql-expression">2. Raw SQL expression<a href="#2-raw-sql-expression" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Full <code>ON</code> expression as a string (you quote columns / qualify names):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="s1">&#39;products.category_id = categories.id&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">expression</span><span class="p">(</span><span class="s1">&#39;orders.user_id = users.id AND users.active = 1&#39;</span><span class="p">))</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="3-using--shared-column-names">3. <code>USING</code> — shared column name(s)<a href="#3-using--shared-column-names" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Pass a <strong>string</strong> (one column) or <strong>indexed array</strong> (multiple columns):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;profiles&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">)</span>           <span class="c1">// USING (&#34;user_id&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;order_id&#39;</span><span class="p">,</span> <span class="s1">&#39;line_id&#39;</span><span class="p">])</span> <span class="c1">// USING (&#34;order_id&#34;, &#34;line_id&#34;)
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p><code>JoinOn::using('user_id')</code> documents intent.</p>
+<h3 id="4-dotted-map-keys">4. Dotted map keys<a href="#4-dotted-map-keys" class="anchor" aria-hidden="true">#</a> </h3>
+<p>For multi-table chains, keys may include the table/alias prefix:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;tag&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;stj.tag_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="columns--aliases">Columns &amp; aliases<a href="#columns--aliases" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Always list columns explicitly when joining — avoid <code>*</code> on both tables (name collisions).</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;o.id&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;o.total&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;u.email(customer_email)&#39;</span><span class="p">,</span>  <span class="c1">// AS customer_email
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;u&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p><strong>Base table alias:</strong> <code>table('stock', 'st')</code> or GenericService <code>$baseAlias = 'st'</code>.</p>
+<p><strong>Result alias:</strong> <code>column(alias)</code> in the column list — same as non-join queries.</p>
+<h2 id="filtering-joined-queries">Filtering joined queries<a href="#filtering-joined-queries" class="anchor" aria-hidden="true">#</a> </h2>
+<p>On the Join builder use <strong><code>where()</code></strong> (fluent or array) or <strong><code>filter($array)</code></strong> (sugar over <code>where</code>):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;u&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;o.status&#39;</span><span class="p">,</span> <span class="s1">&#39;paid&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;u.country&#39;</span><span class="p">,</span> <span class="s1">&#39;UG&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">([</span><span class="s1">&#39;o.created_at&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;DESC&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// array style
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">([</span><span class="s1">&#39;o.status&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;paid&#39;</span><span class="p">,</span> <span class="s1">&#39;u.active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">])</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Fluent operators (<code>starts_with</code>, <code>in</code>, …) work here too — see <a href="/documentation/database/queries-with-filtering/">Filtering</a>.</p>
+<h2 id="single-row--get--first">Single row — <code>get()</code> / <code>first()</code><a href="#single-row--get--first" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$row</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;sample_table&#39;</span><span class="p">,</span> <span class="s1">&#39;st&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span><span class="s1">&#39;st.name&#39;</span><span class="p">,</span> <span class="s1">&#39;c.name(company_name)&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;st.id&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="count--random">Count &amp; random<a href="#count--random" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$total</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;u&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;o.status&#39;</span><span class="p">,</span> <span class="s1">&#39;open&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">count</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pick</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;products&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">random</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;products.active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="multiple-joins">Multiple joins<a href="#multiple-joins" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Chain before executing:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;line_items&#39;</span><span class="p">,</span> <span class="s1">&#39;li&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span><span class="s1">&#39;li.qty&#39;</span><span class="p">,</span> <span class="s1">&#39;o.id(order_id)&#39;</span><span class="p">,</span> <span class="s1">&#39;p.name&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">inner</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;order_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;products&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;product_id&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Order matters: each join sees tables already in the query.</p>
+<h2 id="pagination">Pagination<a href="#pagination" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Use <code>PaginationCore</code> with a base alias and return the join chain from <code>init()</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$pagination</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PaginationCore</span><span class="p">(</span><span class="nv">$req</span><span class="p">,</span> <span class="s1">&#39;sample_table&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;st&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$pagination</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span><span class="s1">&#39;st.id&#39;</span><span class="p">,</span> <span class="s1">&#39;st.name&#39;</span><span class="p">,</span> <span class="s1">&#39;c.name(company_name)&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">init</span><span class="p">(</span><span class="nx">fn</span> <span class="p">(</span><span class="nv">$q</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nv">$q</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">left</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="nx">JoinOn</span><span class="o">::</span><span class="na">map</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">([</span><span class="s1">&#39;st.id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;DESC&#39;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">paginate</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>See <a href="/documentation/database/pagination/">Pagination</a>.</p>
+<h2 id="eager-loading-without-joins--joinloader">Eager loading without joins — <code>JoinLoader</code><a href="#eager-loading-without-joins--joinloader" class="anchor" aria-hidden="true">#</a> </h2>
+<p>When you already fetched parent rows (e.g. from a simple <code>filter()-&gt;all()</code>) and need related records, use <code>JoinLoader::eager()</code> instead of querying inside a loop:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Porm\Database\Builders\JoinLoader</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$items</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;sample_table&#39;</span><span class="p">,</span> <span class="s1">&#39;st&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$items</span> <span class="o">=</span> <span class="nx">JoinLoader</span><span class="o">::</span><span class="na">eager</span><span class="p">(</span><span class="nv">$items</span><span class="p">,</span> <span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;company_row&#39;</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>This runs one <code>WHERE IN</code> on the related table and attaches each match as <code>company_row</code> on the parent. Pass a connection name as the last argument when not using <code>default</code>.</p>
+<h2 id="genericservice-joins">GenericService joins<a href="#genericservice-joins" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Declare joins on services extending <code>GenericService</code> / <code>UniversalGenericService</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\JoinType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SampoloService</span> <span class="k">extends</span> <span class="nx">UniversalGenericService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;sample_table&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="nx">string</span> <span class="nv">$baseAlias</span> <span class="o">=</span> <span class="s1">&#39;st&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joins</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;company&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;company&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span><span class="p">],</span>  <span class="c1">// st.company = company.id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinTypes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;company&#39;</span> <span class="o">=&gt;</span> <span class="nx">JoinType</span><span class="o">::</span><span class="na">LEFT</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$joinAliases</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;company&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="o">?</span><span class="k">array</span> <span class="nv">$listColumns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;st.id(id)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;st.name(name)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;c.name(company_name)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$joins</code></td>
+<td>Joined table =&gt; ON map (<code>[baseCol =&gt; joinedCol]</code>)</td>
+</tr>
+<tr>
+<td><code>$joinTypes</code></td>
+<td>Per-table <code>JoinType::INNER|LEFT|RIGHT|FULL</code></td>
+</tr>
+<tr>
+<td><code>$joinAliases</code></td>
+<td>Short alias for joined table in SELECT/WHERE</td>
+</tr>
+<tr>
+<td><code>$baseAlias</code></td>
+<td>Alias for the service <code>$table</code> in queries</td>
+</tr>
+<tr>
+<td><code>$dontRelate</code> (request)</td>
+<td>Skip joins; query base table only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Map direction:</strong> keys are columns on the <strong>base</strong> (<code>$table</code>) side; values are columns on the <strong>joined</strong> table — matching Piql’s <code>ON base.key = joined.value</code>.</p>
+<p>Clients can pass <code>dontRelate: true</code> in the API body to list without joins. See <a href="/documentation/building-api/advanced-generic-services/">Advanced generic services</a>.</p>
+<h2 id="what-joins-do-not-do-yet">What joins do not do (yet)<a href="#what-joins-do-not-do-yet" class="anchor" aria-hidden="true">#</a> </h2>
+<ul>
+<li>No automatic relationship inference from foreign keys</li>
+<li>No insert/update across joined tables in one call (writes target <code>$table</code> only)</li>
+<li>No <code>crossJoin</code> helper (use raw SQL if required)</li>
+<li>SQLite has limited <code>FULL OUTER JOIN</code> support — prefer <code>left</code> + <code>union</code> patterns on SQLite</li>
+</ul>
+<h2 id="tips">Tips<a href="#tips" class="anchor" aria-hidden="true">#</a> </h2>
+<ol>
+<li><strong>Alias early</strong> — <code>table('t', 't')</code> and <code>$joinAliases</code> prevent ambiguous columns.</li>
+<li><strong>Prefer <code>JoinOn::map()</code></strong> over raw strings for FK joins — easier to test and refactor.</li>
+<li><strong>LEFT vs INNER</strong> — use <code>LEFT</code> when the base row should appear without a match (nullable FK).</li>
+<li><strong>Count before paginate</strong> — <code>PaginationCore</code> runs <code>count()</code> on the same join chain; keep filters on the join builder inside <code>init()</code>.</li>
+</ol>
+<p>Related: <a href="/documentation/database/where-dsl/">WHERE DSL</a> · <a href="/documentation/database/api-reference/">API reference</a> · <a href="/documentation/building-api/generic-services/">Generic services</a>.</p>
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/6d30763e180e997c9a7c7fefb8375d68bc475cd9">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on July 2, 2026
+    </a>
+  </div>
+
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/database/relationships.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/documentation/database/where-dsl/" class="stretched-link text-reset text-decoration-none">WHERE DSL Reference</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/database/using-functions-aggregation/" class="stretched-link text-reset text-decoration-none">Using Functions - Aggregation</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="text-muted" href="/privacy/">Privacy Policy</a></li><li class="list-inline-item"><a class="text-muted" href="/documentation/extending/maintainer-notes/">Maintainer notes</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+
+<script async
+  src="/js/app.fee9f8ec7475f74b15d2b2c76604e00670c577ef11ab1b2c92344ab979b9ace4.js"
+  integrity="sha256-/un47HR190sV0rLHZgTgBnDFd&#43;8RqxsskjRKuXm5rOQ=">
+</script>
+
+
+
+
+
+
+<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+</script>
+<script async
+  src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
+  integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">
+</script>
+<script async
+  src="/js/search-modal.bbdea845b287fc7f22a081c11a25b5bbfa96e74e43b36be5733f16439caf46be.js"
+  integrity="sha256-u96oRbKH/H8ioIHBGiW1u/qW505Ds2vlcz8WQ5yvRr4=">
+</script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
+
+    
+  </body>
+</html>

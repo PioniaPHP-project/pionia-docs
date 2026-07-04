@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP &amp; middleware on Pionia</title>
+    <link>http://localhost:1313/docs/documentation/http/</link>
+    <description>Recent content in HTTP &amp; middleware on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Thu, 02 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/documentation/http/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Collections (Arrayable)</title>
+      <link>http://localhost:1313/documentation/http/collections/</link>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/http/collections/</guid>
+      <description>Typed getters, merging, and chain helpers on Moonlight request payloads.</description>
+    </item>
+    <item>
+      <title>HTTP routing</title>
+      <link>http://localhost:1313/documentation/http/http-routing/</link>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/http/http-routing/</guid>
+      <description>How switches register routes and how the kernel dispatches HTTP requests.</description>
+    </item>
+    <item>
+      <title>Middleware</title>
+      <link>http://localhost:1313/documentation/http/middleware/</link>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/http/middleware/</guid>
+      <description>Global middleware runs before dispatch and after the response is built.</description>
+    </item>
+    <item>
+      <title>Requests and Responses</title>
+      <link>http://localhost:1313/documentation/http/requests-and-responses/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/http/requests-and-responses/</guid>
+      <description>Moonlight actions receive Arrayable request data and return ApiResponse envelopes.</description>
+    </item>
+    <item>
+      <title>Exceptions &amp; error handling</title>
+      <link>http://localhost:1313/documentation/http/exceptions/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/http/exceptions/</guid>
+      <description>Centralized reporting and rendering for all uncaught throwables.</description>
+    </item>
+  </channel>
+</rss>

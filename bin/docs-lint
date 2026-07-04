@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Lint documentation content for banned v2 terms and broken legacy paths.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONTENT="$ROOT/content"
+ERR=0
+
+BANNED=(
+  'SERVICE'
+  'ACTION'
+  'statusCode'
+  'PioniaApplication'
+  'BaseRestService'
+  'Porm::from'
+  'localhost:3000'
+)
+
+EXCLUDE=(
+  '--glob=!**/upgrading-from-v2.md'
+  '--glob=!**/maintainer-notes.md'
+  '--glob=!**/DOCUMENTATION_STYLE.md'
+  '--glob=!**/changelog-v3.md'
+)
+
+echo "Checking banned terms in content/docs..."
+for term in "${BANNED[@]}"; do
+  if rg -q "$term" "${EXCLUDE[@]}" "$CONTENT/docs" 2>/dev/null; then
+    echo "FAIL: banned term '$term' found:"
+    rg -n "$term" "${EXCLUDE[@]}" "$CONTENT/docs" || true
+    ERR=1
+  fi
+done
+
+LEGACY_PATHS=(
+  '/documentation/introduction/'
+  '/documentation/api-tutorial/'
+  '/documentation/services/'
+  '/documentation/commands-pionia-cli/'
+  '/documentation/roadrunner/'
+  '/moonlight/'
+)
+
+echo "Checking legacy internal links..."
+for path in "${LEGACY_PATHS[@]}"; do
+  if rg -q "\\]\\($path" "$CONTENT" 2>/dev/null; then
+    echo "WARN: legacy link path '$path':"
+    rg -n "\\]\\($path" "$CONTENT" || true
+  fi
+done
+
+if [[ "$ERR" -ne 0 ]]; then
+  echo "docs-lint: failed"
+  exit 1
+fi
+
+echo "docs-lint: passed"
+exit 0

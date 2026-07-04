@@ -174,5 +174,5 @@ php pionia cache:clear
 ## Related
 
 - [App providers](/documentation/extending/app-providers/) — hook reference
-- [Commands](/documentation/commands-pionia-cli/) — CLI conventions
-- [Middleware](/documentation/middleware/) — HTTP pipeline
+- [Commands](/documentation/operations/commands/) — CLI conventions
+- [Middleware](/documentation/http/middleware/) — HTTP pipeline

@@ -1,0 +1,20 @@
+{{- $cmd := .Get "command" | default "" -}}
+{{- $output := .Get "output" | default "" -}}
+{{- $lang := .Get "lang" | default "bash" -}}
+<div class="terminal-block my-3">
+  {{- with $cmd -}}
+  <div class="terminal-block-label">Command</div>
+  ```{{ $lang }}
+{{ . }}
+```
+  {{- end -}}
+  {{- with $output -}}
+  <div class="terminal-block-label mt-2">Expected output</div>
+  ```text
+{{ . }}
+```
+  {{- end -}}
+  {{- if .Inner -}}
+  {{ .Inner | markdownify }}
+  {{- end -}}
+</div>

@@ -79,6 +79,6 @@ $piql->log();    // return query log array
 
 ## Exceptions
 
-Database errors surface as `Pionia\Porm\Exceptions\BaseDatabaseException` or `Pionia\Exceptions\DatabaseException`. Uncaught errors in HTTP apps flow through the [exception pipeline](/documentation/exceptions/).
+Database errors surface as `Pionia\Porm\Exceptions\BaseDatabaseException` or `Pionia\Exceptions\DatabaseException`. Uncaught errors in HTTP apps flow through the [exception pipeline](/documentation/http/exceptions/).
 
 Related: [Making queries](/documentation/database/making-queries/) · [WHERE DSL](/documentation/database/where-dsl/).

@@ -1,15 +1,13 @@
 {{ define "main" }}
 <section class="section container-fluid mt-n3 pb-3">
   <div class="row justify-content-center">
-    <div class="col-lg-12 text-center">
-      <div>
-        <h1>{{ .Title }}</h1>
+    <div class="col-lg-10 col-xl-8 text-center">
+      <h1 class="display-5 fw-bold mb-3">{{ .Title }}</h1>
+      <p class="lead text-body-secondary mb-4">{{ .Params.lead | safeHTML }}</p>
+      <a class="btn btn-primary btn-cta rounded-pill btn-lg px-5 mb-4" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+      <div class="landing-install mx-auto text-start">
+        {{ .Content }}
       </div>
-    </div>
-    <div class="col-lg-9 col-xl-8 text-center">
-      <p class="lead">{{ .Params.lead | safeHTML }}</p>
-      <a class="btn btn-primary btn-cta rounded-pill btn-lg my-3" href="/documentation/introduction/#get-started" role="button">Get Started</a>
-      {{ .Content }}
     </div>
   </div>
 </section>
@@ -22,119 +20,104 @@
   </div>
   {{ end -}}
   {{ if eq $.Site.Language.LanguageName "English" }}
-  <section class="section section-md section-features">
+  <section class="section section-md section-features border-top">
     <div class="container">
-      <div class="row justify-content-center text-center gap-2">
-        <div class="col-lg-5 border rounded-2">
-          <h2 class="h4">Performance</h2>
-          <p>Less obstructions, zero hydrations, less dependencies, pionia accelarates both program and developer performance.</p>
+      <div class="text-center mb-4">
+        <h2 class="h3 mb-2">Start building DeskFlow</h2>
+        <p class="text-body-secondary mb-0">One example app from install to deploy — pick where to begin.</p>
+      </div>
+
+      <div class="row justify-content-center g-3 mb-5">
+        <div class="col-md-4">
+          <a href="/documentation/getting-started/api-tutorial/" class="landing-path-card h-100">
+            <span class="landing-path-label">Tutorial</span>
+            <span class="landing-path-title">Build your task API</span>
+            <span class="landing-path-desc">Step-by-step from <code>composer create-project</code> to <code>task.list</code>.</span>
+          </a>
         </div>
-        <div class="col-lg-5 border rounded-2">
-          <h2 class="h4">Secure</h2>
-          <p>We don't dictate how you shall secure your resources, but we avail helpers to assist you.</p>
+        <div class="col-md-4">
+          <a href="/documentation/getting-started/changelog-v3/" class="landing-path-card h-100">
+            <span class="landing-path-label">Release notes</span>
+            <span class="landing-path-title">What's new in v3</span>
+            <span class="landing-path-desc">AppRealm, native HTTP stack, RoadRunner, and Moonlight updates.</span>
+          </a>
         </div>
-        <div class="col-lg-5 border rounded-2">
-          <h2 class="h4">Conventional</h2>
-          <p>We let you focus more on your business logic while taking care of the common configurations for you.</p>
-        </div>
-        <div class="col-lg-5 border  rounded-2">
-          <h2 class="h4">PORM - Database query tool</h2>
-          <p>Connect to multiple, upto five types of relational databases whether new or existing! No models here!</p>
-        </div>
-        <div class="col-lg-5 border  rounded-2">
-          <h2 class="h4">Low Code, More Logic</h2>
-          <p>You may endup working with only services(business logic) while we handle the rest for you.</p>
-        </div>
-        <div class="col-lg-5 border  rounded-2">
-          <h2 class="h4">MoonLight</h2>
-          <p>We are the first to roll out on this new simple, pragmatic architecture.</p>
+        <div class="col-md-4">
+          <a href="/documentation/getting-started/why-pionia/" class="landing-path-card h-100">
+            <span class="landing-path-label">Overview</span>
+            <span class="landing-path-title">Why Pionia?</span>
+            <span class="landing-path-desc">When the Moonlight model fits — and how it compares to REST routing.</span>
+          </a>
         </div>
       </div>
 
-        <div class="justify-content-center text-center gap-2">
-          <h2 class="h3">Documentation Organisation</h2>
-          <p>We have tried to break down the documentation in sections so that you quickly reach what you are looking for.</p>
-        </div>
-
-        <div class="row justify-content-center text-center gap-2 px-2">
-          <a href="/documentation/application-structure/" class="col-lg-5 border border-1 rounded-3 border-dark-subtle mx-1 my-2">
-            <h2 class="h4">App Structure</h2>
-            <p>Understanding what resides where in your entire pionia application</p>
-          </a>
-
-          <a href="/documentation/database/configuration-getting-started/" class="col-lg-5 border border-1 rounded-3 border-danger-subtle mx-1 my-2">
-            <h2 class="h4">Database</h2>
-            <p>Anything about querying the database</p>
-          </a>
-          <a href="/documentation/logging-in-pionia/" class="col-lg-5 border border-1 rounded-3 border-danger-subtle mx-1 my-2">
-            <h2 class="h4">Logging</h2>
-            <p>Logging in Pionia in inbuilt, of course we run on the shoulders of the giant - Monolog :) </p>
-          </a>
-
-<!--          <a href="/documentation/requests" class="col-lg-5 border rounded-3 border-1 border-success-subtle mx-1 my-2">-->
-<!--            <h2 class="h4">Requests</h2>-->
-<!--            <p>Anything about Pionia requests and their structure!</p>-->
-<!--          </a>-->
-
-<!--          <a href="/documentation/responses" class="col-lg-5 border rounded-3 border-1 border-warning-subtle mx-1 my-2">-->
-<!--            <h2 class="h4">Responses</h2>-->
-<!--            <p>Anything about Pionia responses, formats and status codes.</p>-->
-<!--          </a>-->
-
-<!--          <a href="/documentation/commands" class="col-lg-5 border border-1 rounded-3 border-info-subtle mx-1 my-2">-->
-<!--            <h2 class="h4">Commands</h2>-->
-<!--            <p>Anything about querying the database</p>-->
-<!--          </a>-->
-
-          <a href="/documentation/services" class="col-lg-5 border rounded-3 border-1 border-dark-subtle mx-1 my-2">
-            <h2 class="h4">Services</h2>
-            <p>Anything about Pionia requests and their structure!</p>
-          </a>
-
-          <a href="/documentation/security/security-authentication-and-authorization/" class="col-lg-5 border rounded-3 border-1 border-danger-subtle mx-1 my-2">
-            <h2 class="h4">Authentication</h2>
-            <p>Anything about Pionia responses, formats and status codes.</p>
-          </a>
-
-          <a href="/documentation/middlewares" class="col-lg-5 border rounded-3 border-1 border-success-subtle mx-1 my-2">
-            <h2 class="h4">Middlewares</h2>
-            <p>Anything about Pionia responses, formats and status codes.</p>
-          </a>
-    </div>
-
-      <div class="justify-content-center gap-2 mx-2">
-        <h2 class="h4">Framework Roadmap and Coverage</h2>
-        <p>Our roadmap is to cover all the common features that are required in a modern web application.</p>
-        <p>We appreciate the entire team that has moved this coverage ahead.</p>
-        <div class="my-4 bg-info p-3 rounded">
-          <p class=" text-white rounded">Pionia is now ready to serve production grade APIs with ease on both the developer side and API side ✅</p>
-          <p class=" text-white rounded">It has integrated all the core features needed at the core of framework while others shall be added as external. It has also provided mechanism for community developers
-            <a href="/documentation/extending/app-providers/">to develop packages targeting Pionia(App Providers)</a></p>
-        </div>
-
+      <div class="text-center mb-4">
+        <h2 class="h3 mb-2">Documentation</h2>
+        <p class="text-body-secondary mb-0">Browse by topic — same structure as the docs sidebar.</p>
       </div>
 
-    <div class="justify-content-center text-center gap-2">
-      <h2 class="h4">Contributions and Community</h2>
-      <p>This framework is backed up by a dedicated team and the entire open source especially the
-        <a href="https://oscakampala.org/" target="_blank">OSCA-Kampala Chapter</a></p>
-      <p>We welcome all support from everyone anywhere around the globe.</p>
-      <p>We also welcome everyone who would with to build packages for Pionia Framework. You can <a href="/documentation/extending/pionia-packagesplugins/">get started here</a></p>
-    </div>
+      <div class="row justify-content-center g-3 px-1">
+        <div class="col-lg-6">
+          <a href="/documentation/getting-started/introduction/" class="landing-topic-card">
+            <span class="landing-topic-title">Getting Started</span>
+            <span class="landing-topic-desc">Install, PHP basics, tutorial, app structure</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/building-api/" class="landing-topic-card">
+            <span class="landing-topic-title">Building your API</span>
+            <span class="landing-topic-desc">Moonlight, services, actions, validation</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/database/" class="landing-topic-card">
+            <span class="landing-topic-title">Database (Porm)</span>
+            <span class="landing-topic-desc">Queries, filters, joins, pagination</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/http/requests-and-responses/" class="landing-topic-card">
+            <span class="landing-topic-title">HTTP & middleware</span>
+            <span class="landing-topic-desc">Envelopes, middleware, exceptions</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/security/" class="landing-topic-card">
+            <span class="landing-topic-title">Security</span>
+            <span class="landing-topic-desc">Authentication, JWT, security utilities</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/frontend/vite-integration/" class="landing-topic-card">
+            <span class="landing-topic-title">Frontend</span>
+            <span class="landing-topic-desc">Vite SPA, dev proxy, production build</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/operations/roadrunner/" class="landing-topic-card">
+            <span class="landing-topic-title">Operations & deploy</span>
+            <span class="landing-topic-desc">RoadRunner, optimize, logging, CLI</span>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a href="/documentation/extending/" class="landing-topic-card">
+            <span class="landing-topic-title">Extending & reference</span>
+            <span class="landing-topic-desc">Providers, packages, helpers</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center mt-5 pt-4">
+        <p class="text-body-secondary small mb-1">
+          Open source — contributions welcome via
+          <a href="https://github.com/PioniaPHP-project" target="_blank" rel="noopener">GitHub</a>
+          and the <a href="https://oscakampala.org/" target="_blank" rel="noopener">OSCA-Kampala Chapter</a>.
+        </p>
+      </div>
     </div>
   </section>
   {{ end }}
 {{ end }}
 
 {{ define "sidebar-footer" }}
-<!--{{ if site.Params.doks.sectionFooter -}}-->
-<!--<section class="section section-md container-fluid bg-light">-->
-<!--  <div class="row justify-content-center text-center">-->
-<!--    {{/*  <div class="col-lg-7">-->
-<!--      <h2 class="mt-2">API Reference</h2>-->
-<!--      <a class="btn btn-primary rounded-pill px-4 my-2" href="/docs/{{ if site.Params.doks.docsVersioning }}{{ site.Params.doks.docsVersion }}/{{ end }}prologue/introduction/" role="button">{{ i18n "get-started" }}</a>-->
-<!--    </div>  */}}-->
-<!--  </div>-->
-<!--</section>-->
-<!--{{ end -}}-->
 {{ end }}

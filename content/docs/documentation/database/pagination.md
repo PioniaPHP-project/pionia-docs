@@ -118,7 +118,7 @@ class PostService extends GenericService
 }
 ```
 
-See [Generic services](/documentation/services/generic-services/) and [Advanced generic services](/documentation/services/advanced-generic-services/).
+See [Generic services](/documentation/building-api/generic-services/) and [Advanced generic services](/documentation/building-api/advanced-generic-services/).
 
 When `$allowClientFilters = true`, any non-reserved field in the request body is applied as a WHERE clause (e.g. `"status": 1` filters `status = 1`). Combine with `$sortableColumns` for safe `orderBy` from the client.
 

@@ -129,6 +129,6 @@ The app template ships `Application\Authentications\DemoAuthentication` — send
 
 ## Related
 
-- [Middleware](/documentation/middleware/) — cross-cutting request/response hooks
-- [Requests & responses](/documentation/requests-and-responses/)
-- [Upgrading from v2](/documentation/upgrading-from-v2/) — namespace and class renames
+- [Middleware](/documentation/http/middleware/) — cross-cutting request/response hooks
+- [Requests & responses](/documentation/http/requests-and-responses/)
+- [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) — namespace and class renames

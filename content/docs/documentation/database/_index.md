@@ -5,7 +5,7 @@ summary: "Configuration, CRUD, filtering, joins, pagination, connections, and th
 date: 2026-03-01
 lastmod: 2026-03-01
 draft: false
-weight: 1100
+weight: 400
 toc: true
 parent: "documentation"
 seo:
@@ -61,7 +61,7 @@ After `filter()` or `join()`, table-level write methods (`save`, `get`, etc.) ar
 
 ## Related docs
 
-- [Generic services](/documentation/services/generic-services/) — CRUD over Porm via `GenericService`
-- [Advanced generic services](/documentation/services/advanced-generic-services/) — joins, column aliases, pagination from HTTP
-- [RoadRunner](/documentation/roadrunner/) — `ConnectionManager` keeps PDO alive across requests
-- [Helpers](/documentation/helpers/) — `table()`, `db()`, `connectionManager()`
+- [Generic services](/documentation/building-api/generic-services/) — CRUD over Porm via `GenericService`
+- [Advanced generic services](/documentation/building-api/advanced-generic-services/) — joins, column aliases, pagination from HTTP
+- [RoadRunner](/documentation/operations/roadrunner/) — `ConnectionManager` keeps PDO alive across requests
+- [Helpers](/documentation/extending/helpers/) — `table()`, `db()`, `connectionManager()`

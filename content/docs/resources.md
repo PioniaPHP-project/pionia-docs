@@ -17,8 +17,10 @@ seo:
 ## Documentation
 
 - [pionia.netlify.app](https://pionia.netlify.app) — this site (guides you are reading now)
-- [Introduction](/documentation/introduction/) — create and run your first app
-- [API reference (Moonlight)](/documentation/api-reference/) — document your services with `@moonlight-*` tags
+- [Pionia v3 release notes](/documentation/getting-started/changelog-v3/) — what is new in version 3.0
+- [Introduction](/documentation/getting-started/introduction/) — create and run your first app
+- [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) — migrate existing applications
+- [API reference (Moonlight)](/documentation/building-api/api-reference/) — document your services with `@moonlight-*` tags
 
 ## Packages
 
@@ -40,6 +42,6 @@ Your generated app pulls in the framework as a Composer dependency — you work 
 
 ## Getting help
 
-- Review the [API tutorial](/documentation/api-tutorial/) and [Services](/documentation/services/services/) guides
+- Review the [API tutorial](/documentation/getting-started/api-tutorial/) and [Services](/documentation/building-api/services/) guides
 - Check `storage/logs/` and enable `DEBUG=true` temporarily for error details
 - Open an issue on the documentation or app template repository you installed from Packagist

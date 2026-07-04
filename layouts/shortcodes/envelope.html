@@ -1,0 +1,8 @@
+<div class="envelope-preview my-3">
+  {{- with .Get "title" -}}
+  <div class="envelope-preview-label">{{ . }}</div>
+  {{- else -}}
+  <div class="envelope-preview-label">Result — Moonlight envelope</div>
+  {{- end -}}
+  {{ .Inner | markdownify }}
+</div>

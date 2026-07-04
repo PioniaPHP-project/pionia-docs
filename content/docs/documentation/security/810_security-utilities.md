@@ -92,7 +92,7 @@ if (verify_password($plain, $user->password_hash)) {
 }
 ```
 
-Never return password hashes in API `returnData`. Pair with the `password` validation rule — see [Validations](/documentation/services/validation/).
+Never return password hashes in API `returnData`. Pair with the `password` validation rule — see [Validations](/documentation/building-api/validation/).
 
 ## Hashing and comparison
 
@@ -208,7 +208,7 @@ validate('token', $data)->asToken(16);
 validate('id', $data)->ulid();
 ```
 
-See [Validations](/documentation/services/validation/) for the full rule list.
+See [Validations](/documentation/building-api/validation/) for the full rule list.
 
 ## Choosing an approach
 
@@ -227,5 +227,5 @@ See [Validations](/documentation/services/validation/) for the full rule list.
 ## Related
 
 - [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) — JWT backends, `mustAuthenticate()`, `can()`
-- [Validations](/documentation/services/validation/) — `otp`, `token`, `ulid`, `uuid` rules
-- [Helpers](/documentation/helpers/) — full helper index including `security()`
+- [Validations](/documentation/building-api/validation/) — `otp`, `token`, `ulid`, `uuid` rules
+- [Helpers](/documentation/extending/helpers/) — full helper index including `security()`

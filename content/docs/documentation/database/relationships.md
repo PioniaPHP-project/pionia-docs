@@ -19,7 +19,7 @@ seo:
 Porm joins are **explicit** — there is no magic relationship graph. You call `join()` on a `table()` query, chain `inner()` / `left()` / `right()` / `full()`, then finish with `all()`, `get()`, `first()`, or `count()`.
 
 {{<callout context="tip" icon="outline/pencil">}}
-[Generic services](/documentation/services/advanced-generic-services/) automate the same join definitions via `$joins`, `$joinTypes`, and `$joinAliases` on a service class (see [GenericService joins](#generic-service-joins) below).
+[Generic services](/documentation/building-api/advanced-generic-services/) automate the same join definitions via `$joins`, `$joinTypes`, and `$joinAliases` on a service class (see [GenericService joins](#generic-service-joins) below).
 {{</callout>}}
 
 ## Mental model
@@ -259,7 +259,7 @@ class SampoloService extends UniversalGenericService
 
 **Map direction:** keys are columns on the **base** (`$table`) side; values are columns on the **joined** table — matching Piql’s `ON base.key = joined.value`.
 
-Clients can pass `dontRelate: true` in the API body to list without joins. See [Advanced generic services](/documentation/services/advanced-generic-services/).
+Clients can pass `dontRelate: true` in the API body to list without joins. See [Advanced generic services](/documentation/building-api/advanced-generic-services/).
 
 ## What joins do not do (yet)
 
@@ -275,4 +275,4 @@ Clients can pass `dontRelate: true` in the API body to list without joins. See [
 3. **LEFT vs INNER** — use `LEFT` when the base row should appear without a match (nullable FK).
 4. **Count before paginate** — `PaginationCore` runs `count()` on the same join chain; keep filters on the join builder inside `init()`.
 
-Related: [WHERE DSL](/documentation/database/where-dsl/) · [API reference](/documentation/database/api-reference/) · [Generic services](/documentation/services/generic-services/).
+Related: [WHERE DSL](/documentation/database/where-dsl/) · [API reference](/documentation/database/api-reference/) · [Generic services](/documentation/building-api/generic-services/).

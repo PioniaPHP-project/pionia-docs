@@ -4,7 +4,7 @@ description = "PHP REST Framework for web developers with deadline!"
 images = ["favicon.ico", "pionia.png", "favicon.png"]
 
 # mainSections
-mainSections = ["docs", "moonlight"]
+mainSections = ["docs"]
 
 [social]
 twitter = "pionia"
@@ -22,7 +22,7 @@ containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fl
 
 ## Button
 navBarButton = true                                          # false (default) or true
-navBarButtonUrl = "/documentation/introduction/#get-started"
+navBarButtonUrl = "/documentation/getting-started/introduction/#get-started"
 navBarButtonText = "Get started"
 
 # FlexSearch
@@ -50,7 +50,6 @@ bootstrapJavascript = false # false (default) or true
 # Nav
 sectionNav = [
   "docs",
-  "moonlight",
 ] # ["docs"] (default) or list of sections (e.g. ["docs", "guides"])
 toTopButton = true # false (default) or true
 breadcrumbTrail = false # false (default) or true
@@ -63,7 +62,7 @@ showMissingLanguages = false # whether or not to show untranslated languages in 
 
 # Versioning
 docsVersioning = false # false (default) or true
-docsVersion = "1.0"
+docsVersion = "3.0"
 
 # UX
 headerBar = true      # true (default) or false

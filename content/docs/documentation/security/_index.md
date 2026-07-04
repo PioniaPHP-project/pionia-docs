@@ -5,7 +5,7 @@ summary: "Protect Moonlight actions with backends, can(), and mustAuthenticate()
 date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
-weight: 800
+weight: 500
 toc: false
 parent: "documentation"
 seo:
@@ -18,7 +18,7 @@ seo:
 |-------|--------|
 | [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Backends, `ContextUserObject`, `can()`, secrets |
 | [Security utilities](/documentation/security/security-utilities/) | `security()`, tokens, OTPs, hashing, encryption |
-| [Middleware](/documentation/middleware/) | Request/response pipeline |
-| [Validations](/documentation/services/validation/) | Input validation on actions |
+| [Middleware](/documentation/http/middleware/) | Request/response pipeline |
+| [Validations](/documentation/building-api/validation/) | Input validation on actions |
 
-Moonlight actions declare auth with `@moonlight-auth` PHPDoc tags. See [API reference](/documentation/api-reference/) for OpenAPI export of auth requirements.
+Moonlight actions declare auth with `@moonlight-auth` PHPDoc tags. See [API reference](/documentation/building-api/api-reference/) for OpenAPI export of auth requirements.

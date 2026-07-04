@@ -1,2 +1,83 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pionia Framework on Pionia</title><link>https://pionia.netlify.app/</link><description>Recent content in Pionia Framework on Pionia</description><generator>Hugo</generator><language>en</language><copyright>Copyright (c) 2024 Pionia</copyright><lastBuildDate>Thu, 02 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://pionia.netlify.app/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction to MoonLight Architecture</title><link>https://pionia.netlify.app/moonlight/introduction-to-moonlight-architecture/</link><pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate><guid>https://pionia.netlify.app/moonlight/introduction-to-moonlight-architecture/</guid><description>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic.</description></item><item><title>Security in moonlight</title><link>https://pionia.netlify.app/moonlight/security-in-moonlight/</link><pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate><guid>https://pionia.netlify.app/moonlight/security-in-moonlight/</guid><description>All requests sent to the server get encrypted and decrypted on the web server level. This ensures that the data is secure and not exposed in the URL. However, all query params are logged in the web server level, the architecture encourages to perform all requests over POST.</description></item><item><title>API versioning in Moonlight</title><link>https://pionia.netlify.app/moonlight/api-versioning-in-moonlight/</link><pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate><guid>https://pionia.netlify.app/moonlight/api-versioning-in-moonlight/</guid><description>One switch per API version; register in environment/settings.ini.</description></item><item><title>Example Post</title><link>https://pionia.netlify.app/blog/example-post/</link><pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate><guid>https://pionia.netlify.app/blog/example-post/</guid><description>You can use blog posts for announcing product updates and features.</description></item><item><title>Introduction</title><link>https://pionia.netlify.app/documentation/introduction/</link><pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate><guid>https://pionia.netlify.app/documentation/introduction/</guid><description>Installation paths, bootstrap, first API call, and where to go next.</description></item><item><title>Upgrading from v2</title><link>https://pionia.netlify.app/documentation/upgrading-from-v2/</link><pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate><guid>https://pionia.netlify.app/documentation/upgrading-from-v2/</guid><description>Requirements PHP 8.5+ pionia/pionia-core ^3.0 Bootstrap v2 v3 new PioniaApplication(BASEPATH) return AppRealm::create(__DIR__) in bootstrap/application.</description></item><item><title>Why Pionia?</title><link>https://pionia.netlify.app/documentation/why-pionia/</link><pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate><guid>https://pionia.netlify.app/documentation/why-pionia/</guid><description>Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary complexities that come with most common traditional frameworks.</description></item><item><title>Application Structure</title><link>https://pionia.netlify.app/documentation/application-structure/</link><pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate><guid>https://pionia.netlify.app/documentation/application-structure/</guid><description>v3 app layout (from pionia new / pionia/pionia-app):
-bootstrap/ application.php return AppRealm::create(__DIR__) environment/ .</description></item><item><title>API tutorial</title><link>https://pionia.netlify.app/documentation/api-tutorial/</link><pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate><guid>https://pionia.netlify.app/documentation/api-tutorial/</guid><description>Hands-on path from ping to a working service action.</description></item><item><title>Collections (Arrayable)</title><link>https://pionia.netlify.app/documentation/collections/</link><pubDate>Thu, 02 Jul 2026 00:00:00 +0000</pubDate><guid>https://pionia.netlify.app/documentation/collections/</guid><description>Typed getters, merging, and chain helpers on Moonlight request payloads.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pionia Framework on Pionia</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Pionia Framework on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Sat, 04 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API versioning in Moonlight</title>
+      <link>http://localhost:1313/documentation/building-api/api-versioning/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/building-api/api-versioning/</guid>
+      <description>One switch per API version; register in environment/settings.ini.</description>
+    </item>
+    <item>
+      <title>Example Post</title>
+      <link>http://localhost:1313/blog/example-post/</link>
+      <pubDate>Thu, 07 Sep 2023 16:27:22 +0200</pubDate>
+      <guid>http://localhost:1313/blog/example-post/</guid>
+      <description>You can use blog posts for announcing product updates and features.</description>
+    </item>
+    <item>
+      <title>Introduction</title>
+      <link>http://localhost:1313/documentation/getting-started/introduction/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/introduction/</guid>
+      <description>Installation paths, bootstrap, first API call, and where to go next.</description>
+    </item>
+    <item>
+      <title>PHP basics for Pionia</title>
+      <link>http://localhost:1313/documentation/getting-started/php-basics/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/php-basics/</guid>
+      <description>Prerequisites for developers new to PHP who want to follow the DeskFlow tutorial.</description>
+    </item>
+    <item>
+      <title>Glossary</title>
+      <link>http://localhost:1313/documentation/getting-started/glossary/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/glossary/</guid>
+      <description>Service, action, switch, envelope, and other Moonlight vocabulary.</description>
+    </item>
+    <item>
+      <title>API tutorial — Part 1</title>
+      <link>http://localhost:1313/documentation/getting-started/api-tutorial/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/api-tutorial/</guid>
+      <description>Create deskflow-api, explore the scaffold, add TaskService, and call task.list.</description>
+    </item>
+    <item>
+      <title>Pionia v3 — Release notes</title>
+      <link>http://localhost:1313/documentation/getting-started/changelog-v3/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/changelog-v3/</guid>
+      <description>What changed in Pionia v3: AppRealm, native HTTP stack, RoadRunner, production optimization, and the Moonlight async platform.</description>
+    </item>
+    <item>
+      <title>Upgrading from v2</title>
+      <link>http://localhost:1313/documentation/getting-started/upgrading-from-v2/</link>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/upgrading-from-v2/</guid>
+      <description>For a feature overview before migrating, read Pionia v3 release notes.</description>
+    </item>
+    <item>
+      <title>Why Pionia?</title>
+      <link>http://localhost:1313/documentation/getting-started/why-pionia/</link>
+      <pubDate>Fri, 24 May 2024 13:45:48 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/getting-started/why-pionia/</guid>
+      <description>Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary complexities that come with most common traditional frameworks.</description>
+    </item>
+    <item>
+      <title>Moonlight overview</title>
+      <link>http://localhost:1313/documentation/building-api/moonlight-overview/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/building-api/moonlight-overview/</guid>
+      <description>One versioned endpoint, real HTTP semantics, and a consistent JSON envelope.</description>
+    </item>
+  </channel>
+</rss>
