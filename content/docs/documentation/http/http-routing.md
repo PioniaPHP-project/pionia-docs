@@ -8,12 +8,28 @@ lastmod: 2026-07-02
 draft: false
 weight: 572
 toc: true
+doc_type: topic
 parent: "documentation"
 seo:
   title: "HTTP routing in Pionia v3"
   description: "Register API switches in settings.ini, RouteTable, RouteMatcher, and production bootstrap caches."
   noindex: false
 ---
+
+You register DeskFlow's API at `/api/v1/` without maintaining a routes file — **`[app_switches]`** in `settings.ini` tells Pionia which switch class handles each version.
+
+## What you will learn
+
+- How HTTP paths map to switches, static files, and `/docs`
+- Where Moonlight POST dispatch fits in the kernel
+- How production bootstrap caches speed up matching
+
+{{< prerequisites >}}
+- [Introduction](/documentation/getting-started/introduction/) — first ping against `/api/v1/ping`
+- [Application structure](/documentation/getting-started/application-structure/) — `switches/` folder
+{{< /prerequisites >}}
+
+## How it works
 
 Pionia v3 ships a **native routing layer** — no Symfony Routing dependency. Routes are collected in a `RouteTable`, matched by `RouteMatcher`, and dispatched through `RouteDispatcher`.
 
@@ -209,11 +225,24 @@ v1=Application\Switches\MainSwitch
 
 Symfony HttpFoundation, HttpKernel, and Routing packages are **removed** from framework `require`. Pionia implements `Request`, `Response`, routing, and dispatch natively.
 
-## Related
+<details>
+<summary>Advanced — kernel classes (maintainers)</summary>
 
-- [Requests & responses](/documentation/http/requests-and-responses/) — Moonlight envelopes and request data
-- [Application structure](/documentation/getting-started/application-structure/) — bootstrap layout
-- [API versioning](/documentation/building-api/api-versioning/) — multiple switches
-- [App providers](/documentation/extending/app-providers/) — package routes
-- [Production performance](/documentation/operations/production-performance/) — preload, bootstrap cache, OPcache
-- [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) — bootstrap migration
+Classes like `RouteTable`, `RouteMatcher`, `CompiledRouteMatcher`, and `RouteDispatcher` live in `Pionia\Http\Routing`. App developers rarely touch them directly — switches and `settings.ini` are enough for DeskFlow.
+
+</details>
+
+## Common mistakes
+
+- **Adding routes in PHP when INI suffices** — prefer `[app_switches]` for API versions.
+- **Expecting `/api/v1/task/list` paths for Moonlight** — dispatch is usually `POST /api/v1/` with JSON body.
+- **Forgetting SPA fallback** — client-side routes need `public/index.html` or `[frontend] SPA_FALLBACK=true`.
+- **Editing routes without clearing bootstrap cache** — run `php pionia optimize:clear` after route changes in production.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="API versioning" description="When Northwind adds v2." href="/documentation/building-api/api-versioning/" >}}
+{{< link-card title="Requests & responses" description="Moonlight envelopes after routing." href="/documentation/http/requests-and-responses/" >}}
+{{< link-card title="Production performance" description="Bootstrap cache and preload." href="/documentation/operations/production-performance/" >}}
+{{< /card-grid >}}

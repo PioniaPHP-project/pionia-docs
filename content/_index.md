@@ -17,4 +17,4 @@ composer create-project pionia/pionia-app deskflow-api
 cd deskflow-api && php pionia serve
 ```
 
-Requires **PHP 8.5+** and `pionia/pionia-core` **^3.0**. New to PHP? See [PHP basics](/documentation/getting-started/php-basics/).
+Requires **PHP 8.5+** and `pionia/pionia-core` **^3.0**. Every guide uses **DeskFlow** — Northwind Studio's task board API — so examples stay consistent from first ping to deploy. New to PHP? See [PHP basics](/documentation/getting-started/php-basics/).

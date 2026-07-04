@@ -17,3 +17,15 @@
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
 </script>
+<script>
+  document.querySelectorAll('.section-nav.docs-links').forEach(function (nav) {
+    nav.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+        if (!details.open) return;
+        nav.querySelectorAll('details').forEach(function (other) {
+          if (other !== details) other.open = false;
+        });
+      });
+    });
+  });
+</script>

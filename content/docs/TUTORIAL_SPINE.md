@@ -9,30 +9,25 @@ build:
 
 Canonical example: **DeskFlow** — task board API for Northwind Studio.
 
-## Learning path
+**Public URL root:** `/documentation/deskflow-tutorial/` (sidebar dropdown, 15 steps)
 
-| Part | Page | Milestone |
+| Step | Slug | Milestone |
 |------|------|-----------|
-| — | Introduction | Scaffold `deskflow-api`, ping |
-| 1 | Tutorial Part 1 | `task.list` hardcoded |
-| 2 | Tutorial Part 2 | TaskService + MainSwitch |
-| 3 | Tutorial Part 3 | SQLite `tasks` table |
-| 4 | Tutorial Part 4 | Validation on `task.create` |
-| 5 | Tutorial Part 5 | `member.login` + JWT |
-| 6 | Tutorial Part 6 | RequestIdMiddleware |
-| 7 | Tutorial Part 7 | React task board |
-| 8 | Tutorial Part 8 | RoadRunner deploy |
+| — | `_index` | Hub + learning path |
+| 1 | `01-create-project` | `composer create-project` |
+| 2 | `02-dev-server-and-ping` | serve + ping + welcome |
+| 3 | `03-your-first-service` | hardcoded `task.list` |
+| 4 | `04-project-layout` | folder map |
+| 5 | `05-database-setup` | schema + init-db |
+| 6 | `06-list-from-database` | Porm read |
+| 7 | `07-create-tasks` | Porm write |
+| 8 | `08-validation` | `#[Validated]` |
+| 9 | `09-authentication` | JWT + `mustAuthenticate` |
+| 10 | `10-middleware` | RequestId |
+| 11 | `11-background-work` | `defer()` |
+| 12 | `12-frontend` | Vite React (optional) |
+| 13 | `13-deploy` | RoadRunner + optimize |
+| 14 | `14-app-provider` | Provider hooks |
+| 15 | `15-contribute-to-core` | PioniaCore contributor path |
 
-## Page → DeskFlow feature
-
-| Page | Feature demonstrated |
-|------|---------------------|
-| Services | TaskService registration |
-| Actions | `listAction`, `createAction` |
-| Validation | Required `title` |
-| Database intro | `tasks` schema |
-| Security | `member.login` |
-| Security utilities | Password hash, tokens |
-| Middleware | Request ID header |
-| Background work | Email on assign |
-| Frontend | Vite + `/api/v1/` proxy |
+Legacy redirect: `/documentation/deskflow-tutorial/` → tutorial hub.

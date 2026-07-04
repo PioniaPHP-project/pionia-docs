@@ -16,21 +16,27 @@
   parent = "documentation"
 
 [[main]]
+  name = "DeskFlow tutorial"
+  url = "/documentation/deskflow-tutorial/"
+  weight = 12
+  parent = "documentation"
+
+[[main]]
   name = "Building your API"
   url = "/documentation/building-api/"
-  weight = 12
+  weight = 13
   parent = "documentation"
 
 [[main]]
   name = "Database"
   url = "/documentation/database/"
-  weight = 13
+  weight = 14
   parent = "documentation"
 
 [[main]]
   name = "Operations"
   url = "/documentation/operations/roadrunner/"
-  weight = 14
+  weight = 15
   parent = "documentation"
 
 [[main]]
@@ -42,7 +48,7 @@
   name = "Tutorial"
   weight = 10
   identifier = "tutorial"
-  url = "/documentation/getting-started/api-tutorial/"
+  url = "/documentation/deskflow-tutorial/"
 
 [[social]]
   name = "GitHub"

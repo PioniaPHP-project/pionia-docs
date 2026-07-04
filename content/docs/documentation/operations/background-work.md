@@ -4,10 +4,11 @@ slug: "background-work"
 description: "defer(), async(), and Moonlight jobs after the HTTP response."
 summary: "Defer work until after the HTTP response without blocking the client."
 date: 2026-07-01
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 725
 toc: true
+doc_type: topic
 parent: "documentation"
 seo:
   title: "Pionia background work — defer and async"
@@ -15,6 +16,41 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+This guide is for DeskFlow developers who need **post-response work** — log activity after Alex gets a JSON response, or queue welcome emails without blocking the `member.create` action.
+
+## What you will learn
+
+- When to use `defer()` vs closure `async()` vs Moonlight job strings
+- Execution order: response sent first, then deferred closures run
+- How RoadRunner Jobs change behaviour vs `php pionia serve`
+
+{{< prerequisites >}}
+- [Services](/documentation/building-api/services/) — DeskFlow actions that return envelopes
+- `composer require react/promise` in your app (for `defer()` / closure `async()`)
+- Optional: [RoadRunner](/documentation/operations/roadrunner/) with `[jobs] ENABLED`
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+sequenceDiagram
+  participant Client
+  participant Action as task.create action
+  participant Resp as HTTP response
+  participant Defer as Deferred buffer
+  participant Job as RR jobs pool
+  Client->>Action: POST /api/v1/
+  Action->>Defer: defer(closure) queued
+  Action->>Resp: return response(0, OK)
+  Resp-->>Client: JSON envelope
+  alt Closure defer
+    Defer->>Defer: run closure in same worker
+  else Moonlight job + RR
+    Defer->>Job: async(mail, send_welcome)
+    Job-->>Client: 202 + job_id (via moonlight()->async)
+  end
+{{< /mermaid >}}
 
 PHP is **single-threaded**. Pionia does not spawn OS threads. **`defer()`** and closure **`async()`** run work **after the HTTP response is sent** so the client is not blocked — but the closure still executes in the **same PHP worker** until it finishes.
 
@@ -27,15 +63,15 @@ PHP is **single-threaded**. Pionia does not spawn OS threads. **`defer()`** and 
 | Durable email, reports, heavy jobs | **`async('service', 'action', $payload)`** + RoadRunner Jobs |
 | HTTP **202** + `job_id` in the API response | **`moonlight()->async(...)`** |
 
-{{<callout context="warning" icon="outline/alert-triangle">}}
+{{< callout context="warning" title="Not a new thread" icon="outline/alert-triangle" >}}
 **Do not use `async(closure)` expecting a new thread.** For post-response logging or webhooks, use **`defer()`**. Long `sleep()` or CPU-heavy closures still block that worker — use Moonlight jobs instead.
-{{</callout>}}
+{{< /callout >}}
 
 ## `defer()` — recommended for post-response work
 
 ```php
 defer(function () use ($user) {
-    logger()->info('Welcome email queued', ['id' => $user->id]);
+    logger()->info('Welcome email queued', ['email' => 'alex@northwind.studio']);
 });
 
 return response(0, 'OK', $rows);
@@ -60,9 +96,9 @@ On PHP 8.5+, `async()` is `#[NoDiscard]` — use the return value or `(void) asy
 ### Moonlight job form
 
 ```php
-async('mail', 'send_welcome', ['email' => $user->email]);
+async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
 // or API-style 202:
-moonlight()->async('mail', 'send_welcome', ['email' => $user->email]);
+moonlight()->async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
 ```
 
 | Context | Behaviour |
@@ -111,8 +147,17 @@ $result = await(async(fn () => expensive_local_work()));
 
 `await()` triggers the deferred buffer when waiting on a pending closure promise.
 
-## Related
+## Common mistakes
 
-- [Helpers](/documentation/extending/helpers/) — full helper list
-- [RoadRunner](/documentation/operations/roadrunner/) — persistent workers and jobs
-- [Services](/documentation/building-api/services/) — Moonlight actions
+- **Using closure `async()` for heavy CPU work** — still blocks the worker; queue a Moonlight job instead.
+- **Expecting jobs to run in parallel on `php pionia serve`** — without RR, string `async()` runs sync after the response.
+- **Forgetting `react/promise`** — `defer()` requires it in your app's `composer.json`.
+- **Assuming `moonlight()->async()` waits for job completion** — fulfillment means **accepted** by the queue (202), not finished processing.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="RoadRunner" description="Jobs pool and worker.php modes." href="/documentation/operations/roadrunner/" >}}
+{{< link-card title="Logging" description="Post-response logger() in defer()." href="/documentation/operations/logging/" >}}
+{{< link-card title="Helpers" description="defer(), async(), await() reference." href="/documentation/extending/helpers/" >}}
+{{< /card-grid >}}

@@ -4,10 +4,11 @@ slug: "transactions-and-raw-sql"
 description: "inTransaction(), Piql::raw(), and safe SQL fragments."
 summary: "Atomic writes and escaping the fluent builder."
 date: 2026-03-01
-lastmod: 2026-03-01
+lastmod: 2026-07-01
 draft: false
 weight: 819
 toc: true
+doc_type: topic
 parent: "database"
 seo:
   title: "Porm transactions and raw SQL"
@@ -16,6 +17,30 @@ seo:
   noindex: false
 ---
 
+This guide covers atomic **DeskFlow** writes — creating a task and audit log in one transaction — plus parameterized raw SQL when the fluent builder is not enough. **Northwind Studio** uses these patterns on port **8000** when `TaskService` must stay consistent across tables.
+
+## What you will learn
+
+- Wrap multi-table writes in `inTransaction()`
+- Run full queries with `raw()` and bound parameters
+- Embed trusted SQL fragments via `Piql::raw()` in WHERE arrays
+
+{{< prerequisites >}}
+- [Making queries](/documentation/database/making-queries/) — `save()`, `update()`, and `raw()`
+- [WHERE DSL](/documentation/database/where-dsl/) — array conditions and operators
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart TD
+  Begin[BEGIN] --> Save1[save task]
+  Save1 --> Save2[save audit row]
+  Save2 --> Commit[COMMIT]
+  Save1 -->|throw| Rollback[ROLLBACK]
+  Save2 -->|throw| Rollback
+{{< /mermaid >}}
+
 ## Transactions — `inTransaction()`
 
 Wrap multiple statements in a single database transaction. Piql rolls back on any throwable.
@@ -23,11 +48,12 @@ Wrap multiple statements in a single database transaction. Piql rolls back on an
 ```php
 $saved = null;
 
-table('system_user')->inTransaction(function ($porm) use (&$saved, $payload) {
+table('team_members')->inTransaction(function ($porm) use (&$saved, $payload) {
     $saved = $porm->save($payload);
-    table('audit_log')->save([
-        'user_id' => $porm->lastSaved(),
-        'action'  => 'register',
+    table('tasks')->save([
+        'assignee_id' => $porm->lastSaved(),
+        'title'       => 'Onboard new member',
+        'project_id'  => 1,
     ]);
 });
 ```
@@ -39,12 +65,12 @@ Use a `use (&$var)` reference when you need values after the transaction complet
 ## Full raw queries — `raw()`
 
 ```php
-$stats = table('orders')->raw(
-    'SELECT status, COUNT(*) AS c FROM orders GROUP BY status',
+$stats = table('tasks')->raw(
+    'SELECT status, COUNT(*) AS c FROM tasks GROUP BY status',
 );
 
-$one = table('orders')->raw(
-    'SELECT * FROM orders WHERE id = :id LIMIT 1',
+$one = table('tasks')->raw(
+    'SELECT * FROM tasks WHERE id = :id LIMIT 1',
     ['id' => 42],
 );
 ```
@@ -60,8 +86,8 @@ Embed safe literal SQL inside WHERE arrays:
 ```php
 use Pionia\Porm\Core\Piql;
 
-table('posts')->filter([
-    'published_at[<=]' => Piql::raw('CURRENT_TIMESTAMP'),
+table('tasks')->filter([
+    'completed_at[<=]' => Piql::raw('CURRENT_TIMESTAMP'),
 ])->all();
 ```
 
@@ -72,7 +98,7 @@ table('posts')->filter([
 `$porm->getDatabase()` returns `Pionia\Porm\Core\Piql` with Medoo-compatible methods (`select`, `insert`, `update`, `delete`, `query`, `action`, etc.). Prefer `table()` for application code; Piql is for debugging and framework extensions.
 
 ```php
-$piql = table('users')->getDatabase();
+$piql = table('tasks')->getDatabase();
 $piql->debug();  // echo generated SQL
 $piql->log();    // return query log array
 ```
@@ -82,3 +108,18 @@ $piql->log();    // return query log array
 Database errors surface as `Pionia\Porm\Exceptions\BaseDatabaseException` or `Pionia\Exceptions\DatabaseException`. Uncaught errors in HTTP apps flow through the [exception pipeline](/documentation/http/exceptions/).
 
 Related: [Making queries](/documentation/database/making-queries/) · [WHERE DSL](/documentation/database/where-dsl/).
+
+## Common mistakes
+
+- **Concatenating `$data->getString('title')` into raw SQL** — always bind named parameters in DeskFlow search endpoints.
+- **Using `Piql::raw()` for user-supplied dates or IDs** — only trusted SQL functions like `CURRENT_TIMESTAMP`.
+- **Calling `table()` inside a transaction with a different connection** — both statements must share the transactional `$porm` or default pool.
+- **Swallowing throwables inside `inTransaction()`** — let exceptions bubble so Piql rolls back task + audit writes together.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Making queries" description="Prefer fluent CRUD when possible." href="/documentation/database/making-queries/" >}}
+{{< link-card title="Exceptions" description="Database errors in HTTP responses." href="/documentation/http/exceptions/" >}}
+{{< link-card title="Connections" description="PDO pooling across requests." href="/documentation/database/connections/" >}}
+{{< /card-grid >}}

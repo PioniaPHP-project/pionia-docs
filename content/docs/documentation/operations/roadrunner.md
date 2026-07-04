@@ -3,10 +3,11 @@ title: "RoadRunner"
 slug: "roadrunner"
 description: "Persistent PHP workers with RoadRunner in Pionia v3."
 date: 2026-07-01
-lastmod: 2026-07-02
+lastmod: 2026-07-04
 draft: false
 weight: 550
 toc: true
+doc_type: how-to
 parent: "documentation"
 seo:
   title: "RoadRunner in Pionia"
@@ -14,7 +15,35 @@ seo:
   noindex: false
 ---
 
-## Why RoadRunner
+This guide is for DeskFlow developers who outgrow `php pionia serve` and need **persistent PHP workers** — same Moonlight API on port **8000**, but boot once and handle many requests with reused database connections.
+
+## What you will learn
+
+- How to install RoadRunner and run `php pionia runserver` for DeskFlow
+- Where HTTP listen address, TLS, and HTTP/2 are configured
+- How Moonlight jobs and optional WebSockets fit the worker model
+
+{{< prerequisites >}}
+- DeskFlow running locally ([API tutorial](/documentation/deskflow-tutorial/))
+- [Commands](/documentation/operations/commands/) — `rr:setup`, `runserver`, `stopserver`
+- Optional: `composer require spiral/roadrunner-http nyholm/psr7`
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+sequenceDiagram
+  participant RR as RoadRunner
+  participant W as PHP worker
+  participant API as DeskFlow API
+  Note over W: bootOnce() once per worker
+  RR->>W: PSR-7 request
+  W->>API: handleRequest()
+  API-->>W: Response
+  W-->>RR: JSON envelope
+  RR-->>Client: HTTP response
+  Note over W: PDO pool reused; no exit()
+{{< /mermaid >}}
 
 PHP-FPM boots the framework on every request. RoadRunner keeps workers alive — **boot once**, handle many requests. `ConnectionManager` reuses PDO across requests; call `disconnect()` only on worker shutdown.
 
@@ -144,7 +173,7 @@ RPC = tcp://127.0.0.1:6001
 `.rr.yaml` in your app root needs `rpc` + `jobs` sections when using background jobs.
 
 ```php
-moonlight()->async('mail', 'send_welcome', ['email' => $user->email]);
+moonlight()->async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
 ```
 
 Returns `returnCode: 202` with `job_id` when the queue accepts the job. See [Background work](/documentation/operations/background-work/).
@@ -190,4 +219,17 @@ Frames are handled by `MoonlightFrameHandler` — responses match the HTTP JSON 
 
 See `.rr.yaml` in your project root for HTTP pool, jobs pipeline, and optional Centrifugo block.
 
-Related: [Maintenance mode](/documentation/operations/maintenance/) · [Database connections](/documentation/database/connections/) · [CLI](/documentation/operations/commands/).
+## Common mistakes
+
+- **Calling `exit()` in a service or middleware** — kills the worker; return a response instead.
+- **Enabling `[jobs] ENABLED` without RR running** — jobs fall back to sync after response; watch logs for warnings.
+- **Expecting array cache to share across workers** — use Redis, database, or filesystem for cross-worker cache.
+- **Editing `.rr.yaml` in `vendor/`** — TLS, pools, and jobs live in **your app root** `.rr.yaml`.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Background work" description="defer(), async(), and Moonlight jobs." href="/documentation/operations/background-work/" >}}
+{{< link-card title="Production performance" description="OPcache preload for workers." href="/documentation/operations/production-performance/" >}}
+{{< link-card title="Maintenance mode" description="503 gate without stopping RR." href="/documentation/operations/maintenance/" >}}
+{{< /card-grid >}}

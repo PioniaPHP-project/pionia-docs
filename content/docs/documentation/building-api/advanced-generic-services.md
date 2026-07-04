@@ -5,7 +5,7 @@ parent: "services"
 description: "Guides the developer in the advanced usages on Pionia Generic Services."
 summary: "Pionia Generic Services can be used for more than CRUD operations. This guide shows you how to use them."
 date: 2024-06-29 19:57:09.923 +0300
-lastmod: 2024-06-29 19:57:09.923 +0300
+lastmod: 2026-07-04
 draft: false
 weight: 506
 toc: true
@@ -16,9 +16,28 @@ seo:
   noindex: false # false (default) or true
 ---
 
-{{<callout tip>}}
-This section assumes that you have a basic understanding how Generic Services work in Pionia. If you haven't, you can check the [Generic Services section](/documentation/building-api/generic-services/) first.
-{{</callout >}}
+---
+
+## Who this is for
+
+DeskFlow needs **projects with task counts** or **file uploads on project briefs**. You already use [Generic services](/documentation/building-api/generic-services/) and want joins, `$fileColumns`, and relationship queries without writing raw SQL in every action.
+
+## What you will learn
+
+- Declaring `$joins` and `$joinTypes` to list tasks with project names
+- Uploading files via `$fileColumns` and custom `handleUpload()`
+- Letting the frontend pass `COLUMNS` and `dontRelate` for flexible list responses
+
+## Before you start
+
+{{< prerequisites >}}
+- [Generic services](/documentation/building-api/generic-services/) — `UniversalGenericService` and mixins
+- [Relationships & joins](/documentation/database/relationships/) — Porm join syntax
+{{< /prerequisites >}}
+
+## How it works
+
+Generic services can query **related tables** when you define `$joins` on the base `$table`. DeskFlow might join `tasks` to `projects` so Alex sees client names in one `task.list` response.
 
 # Introduction
 
@@ -226,3 +245,18 @@ All the other functionalities of the Generic Services are still available in the
 When switching from relationships back to querying the base table alone, Pionia takes care of converting the `listColumns`
 however, if you had aliased your tables, you need to remember how you named your `pk_field` as it might no longer be `id`.
 {{</callout >}}
+
+## Common mistakes
+
+- **Saving across joined tables** — create/update only writes to the base `$table`; use separate actions for related rows.
+- **Forgetting `$baseAlias` after aliasing** — `$listColumns` must use the same alias (`cat.name`, not `category.name`).
+- **Omitting `[uploads]` config** — file columns default to `storage/media/`; set `max_size` before accepting large brief PDFs.
+- **Using uppercase `COLUMNS` in production clients** — prefer lowercase keys in new DeskFlow frontends; legacy params may still accept uppercase.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Generic services" description="CRUD mixins and hooks." href="/documentation/building-api/generic-services/" >}}
+{{< link-card title="Database relationships" description="Manual joins with table()." href="/documentation/database/relationships/" >}}
+{{< link-card title="Validation" description="Required columns on create." href="/documentation/building-api/validation/" >}}
+{{< /card-grid >}}

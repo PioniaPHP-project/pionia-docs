@@ -4,7 +4,7 @@ slug: "api-versioning"
 description: "How switches map to /api/v1/, /api/v2/, and separate service catalogs."
 summary: "One switch per API version; register in environment/settings.ini."
 date: 2026-07-01
-lastmod: 2026-07-02
+lastmod: 2026-07-04
 draft: false
 weight: 3
 toc: true
@@ -16,14 +16,42 @@ seo:
   noindex: false
 ---
 
+## Who this is for
+
+Northwind Studio is shipping DeskFlow v2 with breaking payload changes. You need **two API versions running in parallel** — `/api/v1/` for existing clients and `/api/v2/` for the new contract.
+
+## What you will learn
+
+- Creating a `V2Switch` class and registering it in `settings.ini`
+- Which DeskFlow changes warrant a new version vs a new action on `v1`
+- How each version gets its own ping and service catalog
+
+## Before you start
+
+{{< prerequisites >}}
+- [Moonlight overview](/documentation/building-api/moonlight-overview/) — switches and service aliases
+- [Services](/documentation/building-api/services/) — `MainSwitch` with `task`, `member`, `project`
+{{< /prerequisites >}}
+
+## How it works
+
 Each **switch** is bound to one API version path (`/api/v1/`, `/api/v2/`, …). A switch lists which services are exposed on that version.
+
+{{< mermaid >}}
+flowchart LR
+  INI["[app_switches]"] --> V1["/api/v1/ MainSwitch"]
+  INI --> V2["/api/v2/ V2Switch"]
+  V1 --> TaskV1[task / member / project]
+  V2 --> TaskV2[task v2 contract]
+{{< /mermaid >}}
 
 ## Define a switch
 
 ```php
 namespace Application\Switches;
 
-use Application\Services\UserService;
+use Application\Services\MemberService;
+use Application\Services\V2\TaskService as TaskServiceV2;
 use Pionia\Collections\Arrayable;
 use Pionia\Http\Switches\ApiSwitch;
 
@@ -32,7 +60,8 @@ class V2Switch extends ApiSwitch
     public static function registerServices(): Arrayable
     {
         return arr([
-            'user' => UserService::class,
+            'task' => TaskServiceV2::class,
+            'member' => MemberService::class,
         ]);
     }
 }
@@ -59,18 +88,36 @@ The framework registers routes at boot — no `bootstrap/routes.php` required. S
 Clients POST to the version prefix:
 
 ```json
-POST /api/v2/
-{ "service": "user", "action": "profile" }
+POST http://127.0.0.1:8000/api/v2/
+{ "service": "task", "action": "list" }
 ```
 
-Each version has its own ping endpoint: `/api/v1/ping`, `/api/v2/ping`.
+Each version has its own ping endpoint:
+
+```bash
+curl -s http://127.0.0.1:8000/api/v1/ping
+curl -s http://127.0.0.1:8000/api/v2/ping
+```
 
 ## When to add a version
 
-- Breaking action contracts or payload shapes
+- Breaking action contracts or payload shapes (e.g. renaming `assignee_id` to `member_id`)
 - Removing services from the public surface
 - Running old and new implementations in parallel during migration
 
-Non-breaking additions (new actions on existing services) usually stay on the current version.
+Non-breaking additions (new actions on existing services) usually stay on the current version — Alex's mobile app keeps calling `/api/v1/` until Northwind sunsets it.
 
-Related: [Moonlight introduction](/documentation/building-api/moonlight-overview/) · [Services](/documentation/building-api/services/) · [HTTP routing](/documentation/http/http-routing/).
+## Common mistakes
+
+- **Creating v2 for every new action** — `task.archive` can live on `v1` if existing clients ignore unknown actions.
+- **Forgetting to register the switch in `settings.ini`** — the class alone does not create a route.
+- **Different service aliases per version without documentation** — if `v2` removes `project`, update `/docs` and notify frontend teams.
+- **Hardcoding `/api/v1/` in the SPA** — use `apiVersionPath()` or env config so DeskFlow can migrate gradually.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Moonlight overview" description="One URL per version explained." href="/documentation/building-api/moonlight-overview/" >}}
+{{< link-card title="Documenting your API" description="Tag actions per version." href="/documentation/building-api/api-reference/" >}}
+{{< link-card title="HTTP routing" description="Provider routes and route cache." href="/documentation/http/http-routing/" >}}
+{{< /card-grid >}}

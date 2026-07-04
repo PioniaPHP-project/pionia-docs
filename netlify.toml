@@ -8,7 +8,7 @@
   HUGO_VERSION = "0.125.1"
 
 [context.production]
-  command = "npm run build"
+  command = "npm run build -- -b $URL"
 
 [context.deploy-preview]
   command = "npm run build -- -b $DEPLOY_PRIME_URL"
@@ -55,7 +55,7 @@
 
 [[redirects]]
   from = "/documentation/api-tutorial/"
-  to = "/documentation/getting-started/api-tutorial/"
+  to = "/documentation/deskflow-tutorial/"
   status = 301
 
 [[redirects]]
@@ -194,6 +194,21 @@
   status = 301
 
 # Custom headers — https://docs.netlify.com/routing/headers/#syntax-for-the-netlify-configuration-file
+[[redirects]]
+  from = "/documentation/getting-started/api-tutorial/"
+  to = "/documentation/deskflow-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/getting-started/api-tutorial"
+  to = "/documentation/deskflow-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/getting-started/tutorial-part-1/"
+  to = "/documentation/deskflow-tutorial/01-create-project/"
+  status = 301
+
 [[redirects]]
   from = "/docs/examples/"
   to = "/documentation/examples/"

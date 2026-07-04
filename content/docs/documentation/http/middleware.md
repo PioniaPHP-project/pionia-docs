@@ -8,11 +8,42 @@ lastmod: 2026-07-02T00:00:00.000Z
 draft: false
 weight: 650
 toc: true
+doc_type: topic
 seo:
   title: "Middleware in Pionia v3"
   description: "Create middleware, register in settings.ini or providers, and use onRequest / onResponse hooks."
   noindex: false
 ---
+
+This guide is for DeskFlow developers who need **cross-cutting HTTP logic** — request IDs, security headers, or metrics — without duplicating code in every `*Action` method.
+
+## What you will learn
+
+- How middleware runs **before and after** dispatch (not inside actions)
+- How to add `RequestIdMiddleware` so support tickets reference one ID
+- Where to register middleware (`settings.ini` vs providers)
+
+{{< prerequisites >}}
+- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — a running DeskFlow app
+- [Application structure](/documentation/getting-started/application-structure/) — `middlewares/` folder
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+sequenceDiagram
+  participant Client
+  participant MW as Middleware chain
+  participant Auth as Authentication
+  participant API as Switch / Service
+  Client->>MW: POST /api/v1/
+  MW->>MW: onRequest (set X-Request-Id)
+  MW->>Auth: identify caller
+  Auth->>API: task.create
+  API-->>MW: Response
+  MW->>MW: onResponse (echo X-Request-Id)
+  MW-->>Client: JSON envelope
+{{< /mermaid >}}
 
 Middleware runs **twice per HTTP request** — once on the incoming request (before routing and authentication) and once on the outgoing response (after the controller or exception handler builds it).
 
@@ -177,8 +208,17 @@ middlewares(); // Arrayable of registered middleware class strings
 
 The developer stats page (`/stats` when enabled) lists the active middleware stack.
 
-## Related
+## Common mistakes
 
-- [HTTP routing](/documentation/http/http-routing/) — how requests reach switches
-- [App providers](/documentation/extending/app-providers/) — register middleware from packages
-- [Security](/documentation/security/security-authentication-and-authorization/) — auth backends and authorization
+- **Throwing from middleware to block auth** — use `mustAuthenticate()` on services instead; middleware should mutate request/response, not replace authorization.
+- **Forgetting `onResponse` receives `$request`** — read headers you set in `onRequest` from the second parameter.
+- **Editing `generated.ini` only** — copy `[app_middlewares]` entries to `settings.ini` for all environments.
+- **Heavy DB work in middleware** — keep it fast; use `defer()` for slow logging after the response.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Exceptions" description="How errors become HTTP 422/404/500 JSON." href="/documentation/http/exceptions/" >}}
+{{< link-card title="Security" description="Authentication backends run after middleware." href="/documentation/security/security-authentication-and-authorization/" >}}
+{{< link-card title="App providers" description="Register middleware from Composer packages." href="/documentation/extending/app-providers/" >}}
+{{< /card-grid >}}

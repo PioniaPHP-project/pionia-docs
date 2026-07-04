@@ -3,10 +3,11 @@ title: "Connections"
 description: "ConnectionManager, pooling, and multiple databases."
 summary: "settings.ini sections, connect vs open, RoadRunner workers."
 date: 2026-03-01
-lastmod: 2026-03-01
+lastmod: 2026-07-01
 draft: false
 weight: 818
 toc: true
+doc_type: topic
 parent: "database"
 seo:
   title: "Porm connections"
@@ -14,6 +15,27 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+This guide explains how **DeskFlow** on port **8000** keeps one PDO alive per worker while **Northwind Studio** reads and writes `tasks`, `projects`, and `team_members`. `ConnectionManager` pools connections across FPM requests and RoadRunner iterations.
+
+## What you will learn
+
+- Resolve named connections from `settings.ini` sections
+- Choose `Connection::connect()` vs `open()` for apps and tests
+- Avoid per-request `disconnect()` under RoadRunner
+
+{{< prerequisites >}}
+- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` and named sections
+- [RoadRunner](/documentation/operations/roadrunner/) — worker lifecycle on port 8000
+{{< /prerequisites >}}
+
+## How it works
+
+```text
+Boot  →  scan settings.ini for [db], [db_pgsql], …
+Request  →  connectionManager()->connection('default')  →  reuse PDO
+Worker shutdown  →  disconnect() once (not per HTTP request)
+```
 
 ## ConnectionManager
 
@@ -44,7 +66,7 @@ Do **not** call `disconnect()` between HTTP requests in FPM or RoadRunner. PDO s
 | `Connection::connect('default')` | Yes — via `connectionManager()` | Application code, `table()` |
 | `Connection::open([...])` | No — new instance | Tests, one-off configs |
 
-`table('users', null, 'db_pgsql')` resolves the third argument through the manager:
+`table('tasks', null, 'db_pgsql')` resolves the third argument through the manager:
 
 1. Registered name (`register()`)
 2. `settings.ini` section (`[db_pgsql]`)
@@ -62,7 +84,7 @@ default = 1
 
 [db_pgsql]
 database_type = pgsql
-database_name = myapp
+database_name = deskflow
 host = 127.0.0.1
 username = app
 port = 5432
@@ -79,7 +101,7 @@ Wire the password into `settings.ini` via your bootstrap or read `env('DB_PGSQL_
 Pass the **section name** to `table()`:
 
 ```php
-table('events', null, 'db_pgsql')->all();
+table('projects', null, 'db_pgsql')->all();
 ```
 
 ## Tests
@@ -104,7 +126,7 @@ Workers boot once; `ConnectionManager` keeps PDO open. On shutdown, the framewor
 ## Connection info
 
 ```php
-table('users')->info(); // driver metadata from Piql
+table('tasks')->info(); // driver metadata from Piql
 ```
 
 Query logging: set `logging` on the connection section or `LOG_QUERIES=true` in the environment.
@@ -121,3 +143,18 @@ allow_object_cast = 1
 Or per connection: `Connection::open([..., 'allow_object_cast' => true])` / `PORM_ALLOW_OBJECT_CAST=true`.
 
 Related: [Getting started](/documentation/database/configuration-getting-started/) · [RoadRunner](/documentation/operations/roadrunner/).
+
+## Common mistakes
+
+- **Calling `disconnect()` after every DeskFlow API request** — destroys pooling gains on port 8000 workers.
+- **Using `Connection::open()` in production services** — bypasses the pool; use `table()` / `connect()` instead.
+- **Enabling `[Object]` casts for convenience** — never on columns populated from client JSON in Northwind apps.
+- **Mismatching connection names** — third `table()` argument must match the `settings.ini` section name exactly (`db_pgsql`, not `pgsql`).
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Configuration" description="Define [db] and named sections." href="/documentation/database/configuration-getting-started/" >}}
+{{< link-card title="Performance" description="Pooling plus query patterns." href="/documentation/database/performance/" >}}
+{{< link-card title="RoadRunner" description="Worker boot and shutdown hooks." href="/documentation/operations/roadrunner/" >}}
+{{< /card-grid >}}

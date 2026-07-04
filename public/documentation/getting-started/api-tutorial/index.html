@@ -16,8 +16,8 @@
 
 <noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/getting-started/api-tutorial/">
   <link rel="canonical" href="http://localhost:1313/documentation/getting-started/api-tutorial/">
-<title>Build DeskFlow — Part 1</title>
-<meta name="description" content="Step-by-step: scaffold your app, add TaskService, register it, and POST task.list.">
+<title>Build DeskFlow — full tutorial</title>
+<meta name="description" content="Django-style walkthrough: new project, first action, SQLite schema, task.list and task.create.">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -43,16 +43,16 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="API tutorial — Part 1">
-<meta property="og:description" content="From empty folder to your first working Moonlight action — build DeskFlow step by step.">
+<meta property="og:title" content="DeskFlow API tutorial">
+<meta property="og:description" content="Walk through your own Pionia app — from composer create-project to saving tasks in SQLite.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/getting-started/api-tutorial/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2026-07-01T00:00:00+00:00">
 <meta property="article:modified_time" content="2026-07-04T03:37:58+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="API tutorial — Part 1">
-<meta name="twitter:description" content="From empty folder to your first working Moonlight action — build DeskFlow step by step.">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="DeskFlow API tutorial">
+<meta name="twitter:description" content="Walk through your own Pionia app — from composer create-project to saving tasks in SQLite.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -89,7 +89,7 @@
      },
      {
        "@type": "ListItem",
-       "name": "API Tutorial — Part 1",
+       "name": "Desk Flow API Tutorial",
        "position": 5
      }
    ]
@@ -155,6 +155,74 @@
   <ul class="list-unstyled">
 
   <li>
+    <details open>
+      <summary>DeskFlow tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/04-project-layout/">Step 4 — Know your project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/06-list-from-database/">Step 6 — List tasks from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/07-create-tasks/">Step 7 — Create tasks</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/15-contribute-to-core/">Step 15 — Contribute to PioniaCore</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
     <details open open>
       <summary>Getting Started</summary>
       <ul class="list-unstyled list-nested">
@@ -176,7 +244,7 @@
   </li>
 
   <li class="active" >
-      <a aria-current="page" href="/documentation/getting-started/api-tutorial/">API tutorial — Part 1</a>
+      <a aria-current="page" href="/documentation/getting-started/api-tutorial/">DeskFlow API tutorial</a>
   </li>
 
   <li>
@@ -566,6 +634,74 @@
   <ul class="list-unstyled">
 
   <li>
+    <details open>
+      <summary>DeskFlow tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/04-project-layout/">Step 4 — Know your project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/06-list-from-database/">Step 6 — List tasks from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/07-create-tasks/">Step 7 — Create tasks</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/15-contribute-to-core/">Step 15 — Contribute to PioniaCore</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
     <details open open>
       <summary>Getting Started</summary>
       <ul class="list-unstyled list-nested">
@@ -587,7 +723,7 @@
   </li>
 
   <li class="active" >
-      <a aria-current="page" href="/documentation/getting-started/api-tutorial/">API tutorial — Part 1</a>
+      <a aria-current="page" href="/documentation/getting-started/api-tutorial/">DeskFlow API tutorial</a>
   </li>
 
   <li>
@@ -837,15 +973,10 @@
     <nav id="toc">
   <ul>
     <li><a href="#who-this-is-for">Who this is for</a></li>
-    <li><a href="#what-part-1-delivers">What Part 1 delivers</a></li>
-    <li><a href="#tutorial-roadmap">Tutorial roadmap</a></li>
-    <li><a href="#step-1--create-your-project">Step 1 — Create your project</a></li>
-    <li><a href="#step-2--run-your-api-locally">Step 2 — Run your API locally</a></li>
-    <li><a href="#step-3--see-how-moonlight-dispatch-works">Step 3 — See how Moonlight dispatch works</a></li>
-    <li><a href="#step-4--generate-taskservice">Step 4 — Generate TaskService</a></li>
-    <li><a href="#step-5--implement-tasklist">Step 5 — Implement <code>task.list</code></a></li>
-    <li><a href="#step-6--register-task-on-your-switch">Step 6 — Register <code>task</code> on your switch</a></li>
-    <li><a href="#step-7--call-your-first-deskflow-action">Step 7 — Call your first DeskFlow action</a></li>
+    <li><a href="#what-you-will-build">What you will build</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#checkpoint--what-you-built">Checkpoint — what you built</a></li>
     <li><a href="#common-mistakes">Common mistakes</a></li>
     <li><a href="#whats-next">What&rsquo;s next</a></li>
@@ -856,7 +987,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>API tutorial — Part 1</h1>
+			<h1>DeskFlow API tutorial</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -865,15 +996,10 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#who-this-is-for">Who this is for</a></li>
-    <li><a href="#what-part-1-delivers">What Part 1 delivers</a></li>
-    <li><a href="#tutorial-roadmap">Tutorial roadmap</a></li>
-    <li><a href="#step-1--create-your-project">Step 1 — Create your project</a></li>
-    <li><a href="#step-2--run-your-api-locally">Step 2 — Run your API locally</a></li>
-    <li><a href="#step-3--see-how-moonlight-dispatch-works">Step 3 — See how Moonlight dispatch works</a></li>
-    <li><a href="#step-4--generate-taskservice">Step 4 — Generate TaskService</a></li>
-    <li><a href="#step-5--implement-tasklist">Step 5 — Implement <code>task.list</code></a></li>
-    <li><a href="#step-6--register-task-on-your-switch">Step 6 — Register <code>task</code> on your switch</a></li>
-    <li><a href="#step-7--call-your-first-deskflow-action">Step 7 — Call your first DeskFlow action</a></li>
+    <li><a href="#what-you-will-build">What you will build</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#checkpoint--what-you-built">Checkpoint — what you built</a></li>
     <li><a href="#common-mistakes">Common mistakes</a></li>
     <li><a href="#whats-next">What&rsquo;s next</a></li>
@@ -884,85 +1010,88 @@
 
 			</nav>
 			<h2 id="who-this-is-for">Who this is for<a href="#who-this-is-for" class="anchor" aria-hidden="true">#</a> </h2>
-<p>You want to <strong>build a real API</strong>, not copy isolated snippets. This tutorial walks you through <strong>your own project</strong> from the first <code>composer</code> command to a working endpoint you can call from curl, Postman, or a frontend.</p>
-<p>By the end of the full series you will have <strong>DeskFlow</strong> — a task board API for a fictional agency, Northwind Studio. You can keep that theme or swap the names; the steps are the same.</p>
-<h2 id="what-part-1-delivers">What Part 1 delivers<a href="#what-part-1-delivers" class="anchor" aria-hidden="true">#</a> </h2>
-<p>When you finish this page you will have:</p>
-<ul>
-<li>A project folder <strong>you</strong> created (<code>deskflow-api</code> or any name you chose)</li>
-<li>A dev server <strong>you</strong> run locally</li>
-<li><strong><code>TaskService</code></strong> with a <code>list</code> action — the first feature of <em>your</em> app</li>
-<li>A curl command that returns <strong>your</strong> JSON payload</li>
+<p>You want <strong>one continuous tutorial</strong> — like <a href="https://docs.djangoproject.com/en/stable/intro/tutorial01/">Django&rsquo;s first steps</a> — that starts at an empty folder and ends with <strong>real rows in a database</strong>. No jumping between disconnected guides until you have something working.</p>
+<p>By the end of this page you will have <strong>DeskFlow</strong>: Northwind Studio&rsquo;s task board API, running on your machine, with <code>task.list</code> reading from SQLite and <code>task.create</code> inserting new tasks.</p>
+<div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Before you start</div>
+    <div class="callout-body">
+      <ul>
+<li><strong>PHP 8.5+</strong> and <strong>Composer</strong> (<a href="/documentation/getting-started/introduction/#installation">Introduction — installation</a>)</li>
+<li>A terminal and text editor</li>
+<li>New to PHP? Skim <a href="/documentation/getting-started/php-basics/">PHP basics</a> first</li>
 </ul>
-<p>Later parts add a database, validation, login, middleware, a React UI, and deploy — all in the <strong>same repo</strong>.</p>
-<h2 id="tutorial-roadmap">Tutorial roadmap<a href="#tutorial-roadmap" class="anchor" aria-hidden="true">#</a> </h2>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="what-you-will-build">What you will build<a href="#what-you-will-build" class="anchor" aria-hidden="true">#</a> </h2>
 <table>
 <thead>
 <tr>
-<th>Part</th>
-<th>You build</th>
-<th>Guide</th>
+<th>Milestone</th>
+<th>You will…</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>1 (this page)</strong></td>
-<td>Scaffold app + <code>task.list</code></td>
-<td>Here</td>
+<td>1</td>
+<td>Create <code>deskflow-api</code> with Composer</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Understand folders &amp; bootstrap</td>
-<td><a href="/documentation/getting-started/application-structure/">Application structure</a></td>
+<td>Ping the API and call the scaffold <code>welcome.ping</code> action</td>
 </tr>
 <tr>
 <td>3</td>
-<td>SQLite <code>tasks</code> table + Porm</td>
-<td><a href="/documentation/database/configuration-getting-started/">Database getting started</a></td>
+<td>Add <code>TaskService</code> with a hardcoded <code>task.list</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td><code>task.create</code> with validation</td>
-<td><a href="/documentation/building-api/validation/">Validation</a></td>
+<td>Register <code>task</code> on <code>MainSwitch</code></td>
 </tr>
 <tr>
 <td>5</td>
-<td><code>member.login</code> + JWT</td>
-<td><a href="/documentation/security/security-authentication-and-authorization/">Authentication</a></td>
+<td>Create a <code>tasks</code> table and seed sample rows</td>
 </tr>
 <tr>
 <td>6</td>
-<td>Request ID middleware</td>
-<td><a href="/documentation/http/middleware/">Middleware</a></td>
+<td>Load tasks from SQLite in <code>listAction</code></td>
 </tr>
 <tr>
 <td>7</td>
-<td>React task board</td>
-<td><a href="/documentation/frontend/vite-integration/">Vite integration</a></td>
-</tr>
-<tr>
-<td>8</td>
-<td>Production deploy</td>
-<td><a href="/documentation/operations/roadrunner/">RoadRunner</a></td>
+<td>Add <code>createAction</code> and insert a row with curl</td>
 </tr>
 </tbody>
 </table>
+<p>Later guides add validation rules, login, middleware, a React UI, and deploy — <strong>in the same repo</strong> you start here.</p>
 <div class="deskflow-banner callout callout-note d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
   <div class="callout-content">
     <div class="callout-title">In DeskFlow…</div>
     <div class="callout-body">
-      <strong>DeskFlow</strong> — Northwind Studio&rsquo;s internal task board. Services: <code>task</code>, <code>member</code>, <code>project</code>. Sample user: <strong>alex@northwind.studio</strong>.</div>
+      <strong>DeskFlow</strong> — Northwind Studio&rsquo;s internal task board. Services: <code>task</code>, <code>member</code>, <code>project</code>. Sample user: <strong>alex@northwind.studio</strong>. Dev server: <strong>http://127.0.0.1:8000</strong>.</div>
   </div>
 </div>
 
+<div class="mermaid my-4">
+
+flowchart LR
+  A[composer create-project] --> B[php pionia serve]
+  B --> C[TaskService]
+  C --> D[SQLite tasks table]
+  D --> E[task.list + task.create]
+
+</div>
+
 <hr>
-<h2 id="step-1--create-your-project">Step 1 — Create your project<a href="#step-1--create-your-project" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="1-create-your-project">1. Create your project</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 1</span>
     Step<span class="doc-step-time text-muted ms-2">5 min</span></h3>
   <div class="doc-step-body">
-    Scaffold a new Pionia app with Composer. Pick any folder name; we use <code>deskflow-api</code>.
+    Scaffold a new Pionia app. Pick any folder name; we use <code>deskflow-api</code>.
   </div>
 </div>
 
@@ -980,16 +1109,35 @@
 </div>
 </div>
 
-<p>This downloads the app template, runs <code>composer install</code>, and writes <code>APP_NAME</code> into <code>environment/.env</code> from the folder name.</p>
-<p>Open the project in your editor. You should see <code>services/</code>, <code>switches/</code>, <code>public/</code>, and <code>environment/</code> — this is <strong>your</strong> app tree. We map every folder in <a href="/documentation/getting-started/application-structure/">Part 2</a>.</p>
+<p>Composer downloads the app template, runs <code>composer install</code>, and writes <code>APP_NAME=deskflow-api</code> into <code>environment/.env</code>.</p>
+<p>You should see:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">deskflow-api/
+</span></span><span class="line"><span class="cl">├── bootstrap/          # boots AppRealm once per process
+</span></span><span class="line"><span class="cl">├── environment/        # .env + settings.ini
+</span></span><span class="line"><span class="cl">├── public/             # index.php — web entry
+</span></span><span class="line"><span class="cl">├── services/           # your business logic (WelcomeService ships here)
+</span></span><span class="line"><span class="cl">├── switches/           # API version wiring (MainSwitch)
+</span></span><span class="line"><span class="cl">├── storage/            # logs, cache, media
+</span></span><span class="line"><span class="cl">└── pionia              # CLI entry</span></span></code></pre></div>
+  </figure>
+</div>
+<p>Keep this tree open in your editor — you will edit files under <code>services/</code> and <code>switches/</code> throughout the tutorial.</p>
 <hr>
-<h2 id="step-2--run-your-api-locally">Step 2 — Run your API locally<a href="#step-2--run-your-api-locally" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="2-run-the-development-server">2. Run the development server</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 2</span>
     Step<span class="doc-step-time text-muted ms-2">2 min</span></h3>
   <div class="doc-step-body">
-    Start the built-in dev server from the project root.
+    Start the built-in server from the project root.
   </div>
 </div>
 
@@ -1006,8 +1154,8 @@
 </div>
 </div>
 
-<p>Default URL: <strong>http://127.0.0.1:8000/</strong> (<code>PORT</code> in <code>environment/.env</code>).</p>
-<p>In a <strong>second terminal</strong>, check that <strong>your</strong> API responds:</p>
+<p>Default URL: <strong>http://127.0.0.1:8000/</strong> (from <code>PORT</code> in <code>environment/.env</code>).</p>
+<p>In a <strong>second terminal</strong>, confirm the API is alive:</p>
 <div class="terminal-block my-3">
 
 
@@ -1039,19 +1187,19 @@
 
 </div>
 
-<p>With <code>DEBUG=true</code>, <code>returnData</code> may include your app name and PHP version — that is normal.</p>
+<p>With <code>DEBUG=true</code>, <code>returnData</code> may include your app name — that is normal.</p>
 <hr>
-<h2 id="step-3--see-how-moonlight-dispatch-works">Step 3 — See how Moonlight dispatch works<a href="#step-3--see-how-moonlight-dispatch-works" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="3-your-first-moonlight-action">3. Your first Moonlight action</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 3</span>
     Step<span class="doc-step-time text-muted ms-2">5 min</span></h3>
   <div class="doc-step-body">
-    Before adding code, call the <strong>Welcome</strong> service that shipped with your scaffold.
+    Call the <strong>Welcome</strong> service that shipped with your scaffold before you write new code.
   </div>
 </div>
 
-<p>Every Moonlight action uses the same POST shape: <code>{ &quot;service&quot;, &quot;action&quot;, ...params }</code>.</p>
+<p>Every Moonlight action uses POST JSON: <code>{ &quot;service&quot;, &quot;action&quot;, ...params }</code>.</p>
 <div class="terminal-block my-3">
 
 
@@ -1085,15 +1233,32 @@
 
 </div>
 
-<p>Now open the files that made this work — <strong>in your repo</strong>:</p>
-<ol>
-<li><strong><code>services/WelcomeService.php</code></strong> — <code>pingAction()</code> returns the envelope</li>
-<li><strong><code>switches/MainSwitch.php</code></strong> — maps the alias <code>welcome</code> → <code>WelcomeService</code></li>
-<li><strong><code>environment/settings.ini</code></strong> — <code>[app_switches]</code> wires <code>v1</code> → <code>MainSwitch</code></li>
-</ol>
-<p>That is the pattern every feature in DeskFlow will follow: <strong>service class → switch alias → POST body</strong>.</p>
+<p>Open the three files that made this work:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>services/WelcomeService.php</code></td>
+<td><code>pingAction()</code> returns the envelope</td>
+</tr>
+<tr>
+<td><code>switches/MainSwitch.php</code></td>
+<td>Maps alias <code>welcome</code> → <code>WelcomeService</code></td>
+</tr>
+<tr>
+<td><code>environment/settings.ini</code></td>
+<td><code>[app_switches]</code> wires <code>v1</code> → <code>MainSwitch</code></td>
+</tr>
+</tbody>
+</table>
+<p>That pattern repeats for every DeskFlow feature: <strong>service class → switch alias → POST body</strong>.</p>
 <hr>
-<h2 id="step-4--generate-taskservice">Step 4 — Generate TaskService<a href="#step-4--generate-taskservice" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="4-generate-taskservice">4. Generate TaskService</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 4</span>
@@ -1111,24 +1276,25 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service Task</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service task</span></span></code></pre></div>
   </figure>
 </div>
 </div>
 
-<p>This creates <strong><code>services/TaskService.php</code></strong>. Open it — you will add your first real business logic there.</p>
+<p>When prompted, choose <strong>Basic</strong> — you will write the actions yourself.</p>
+<p>This creates <strong><code>services/TaskService.php</code></strong>. Open it in your editor.</p>
 <hr>
-<h2 id="step-5--implement-tasklist">Step 5 — Implement <code>task.list</code><a href="#step-5--implement-tasklist" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="5-implement-tasklist-hardcoded-first">5. Implement <code>task.list</code> (hardcoded first)</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 5</span>
     Step<span class="doc-step-time text-muted ms-2">10 min</span></h3>
   <div class="doc-step-body">
-    Add a <code>listAction</code> that returns sample tasks for Northwind Studio. Start with hardcoded data; Part 3 saves to SQLite.
+    Add a <code>listAction</code> that returns sample tasks. We use hardcoded data first — like Django&rsquo;s initial views before the ORM — then replace it with SQLite in step 9.
   </div>
 </div>
 
-<p>Replace the generated class body with:</p>
+<p>Replace the generated class with:</p>
 
 
 
@@ -1163,27 +1329,21 @@
 </span></span><span class="line"><span class="cl">                    <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;done&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                    <span class="s1">&#39;assignee&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;alex@northwind.studio&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="p">],</span>
-</span></span><span class="line"><span class="cl">                <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Update client project brief&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;open&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;assignee&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;jamie@northwind.studio&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="p">],</span>
 </span></span><span class="line"><span class="cl">        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p><strong>What you did:</strong> one PHP method → one API action. The method name <code>listAction</code> becomes action <code>&quot;list&quot;</code> in JSON.</p>
+<p><strong>Naming rule:</strong> method <code>listAction</code> → JSON <code>&quot;action&quot;: &quot;list&quot;</code>. The <code>Action</code> suffix is stripped when clients call the API.</p>
 <hr>
-<h2 id="step-6--register-task-on-your-switch">Step 6 — Register <code>task</code> on your switch<a href="#step-6--register-task-on-your-switch" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="6-register-task-on-mainswitch">6. Register <code>task</code> on MainSwitch</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 6</span>
     Step<span class="doc-step-time text-muted ms-2">3 min</span></h3>
   <div class="doc-step-body">
-    Tell MainSwitch about your new service.
+    Tell the API that <code>&quot;service&quot;: &quot;task&quot;</code> should dispatch to your new class.
   </div>
 </div>
 
@@ -1196,27 +1356,36 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Application\Services\TaskService</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Application\Services\WelcomeService</span><span class="p">;</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Switches</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Application\Services\TaskService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Application\Services\WelcomeService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Switches\ApiSwitch</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MainSwitch</span> <span class="k">extends</span> <span class="nx">ApiSwitch</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;welcome&#39;</span> <span class="o">=&gt;</span> <span class="nx">WelcomeService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;task&#39;</span> <span class="o">=&gt;</span> <span class="nx">TaskService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;welcome&#39;</span> <span class="o">=&gt;</span> <span class="nx">WelcomeService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;task&#39;</span> <span class="o">=&gt;</span> <span class="nx">TaskService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The string <code>'task'</code> is the <strong>service alias</strong> clients send in JSON. It does not have to match the class name, but keeping them aligned avoids confusion.</p>
+<p>The string <code>'task'</code> is the <strong>service alias</strong> in JSON. It does not have to match the class name, but keeping them aligned avoids confusion.</p>
 <hr>
-<h2 id="step-7--call-your-first-deskflow-action">Step 7 — Call your first DeskFlow action<a href="#step-7--call-your-first-deskflow-action" class="anchor" aria-hidden="true">#</a> </h2>
+<h1 id="7-call-your-first-deskflow-action">7. Call your first DeskFlow action</h1>
 <div class="doc-step mt-4 mb-3">
   <h3 class="h5 doc-step-heading">
     <span class="doc-step-badge">Step 7</span>
     Step<span class="doc-step-time text-muted ms-2">2 min</span></h3>
   <div class="doc-step-body">
-    POST to <strong>your</strong> running server and confirm the payload you wrote in Step 5.
+    POST to your running server and confirm the hardcoded list.
   </div>
 </div>
 
@@ -1260,6 +1429,12 @@
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Review homepage mockups&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;open&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nt">&#34;assignee&#34;</span><span class="p">:</span> <span class="s2">&#34;alex@northwind.studio&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Prepare sprint retro notes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;done&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;assignee&#34;</span><span class="p">:</span> <span class="s2">&#34;alex@northwind.studio&#34;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
@@ -1269,7 +1444,315 @@
 
 </div>
 
-<p>You now have a working Moonlight API in a project <strong>you</strong> own. The hardcoded list is temporary — Part 3 replaces it with a real <code>tasks</code> table.</p>
+<p>You now have a working Moonlight API in a project <strong>you</strong> own. Next we add a database — the same way Django moves from dummy views to models.</p>
+<hr>
+<h1 id="8-configure-the-database">8. Configure the database</h1>
+<div class="doc-step mt-4 mb-3">
+  <h3 class="h5 doc-step-heading">
+    <span class="doc-step-badge">Step 8</span>
+    Step<span class="doc-step-time text-muted ms-2">5 min</span></h3>
+  <div class="doc-step-body">
+    The app template already ships with SQLite. Confirm the connection, then create your schema file.
+  </div>
+</div>
+
+<p>Open <strong><code>environment/settings.ini</code></strong>. You should see:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[db]</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_type</span><span class="o">=</span><span class="s">sqlite</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_name</span><span class="o">=</span><span class="s">database.sqlite3</span>
+</span></span><span class="line"><span class="cl"><span class="na">default</span><span class="o">=</span><span class="s">true</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>That tells Porm to use a SQLite file named <strong><code>database.sqlite3</code></strong> in your project root (created on first use).</p>
+<p>Create the schema directory and SQL file:</p>
+<div class="terminal-block my-3">
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p database</span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+
+<p>Create <strong><code>database/schema.sql</code></strong> with the DeskFlow <code>tasks</code> table and seed rows:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- DeskFlow tasks table for Northwind Studio
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTOINCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">assignee</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">project_id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">assignee</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;Review homepage mockups&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alex@northwind.studio&#39;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;Prepare sprint retro notes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;done&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alex@northwind.studio&#39;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;Update client project brief&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;jamie@northwind.studio&#39;</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Add a small init script so you can rebuild the database anytime (like Django&rsquo;s <code>migrate</code>):</p>
+<p>Create <strong><code>bin/init-db.php</code></strong>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">#!/usr/bin/env php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$root</span> <span class="o">=</span> <span class="nx">dirname</span><span class="p">(</span><span class="no">__DIR__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbPath</span> <span class="o">=</span> <span class="nv">$root</span> <span class="o">.</span> <span class="s1">&#39;/database.sqlite3&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$schema</span> <span class="o">=</span> <span class="nv">$root</span> <span class="o">.</span> <span class="s1">&#39;/database/schema.sql&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">is_file</span><span class="p">(</span><span class="nv">$schema</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fwrite</span><span class="p">(</span><span class="nx">STDERR</span><span class="p">,</span> <span class="s2">&#34;Schema not found: </span><span class="si">{</span><span class="nv">$schema</span><span class="si">}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;sqlite:&#39;</span> <span class="o">.</span> <span class="nv">$dbPath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">ATTR_ERRMODE</span><span class="p">,</span> <span class="nx">PDO</span><span class="o">::</span><span class="na">ERRMODE_EXCEPTION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">exec</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$schema</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;Initialized </span><span class="si">{</span><span class="nv">$dbPath</span><span class="si">}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">;</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Run it once:</p>
+<div class="terminal-block my-3">
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x bin/init-db.php
+</span></span><span class="line"><span class="cl">php bin/init-db.php</span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+
+<p>You should see: <code>Initialized .../deskflow-api/database.sqlite3</code></p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/bulb svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7-.7.7"/><path d="M9 16a5 5 0 116 0 3.5 3.5.0 00-1 3 2 2 0 01-4 0 3.5 3.5.0 00-1-3"/><path d="M9.7 17h4.6"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Re-run safely</p>
+
+      </div>
+    <div class="callout-body">
+      <p><code>CREATE TABLE IF NOT EXISTS</code> and fixed seed IDs keep re-runs idempotent for learning. In production you would use migrations — see <a href="/documentation/database/transactions-and-raw-sql/">Transactions</a> for manual SQL patterns.</p>
+
+    </div>
+  </div>
+</div>
+
+<hr>
+<h1 id="9-read-tasks-from-the-database">9. Read tasks from the database</h1>
+<div class="doc-step mt-4 mb-3">
+  <h3 class="h5 doc-step-heading">
+    <span class="doc-step-badge">Step 9</span>
+    Step<span class="doc-step-time text-muted ms-2">10 min</span></h3>
+  <div class="doc-step-body">
+    Replace the hardcoded array in <code>listAction</code> with Porm&rsquo;s <code>table()</code> helper.
+  </div>
+</div>
+
+<p>Edit <strong><code>services/TaskService.php</code></strong>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\ApiResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TaskService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tasks</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;tasks&#39;</span> <span class="o">=&gt;</span> <span class="nv">$tasks</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Call the API again — same curl as step 7:</p>
+<div class="try-it-block callout callout-tip d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Try it yourself</div>
+    <div class="callout-body">
+      
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://127.0.0.1:8000/api/v1/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;service&#34;:&#34;task&#34;,&#34;action&#34;:&#34;list&#34;}&#39;</span></span></span></code></pre></div>
+  </figure>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>You should now see <strong>three</strong> tasks from <code>schema.sql</code>, including <em>Update client project brief</em> for Jamie. The data lives in SQLite, not PHP source code.</p>
+<p>If you get a database error, check that <code>php bin/init-db.php</code> ran successfully and that <code>[db]</code> in <code>settings.ini</code> was not commented out.</p>
+<hr>
+<h1 id="10-create-a-task-in-the-database">10. Create a task in the database</h1>
+<div class="doc-step mt-4 mb-3">
+  <h3 class="h5 doc-step-heading">
+    <span class="doc-step-badge">Step 10</span>
+    Step<span class="doc-step-time text-muted ms-2">10 min</span></h3>
+  <div class="doc-step-body">
+    Add <code>createAction</code> so clients can insert rows — the DeskFlow equivalent of Django&rsquo;s &ldquo;create object&rdquo; view.
+  </div>
+</div>
+
+<p>Add a second method to <strong><code>TaskService.php</code></strong>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Exceptions\ValidationException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ... inside class TaskService ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$title</span> <span class="o">===</span> <span class="k">null</span> <span class="o">||</span> <span class="nx">trim</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nx">ValidationException</span><span class="p">(</span><span class="s1">&#39;title is required&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$task</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nx">trim</span><span class="p">(</span><span class="nv">$title</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;open&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;assignee&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">(</span><span class="s1">&#39;assignee&#39;</span><span class="p">,</span> <span class="s1">&#39;alex@northwind.studio&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;project_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="s1">&#39;project_id&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">getInt</span><span class="p">(</span><span class="s1">&#39;project_id&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Task created&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;task&#39;</span> <span class="o">=&gt;</span> <span class="nv">$task</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Your full class now has <strong>list</strong> and <strong>create</strong> — the minimum CRUD pair for a task board.</p>
+<hr>
+<h1 id="11-post-a-new-task">11. POST a new task</h1>
+<div class="doc-step mt-4 mb-3">
+  <h3 class="h5 doc-step-heading">
+    <span class="doc-step-badge">Step 11</span>
+    Step<span class="doc-step-time text-muted ms-2">3 min</span></h3>
+  <div class="doc-step-body">
+    Insert a row and confirm it persists.
+  </div>
+</div>
+
+<div class="terminal-block my-3">
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://127.0.0.1:8000/api/v1/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;service&#34;: &#34;task&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;action&#34;: &#34;create&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;title&#34;: &#34;Ship DeskFlow tutorial&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;status&#34;: &#34;open&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;assignee&#34;: &#34;alex@northwind.studio&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+
+<div class="envelope-preview my-3"><div class="envelope-preview-label">Expected result</div>
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Task created&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;task&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Ship DeskFlow tutorial&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;open&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;assignee&#34;</span><span class="p">:</span> <span class="s2">&#34;alex@northwind.studio&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;project_id&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;...&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+
+</div>
+
+<p>List again — your new task appears at the end:</p>
+<div class="terminal-block my-3">
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://127.0.0.1:8000/api/v1/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;service&#34;:&#34;task&#34;,&#34;action&#34;:&#34;list&#34;}&#39;</span></span></span></code></pre></div>
+  </figure>
+</div>
+</div>
+
+<p>Try omitting <code>title</code> — you get <strong>HTTP 422</strong> with a validation message. We add richer rules in the next chapter of the series.</p>
 <hr>
 <h2 id="checkpoint--what-you-built">Checkpoint — what you built<a href="#checkpoint--what-you-built" class="anchor" aria-hidden="true">#</a> </h2>
 
@@ -1280,56 +1763,133 @@
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">deskflow-api/                 ← your project
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">deskflow-api/
+</span></span><span class="line"><span class="cl">├── bin/init-db.php           ← you added
+</span></span><span class="line"><span class="cl">├── database/
+</span></span><span class="line"><span class="cl">│   └── schema.sql            ← tasks table + seeds
+</span></span><span class="line"><span class="cl">├── database.sqlite3          ← created by init-db
 </span></span><span class="line"><span class="cl">├── services/
-</span></span><span class="line"><span class="cl">│   ├── WelcomeService.php    ← shipped with template
-</span></span><span class="line"><span class="cl">│   └── TaskService.php       ← you added (Part 1)
+</span></span><span class="line"><span class="cl">│   ├── WelcomeService.php    ← template
+</span></span><span class="line"><span class="cl">│   └── TaskService.php       ← list + create
 </span></span><span class="line"><span class="cl">├── switches/
-</span></span><span class="line"><span class="cl">│   └── MainSwitch.php        ← you registered task
+</span></span><span class="line"><span class="cl">│   └── MainSwitch.php        ← welcome + task
 </span></span><span class="line"><span class="cl">└── environment/
-</span></span><span class="line"><span class="cl">    └── settings.ini          ← v1 → MainSwitch</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">    └── settings.ini          ← [db] + [app_switches]</span></span></code></pre></div>
   </figure>
 </div>
 <table>
 <thead>
 <tr>
-<th>You can now…</th>
-<th>Command</th>
+<th>Action</th>
+<th>JSON body</th>
+<th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Health check</td>
+<td>Ping</td>
 <td><code>GET /api/v1/ping</code></td>
+<td>Health check</td>
 </tr>
 <tr>
-<td>Welcome action</td>
-<td><code>POST</code> <code>{ &quot;service&quot;:&quot;welcome&quot;, &quot;action&quot;:&quot;ping&quot; }</code></td>
+<td>List tasks</td>
+<td><code>{ &quot;service&quot;:&quot;task&quot;, &quot;action&quot;:&quot;list&quot; }</code></td>
+<td>Rows from SQLite</td>
 </tr>
 <tr>
-<td><strong>Your task list</strong></td>
-<td><code>POST</code> <code>{ &quot;service&quot;:&quot;task&quot;, &quot;action&quot;:&quot;list&quot; }</code></td>
+<td>Create task</td>
+<td><code>{ &quot;service&quot;:&quot;task&quot;, &quot;action&quot;:&quot;create&quot;, &quot;title&quot;:&quot;…&quot; }</code></td>
+<td>New row in <code>tasks</code></td>
 </tr>
 </tbody>
 </table>
-<p>Optional: run <code>php pionia api:docs --ui</code> and open <code>/docs</code> to see Moonlight catalog entries for your actions.</p>
+<p>Optional: run <code>php pionia api:docs --ui</code> and open <strong>http://127.0.0.1:8000/docs</strong> to see Moonlight catalog entries for your actions.</p>
 <hr>
 <h2 id="common-mistakes">Common mistakes<a href="#common-mistakes" class="anchor" aria-hidden="true">#</a> </h2>
 <ul>
-<li><strong><code>service not found</code></strong> — typo in <code>MainSwitch</code> alias, or server not restarted after editing PHP (save file; built-in server picks up changes on next request)</li>
-<li><strong>Empty / connection refused</strong> — <code>php pionia serve</code> not running, or wrong port (use <strong>8000</strong> from <code>.env</code>, not 3000)</li>
-<li><strong>Uppercase keys</strong> — use <code>&quot;service&quot;</code> and <code>&quot;action&quot;</code>, not <code>SERVICE</code> / <code>ACTION</code></li>
-<li><strong>Editing vendor/</strong> — all <strong>your</strong> code lives under <code>services/</code>, <code>switches/</code>, etc.; never patch <code>vendor/pionia/</code></li>
+<li><strong><code>service not found</code></strong> — typo in <code>MainSwitch</code> alias, or PHP syntax error (check terminal where <code>php pionia serve</code> runs)</li>
+<li><strong>Connection refused</strong> — dev server not running, or wrong port (use <strong>8000</strong> from <code>.env</code>)</li>
+<li><strong>no such table: tasks</strong> — run <code>php bin/init-db.php</code> before calling <code>task.list</code></li>
+<li><strong>Legacy uppercase keys</strong> — use lowercase <code>&quot;service&quot;</code> and <code>&quot;action&quot;</code> in JSON</li>
+<li><strong>Editing <code>vendor/</code></strong> — your code lives in <code>services/</code>, <code>switches/</code>, <code>database/</code> only</li>
 </ul>
 <hr>
 <h2 id="whats-next">What&rsquo;s next<a href="#whats-next" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Continue building <strong>the same DeskFlow app</strong>:</p>
-<ol>
-<li><strong><a href="/documentation/getting-started/application-structure/">Application structure</a></strong> — what every folder does before you add more files</li>
-<li><strong><a href="/documentation/database/configuration-getting-started/">Database (Porm)</a></strong> — create a <code>tasks</code> table and load rows from SQLite instead of hardcoded arrays</li>
-<li><strong><a href="/documentation/building-api/services/">Services guide</a></strong> — deeper patterns for actions and envelopes</li>
-</ol>
-<p>Copy-paste payloads anytime: <a href="/documentation/examples/">Examples</a>.</p>
+<p>Keep building <strong>the same DeskFlow repo</strong>:</p>
+<div class="card-nav d-flex flex-column flex-sm-row">
+  
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/getting-started/application-structure/" class="stretched-link text-reset text-decoration-none">Application structure</a></h5>
+        <p class="card-text mt-1">Deep dive into every folder you touched.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/building-api/validation/" class="stretched-link text-reset text-decoration-none">Validation</a></h5>
+        <p class="card-text mt-1">Replace inline checks with rules and attributes.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/security/security-authentication-and-authorization/" class="stretched-link text-reset text-decoration-none">Authentication</a></h5>
+        <p class="card-text mt-1">member.login and JWT for protected actions.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/examples/" class="stretched-link text-reset text-decoration-none">Examples</a></h5>
+        <p class="card-text mt-1">Copy-paste curl payloads for DeskFlow.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p><strong>Suggested order:</strong> validation → login → middleware → <a href="/documentation/frontend/vite-integration/">Vite frontend</a> → <a href="/documentation/operations/roadrunner/">RoadRunner deploy</a>.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
@@ -1380,7 +1940,7 @@
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/getting-started/glossary/" class="stretched-link text-reset text-decoration-none">Glossary</a>
+					<a href="/documentation/deskflow-tutorial/05-database-setup/" class="stretched-link text-reset text-decoration-none">Step 5 — Database setup</a>
 				</div>
 			</div>
 		</div>
@@ -1389,7 +1949,7 @@
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/getting-started/changelog-v3/" class="stretched-link text-reset text-decoration-none">Pionia v3 — Release notes</a>
+					<a href="/documentation/deskflow-tutorial/06-list-from-database/" class="stretched-link text-reset text-decoration-none">Step 6 — List tasks from the database</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

@@ -3,16 +3,44 @@ title: "Production performance"
 slug: "production-performance"
 description: "OPcache preload, deploy optimization, bootstrap caches, and stats-driven warming."
 date: 2026-07-02
-lastmod: 2026-07-02
+lastmod: 2026-07-04
 draft: false
 weight: 555
 toc: true
+doc_type: how-to
 parent: "documentation"
 seo:
   title: "Production performance in Pionia"
   description: "Deploy-time OPcache preload, Composer classmaps, bootstrap caches, and hybrid preload strategies."
   noindex: false
 ---
+
+This guide is for teams shipping DeskFlow to staging and production — **opt-in deploy optimization** that warms OPcache, caches routes, and speeds boot without changing Moonlight services.
+
+## What you will learn
+
+- The recommended `composer install` + `php pionia optimize --production` deploy flow
+- How framework preload (Packagist) differs from app preload (`storage/bootstrap/`)
+- Stats-driven hybrid preload using `/stats` and worker snapshots
+
+{{< prerequisites >}}
+- DeskFlow deploy target with PHP 8.5+ and Composer
+- [RoadRunner](/documentation/operations/roadrunner/) or PHP-FPM in production
+- [Developer stats](/documentation/operations/developer-stats/) — OPcache section on `/stats`
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Install[composer install -o] --> Optimize[php pionia optimize]
+  Optimize --> Scaffold[bootstrap/preload.php]
+  Optimize --> Gen[storage/bootstrap/preload.php]
+  Optimize --> Cache[routes + providers cache]
+  Gen --> FW[vendor framework manifest]
+  Gen --> App[DeskFlow services/switches]
+  Restart[Restart FPM / RR workers] --> Warm[OPcache warm on boot]
+{{< /mermaid >}}
 
 Pionia ships readable PHP source. Performance is **opt-in** at deploy time — nothing is preloaded or cached until you run `php pionia optimize`.
 
@@ -146,9 +174,17 @@ PRELOAD_EXCLUDE=
 
 Avoid preloading the entire `vendor/` tree — shared memory grows quickly with little benefit on small APIs. The generator uses a curated manifest plus optional real-traffic stats.
 
-## Related
+## Common mistakes
 
-- [HTTP routing](/documentation/http/http-routing/) — bootstrap route cache
-- [RoadRunner](/documentation/operations/roadrunner/) — worker OPcache wiring, HTTP/2, and TLS
-- [Production behind Nginx](/documentation/getting-started/introduction/#production-behind-nginx) — `listen 443 ssl http2` with FPM or RR proxy
-- [CLI commands](/documentation/operations/commands/) — full command reference
+- **Skipping worker restart after deploy** with `opcache.validate_timestamps=0` — users hit stale code until reload.
+- **Preloading all of `vendor/`** — blows shared memory; trust curated + hybrid strategies.
+- **Running optimize locally on every save** — deploy-time only; dev uses live timestamps.
+- **Forgetting `opcache.enable_cli=1` for RoadRunner** — workers boot without preload unless set in `.rr.yaml` or php.ini.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="RoadRunner" description="Worker OPcache wiring and HTTP/2." href="/documentation/operations/roadrunner/" >}}
+{{< link-card title="Developer stats" description="OPcache hit rate on /stats." href="/documentation/operations/developer-stats/" >}}
+{{< link-card title="HTTP routing" description="Bootstrap route cache." href="/documentation/http/http-routing/" >}}
+{{< /card-grid >}}

@@ -4,7 +4,7 @@ slug: "moonlight-security"
 description: "Why Moonlight uses POST bodies, switch-level auth, and real HTTP status codes."
 summary: "Transport security, credential handling, and where authentication runs in the pipeline."
 date: 2026-07-01
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 203
 toc: true
@@ -23,6 +23,17 @@ You are securing DeskFlow and want to understand **where** auth runs — at the 
 - Why Moonlight action payloads use **POST** JSON bodies
 - How **switch-level** authentication protects groups of actions
 - The difference between HTTP **401** and envelope `returnCode`
+
+## Before you start
+
+{{< prerequisites >}}
+- [Moonlight overview](/documentation/building-api/moonlight-overview/) — POST dispatch model
+- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — DeskFlow on port **8000**
+{{< /prerequisites >}}
+
+## How it works
+
+Credentials and business fields travel in the POST JSON body. Authentication runs at the **switch** before your action method executes — like checking Alex's badge at the Northwind office door, not at every desk.
 
 ## POST bodies and access logs
 
@@ -62,8 +73,17 @@ Inside an action you still enforce **authorization** — e.g. only project leads
 
 Do not assume HTTP 200 for every error — clients must read **both** status and JSON.
 
+## Common mistakes
+
+- **Putting passwords in query strings** — use POST JSON for `member.login`; never `?password=` in URLs.
+- **Checking auth only inside actions** — configure switch-level rules so unauthenticated requests fail before business logic runs.
+- **Logging raw request bodies in production** — redact passwords; use `[logging] HIDE_IN_LOGS` in `settings.ini`.
+- **Ignoring HTTP status because `returnCode` exists** — mobile clients must handle **401**, **403**, and **422** explicitly.
+
 ## What's next
 
-- [Authentication](/documentation/security/security-authentication-and-authorization/) — implement `member.login`
-- [Security utilities](/documentation/security/security-utilities/) — password reset tokens for Alex
-- [Middleware](/documentation/http/middleware/) — request IDs for support tickets
+{{< card-grid >}}
+{{< link-card title="Authentication" description="Implement member.login with JWT." href="/documentation/security/security-authentication-and-authorization/" >}}
+{{< link-card title="Security utilities" description="Password reset tokens for Alex." href="/documentation/security/security-utilities/" >}}
+{{< link-card title="Middleware" description="Request IDs for support tickets." href="/documentation/http/middleware/" >}}
+{{< /card-grid >}}

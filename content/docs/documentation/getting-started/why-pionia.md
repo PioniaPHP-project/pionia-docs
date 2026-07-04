@@ -4,7 +4,7 @@ slug: "why-pionia"
 description: "When Moonlight APIs, Porm, and optional Vite frontends fit your project."
 summary: "Opinionated JSON APIs without controllers, models, or route files."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 102
 toc: true
@@ -15,7 +15,27 @@ seo:
   noindex: false
 ---
 
-Pionia targets teams shipping **versioned JSON APIs** — like Northwind Studio's DeskFlow task board — without Symfony-sized boilerplate. You write **services** and register them on **switches**; clients POST `{ "service", "action" }` to `/api/v1/`.
+## Who this is for
+
+You are choosing a PHP framework for **Northwind Studio's DeskFlow** — or any mobile/SPA backend — and want to know whether Moonlight's `{ service, action }` model beats dozens of REST controllers.
+
+## What you will learn
+
+- What Pionia optimizes for (versioned JSON APIs, small teams)
+- How DeskFlow maps to services, switches, and Porm queries
+- When to pick something else (server-rendered HTML, GraphQL-first)
+
+## Before you start
+
+No install required. For a hands-on comparison, scaffold DeskFlow in [Introduction](/documentation/getting-started/introduction/) first.
+
+## How it works
+
+Pionia targets teams shipping **versioned JSON APIs** without Symfony-sized boilerplate. You write **services** and register them on **switches**; clients POST `{ "service", "action" }` to **`http://127.0.0.1:8000/api/v1/`**.
+
+{{< deskflow >}}
+**DeskFlow** — Northwind Studio's internal task board. Services: `task`, `member`, `project`. Sample user: **alex@northwind.studio**.
+{{< /deskflow >}}
 
 ## What you get
 
@@ -39,8 +59,16 @@ Pionia targets teams shipping **versioned JSON APIs** — like Northwind Studio'
 
 [Moonlight](/documentation/building-api/moonlight-overview/) is the `{ service, action }` contract: one POST target per API version, predictable JSON envelopes, and switches that map aliases to PHP classes. Pionia implements that contract with real HTTP status codes, OpenAPI export, and first-class tooling.
 
-## Next steps
+## Common mistakes
 
-- Hands-on: [API tutorial Part 1](/documentation/getting-started/api-tutorial/)
-- Concepts: [Moonlight overview](/documentation/building-api/moonlight-overview/)
-- Upgrading: [From v2](/documentation/getting-started/upgrading-from-v2/)
+- **Expecting Laravel-style Eloquent models** — Porm queries tables directly; there is no built-in ORM layer.
+- **Treating Moonlight as RPC over HTTP 200 only** — v3 uses real status codes for auth and validation failures.
+- **Choosing Pionia for a Blade-only admin site** — you can, but server-rendered HTML is not the sweet spot.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="DeskFlow tutorial" description="Build DeskFlow hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Moonlight overview" description="Architecture deep dive." href="/documentation/building-api/moonlight-overview/" >}}
+{{< link-card title="Upgrading from v2" description="Migration checklist." href="/documentation/getting-started/upgrading-from-v2/" >}}
+{{< /card-grid >}}

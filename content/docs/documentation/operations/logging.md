@@ -36,6 +36,16 @@ You are running DeskFlow (or any Pionia app) and need to **see what happened** �
 
 ## How logging fits together
 
+{{< mermaid >}}
+flowchart LR
+  Svc[TaskService action] --> Logger[logger]
+  Err[Uncaught throwable] --> Report[report via pipeline]
+  Logger --> LM[LogManager]
+  Report --> LM
+  LM --> Handlers[Monolog handlers]
+  Handlers --> Out[stderr / storage/logs/]
+{{< /mermaid >}}
+
 Pionia v3 uses **Monolog** behind a thin wrapper:
 
 | Piece | Role |
@@ -214,6 +224,8 @@ Register channels in `Provider::configureLogging()` with `$log->extend('api', ['
 
 ## What's next
 
-- [Exceptions](/documentation/http/exceptions/) — pipeline, `dontReport`, debug payloads
-- [Developer stats](/documentation/operations/developer-stats/) — request metrics at `/stats`
-- [Helpers](/documentation/extending/helpers/) — `logger()`, `report()`, `shouldLogResponses()`
+{{< card-grid >}}
+{{< link-card title="Exceptions" description="Pipeline, dontReport, debug payloads." href="/documentation/http/exceptions/" >}}
+{{< link-card title="Developer stats" description="Request metrics at /stats." href="/documentation/operations/developer-stats/" >}}
+{{< link-card title="Helpers" description="logger(), report(), shouldLogResponses()." href="/documentation/extending/helpers/" >}}
+{{< /card-grid >}}

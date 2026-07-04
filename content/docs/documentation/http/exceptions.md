@@ -8,6 +8,7 @@ lastmod: 2026-07-01
 draft: false
 weight: 750
 toc: true
+doc_type: topic
 parent: "documentation"
 seo:
   title: "Pionia exception pipeline"
@@ -15,6 +16,32 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+When Alex submits `task.create` without a `title`, DeskFlow should return **HTTP 422** — not a blank 500 page. Pionia's **ExceptionPipeline** maps `ValidationException` and other throwables to consistent JSON envelopes.
+
+## What you will learn
+
+- Which exceptions map to which HTTP status codes
+- How to configure handlers in a provider
+- When to use `ValidationException` vs `HttpException`
+
+{{< prerequisites >}}
+- [Validation](/documentation/building-api/validation/) — throwing client errors from actions
+- [Requests & responses](/documentation/http/requests-and-responses/) — `returnCode` in the JSON body
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Action[task.createAction] --> Throw{Throwable?}
+  Throw -->|ValidationException| P422[HTTP 422]
+  Throw -->|ResourceNotFoundException| P404[HTTP 404]
+  Throw -->|Other| P500[HTTP 500]
+  P422 --> JSON[Moonlight envelope]
+  P404 --> JSON
+  P500 --> JSON
+{{< /mermaid >}}
 
 Pionia routes **every uncaught throwable** through `ExceptionPipeline`. Switches and the HTTP kernel do not use ad-hoc `try/catch` for normal errors — register behavior once at bootstrap.
 
@@ -91,4 +118,17 @@ When `DEBUG=true` or `APP_DEBUG=true`, API errors may include `returnData` with 
 
 In custom `Service` actions, throw `ValidationException` for client mistakes and `HttpException` for auth/domain errors. Avoid catching and swallowing errors in switches — let the pipeline handle them.
 
-Related: [Validations](/documentation/building-api/validation/) · [Requests & responses](/documentation/http/requests-and-responses/) · [Database transactions](/documentation/database/transactions-and-raw-sql/).
+## Common mistakes
+
+- **Catching all exceptions in actions** — let the pipeline render consistent JSON; use `map()` for domain errors instead.
+- **Expecting HTTP 200 on validation errors** — v3 uses real status codes; `returnCode` in the body is separate.
+- **Leaking stack traces in production** — keep `DEBUG=false`; use `report()` + external monitoring for 500s.
+- **Using plain `Exception` for missing fields** — use `ValidationException` so clients get **422**.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Validation" description="Rules and attributes before exceptions fire." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Requests & responses" description="Envelope fields and status codes together." href="/documentation/http/requests-and-responses/" >}}
+{{< link-card title="Logging" description="report() and logger() channels." href="/documentation/operations/logging/" >}}
+{{< /card-grid >}}

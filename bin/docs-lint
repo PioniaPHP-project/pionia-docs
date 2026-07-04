@@ -40,6 +40,7 @@ done
 
 LEGACY_PATHS=(
   '/documentation/introduction/'
+  '/documentation/getting-started/api-tutorial/'
   '/documentation/api-tutorial/'
   '/documentation/services/'
   '/documentation/commands-pionia-cli/'

@@ -4,10 +4,11 @@ slug: "security-utilities"
 description: "Pionia Security class and helpers for passwords, tokens, OTPs, hashing, and encryption."
 summary: "Use security() and secure_* helpers for cryptography instead of rolling your own."
 date: 2026-07-01
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 802
 toc: true
+doc_type: reference
 parent: "security"
 seo:
   title: "Pionia security utilities"
@@ -15,16 +16,44 @@ seo:
   noindex: false
 ---
 
-Pionia ships a single **`Pionia\Security\Security`** class registered on the application container. Every public method has a matching global helper so you can use either style:
+## Who this is for
+
+You are implementing DeskFlow **`member.login`** (password hashing with `hash_password()`), issuing session tokens after JWT sign-in, or sealing sensitive columns — and want the built-in **`security()`** helpers instead of ad-hoc crypto.
+
+## What you will learn
+
+- Which `secure_*` helper to use for passwords, API keys, OTPs, and encryption
+- How `APP_KEY` and PHP extensions (`ext-sodium`, `ext-openssl`) fit together
+- Validation rules (`otp`, `token`, `ulid`) that pair with security validators
+
+## Before you start
+
+{{< prerequisites >}}
+- Booted app (`php pionia serve` on port **8000**)
+- [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) — where JWT and `mustAuthenticate()` fit
+- `ext-sodium` enabled for `encrypt()` / `decrypt()` (check `php -m`)
+{{< /prerequisites >}}
+
+## How it works
+
+Pionia ships a single **`Pionia\Security\Security`** class on the application container. Global helpers mirror every public method — use `security()->token()` or `secure_token()` interchangeably after boot.
+
+{{< mermaid >}}
+flowchart LR
+  Login["member.login"] --> Hash["hash_password() / verify_password()"]
+  Token["API session"] --> ST["secure_token()"]
+  OTP["Email reset code"] --> OTPH["secure_otp() + otp rule"]
+  AtRest["Encrypted column"] --> Enc["encrypt() with APP_KEY"]
+{{< /mermaid >}}
 
 ```php
 $token = security()->token();
 $token = secure_token(); // same result
 ```
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{< callout context="note" title="Boot required" icon="outline/information-circle" >}}
 Helpers like `security()` require a booted application (`bootstrap/application.php`). For one-off scripts, call `AppRealm::create()` first or use the class directly: `(new Security())->token()`.
-{{</callout>}}
+{{< /callout >}}
 
 ## Requirements
 
@@ -37,13 +66,19 @@ Helpers like `security()` require a booted application (`bootstrap/application.p
 Set `APP_KEY` in `environment/.env` for symmetric encryption (supports `base64:…` prefix):
 
 ```bash
-openssl rand -base64 32
+php pionia shell
+```
+
+```php
+'base64:' . secure_random_base64(32, false);
 ```
 
 ```ini
-# .env
-APP_KEY=base64:your-generated-value
+# environment/.env
+APP_KEY=base64:paste-the-value-here
 ```
+
+For scripts without a booted app, `(new Security())->randomHex(32)` and `(new Security())->randomBase64(32, false)` work the same way — no OpenSSL CLI required.
 
 ## Random data and identifiers
 
@@ -83,11 +118,13 @@ $pin = secure_random_string(6, Security::ALPHABET_NUMERIC);
 | `verify_password($password, $hash)` | `verifyPassword()` | Check login |
 | `password_needs_rehash($hash)` (PHP built-in) or `security()->needsRehash()` | `needsRehash()` | Upgrade algorithm on login |
 
+DeskFlow `member.login` — verify without leaking hashes in the response:
+
 ```php
 $hash = hash_password($plain);
 if (verify_password($plain, $user->password_hash)) {
   if (password_needs_rehash($user->password_hash)) {
-    db('users')->update($user->id, ['password_hash' => hash_password($plain)]);
+    table('team_members')->update($user->id, ['password_hash' => hash_password($plain)]);
   }
 }
 ```
@@ -224,8 +261,17 @@ See [Validations](/documentation/building-api/validation/) for the full rule lis
 | Encrypt between two known parties | `encrypt_for_recipient()` |
 | Exchange with third-party PEM RSA | `rsa_encrypt()` / `rsa_decrypt()` |
 
-## Related
+## Common mistakes
 
-- [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) — JWT backends, `mustAuthenticate()`, `can()`
-- [Validations](/documentation/building-api/validation/) — `otp`, `token`, `ulid`, `uuid` rules
-- [Helpers](/documentation/extending/helpers/) — full helper index including `security()`
+- Using `md5()` or plain `sha256()` for passwords — use `hash_password()` / `verify_password()` only
+- Calling `encrypt()` without `APP_KEY` set — symmetric crypto fails at runtime
+- Comparing tokens with `===` when timing attacks matter — use `secure_equals()` or `verify_hmac()`
+- Returning OTPs or reset tokens in logs — redact via `[logging] HIDE_IN_LOGS`
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Authentication & authorization" description="Wire JWT backends and mustAuthenticate()." href="/documentation/security/security-authentication-and-authorization/" >}}
+{{< link-card title="Validations" description="otp, token, ulid, uuid rules." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Helpers reference" description="All global helpers including security()." href="/documentation/extending/helpers/" >}}
+{{< /card-grid >}}

@@ -3,7 +3,7 @@ title: "Actions"
 description: "Action methods — the logic behind each Moonlight request."
 summary: "Map JSON action names to *Action methods; read Arrayable data and return response() envelopes."
 date: 2024-10-07 20:24:56.303 +0300
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 220
 toc: true
@@ -14,9 +14,36 @@ seo:
   noindex: false
 ---
 
-{{<callout tip>}}
-This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/getting-started/api-tutorial/). To generate OpenAPI and `/docs` from your actions, see [Documenting your API (Moonlight)](/documentation/building-api/api-reference/).
-{{</callout >}}
+## Who this is for
+
+You registered DeskFlow services on `MainSwitch` and need to **write and call action methods** — the PHP functions behind `"action": "list"` and `"action": "create"`.
+
+## What you will learn
+
+- How Moonlight maps JSON action names to `listAction()` and `createAction()`
+- Reading request data from `Arrayable` and returning `response()` envelopes
+- Auth helpers (`mustAuthenticate()`, `can()`) inside actions
+
+## Before you start
+
+{{< prerequisites >}}
+- [Services](/documentation/building-api/services/) — `TaskService` registered as `task`
+- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — working `task.list` curl on port **8000**
+- Optional: [Documenting your API](/documentation/building-api/api-reference/) for `@moonlight-*` tags
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Body["{ service: task, action: list }"] --> Dispatch[processAction]
+  Dispatch --> Method[listAction]
+  Method --> Envelope["response(0, OK, returnData)"]
+{{< /mermaid >}}
+
+DeskFlow POSTs to **`http://127.0.0.1:8000/api/v1/`**. Pionia resolves `"list"` → `listAction()` on the service registered as `"task"`.
+
+---
 
 ## Introduction
 Actions are the actual logic that is executed when a request is made to the API. Actions are the central logic for the entire app. They are responsible for handling the request, processing the data, and returning the response.
@@ -698,3 +725,19 @@ By default, the `canAny` method throws an exception with the message `You do not
 {{<callout danger>}}
 The methods `can`, `canAll`, and `canAny` check for `mustAuthenticate()` before proceeding with the permission checks. If the request is not authenticated, the permission checks are not executed. You therefore do not need to call `mustAuthenticate()` before calling `can`, `canAll`, or `canAny`. 
 {{</callout>}}
+
+## Common mistakes
+
+- **Forgetting the `Action` suffix** — `"action": "list"` calls `listAction()`, not `list()`.
+- **Returning raw arrays** — always use `response()` so clients get `returnCode`, `returnMessage`, and `returnData`.
+- **Reading query strings for Moonlight actions** — business params belong in the POST JSON body, not `?title=`.
+- **Assuming HTTP 200 means success** — check both status code and `returnCode` (validation failures use **422**).
+- **Public methods without `Action`** — helper methods are fine, but any public `*Action` method is reachable from the API.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Validation" description="Reject task.create without a title." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Documenting your API" description="@moonlight-* tags and /docs." href="/documentation/building-api/api-reference/" >}}
+{{< link-card title="Moonlight security" description="Where auth runs in the pipeline." href="/documentation/building-api/moonlight-security/" >}}
+{{< /card-grid >}}

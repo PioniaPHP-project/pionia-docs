@@ -3,7 +3,7 @@ title: "Documenting your API (Moonlight)"
 slug: "api-reference"
 description: "How to document services and actions with @moonlight-* tags, generate OpenAPI, and expose /docs."
 date: 2026-06-25T00:00:00.000Z
-lastmod: 2026-07-02T00:00:00.000Z
+lastmod: 2026-07-04
 draft: false
 weight: 560
 toc: true
@@ -13,9 +13,28 @@ seo:
   noindex: false
 ---
 
-{{< callout tip >}}
-**Prerequisites:** You have a [service](/documentation/building-api/services/) with `*Action` methods registered on a [switch](/documentation/building-api/api-versioning/). This guide covers **documenting** those actions for humans and API consumers — not writing the business logic itself.
-{{< /callout >}}
+---
+
+## Who this is for
+
+Northwind's frontend team needs **`/docs`** and an OpenAPI file they can trust. You have DeskFlow services with `*Action` methods and want to document every `{ service, action }` pair without maintaining a separate spec by hand.
+
+## What you will learn
+
+- `@moonlight-*` PHPDoc tags for `task`, `member`, and `project` actions
+- Generating `docs/api/openapi.json` with `php pionia api:docs`
+- Enabling Scalar UI at **`http://127.0.0.1:8000/docs`** in development
+
+## Before you start
+
+{{< prerequisites >}}
+- [Services](/documentation/building-api/services/) with `*Action` methods registered on [MainSwitch](/documentation/building-api/api-versioning/)
+- DeskFlow running locally on port **8000**
+{{< /prerequisites >}}
+
+## How it works
+
+Moonlight docs scan your `services/` classes at boot and when you run `api:docs`. Each action becomes one OpenAPI operation grouped by service tag — clients still POST to a single `/api/v1/` URL.
 
 ## What Moonlight docs are
 
@@ -23,9 +42,9 @@ Pionia’s HTTP API is **not** one OpenAPI path per REST resource. Clients POST 
 
 ```json
 {
-  "service": "auth",
-  "action": "list_auth",
-  "page": 1
+  "service": "task",
+  "action": "list",
+  "project_id": 1
 }
 ```
 
@@ -76,13 +95,13 @@ namespace Application\Services;
 use Pionia\Http\Services\Service;
 
 /**
- * Authentication — demo CRUD for auth records.
+ * DeskFlow tasks for Northwind Studio.
  *
- * @moonlight-service auth
+ * @moonlight-service task
  * @moonlight-version v1
  * @moonlight-auth partial
  */
-class AuthService extends Service
+class TaskService extends Service
 {
     // actions …
 }
@@ -355,10 +374,17 @@ Register `category` on your switch, run `php pionia api:docs --ui`, then open `/
 - [ ] `@moonlight-auth` set when auth differs from service default.
 - [ ] Run `php pionia api:docs --check` in CI after changing tags.
 
-## Related guides
+## Common mistakes
 
-- [Services overview](/documentation/building-api/services/) — register services on switches
-- [Actions](/documentation/building-api/actions/) — write action methods and envelopes
-- [Security](/documentation/security/security-authentication-and-authorization/) — auth traits and `@moonlight-auth`
-- [CLI commands](/documentation/operations/commands/) — full `api:docs` / `api:catalog` reference
-- [Moonlight architecture](/documentation/building-api/moonlight-overview/) — switches, services, and the request model
+- **Documenting REST URLs per action** — Moonlight clients always POST to `/api/v1/`; OpenAPI paths are for browsing only.
+- **Skipping `@moonlight-example`** — frontend teams copy-paste from examples; include `"service"` and `"action"` keys.
+- **Mismatching registry alias** — `@moonlight-service task` must match `MainSwitch::registerServices()` exactly.
+- **Leaving `/docs` open in staging** — set `DOCS_TOKEN` when `DEBUG=false`.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Actions" description="Write the methods you document." href="/documentation/building-api/actions/" >}}
+{{< link-card title="Moonlight security" description="@moonlight-auth and switch auth." href="/documentation/building-api/moonlight-security/" >}}
+{{< link-card title="Commands" description="Full api:docs / api:catalog reference." href="/documentation/operations/commands/" >}}
+{{< /card-grid >}}

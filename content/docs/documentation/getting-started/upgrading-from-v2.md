@@ -2,8 +2,9 @@
 title: "Upgrading from v2"
 slug: "upgrading-from-v2"
 description: "Migrate PioniaApplication apps to AppRealm and v3 bootstrap."
+summary: "Bootstrap, switches, routing, and a fresh DeskFlow scaffold option."
 date: 2026-06-25T00:00:00.000Z
-lastmod: 2026-06-25T00:00:00.000Z
+lastmod: 2026-07-04
 draft: false
 weight: 115
 toc: true
@@ -11,7 +12,27 @@ seo:
   noindex: false
 ---
 
-For a feature overview before migrating, read [Pionia v3 release notes](/documentation/getting-started/changelog-v3/).
+## Who this is for
+
+You maintain a **v2 Pionia app** (pre-AppRealm) and need a clear path to v3 — or you want to regenerate DeskFlow with `pionia/pionia-app` and port your services.
+
+## What you will learn
+
+- Replacing `PioniaApplication` with `AppRealm::create()`
+- Moving switch registration into `[app_switches]` in `settings.ini`
+- When a fresh scaffold beats incremental file edits
+
+## Before you start
+
+{{< prerequisites >}}
+- PHP **8.5+** installed locally
+- [Pionia v3 release notes](/documentation/getting-started/changelog-v3/) for the full feature overview
+- Back up `services/`, `switches/`, and `environment/` before changing bootstrap files
+{{< /prerequisites >}}
+
+## How it works
+
+v3 separates **framework boot** (`AppRealm`) from **API versioning** (`[app_switches]`). Your DeskFlow services (`task`, `member`, `project`) port mostly unchanged — the wiring around them moves to `settings.ini` and `bootHttp()`.
 
 ## Requirements
 
@@ -53,7 +74,11 @@ return AppRealm::create(__DIR__);
 ```php
 public static function registerServices(): Arrayable
 {
-    return arr(['auth' => AuthService::class]);
+    return arr([
+        'task' => TaskService::class,
+        'member' => MemberService::class,
+        'project' => ProjectService::class,
+    ]);
 }
 ```
 
@@ -103,8 +128,25 @@ See [Production performance](/documentation/operations/production-performance/).
 Regenerate and port services:
 
 ```bash
-composer create-project pionia/pionia-app my-api-v3
+composer create-project pionia/pionia-app deskflow-api-v3
 # copy services/, switches/, environment/ from the old app
+php pionia serve
+curl -s http://127.0.0.1:8000/api/v1/ping
 ```
 
 See [Application structure](/documentation/getting-started/application-structure/) for the full v3 tree.
+
+## Common mistakes
+
+- **Leaving imperative router wiring in bootstrap** — delete `PioniaRouter::wireTo()` calls; use `[app_switches]` only.
+- **Returning plain arrays from `registerServices()`** — wrap with `arr([...])` for the `Arrayable` contract.
+- **Porting without updating JSON keys** — v3 expects lowercase `service` and `action` in request bodies.
+- **Running v3 on PHP 8.4** — upgrade PHP before bumping `pionia/pionia-core` to `^3.0`.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Application structure" description="Full v3 folder map." href="/documentation/getting-started/application-structure/" >}}
+{{< link-card title="Release notes (v3)" description="Complete feature changelog." href="/documentation/getting-started/changelog-v3/" >}}
+{{< link-card title="API tutorial" description="Rebuild DeskFlow on v3." href="/documentation/deskflow-tutorial/" >}}
+{{< /card-grid >}}

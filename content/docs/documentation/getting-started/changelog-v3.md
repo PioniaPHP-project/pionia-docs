@@ -4,7 +4,7 @@ slug: "changelog-v3"
 description: "Official release notes for Pionia 3.0 — platform requirements, new capabilities, and migration guidance."
 summary: "What changed in Pionia v3: AppRealm, native HTTP stack, RoadRunner, production optimization, and the Moonlight async platform."
 date: 2026-07-01T00:00:00.000Z
-lastmod: 2026-07-01T00:00:00.000Z
+lastmod: 2026-07-04
 draft: false
 weight: 110
 toc: true
@@ -14,6 +14,29 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+---
+
+## Who this is for
+
+You are planning a **v3 upgrade** for an existing Pionia app or starting fresh with DeskFlow. This page lists platform requirements, breaking changes, and links to detailed guides.
+
+## What you will learn
+
+- PHP 8.5 requirements and the `pionia/pionia-app` template split
+- Major v3 capabilities: AppRealm, native HTTP stack, RoadRunner, async Moonlight
+- Where to read migration steps vs feature deep dives
+
+## Before you start
+
+{{< prerequisites >}}
+- Read [Why Pionia?](/documentation/getting-started/why-pionia/) for the product fit
+- Upgrading an existing app? Start [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) in parallel
+{{< /prerequisites >}}
+
+## How it works
+
+v3 preserves the Moonlight contract Northwind clients already know — `{ "service", "action" }` on `/api/v1/` with the same envelope. The **platform underneath** changed: bootstrap, routing, CLI, caching, and deploy tooling are now native to Pionia.
 
 Pionia **3.0** is a major release that modernizes the framework kernel, reduces third-party dependencies, and adds first-class tooling for production deployment, persistent workers, and full-stack applications.
 
@@ -26,7 +49,7 @@ This document summarizes what is new, what changed, and where to read the detail
 | **Release** | `pionia/pionia-core` **3.0** |
 | **Application template** | [`pionia/pionia-app`](https://packagist.org/packages/pionia/pionia-app) |
 | **PHP requirement** | **8.5+** |
-| **Documentation** | [pionia.netlify.app](https://pionia.netlify.app) |
+| **Documentation** | This site (`/`) |
 
 v3 preserves the Moonlight contract: versioned API paths, `{ "service", "action" }` dispatch, and a consistent response envelope. What changed is the **platform underneath** — bootstrap, HTTP stack, CLI, caching, exception handling, and deploy-time optimization are now native to Pionia.
 
@@ -360,6 +383,21 @@ See [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) for a
 - [Resources](/resources/) — community links and in-project commands
 - Enable `DEBUG=true` temporarily and inspect `storage/logs/` for error details
 - Open an issue on the repository you installed from Packagist
+
+## Common mistakes
+
+- **Upgrading Composer before PHP 8.5** — v3 will not boot on older runtimes.
+- **Keeping Symfony route files** — v3 uses native `RouteTable`; remove dead `routes.php` wiring.
+- **Assuming v2 `PioniaApplication` still exists** — rename to `AppRealm::create()` everywhere.
+- **Skipping `php pionia optimize --production`** — deploy works without it, but you miss preload and route caches.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Upgrading from v2" description="Step-by-step migration checklist." href="/documentation/getting-started/upgrading-from-v2/" >}}
+{{< link-card title="Introduction" description="Scaffold a fresh v3 DeskFlow app." href="/documentation/getting-started/introduction/" >}}
+{{< link-card title="RoadRunner" description="Persistent workers in v3." href="/documentation/operations/roadrunner/" >}}
+{{< /card-grid >}}
 
 ---
 

@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "create": "hugo new",
-    "dev": "hugo server --disableFastRender --noHTTPCache",
+    "dev": "hugo server --disableFastRender --noHTTPCache --buildFuture --baseURL http://localhost:1313/",
     "format": "prettier **/** -w -c",
-    "build": "hugo --minify --gc --noBuildLock",
+    "build": "hugo --environment production --minify --gc --noBuildLock --buildFuture",
     "lint:docs": "bin/docs-lint",
     "preview": "vite preview --outDir public"
   },

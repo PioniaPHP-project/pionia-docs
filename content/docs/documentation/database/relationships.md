@@ -4,10 +4,11 @@ slug: "relationships"
 description: "Join tables with Porm — ON clauses, aliases, GenericService, and the Join builder."
 summary: "inner/left/right/full joins, JoinOn helpers, filtering, count, pagination."
 date: 2026-03-01
-lastmod: 2026-03-01
+lastmod: 2026-07-01
 draft: false
 weight: 815
 toc: true
+doc_type: topic
 parent: "database"
 seo:
   title: "Porm joins and relationships"
@@ -16,6 +17,31 @@ seo:
   noindex: false
 ---
 
+This guide shows **Northwind Studio** how to join **DeskFlow** tables — tasks with projects and assignees from `team_members` — without an ORM relationship graph. Explicit `join()` chains power enriched list responses on port **8000**.
+
+## What you will learn
+
+- Choose inner/left/right/full joins and ON/USING formats
+- Qualify columns and aliases when listing tasks with project names
+- Wire the same joins into `GenericService` for Moonlight list actions
+
+{{< prerequisites >}}
+- [Making queries](/documentation/database/making-queries/) — table-level reads before joins
+- [Filtering](/documentation/database/queries-with-filtering/) — `where()` on Join builders
+{{< /prerequisites >}}
+
+## How it works
+
+```text
+table('tasks', 't')          ← base table (+ optional alias)
+  ->columns([...])            ← always qualify columns when joined
+  ->join()                     ← enter Join builder (no save/delete on this chain)
+    ->left('projects', $on, 'p')
+    ->left('team_members', $on, 'm')
+    ->where('t.status', 'open')
+    ->all();
+```
+
 Porm joins are **explicit** — there is no magic relationship graph. You call `join()` on a `table()` query, chain `inner()` / `left()` / `right()` / `full()`, then finish with `all()`, `get()`, `first()`, or `count()`.
 
 {{<callout context="tip" icon="outline/pencil">}}
@@ -23,15 +49,6 @@ Porm joins are **explicit** — there is no magic relationship graph. You call `
 {{</callout>}}
 
 ## Mental model
-
-```text
-table('orders', 'o')          ← base table (+ optional alias)
-  ->columns([...])            ← always qualify columns when joined
-  ->join()                     ← enter Join builder (no more save/delete on this chain)
-    ->left('users', $on, 'u')  ← join type + ON/USING + join alias
-    ->where('o.status', 'paid')
-    ->all();
-```
 
 | Mode | Entry | Terminal methods |
 |------|--------|------------------|
@@ -53,10 +70,10 @@ Signature: **`($joinedTable, $onOrUsing, $alias)`** — the third argument is th
 ```php
 use Pionia\Porm\Database\Builders\JoinOn;
 
-table('sample_table', 'st')
-    ->columns(['st.name', 'c.name(company_name)'])
+table('tasks', 't')
+    ->columns(['t.title', 'p.name(project_name)'])
     ->join()
-    ->leftJoin('company', JoinOn::map('company', 'id'), 'c')
+    ->leftJoin('projects', JoinOn::map('project_id', 'id'), 'p')
     ->all();
 ```
 
@@ -70,22 +87,22 @@ Piql (under the hood) accepts four shapes for the second argument:
 `ON {base_table}.{baseColumn} = {alias}.{joinedColumn}`.
 
 ```php
-// sample_table.company → company.id
-->left('company', ['company' => 'id'], 'c')
+// tasks.project_id → projects.id
+->left('projects', ['project_id' => 'id'], 'p')
 
-// products.category_id → categories.id
-->inner('categories', ['category_id' => 'id'])
+// tasks.assignee_id → team_members.id
+->inner('team_members', ['assignee_id' => 'id'])
 ```
 
-Use `JoinOn::map('company', 'id')` for readability.
+Use `JoinOn::map('project_id', 'id')` for readability.
 
 ### 2. Raw SQL expression
 
 Full `ON` expression as a string (you quote columns / qualify names):
 
 ```php
-->inner('categories', 'products.category_id = categories.id')
-->left('users', JoinOn::expression('orders.user_id = users.id AND users.active = 1'))
+->inner('projects', 'tasks.project_id = projects.id')
+->left('team_members', JoinOn::expression('tasks.assignee_id = team_members.id AND team_members.active = 1'))
 ```
 
 ### 3. `USING` — shared column name(s)
@@ -112,18 +129,18 @@ For multi-table chains, keys may include the table/alias prefix:
 Always list columns explicitly when joining — avoid `*` on both tables (name collisions).
 
 ```php
-table('orders', 'o')
+table('tasks', 't')
     ->columns([
-        'o.id',
-        'o.total',
-        'u.email(customer_email)',  // AS customer_email
+        't.id',
+        't.title',
+        'm.email(assignee_email)',  // AS assignee_email
     ])
     ->join()
-    ->left('users', JoinOn::map('user_id', 'id'), 'u')
+    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
     ->all();
 ```
 
-**Base table alias:** `table('stock', 'st')` or GenericService `$baseAlias = 'st'`.
+**Base table alias:** `table('tasks', 't')` or GenericService `$baseAlias = 't'`.
 
 **Result alias:** `column(alias)` in the column list — same as non-join queries.
 
@@ -132,17 +149,17 @@ table('orders', 'o')
 On the Join builder use **`where()`** (fluent or array) or **`filter($array)`** (sugar over `where`):
 
 ```php
-table('orders', 'o')
+table('tasks', 't')
     ->join()
-    ->inner('users', JoinOn::map('user_id', 'id'), 'u')
-    ->where('o.status', 'paid')
-    ->where('u.country', 'UG')
-    ->orderBy(['o.created_at' => 'DESC'])
+    ->inner('projects', JoinOn::map('project_id', 'id'), 'p')
+    ->where('t.status', 'open')
+    ->where('p.client', 'Northwind')
+    ->orderBy(['t.created_at' => 'DESC'])
     ->limit(20)
     ->all();
 
 // array style
-->filter(['o.status' => 'paid', 'u.active' => 1])
+->filter(['t.status' => 'open', 'p.active' => 1])
 ```
 
 Fluent operators (`starts_with`, `in`, …) work here too — see [Filtering](/documentation/database/queries-with-filtering/).
@@ -150,27 +167,27 @@ Fluent operators (`starts_with`, `in`, …) work here too — see [Filtering](/d
 ## Single row — `get()` / `first()`
 
 ```php
-$row = table('sample_table', 'st')
-    ->columns(['st.name', 'c.name(company_name)'])
+$row = table('tasks', 't')
+    ->columns(['t.title', 'p.name(project_name)'])
     ->join()
-    ->left('company', JoinOn::map('company', 'id'), 'c')
-    ->where('st.id', 1)
+    ->left('projects', JoinOn::map('project_id', 'id'), 'p')
+    ->where('t.id', 1)
     ->first();
 ```
 
 ## Count & random
 
 ```php
-$total = table('orders', 'o')
+$total = table('tasks', 't')
     ->join()
-    ->left('users', JoinOn::map('user_id', 'id'), 'u')
-    ->where('o.status', 'open')
+    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
+    ->where('t.status', 'open')
     ->count();
 
-$pick = table('products')
+$pick = table('tasks')
     ->join()
-    ->inner('categories', JoinOn::map('category_id', 'id'))
-    ->random(1, ['products.active' => 1]);
+    ->inner('projects', JoinOn::map('project_id', 'id'))
+    ->random(1, ['tasks.status' => 'open']);
 ```
 
 ## Multiple joins
@@ -178,11 +195,11 @@ $pick = table('products')
 Chain before executing:
 
 ```php
-table('line_items', 'li')
-    ->columns(['li.qty', 'o.id(order_id)', 'p.name'])
+table('tasks', 't')
+    ->columns(['t.title', 'p.name(project_name)', 'm.name(assignee)'])
     ->join()
-    ->inner('orders', JoinOn::map('order_id', 'id'), 'o')
-    ->left('products', JoinOn::map('product_id', 'id'), 'p')
+    ->inner('projects', JoinOn::map('project_id', 'id'), 'p')
+    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
     ->all();
 ```
 
@@ -193,12 +210,12 @@ Order matters: each join sees tables already in the query.
 Use `PaginationCore` with a base alias and return the join chain from `init()`:
 
 ```php
-$pagination = new PaginationCore($req, 'sample_table', 10, 0, null, 'st');
+$pagination = new PaginationCore($req, 'tasks', 10, 0, null, 't');
 $page = $pagination
-    ->columns(['st.id', 'st.name', 'c.name(company_name)'])
+    ->columns(['t.id', 't.title', 'p.name(project_name)'])
     ->init(fn ($q) => $q->join()
-        ->left('company', JoinOn::map('company', 'id'), 'c')
-        ->orderBy(['st.id' => 'DESC']))
+        ->left('projects', JoinOn::map('project_id', 'id'), 'p')
+        ->orderBy(['t.id' => 'DESC']))
     ->paginate();
 ```
 
@@ -211,11 +228,11 @@ When you already fetched parent rows (e.g. from a simple `filter()->all()`) and 
 ```php
 use Pionia\Porm\Database\Builders\JoinLoader;
 
-$items = table('sample_table', 'st')->filter()->all();
-$items = JoinLoader::eager($items, 'company', 'company', 'id', 'company_row');
+$tasks = table('tasks', 't')->filter()->all();
+$tasks = JoinLoader::eager($tasks, 'project_id', 'projects', 'id', 'project');
 ```
 
-This runs one `WHERE IN` on the related table and attaches each match as `company_row` on the parent. Pass a connection name as the last argument when not using `default`.
+This runs one `WHERE IN` on the related table and attaches each match as `project` on the parent. Pass a connection name as the last argument when not using `default`.
 
 ## GenericService joins
 
@@ -224,27 +241,27 @@ Declare joins on services extending `GenericService` / `UniversalGenericService`
 ```php
 use Pionia\Http\Services\JoinType;
 
-class SampoloService extends UniversalGenericService
+class TaskService extends UniversalGenericService
 {
-    public string $table = 'sample_table';
-    public ?string $baseAlias = 'st';
+    public string $table = 'tasks';
+    public ?string $baseAlias = 't';
 
     public ?array $joins = [
-        'company' => ['company' => 'id'],  // st.company = company.id
+        'projects' => ['project_id' => 'id'],  // t.project_id = projects.id
     ];
 
     public ?array $joinTypes = [
-        'company' => JoinType::LEFT,
+        'projects' => JoinType::LEFT,
     ];
 
     public ?array $joinAliases = [
-        'company' => 'c',
+        'projects' => 'p',
     ];
 
     public ?array $listColumns = [
-        'st.id(id)',
-        'st.name(name)',
-        'c.name(company_name)',
+        't.id(id)',
+        't.title(title)',
+        'p.name(project_name)',
     ];
 }
 ```
@@ -257,7 +274,7 @@ class SampoloService extends UniversalGenericService
 | `$baseAlias` | Alias for the service `$table` in queries |
 | `$dontRelate` (request) | Skip joins; query base table only |
 
-**Map direction:** keys are columns on the **base** (`$table`) side; values are columns on the **joined** table — matching Piql’s `ON base.key = joined.value`.
+**Map direction:** keys are columns on the **base** (`$table`) side; values are columns on the **joined** table — matching Piql's `ON base.key = joined.value`.
 
 Clients can pass `dontRelate: true` in the API body to list without joins. See [Advanced generic services](/documentation/building-api/advanced-generic-services/).
 
@@ -276,3 +293,18 @@ Clients can pass `dontRelate: true` in the API body to list without joins. See [
 4. **Count before paginate** — `PaginationCore` runs `count()` on the same join chain; keep filters on the join builder inside `init()`.
 
 Related: [WHERE DSL](/documentation/database/where-dsl/) · [API reference](/documentation/database/api-reference/) · [Generic services](/documentation/building-api/generic-services/).
+
+## Common mistakes
+
+- **Selecting `*` on joined tasks and projects** — duplicate `id`/`name` columns collide in DeskFlow list JSON.
+- **Calling `save()` on a join chain** — writes only hit the base `$table`; update tasks separately from project rows.
+- **Swapping ON map direction** — keys are base-table columns (`project_id`), values are joined-table columns (`id`).
+- **Using FULL JOIN on SQLite for DeskFlow local dev** — prefer LEFT JOIN; SQLite support is limited.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Pagination" description="Paginate joined task lists." href="/documentation/database/pagination/" >}}
+{{< link-card title="Performance" description="JoinLoader vs N+1 queries." href="/documentation/database/performance/" >}}
+{{< link-card title="Advanced generic services" description="Join config on TaskService." href="/documentation/building-api/advanced-generic-services/" >}}
+{{< /card-grid >}}

@@ -3,7 +3,7 @@ title: "Services"
 description: "PHP classes that hold your business logic — one DeskFlow service per domain area."
 summary: "Register TaskService on MainSwitch; each public *Action method becomes a Moonlight endpoint."
 date: 2024-07-05 01:06:18.709 +0300
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 210
 toc: true
@@ -14,13 +14,35 @@ seo:
   noindex: false
 ---
 
+---
+
+## Who this is for
+
+You scaffolded DeskFlow and need to **create and register service classes** — the PHP home for `task`, `member`, and `project` business logic.
+
+## What you will learn
+
+- How `make:service` scaffolds `TaskService` under `services/`
+- Registering aliases on `MainSwitch` so JSON `"service": "task"` resolves
+- Choosing **Basic** vs **Generic** services for Northwind tables
+
+## Before you start
+
 {{< prerequisites >}}
-- Completed [API tutorial Part 1](/documentation/getting-started/api-tutorial/) or read [Moonlight overview](/documentation/building-api/moonlight-overview/)
+- Completed [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) or read [Moonlight overview](/documentation/building-api/moonlight-overview/)
 - A running DeskFlow app on port **8000**
 {{< /prerequisites >}}
 
-## What is a service?
+## How it works
 
+{{< mermaid >}}
+flowchart LR
+  JSON["service: task"] --> Switch[MainSwitch]
+  Switch --> Class[TaskService]
+  Class --> Actions[listAction / createAction]
+{{< /mermaid >}}
+
+## What is a service?
 **Services** are plain PHP classes under `services/` that extend `Pionia\Http\Services\Service`. Each **action** is a public method named `somethingAction()` — Pionia maps `"action": "list"` to `listAction()`.
 
 In DeskFlow, Northwind Studio uses three services:
@@ -84,12 +106,7 @@ curl -s -X POST http://127.0.0.1:8000/api/v1/ \
 Expected: HTTP **200** with `"returnCode": 0` and a `tasks` array in `returnData`.
 {{< /try-it >}}
 
-Next: [Actions](/documentation/building-api/actions/) — request data, responses, and validation.
-
 ---
-
-## CLI options (make:service)
-
 When you run `make:service`, the CLI offers two paths:
 
 {{< tabs "create-new-service" >}}
@@ -261,3 +278,18 @@ protected function getTodoAction(Arrayable $data): ApiResponse
 ```
 
 Uncaught throwables flow through the [exception pipeline](/documentation/http/exceptions/) — use clear exception messages for clients.
+
+## Common mistakes
+
+- **Wrong service alias** — the JSON key must match `registerServices()` exactly (`task`, not `TaskService`).
+- **Forgetting to register after `make:service`** — the CLI creates the class but does not edit `MainSwitch` for you.
+- **Using `$serviceRequiresAuth` without JWT configured** — set up `member.login` first; see [Authentication](/documentation/security/security-authentication-and-authorization/).
+- **Expecting every error to be HTTP 200** — validation uses **422**, auth failures **401**; see [Requests & responses](/documentation/http/requests-and-responses/).
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Actions" description="Request data, responses, and auth helpers." href="/documentation/building-api/actions/" >}}
+{{< link-card title="Validation" description="422 when Alex omits task title." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Generic services" description="CRUD for project rows." href="/documentation/building-api/generic-services/" >}}
+{{< /card-grid >}}

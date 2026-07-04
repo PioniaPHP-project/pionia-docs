@@ -4,15 +4,39 @@ slug: "commands-pionia-cli"
 description: "Guides you on to use Pionia CLI and adding custom commands"
 summary: "Available commands in Pionia CLI and how to add custom commands."
 date: 2024-10-07 19:48:09.318 +0300
-lastmod: 2026-07-02
+lastmod: 2026-07-04
 draft: false
 weight: 3000
 toc: true
+doc_type: reference
 seo:
   title: "Commands(Pionia CLI)" # custom title (optional)
   description: "Guides on how to interact with Pionia CLI." # custom description (recommended)
   noindex: false # false (default) or true
 ---
+
+This reference is for DeskFlow developers who run **`php pionia`** from the project root — same `AppRealm` boot as HTTP, port **8000** by default, logs under `storage/logs/` when using file channels or detached RoadRunner.
+
+## What you will learn
+
+- Daily commands (`serve`, `make:service`, `cache:clear`) vs deploy-only commands (`optimize`, `runserver`)
+- The full built-in command registry and common flags
+- How to scaffold and register a custom command in `commands/`
+
+{{< prerequisites >}}
+- [Introduction](/documentation/getting-started/introduction/) — `composer create-project pionia/pionia-app`
+- DeskFlow app directory with `bootstrap/application.php`
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  CLI[php pionia …] --> Boot[bootConsole]
+  Boot --> Realm[AppRealm]
+  Realm --> Cmd[Command::handle]
+  Cmd --> Out[Terminal output]
+{{< /mermaid >}}
 
 Pionia CLI is the command-line interface for your application. It boots the same **`AppRealm`** as HTTP via `bootstrap/application.php` → `bootConsole()`.
 
@@ -151,7 +175,7 @@ Options: `--framework=`, `--directory=frontend`, `--package-manager=`, `--yes`
 | `maintenance:on` | `down` | Enable HTTP 503 gate |
 | `maintenance:off` | `up` | Disable maintenance mode |
 
-**`maintenance:on`** — `php pionia maintenance:on --message="Deploying" --retry-after=300 --bypass="$(openssl rand -hex 16)"`  
+**`maintenance:on`** — `php pionia maintenance:on --message="Deploying" --retry-after=300 --bypass="$(php -r 'require "vendor/autoload.php"; echo (new Pionia\Security\Security())->randomHex(16);')"`  
 Options: `--message=`, `--retry-after=`, `--bypass=` / `--secret=`
 
 See [Maintenance mode](/documentation/operations/maintenance/).
@@ -195,8 +219,6 @@ php pionia list
 php pionia help runserver
 php pionia help frontend:scaffold
 ```
-
-See also: [Introduction](/documentation/getting-started/introduction/) · [RoadRunner](/documentation/operations/roadrunner/) · [Background work](/documentation/operations/background-work/).
 
 ## Adding Custom Commands
 
@@ -425,3 +447,18 @@ php pionia gen-pwd --length=20
 {{<callout context="note" icon="outline/information-circle">}}
 The sections below walk through building this command step by step. For the full built-in command reference, see [Built-in commands (v3)](#built-in-commands-v3) above.
 {{</callout>}}
+
+## Common mistakes
+
+- **Running CLI from outside the app root** — `php pionia` must run where `bootstrap/application.php` lives.
+- **Using `composer run pionia` without `--`** — pass command args after `--`: `composer run pionia -- list`.
+- **Expecting `serve` to enable jobs or HTTP/2** — use `runserver` for RoadRunner; see [RoadRunner](/documentation/operations/roadrunner/).
+- **Editing `generated.ini` only for custom commands** — copy `[commands]` entries to `settings.ini` for all environments.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="RoadRunner" description="runserver, rr:setup, worker logs." href="/documentation/operations/roadrunner/" >}}
+{{< link-card title="Background work" description="defer() after API responses." href="/documentation/operations/background-work/" >}}
+{{< link-card title="Production performance" description="optimize --production on deploy." href="/documentation/operations/production-performance/" >}}
+{{< /card-grid >}}

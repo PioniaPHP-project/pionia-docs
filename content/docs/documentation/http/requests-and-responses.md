@@ -8,13 +8,36 @@ lastmod: 2026-07-02
 draft: false
 weight: 700
 toc: true
+doc_type: topic
 seo:
   title: "Requests and Responses" # custom title (optional)
   description: "Guides us through the process of handling requests and responses in pionia." # custom description (recommended)
   noindex: false # false (default) or true
 ---
 
-{{<picture src="pionia.png" alt="Pionia Logo">}}
+This guide explains how DeskFlow clients talk to Pionia over HTTP — ping with **GET**, dispatch actions with **POST**, and read **`returnCode`** plus real status codes like **422**.
+
+## What you will learn
+
+- Call `GET /api/v1/ping` and `POST /api/v1/` with `{ "service", "action" }`
+- Read request data as `Arrayable` and return `response()` envelopes
+- Map validation failures to HTTP 422
+
+{{< prerequisites >}}
+- [Introduction](/documentation/getting-started/introduction/) — install and first ping
+- [Glossary](/documentation/getting-started/glossary/) — envelope terminology
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Client -->|GET /api/v1/ping| Ping[Health check]
+  Client -->|POST JSON| Switch[MainSwitch v1]
+  Switch --> Service[TaskService]
+  Service --> Env["returnCode + returnMessage + returnData"]
+  Env --> Client
+{{< /mermaid >}}
 
 ## Handling Requests and Responses
 
@@ -215,9 +238,12 @@ use Pionia\Collections\Arrayable;
 use Pionia\Exceptions\ValidationException;
 use Pionia\Http\Response\ApiResponse;
 
-protected function saveAction(Arrayable $data): ApiResponse
+protected function createTaskAction(Arrayable $data): ApiResponse
 {
-    throw new ValidationException('This stops the action with HTTP 422');
+    if (!$data->getString('title')) {
+        throw new ValidationException('title is required');
+    }
+    return response(0, 'OK', ['task' => ['title' => $data->getString('title')]]);
 }
 ```
 
@@ -240,6 +266,21 @@ SPA client routes (e.g. `/dashboard`) fall back to `index.html` when configured 
 Only `public/static/` is wired to `/static/`. A nested `public/public/static/` folder is **not** served unless you add custom routes.
 {{</callout>}}
 
-{{<callout context="note" title="Note" icon="outline/pencil">}}
+## Common mistakes
+
+- **Legacy uppercase JSON keys** — Moonlight v3 expects lowercase `service` and `action`.
+- **Expecting HTTP 200 for every error** — validation and auth use 422/401 with JSON bodies.
+- **Using `$data['key']` instead of Arrayable getters** — see [Collections](/documentation/http/collections/).
+- **Confusing `returnCode` with HTTP status** — they are independent; both appear in responses.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Collections" description="Typed getters on request data." href="/documentation/http/collections/" >}}
+{{< link-card title="Exceptions" description="Pipeline and debug responses." href="/documentation/http/exceptions/" >}}
+{{< link-card title="Examples" description="Copy-paste DeskFlow curl payloads." href="/documentation/examples/" >}}
+{{< /card-grid >}}
+
+{{< callout context="note" title="Note" icon="outline/pencil" >}}
 By default, Pionia reserves `returnCode` of `0` for successful responses. This is just a convention, and you can use any other code you want.
-{{</callout>}}
+{{< /callout >}}

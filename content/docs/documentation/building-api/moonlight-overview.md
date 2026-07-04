@@ -100,6 +100,6 @@ Authentication runs **before** your action method — like checking the driver's
 
 {{< card-grid >}}
 {{< link-card title="Services" description="Create TaskService and register actions." href="/documentation/building-api/services/" >}}
-{{< link-card title="API tutorial" description="Build DeskFlow Part 1 hands-on." href="/documentation/getting-started/api-tutorial/" >}}
+{{< link-card title="API tutorial" description="Start the DeskFlow tutorial." href="/documentation/deskflow-tutorial/" >}}
 {{< link-card title="Requests & responses" description="HTTP status codes and envelopes." href="/documentation/http/requests-and-responses/" >}}
 {{< /card-grid >}}

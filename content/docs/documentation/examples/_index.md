@@ -3,7 +3,7 @@ title: "Examples"
 description: "Copy-paste DeskFlow API payloads and responses."
 summary: "Annotated curl examples for Northwind Studio's task board API."
 date: 2026-07-01
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 250
 url: /documentation/examples/
@@ -14,7 +14,26 @@ seo:
   description: "Sample Moonlight envelopes for ping, tasks, login, and filters."
 ---
 
-These snippets match the [DeskFlow tutorial](/documentation/getting-started/api-tutorial/). Each links back to the guide that explains the concept — no new ideas here, just copy-paste starting points.
+These snippets match the [DeskFlow tutorial](/documentation/deskflow-tutorial/). Each section links back to the guide that explains the concept — no new ideas here, just copy-paste starting points for Northwind Studio's task board on port **8000**.
+
+## Pick your learning path
+
+{{< card-grid >}}
+{{< link-card title="Try the tutorial" description="Build the services behind these curl calls." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Moonlight overview" description="How service and action map to HTTP." href="/documentation/building-api/moonlight-overview/" >}}
+{{< link-card title="Documentation hub" description="All topic sections and layer index." href="/documentation/" >}}
+{{< /card-grid >}}
+
+## What these examples cover
+
+| Example | DeskFlow action | Learn more |
+|---------|-----------------|------------|
+| Ping | Health check | [Introduction](/documentation/getting-started/introduction/) |
+| List tasks | `task.list` | [API tutorial](/documentation/deskflow-tutorial/) |
+| Create task | `task.create` | [Validation](/documentation/building-api/validation/) |
+| Member login | `member.login` | [Security](/documentation/security/security-authentication-and-authorization/) |
+| Filter open tasks | `task.list` + filter | [Filtering](/documentation/database/queries-with-filtering/) |
+| settings.ini | Switch registration | [Application structure](/documentation/getting-started/application-structure/) |
 
 ## Ping
 
@@ -59,7 +78,7 @@ curl -s -X POST http://127.0.0.1:8000/api/v1/ \
 ```
 {{< /envelope >}}
 
-Learn how this is built: [API tutorial](/documentation/getting-started/api-tutorial/).
+Learn how this is built: [API tutorial](/documentation/deskflow-tutorial/).
 
 ## Create a task
 
@@ -100,3 +119,18 @@ DEBUG=true
 ```
 
 Full reference: [Application structure](/documentation/getting-started/application-structure/).
+
+## Common mistakes
+
+- **Running curl before `php pionia serve`** — start the dev server on port **8000** first.
+- **Wrong Content-Type** — Moonlight POST dispatch requires `Content-Type: application/json`.
+- **Forgetting to register the service** — `task.list` fails until `TaskService` is on `MainSwitch`.
+- **Copying v2 uppercase keys** — use lowercase `"service"` and `"action"` in every payload.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Tutorial Step 3" description="Implement task.list in TaskService." href="/documentation/deskflow-tutorial/03-your-first-service/" >}}
+{{< link-card title="Services" description="Register DeskFlow services on MainSwitch." href="/documentation/building-api/services/" >}}
+{{< link-card title="Resources" description="Packages, CLI cheatsheet, and community links." href="/resources/" >}}
+{{< /card-grid >}}

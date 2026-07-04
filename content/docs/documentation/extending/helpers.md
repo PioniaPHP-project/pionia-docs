@@ -1,28 +1,153 @@
 ---
 title: "Pionia Helpers"
 slug: "helpers"
-description: "Helpers just provide us shortcuts to accessing rather complex logic"
-summary: "Helpers assist in quickly accessing parts of our application without implicitly creating instances."
+description: "Global shortcuts to AppRealm, Porm, Moonlight, cache, logging, and security after boot."
+summary: "Reference grouped by DeskFlow tasks — responses, database, logging, and more."
 date: 2026-07-01
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 4000
 toc: true
+doc_type: reference
+parent: "extending"
 seo:
-  title: "Pionia Helpers" # custom title (optional)
-  description: "Guides on which helpers we have and how to use them in our code cycle" # custom description (recommended)
-  noindex: false # false (default) or true
+  title: "Pionia Helpers"
+  description: "Global helpers for Moonlight responses, Porm queries, logging, and application access."
+  noindex: false
 ---
 
-# Introduction
+## Who this is for
 
-Pionia exposes global **helpers** after the application boots (`bootstrap/application.php` → HTTP or console). They wrap `AppRealm`, Porm, cache, logging, and Moonlight dispatch.
+You are writing DeskFlow services and want quick access to common framework entry points — **`response()`** for Moonlight envelopes, **`table()`** for `tasks` / `team_members`, **`logger()`** for action traces — without wiring the container manually.
 
-{{<callout context="note" icon="outline/information-circle">}}
+## What you will learn
+
+- Which helpers to use for Moonlight responses, Porm queries, and logging
+- Boot constraints (`AppRealm::create()` before helpers work)
+- Where to find security, cache, async, and validation shortcuts
+
+## Before you start
+
+{{< prerequisites >}}
+- Booted app via `bootstrap/application.php` (HTTP or `php pionia`)
+- [Services](/documentation/building-api/services/) — where helpers are called from actions
+- Optional: [App providers](/documentation/extending/app-providers/) — boot-time wiring when helpers are not yet available
+{{< /prerequisites >}}
+
+## How it works
+
+Pionia exposes global **helpers** after the application boots. They wrap `AppRealm`, Porm, cache, logging, and Moonlight dispatch.
+
+{{< mermaid >}}
+flowchart LR
+  Boot[AppRealm::create] --> Helpers[Global helpers]
+  Helpers --> R[response]
+  Helpers --> T[table / db]
+  Helpers --> L[logger / report]
+  R --> Task[TaskService actions]
+  T --> Task
+  L --> Task
+{{< /mermaid >}}
+
+{{< callout context="note" title="Boot timing" icon="outline/information-circle" >}}
 Helpers like `app()`, `realm()`, and `logger()` are not available in `bootstrap/application.php` before `AppRealm::create()` returns. Use [service providers](/documentation/extending/app-providers/) for boot-time wiring.
-{{</callout>}}
+{{< /callout >}}
 
-### app() / realm() / container()
+---
+
+## DeskFlow Moonlight responses — `response()`
+
+Return the standard JSON envelope from any service action:
+
+```php
+protected function listAction(Arrayable $data): ApiResponse
+{
+    $rows = table('tasks')->where('status', $data->get('status', 'open'))->all();
+
+    return response(0, 'OK', ['tasks' => $rows]);
+}
+
+protected function createAction(Arrayable $data): ApiResponse
+{
+    $this->mustAuthenticate();
+
+    return response(0, 'Task created', ['id' => $newId]);
+}
+```
+
+Related response helpers:
+
+| Helper | Purpose |
+|--------|---------|
+| `response($code, $message, $data?)` | Standard Moonlight envelope |
+| `cachedResponse()` / `recached()` | Cache action output when service caching is enabled |
+| `renderToString()` | Render a template to HTML without exiting the process |
+
+```php
+$html = renderToString('emails/welcome', ['name' => $member->name]);
+return cachedResponse($this, response(0, 'OK', $rows), 300);
+```
+
+Prefer `renderToString()` over deprecated `render()` (which exits in FPM/CLI).
+
+---
+
+## DeskFlow data access — `table()` / `db()`
+
+Query Northwind tables through Porm:
+
+```php
+$task = table('tasks')->get($id);
+$members = table('team_members')->where('active', 1)->all();
+$pdo = connectionManager()->connection('default');
+```
+
+| Helper | Purpose |
+|--------|---------|
+| `table($name, …)` | Primary query builder entry |
+| `db($name, …)` | Alias of `table()` |
+| `connectionManager()` | Pooled PDO per process |
+
+See [Database (Porm)](/documentation/database/).
+
+---
+
+## DeskFlow observability — `logger()` / `report()`
+
+Trace actions and report throwables through the exception pipeline:
+
+```php
+protected function updateAction(Arrayable $data): ApiResponse
+{
+    logger()->info('task.update', [
+        'task_id' => $data->get('id'),
+        'user' => $this->auth()?->user?->email,
+    ]);
+
+    try {
+        // …
+    } catch (\Throwable $e) {
+        report($e);
+        throw $e;
+    }
+
+    return response(0, 'Updated');
+}
+
+logger('api')->debug('Payload', $payload);
+```
+
+| Helper | Purpose |
+|--------|---------|
+| `logger()` | Default PSR-3 channel |
+| `logger('name')` | Named channel via `LogManager` |
+| `report($throwable)` | Log via exception pipeline (no HTTP response) |
+
+See [Logging](/documentation/operations/logging/).
+
+---
+
+## Application access — `app()` / `realm()` / `container()`
 
 All three return the booted **`AppRealm`** singleton (v3):
 
@@ -34,33 +159,9 @@ $service = container()->get(MyService::class);
 
 `realm()` and `container()` are aliases for the same instance after boot.
 
-### db() / table() / connectionManager()
+---
 
-See [Database (Porm)](/documentation/database/). `db()` is an alias of `table()`.
-
-```php
-$row = table('users')->get(1);
-$pdo = connectionManager()->connection('default');
-```
-
-### cache()
-
-```php
-cache()->set('key', $value, 300);
-cache('redis')->get('session:1');
-```
-
-See [Caching](/documentation/operations/caching/).
-
-### logger() / report()
-
-```php
-logger()->info('Order placed', ['id' => $orderId]);
-logger('api')->debug('Payload', $payload);
-report($throwable); // exception pipeline logging only
-```
-
-### moonlight() / defer() / async()
+## Moonlight dispatch — `moonlight()` / `defer()` / `async()`
 
 **Post-response work (same process, not a new thread):**
 
@@ -77,12 +178,14 @@ Use **`defer()`** for fire-and-forget. Use **`async(closure)`** only when you ne
 ```php
 async('mail', 'send_welcome', ['email' => $user->email]);
 moonlight()->async('mail', 'send_welcome', ['email' => $user->email]); // 202 + job_id when RR Jobs enabled
-moonlight()->dispatch('auth', 'list_users', ['limit' => 10]);         // sync programmatic call
+moonlight()->dispatch('member', 'list', ['limit' => 10]);             // sync programmatic call
 ```
 
 See [Background work](/documentation/operations/background-work/) for execution order and runtime tables.
 
-### API path helpers
+---
+
+## API path helpers
 
 | Helper | Example |
 |--------|---------|
@@ -92,19 +195,24 @@ See [Background work](/documentation/operations/background-work/) for execution 
 | `apiPingPath()` | `/api/v1/ping` |
 | `apiCatalogPath()` | `/api/v1/__catalog` |
 
-Use these in templates and frontend config — not hard-coded `/api/v1` strings.
+Use these in templates and frontend config — not hard-coded `/api/v1` strings. Prefer them over deprecated `route()` or raw `baseUrl()` in application code.
 
-### env() / setEnv() / serverPort()
+---
+
+## Environment and runtime — `env()` / `serverPort()`
 
 ```php
 $port = serverPort();              // PORT → SERVER_PORT → settings.ini → 8000
 $port = serverPort(9001);          // CLI override
 setEnv('RUNTIME_FLAG', '1');       // request-scoped
+$jwtSecret = env('JWT_SECRET_KEY');
 ```
 
-### security() and secure_* helpers
+---
 
-`security()` returns the `Pionia\Security\Security` singleton. Every method has a snake_case helper — use whichever reads better in your action.
+## Security — `security()` and `secure_*`
+
+`security()` returns the `Pionia\Security\Security` singleton. Every method has a snake_case helper.
 
 | Category | Examples |
 |----------|----------|
@@ -125,57 +233,17 @@ $sealed = encrypt_with_public_key('payload', $publicKey);
 
 ---
 
-## Additional helpers
-
-### alias()
-
-Resolve a path alias registered on the realm (e.g. `PUBLIC_DIR`, `STORAGE_DIR`):
-
-```php
-$public = alias(\DIRECTORIES::PUBLIC_DIR->name);
-```
-
-### addIniSection()
-
-Add or update an INI section at runtime (defaults to `environment/generated.ini`):
-
-```php
-addIniSection('plugin_settings', ['foo' => 'bar']);
-```
-
-### tap()
-
-Run a value through a closure and return the original value:
-
-```php
-$user = tap($user, fn ($u) => logger()->info('Created', ['id' => $u->id]));
-```
-
-### rules()
-
-Validate multiple fields with pipe-separated rules (same syntax as action attributes):
+## Validation — `rules()` / `validate()` / `validations()`
 
 ```php
 rules($data, [
     'email' => 'required|email',
     'password' => 'required|password|min:8',
 ]);
-```
 
-### validate()
-
-Build a field validator from request or service data:
-
-```php
 validate('email', $this->request)->required()->email();
 validate('phone', $data)->required()->rule('kenya_phone');
-```
 
-### validations()
-
-Shared registry for custom rules (register in a provider or at bootstrap):
-
-```php
 validations()->extend('kenya_phone', function (ValidationContext $ctx): void {
     // …
 });
@@ -183,51 +251,44 @@ validations()->extend('kenya_phone', function (ValidationContext $ctx): void {
 
 See [Validations](/documentation/building-api/validation/).
 
-### envKeys()
+---
 
-List all `.env` variable names loaded at boot (used by the developer stats page):
-
-```php
-foreach (envKeys() as $name) {
-    // ...
-}
-```
-
-### renderToString() / render()
-
-Prefer `renderToString()` for templates — it returns HTML without terminating the process. `render()` is deprecated and exits in FPM/CLI mode.
+## Caching — `cache()`
 
 ```php
-$html = renderToString('emails/welcome', ['name' => $user->name]);
+cache()->set('key', $value, 300);
+cache('redis')->get('session:1');
 ```
 
-### cachedResponse() / recached()
+See [Caching](/documentation/operations/caching/).
 
-Cache a Moonlight action response when the service has caching enabled:
+---
 
-```php
-return cachedResponse($this, response(0, 'OK', $rows), 300);
-return recached($this, 0, 'OK', $rows, null, 300);
-```
+## Other helpers
 
-### yesNo() / asBool()
-
-```php
-$label = yesNo($user->active, 'Active', 'Inactive');
-if (asBool(env('FEATURE_X'))) { /* ... */ }
-```
-
-### router() vs route()
-
-Use `router($app)` in provider `routes()` hooks or advanced boot code. App switches belong in `[app_switches]` in `settings.ini`. The `route()` helper is a deprecated alias.
-
-### baseUrl() vs apiBase()
-
-Prefer `apiBase()` and the versioned helpers (`apiVersionPath()`, `apiPingPath()`) in application code. `baseUrl()` reads the raw `API_BASE` environment variable directly.
-
-### Framework metadata
-
-`framework()`, `version()`, `frameworkLogo()`, `frameworkTag()`, and `appName()` expose branding from the booted realm. `version()` returns the installed `pionia/pionia-core` Composer version (same value shown by `php pionia` in the CLI banner).
+| Helper | Purpose |
+|--------|---------|
+| `alias()` | Resolve path aliases (`PUBLIC_DIR`, `STORAGE_DIR`) |
+| `addIniSection()` | Runtime INI section (default `environment/generated.ini`) |
+| `tap($value, $closure)` | Side effect then return original value |
+| `envKeys()` | List loaded `.env` variable names (stats page) |
+| `yesNo()` / `asBool()` | Display and env boolean coercion |
+| `router($app)` | Register switches in provider `routes()` — app switches use `[app_switches]` |
+| `framework()`, `version()`, `appName()` | Branding and core version metadata |
 
 For framework internals (providers, kernel, cache adapters), generate local reference docs with `composer document:framework` → `build/docs/`.
 
+## Common mistakes
+
+- Calling `table()` or `logger()` inside `bootstrap/application.php` before `AppRealm::create()` returns
+- Using `render()` in tests or workers — prefer `renderToString()` to avoid unexpected process exit
+- Hard-coding `/api/v1` instead of `apiVersionPath()` — breaks when adding `v2`
+- Using deprecated `route()` instead of `router($app)` in providers
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Services" description="Where response() and table() are used." href="/documentation/building-api/services/" >}}
+{{< link-card title="Logging" description="Channels, redaction, and report()." href="/documentation/operations/logging/" >}}
+{{< link-card title="Database" description="Porm queries with table()." href="/documentation/database/" >}}
+{{< /card-grid >}}

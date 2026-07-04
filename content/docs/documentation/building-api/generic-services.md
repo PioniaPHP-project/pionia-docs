@@ -4,7 +4,7 @@ slug: "generic-services"
 description: "CRUD over Porm tables with mixins — less boilerplate for DeskFlow project rows."
 summary: "UniversalGenericService ships list, create, update, delete, and random actions out of the box."
 date: 2024-06-29 19:57:09.923 +0300
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 240
 toc: true
@@ -15,10 +15,33 @@ seo:
   noindex: false
 ---
 
+---
+
+## Who this is for
+
+DeskFlow's `project` table needs list/create/update with little custom logic, while `TaskService` stays hand-written. **Generic services** give you CRUD actions without boilerplate.
+
+## What you will learn
+
+- Which mixin bundles (`ListMixin`, `CreateMixin`, …) each generic base class includes
+- Configuring `$table`, `$createColumns`, and `$listColumns` for Northwind projects
+- Hooks (`preCreate`, `postUpdate`) for side effects without overriding every action
+
+## Before you start
+
 {{< prerequisites >}}
 - [Services](/documentation/building-api/services/) — how aliases map to PHP classes
 - [Making queries](/documentation/database/making-queries/) — `table()` basics
 {{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  JSON["project.list"] --> Generic[ProjectService]
+  Generic --> Mixin[ListMixin]
+  Mixin --> Porm["table(projects)"]
+{{< /mermaid >}}
 
 **Generic services** extend `Pionia\Http\Services\GenericService` and combine **mixins** (`ListMixin`, `CreateMixin`, …) for standard CRUD. Use them when DeskFlow's `project` table needs list/create/update with little custom logic — keep `TaskService` manual when rules get complex.
 
@@ -650,3 +673,18 @@ The generic services are there to help you with the CRUD operations. They are th
 You can use the mixin to come up with your own custom generic services. You can also override the actions provided by the generic services.
 
 This is all to turbocharge your development process which is the main goal of Pionia.
+
+## Common mistakes
+
+- **Using generic services for task assignee rules** — override actions or switch to a manual `TaskService` when logic outgrows CRUD.
+- **Forgetting `$createColumns`** — create actions ignore undeclared columns; required fields must be listed explicitly.
+- **Conflicting custom action names** — a `listAction` override replaces the mixin; name custom actions distinctly (`archiveAction`).
+- **Skipping switch registration** — generic services still need `'project' => ProjectService::class` on `MainSwitch`.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Advanced generic services" description="Joins, file uploads, relationships." href="/documentation/building-api/advanced-generic-services/" >}}
+{{< link-card title="Validation" description="422 on missing create columns." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Database relationships" description="Join projects to tasks." href="/documentation/database/relationships/" >}}
+{{< /card-grid >}}

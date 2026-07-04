@@ -4,7 +4,7 @@ slug: "introduction"
 description: "Install Pionia, create a project, boot the API, and ship your first service."
 summary: "Installation paths, bootstrap, first API call, and where to go next."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2026-07-01
+lastmod: 2026-07-04
 draft: false
 weight: 101
 doc_type: topic
@@ -17,6 +17,34 @@ seo:
 
 {{<picture src="pionia.png" alt="Pionia Logo">}}
 
+## Who this is for
+
+You want to **ship a versioned JSON API** with PHP. This page installs Pionia and sends your first ping. The hands-on app we use everywhere is **DeskFlow** — see [Meet DeskFlow](#what-you-are-building-deskflow) below before you open the tutorial.
+
+## What you will learn
+
+- Two install paths (`composer create-project` vs existing Pionia tree)
+- What lands on disk after scaffold (`services/`, `switches/`, `environment/`)
+- How `AppRealm` boots for HTTP and CLI from the same bootstrap file
+
+## Before you start
+
+{{< prerequisites >}}
+- PHP **8.5+** and [Composer](https://getcomposer.org/)
+- Terminal basics (`cd`, `curl`)
+- New to PHP? [PHP basics for Pionia](/documentation/getting-started/php-basics/)
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Composer[composer create-project] --> App[deskflow-api]
+  App --> Serve[php pionia serve :8000]
+  Serve --> Ping["GET /api/v1/ping"]
+  Ping --> Moonlight["POST task.list"]
+{{< /mermaid >}}
+
 ## Meet Pionia
 
 Pionia is a PHP 8.5+ framework for **versioned JSON APIs**. Clients POST `{ "service", "action" }` to `/api/v1/`; your business logic lives in plain PHP **service classes**. Optional Vite frontends, RoadRunner workers, and Porm (fluent SQL) grow with you — from a afternoon prototype to production.
@@ -24,14 +52,6 @@ Pionia is a PHP 8.5+ framework for **versioned JSON APIs**. Clients POST `{ "ser
 ## Why Moonlight?
 
 One URL per API version keeps frontends simple and lets you version breaking changes cleanly. Read [Moonlight overview](/documentation/building-api/moonlight-overview/) for the full picture.
-
-## Prerequisites
-
-{{< prerequisites >}}
-- PHP **8.5+** and [Composer](https://getcomposer.org/)
-- Terminal basics (`cd`, `curl`)
-- New to PHP? [PHP basics for Pionia](/documentation/getting-started/php-basics/)
-{{< /prerequisites >}}
 
 ## A minimal example {#get-started}
 
@@ -51,9 +71,30 @@ curl -s http://127.0.0.1:8000/api/v1/ping
 ```
 {{< /envelope >}}
 
-## What you are building (DeskFlow)
+## What you are building: DeskFlow
 
-Throughout the docs we build **DeskFlow** — a task board API for **Northwind Studio**. Services: `task`, `member`, `project`. Sample user: `alex@northwind.studio`.
+Every hands-on page in these docs uses the **same example app** so you are not learning on random `User` and `Todo` snippets.
+
+### Northwind Studio
+
+**Northwind Studio** is a **fictional** digital agency — designers and developers who ship client websites. They are not a real company (the name is a nod to the classic sample database, but this is our own story).
+
+They need an internal tool: who is doing what, which client project a task belongs to, and which team member owns each item.
+
+### DeskFlow
+
+**DeskFlow** is that internal **task board API**. Northwind staff use it from a small React app or curl — not public customers.
+
+| Piece | Meaning |
+|-------|---------|
+| **DeskFlow** | The product name — task board for the agency |
+| **deskflow-api** | The Pionia repo you create with Composer |
+| **task** service | List and create tasks (`task.list`, `task.create`) |
+| **member** service | Login as staff (`member.login`) |
+| **project** service | Group tasks by client project |
+| **alex@northwind.studio** | Sample developer account in examples |
+
+When you see those names in code samples, they all refer to this one tutorial app. Full step-by-step build: [DeskFlow tutorial](/documentation/deskflow-tutorial/) (after you install below).
 
 ## Installation
 
@@ -168,13 +209,13 @@ Commands extend `Pionia\Console\Command`. See [Commands](/documentation/operatio
 
 ## Next steps
 
-**API backend only** → [API tutorial Part 1](/documentation/getting-started/api-tutorial/) → [Services](/documentation/building-api/services/)
+**API backend only** → [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) → [Services](/documentation/building-api/services/)
 
-**API + Vite frontend** → [Tutorial](/documentation/getting-started/api-tutorial/) → [Vite integration](/documentation/frontend/vite-integration/)
+**API + Vite frontend** → [Tutorial](/documentation/deskflow-tutorial/) → [Vite integration](/documentation/frontend/vite-integration/)
 
 ## Documentation map
 
-- [API tutorial](/documentation/getting-started/api-tutorial/) — DeskFlow Part 1
+- [API tutorial](/documentation/deskflow-tutorial/) — DeskFlow tutorial
 - [Application structure](/documentation/getting-started/application-structure/)
 - [Services & actions](/documentation/building-api/services/)
 - [Requests & responses](/documentation/http/requests-and-responses/)
@@ -250,3 +291,18 @@ See [Pionia v3 release notes](/documentation/getting-started/changelog-v3/) for 
 ## Upgrading from v2
 
 See [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) for `AppRealm`, `ApiSwitch`, and `ApiResponse` renames.
+
+## Common mistakes
+
+- **Running commands outside the project root** — `php pionia serve` must run from `deskflow-api/` where the `pionia` script lives.
+- **Using port 3000 or 8003** — DeskFlow docs default to **8000** via `PORT` in `environment/.env`.
+- **Editing vendor/** — business logic belongs in `services/` and `switches/`, never in `vendor/pionia/`.
+- **Skipping `[app_switches]` after adding a service** — register aliases in `MainSwitch` or Moonlight returns unknown service errors.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="DeskFlow tutorial" description="Build DeskFlow task.list hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Application structure" description="Map every folder in your repo." href="/documentation/getting-started/application-structure/" >}}
+{{< link-card title="Services" description="TaskService and MainSwitch registration." href="/documentation/building-api/services/" >}}
+{{< /card-grid >}}

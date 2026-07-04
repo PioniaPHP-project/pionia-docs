@@ -2,9 +2,10 @@
 title: "Application Structure"
 slug: "application-structure"
 parent: "documentation"
-description: "How a Pionia v3 application is organised."
+description: "How a Pionia v3 application is organised — DeskFlow folder map."
+summary: "bootstrap/, services/, switches/, storage/, and where Alex's code lives."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2026-06-25T00:00:00.000Z
+lastmod: 2026-07-04
 draft: false
 weight: 300
 toc: true
@@ -14,6 +15,27 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+## Who this is for
+
+You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) and want to **understand every folder** in your DeskFlow repo before adding database tables and auth.
+
+## What you will learn
+
+- Which paths are safe to edit (`services/`, `switches/`, `environment/`)
+- Where logs, cache, and generated bootstrap files land under `storage/`
+- How v3 layout differs from v2 (`AppRealm`, `public/static/`)
+
+## Before you start
+
+{{< prerequisites >}}
+- [Introduction](/documentation/getting-started/introduction/) — scaffold `deskflow-api` with Composer
+- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — `TaskService` and ping curl
+{{< /prerequisites >}}
+
+## How it works
+
+Every HTTP and CLI request loads the same `bootstrap/application.php`, which returns a singleton `AppRealm`. Your code lives under `Application\` — mapped to `services/`, `switches/`, and sibling folders without per-directory Composer entries.
 
 v3 app layout (from `composer create-project pionia/pionia-app`):
 
@@ -27,10 +49,10 @@ public/
   index.php          HTTP entry → bootHttp()
   .htaccess
   static/            optional user assets (favicon, SPA build output)
-services/            *Action business logic
+services/            *Action business logic (TaskService, MemberService)
 switches/            registerServices() → service aliases
 middlewares/         request/response middleware
-authentications/     auth backends
+authentications/     auth backends (JWT for alex@northwind.studio)
 commands/            custom CLI commands
 storage/
   cache/
@@ -51,12 +73,23 @@ composer.json
 | `environment/` | `.env` + `settings.ini` (`[app_switches]`, database, cache, logging, maintenance) |
 | `public/` | Web root only — never expose project root |
 | `services/` | Classes extending `Service`; methods named `{action}Action` |
-| `switches/` | Map service alias → class (`welcome` → `WelcomeService`) |
+| `switches/` | Map service alias → class (`task` → `TaskService`) |
 | `middlewares/` | Global or route middleware chains |
 | `authentications/` | Pluggable auth strategies |
 | `commands/` | Custom `pionia` commands |
 | `storage/` | Cache, logs, metrics, and generated bootstrap caches |
 | `worker.php` | Persistent workers via RoadRunner |
+
+## DeskFlow services map
+
+| Folder / file | DeskFlow usage |
+|---------------|----------------|
+| `services/TaskService.php` | `task.list`, `task.create` |
+| `services/MemberService.php` | `member.login` for alex@northwind.studio |
+| `services/ProjectService.php` | `project.list` (often generic CRUD) |
+| `switches/MainSwitch.php` | Registers `task`, `member`, `project` on `/api/v1/` |
+| `environment/settings.ini` | `[app_switches]`, `[db]`, `[cache]` |
+| `storage/logs/` | Errors when `DEBUG=true` |
 
 ## v2 → v3 changes
 
@@ -68,3 +101,18 @@ composer.json
 | PHP 8.1, core `^2.0` | PHP 8.5+, core `^3.0` |
 
 Autoload namespace: **`Application\`** mapped to the project root (`composer.json`).
+
+## Common mistakes
+
+- **Committing `environment/.env`** — keep secrets gitignored; share `.env.example` instead.
+- **Serving from repo root** — point nginx/Apache document root at `public/` only.
+- **Deleting `storage/` entirely** — wipe `storage/cache/` or run `cache:clear`; logs and metrics need the folder.
+- **Looking for routes in `bootstrap/routes.php`** — v3 registers switches from `settings.ini`, not a routes file.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="API tutorial" description="Continue DeskFlow tutorial." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Database getting started" description="SQLite tasks table for DeskFlow." href="/documentation/database/configuration-getting-started/" >}}
+{{< link-card title="Building your API" description="Services, actions, validation." href="/documentation/building-api/" >}}
+{{< /card-grid >}}

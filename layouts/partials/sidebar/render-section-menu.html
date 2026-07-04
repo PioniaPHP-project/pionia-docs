@@ -45,7 +45,7 @@
 
   <li {{- with $liClass }} class="{{ . }}" {{ end -}}>
     {{- with $node.Page.Pages }}
-    <details{{- with $ariaCurrent }} open{{- end }}{{- if ne $node.Page.Params.sidebar.collapsed true }} open{{- end }}>
+    <details{{- with $ariaCurrent }} open{{- end }}>
       <summary>{{ $linkContent }}</summary>
       <ul class="list-unstyled list-nested">
         {{- range . }}

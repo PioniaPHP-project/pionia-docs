@@ -1,2 +1,2 @@
-# Overrides for production environment
-baseurl = "https://pionia.netlify.app/"
+# Production overrides — baseURL is supplied at build time (-b $URL on Netlify).
+# Nav and sidebar use root-relative paths (relURL) so links stay on the current host.
