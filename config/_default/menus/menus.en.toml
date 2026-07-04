@@ -1,6 +1,5 @@
-# Sidebar — use Doks auto section menu until pageRef paths are verified.
-# Custom sidebar_docs entries were removed because unresolved pageRef
-# caused nil pointer errors in render-section-menu.html.
+# Sidebar — Doks auto menu uses documentation subsections (8 topic folders).
+# See layouts/partials/sidebar/section-menu.html
 
 # Top navigation
 
@@ -38,12 +37,6 @@
   name = "Resources"
   url = "/resources/"
   weight = 20
-
-[[guide]]
-  name = "Lorem"
-  weight = 10
-  identifier = "lorem"
-  url = "/guide/lorem/"
 
 [[tutorial]]
   name = "Tutorial"

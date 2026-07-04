@@ -48,7 +48,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/operations/commands-pionia-cli/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-10-07T19:48:09+03:00">
-<meta property="article:modified_time" content="2026-07-02T00:00:00+00:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2026-07-04T03:37:58+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Commands (Pionia CLI)">
@@ -77,13 +77,13 @@
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/docs/documentation/",
+       "item": "http://localhost:1313/documentation/",
        "name": "Documentation",
        "position": 3
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/docs/documentation/operations/",
+       "item": "http://localhost:1313/documentation/operations/",
        "name": "Operations \u0026 Deploy",
        "position": 4
      },
@@ -148,15 +148,11 @@
         <aside class="doks-sidebar mt-n3">
           <nav id="doks-docs-nav" aria-label="Tertiary navigation">
             
-  
     
+      
+
 <nav class="section-nav docs-links">
   <ul class="list-unstyled">
-
-  <li>
-    <details open open>
-      <summary>Documentation</summary>
-      <ul class="list-unstyled list-nested">
 
   <li>
     <details open>
@@ -169,6 +165,10 @@
 
   <li>
       <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -185,10 +185,6 @@
 
   <li>
       <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
-  </li>
-
-  <li>
-      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -224,11 +220,11 @@
   </li>
 
   <li>
-      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+      <a href="/documentation/building-api/validation/">Validation</a>
   </li>
 
   <li>
-      <a href="/documentation/building-api/validation/">Validations</a>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
   </li>
 
   <li>
@@ -240,6 +236,10 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
   </li>
 
   <li>
@@ -413,17 +413,10 @@
       </ul>
     </details>
   </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-      <a href="/docs/examples/">Examples</a>
-  </li>
   </ul>
 </nav>
 
-  
+    
 
           </nav>
         </aside>
@@ -566,15 +559,11 @@
 	<div class="row flex-xl-nowrap">
 		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
 			
-  
     
+      
+
 <nav class="section-nav docs-links">
   <ul class="list-unstyled">
-
-  <li>
-    <details open open>
-      <summary>Documentation</summary>
-      <ul class="list-unstyled list-nested">
 
   <li>
     <details open>
@@ -587,6 +576,10 @@
 
   <li>
       <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -603,10 +596,6 @@
 
   <li>
       <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
-  </li>
-
-  <li>
-      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -642,11 +631,11 @@
   </li>
 
   <li>
-      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+      <a href="/documentation/building-api/validation/">Validation</a>
   </li>
 
   <li>
-      <a href="/documentation/building-api/validation/">Validations</a>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
   </li>
 
   <li>
@@ -658,6 +647,10 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
   </li>
 
   <li>
@@ -831,17 +824,10 @@
       </ul>
     </details>
   </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-      <a href="/docs/examples/">Examples</a>
-  </li>
   </ul>
 </nav>
 
-  
+    
 
 		</div>
 		
@@ -850,6 +836,8 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
+    <li><a href="#daily-workflow">Daily workflow</a></li>
+    <li><a href="#deployment--optimization">Deployment &amp; optimization</a></li>
     <li><a href="#built-in-commands-v3">Built-in commands (v3)</a>
       <ul>
         <li><a href="#global">Global</a></li>
@@ -891,6 +879,8 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
+    <li><a href="#daily-workflow">Daily workflow</a></li>
+    <li><a href="#deployment--optimization">Deployment &amp; optimization</a></li>
     <li><a href="#built-in-commands-v3">Built-in commands (v3)</a>
       <ul>
         <li><a href="#global">Global</a></li>
@@ -927,6 +917,72 @@
 <p>New projects are created with <strong><code>composer create-project pionia/pionia-app</code></strong> — see <a href="/documentation/getting-started/introduction/">Introduction</a>. The CLI commands below run <strong>inside</strong> an existing app directory.</p>
 <p>v3 uses a <strong>native console</strong> (<code>Pionia\Console\Application</code>). Commands extend <code>Pionia\Console\Command</code>; arguments and options use <code>Pionia\Console\Input\InputArgument</code> and <code>InputOption</code>. Run the CLI from your project root as <code>php pionia …</code> or <code>composer run pionia -- …</code>.</p>
 <p>Custom commands live in <code>commands/</code> (generate with <code>make:command</code>).</p>
+<h2 id="daily-workflow">Daily workflow<a href="#daily-workflow" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Commands you run most often while building DeskFlow locally:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start dev server</td>
+<td><code>php pionia serve</code> (port <strong>8000</strong> by default)</td>
+</tr>
+<tr>
+<td>Scaffold a service</td>
+<td><code>php pionia make:service task</code></td>
+</tr>
+<tr>
+<td>Scaffold middleware</td>
+<td><code>php pionia make:middleware RequestId</code></td>
+</tr>
+<tr>
+<td>Clear cache</td>
+<td><code>php pionia cache:clear</code></td>
+</tr>
+<tr>
+<td>Interactive REPL</td>
+<td><code>php pionia shell</code></td>
+</tr>
+<tr>
+<td>List all commands</td>
+<td><code>php pionia list</code></td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/documentation/getting-started/introduction/">Introduction</a> for install and <a href="/documentation/operations/roadrunner/">RoadRunner</a> when you outgrow the built-in server.</p>
+<h2 id="deployment--optimization">Deployment &amp; optimization<a href="#deployment--optimization" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Use these on staging and production — not on every code change:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RoadRunner workers</td>
+<td><code>php pionia runserver --detach</code></td>
+</tr>
+<tr>
+<td>Production optimize</td>
+<td><code>php pionia optimize --production</code></td>
+</tr>
+<tr>
+<td>Maintenance gate</td>
+<td><code>php pionia maintenance:on</code> / <code>maintenance:off</code></td>
+</tr>
+<tr>
+<td>Tail worker logs</td>
+<td><code>php pionia runserver:logs</code></td>
+</tr>
+</tbody>
+</table>
+<p>Full checklists: <a href="/documentation/operations/production-performance/">Production performance</a> and <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a> (framework contributors only).</p>
 <h2 id="built-in-commands-v3">Built-in commands (v3)<a href="#built-in-commands-v3" class="anchor" aria-hidden="true">#</a> </h2>
 <p>Run <code>php pionia list</code> for the live registry in your app. Built-in commands ship with the framework; your app may add more under <code>commands/</code>.</p>
 <h3 id="global">Global<a href="#global" class="anchor" aria-hidden="true">#</a> </h3>
@@ -1500,7 +1556,13 @@ Options: <code>--json</code>, <code>--top=10</code>, <code>--reset</code></p>
 
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/bea914897f7d70e3eb8741a7c2b20b0f0a3ca28e">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on July 4, 2026
+    </a>
+  </div>
+
 				
 
 

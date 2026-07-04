@@ -17,7 +17,7 @@
 <noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/documentation/building-api/services/">
   <link rel="canonical" href="http://localhost:1313/documentation/building-api/services/">
 <title>Services</title>
-<meta name="description" content="Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!">
+<meta name="description" content="Create and register Pionia services for the Moonlight API.">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -44,15 +44,15 @@
       >
 <link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:title" content="Services">
-<meta property="og:description" content="Abstracting most of the CRUD work for so that you focus on only complex business logic.">
+<meta property="og:description" content="PHP classes that hold your business logic — one DeskFlow service per domain area.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:1313/documentation/building-api/services/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2024-07-05T01:06:18+03:00">
-<meta property="article:modified_time" content="2024-07-05T01:06:18+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="article:modified_time" content="2026-07-04T03:37:58+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Services">
-<meta name="twitter:description" content="Abstracting most of the CRUD work for so that you focus on only complex business logic.">
+<meta name="twitter:description" content="PHP classes that hold your business logic — one DeskFlow service per domain area.">
 <meta name="twitter:site" content="@pionia">
 
     
@@ -77,13 +77,13 @@
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/docs/documentation/",
+       "item": "http://localhost:1313/documentation/",
        "name": "Documentation",
        "position": 3
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/docs/documentation/building-api/",
+       "item": "http://localhost:1313/documentation/building-api/",
        "name": "Building Your API",
        "position": 4
      },
@@ -148,15 +148,11 @@
         <aside class="doks-sidebar mt-n3">
           <nav id="doks-docs-nav" aria-label="Tertiary navigation">
             
-  
     
+      
+
 <nav class="section-nav docs-links">
   <ul class="list-unstyled">
-
-  <li>
-    <details open open>
-      <summary>Documentation</summary>
-      <ul class="list-unstyled list-nested">
 
   <li>
     <details open>
@@ -169,6 +165,10 @@
 
   <li>
       <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -185,10 +185,6 @@
 
   <li>
       <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
-  </li>
-
-  <li>
-      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -224,11 +220,11 @@
   </li>
 
   <li>
-      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+      <a href="/documentation/building-api/validation/">Validation</a>
   </li>
 
   <li>
-      <a href="/documentation/building-api/validation/">Validations</a>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
   </li>
 
   <li>
@@ -240,6 +236,10 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
   </li>
 
   <li>
@@ -413,17 +413,10 @@
       </ul>
     </details>
   </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-      <a href="/docs/examples/">Examples</a>
-  </li>
   </ul>
 </nav>
 
-  
+    
 
           </nav>
         </aside>
@@ -566,15 +559,11 @@
 	<div class="row flex-xl-nowrap">
 		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
 			
-  
     
+      
+
 <nav class="section-nav docs-links">
   <ul class="list-unstyled">
-
-  <li>
-    <details open open>
-      <summary>Documentation</summary>
-      <ul class="list-unstyled list-nested">
 
   <li>
     <details open>
@@ -587,6 +576,10 @@
 
   <li>
       <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -603,10 +596,6 @@
 
   <li>
       <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
-  </li>
-
-  <li>
-      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
   </li>
 
   <li>
@@ -642,11 +631,11 @@
   </li>
 
   <li>
-      <a href="/documentation/building-api/generic-services/">Generic Services</a>
+      <a href="/documentation/building-api/validation/">Validation</a>
   </li>
 
   <li>
-      <a href="/documentation/building-api/validation/">Validations</a>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
   </li>
 
   <li>
@@ -658,6 +647,10 @@
   </li>
       </ul>
     </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
   </li>
 
   <li>
@@ -831,17 +824,10 @@
       </ul>
     </details>
   </li>
-      </ul>
-    </details>
-  </li>
-
-  <li>
-      <a href="/docs/examples/">Examples</a>
-  </li>
   </ul>
 </nav>
 
-  
+    
 
 		</div>
 		
@@ -850,8 +836,10 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#creating-a-service">Creating a service</a></li>
-    <li><a href="#service-registration">Service Registration</a></li>
+    <li><a href="#what-is-a-service">What is a service?</a></li>
+    <li><a href="#create-a-service">Create a service</a></li>
+    <li><a href="#cli-options-makeservice">CLI options (make:service)</a></li>
+    <li><a href="#service-registration">Service registration</a></li>
     <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
     <li><a href="#actions">Actions</a>
       <ul>
@@ -874,8 +862,10 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#creating-a-service">Creating a service</a></li>
-    <li><a href="#service-registration">Service Registration</a></li>
+    <li><a href="#what-is-a-service">What is a service?</a></li>
+    <li><a href="#create-a-service">Create a service</a></li>
+    <li><a href="#cli-options-makeservice">CLI options (make:service)</a></li>
+    <li><a href="#service-registration">Service registration</a></li>
     <li><a href="#targeting-a-service-in-the-request">Targeting a service in the request</a></li>
     <li><a href="#actions">Actions</a>
       <ul>
@@ -889,54 +879,62 @@
   </details>
 
 			</nav>
-			<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
+			<div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
   <div class="callout-content">
-    
+    <div class="callout-title">Before you start</div>
     <div class="callout-body">
-      <p>This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the <a href="/documentation/getting-started/api-tutorial/">tutorial</a>.</p>
+      <ul>
+<li>Completed <a href="/documentation/getting-started/api-tutorial/">API tutorial Part 1</a> or read <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a></li>
+<li>A running DeskFlow app on port <strong>8000</strong></li>
+</ul>
 
     </div>
   </div>
 </div>
 
-<h1 id="introduction">Introduction</h1>
-<p>Services in Pionia Framework are central containers of business logic. This is where most of the work happens.
-Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area.
-Services are in actual PHP code, just php classes that extend the <code>Pionia\Http\Services\Service</code>.
-As you might already know, a class can have multiple methods. In Pionia we call these <code>Actions</code>. Therefore, henceforth, the terms <code>service</code> and <code>actions</code> will be used for the same meaning throughout the same guide.</p>
-<h2 id="creating-a-service">Creating a service<a href="#creating-a-service" class="anchor" aria-hidden="true">#</a> </h2>
-<p>You can create a service using our pionia console or manually. All services, as a convention, MUST be located in the <code>services</code> folder.</p>
-<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>We recommend to name your services after your database tables. Example, if your table is called <code>users</code>, you can name your service <code>UserService</code>.</p>
-<p>If you are using our &lsquo;pionia console&rsquo;, then you can just name your service <code>user</code>. These are just conventions!</p>
+<h2 id="what-is-a-service">What is a service?<a href="#what-is-a-service" class="anchor" aria-hidden="true">#</a> </h2>
+<p><strong>Services</strong> are plain PHP classes under <code>services/</code> that extend <code>Pionia\Http\Services\Service</code>. Each <strong>action</strong> is a public method named <code>somethingAction()</code> — Pionia maps <code>&quot;action&quot;: &quot;list&quot;</code> to <code>listAction()</code>.</p>
+<p>In DeskFlow, Northwind Studio uses three services:</p>
+<table>
+<thead>
+<tr>
+<th>Registered alias</th>
+<th>Class</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task</code></td>
+<td><code>TaskService</code></td>
+<td>Tasks for client projects</td>
+</tr>
+<tr>
+<td><code>member</code></td>
+<td><code>MemberService</code></td>
+<td>Login and profiles</td>
+</tr>
+<tr>
+<td><code>project</code></td>
+<td><code>ProjectService</code></td>
+<td>Group tasks by client</td>
+</tr>
+</tbody>
+</table>
+<p>Clients POST lowercase keys:</p>
 
-    </div>
-  </div>
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span> <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;task&#34;</span><span class="p">,</span> <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;list&#34;</span><span class="p">,</span> <span class="nt">&#34;project_id&#34;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span></span></span></code></pre></div>
+  </figure>
 </div>
-
-
-
-
-
-
-
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-  <button data-toggle-tab="pionia command" class="nav-link active" id="tabs-create-new-service-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-0" type="button" role="tab" aria-controls="tabs-create-new-service-0" aria-selected="true">
-      pionia command</button>
-  <button data-toggle-tab="manually" class="nav-link" id="tabs-create-new-service-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-1" type="button" role="tab" aria-controls="tabs-create-new-service-1" aria-selected="true">
-      Manually</button>
-  </div>
-</nav>
-
-<div class="tab-content" id="nav-tabContent">
-  <div data-pane="pionia command" class="tab-pane fade show active" id="tabs-create-new-service-0" role="tabpanel" aria-labelledby="tabs-create-new-service-0-tab" tabindex="0">
-      <p>Let&rsquo;s create a service called <code>TodoService</code>. In the terminal run the following command.</p>
+<h2 id="create-a-service">Create a service<a href="#create-a-service" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Generate a scaffold from your app root:</p>
 
 
 
@@ -945,92 +943,149 @@ As you might already know, a class can have multiple methods. In Pionia we call 
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service todo</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service task</span></span></code></pre></div>
   </figure>
 </div>
-<p>Running the above command will prompt you for two options.</p>
-<ol>
-<li><code>Basic</code> - These are services that extend the <code>Pionia\Http\Services\Service</code>. They are close to creating manual services.
-If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want
-or let the cli add the default actions of <code>create</code>, <code>retrieve</code>, <code>update</code>, <code>delete</code> for you. Once you are done, the service will be created in the <code>services</code> folder.</li>
-</ol>
-<p>You can delete or add more actions as you see fit.</p>
-<ol start="2">
-<li><code>Generic</code> - These are services that extend the <code>Pionia\Http\Services\GenericService</code>. They come with an entire CRUD logic out of the box.
-Once you select this option you will be presented with a list of nine options to choose from. If you are not sure of what to select,
-just hit enter and the cli will select the default option for you which is the <code>UniversalGenericService</code>. This service comes with all the CRUD logic out of the box.</li>
-</ol>
-<p>Other Options are :-</p>
-<p>[0] UniversalGenericService</p>
-<p>[1] RetrieveListUpdateDeleteService</p>
-<p>[2] RetrieveListUpdateService</p>
-<p>[3] RetrieveListRandomService</p>
-<p>[4] RetrieveListDeleteService</p>
-<p>[5] RetrieveListCreateUpdateService</p>
-<p>[6] RetrieveListCreateService</p>
-<p>[7] RetrieveCreateUpdateService</p>
-<p>[8] GenericService</p>
-<p>Choosing option 8 gives you freedom to define your own mixins to extend.</p>
+<p>Choose <strong>Basic</strong> for hand-written actions, or <strong>Generic</strong> for CRUD over a Porm table — see <a href="/documentation/building-api/generic-services/">Generic services</a>.</p>
+<p>The CLI creates <code>services/TaskService.php</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TaskService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;tasks&#39;</span> <span class="o">=&gt;</span> <span class="p">[]]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
 </div>
-  <div data-pane="manually" class="tab-pane fade" id="tabs-create-new-service-1" role="tabpanel" aria-labelledby="tabs-create-new-service-1-tab" tabindex="0">
-      <blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<ol>
-<li>Head over to your <code>services</code> folder.</li>
-<li>Create a new service with a clear name, such as UserService, AuthService, CartService</li>
-<li>Extend Service</li>
-<li>Add your own actions each taking in <code>data</code> (POST body), optional <code>files</code>, and returning <code>ApiResponse</code>.</li>
-<li>Add your logic</li>
+<p>Register the alias on your switch (usually <code>Application\Switches\MainSwitch</code>):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;task&#39;</span> <span class="o">=&gt;</span> <span class="nx">TaskService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="try-it-block callout callout-tip d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Try it yourself</div>
+    <div class="callout-body">
+      <div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://127.0.0.1:8000/api/v1/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;service&#34;:&#34;task&#34;,&#34;action&#34;:&#34;list&#34;}&#39;</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Expected: HTTP <strong>200</strong> with <code>&quot;returnCode&quot;: 0</code> and a <code>tasks</code> array in <code>returnData</code>.</p>
+    </div>
+  </div>
+</div>
+
+<p>Next: <a href="/documentation/building-api/actions/">Actions</a> — request data, responses, and validation.</p>
+<hr>
+<h2 id="cli-options-makeservice">CLI options (make:service)<a href="#cli-options-makeservice" class="anchor" aria-hidden="true">#</a> </h2>
+<p>When you run <code>make:service</code>, the CLI offers two paths:</p>
+
+
+
+
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <button data-toggle-tab="basic service" class="nav-link active" id="tabs-create-new-service-0-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-0" type="button" role="tab" aria-controls="tabs-create-new-service-0" aria-selected="true">
+      Basic service</button>
+  <button data-toggle-tab="generic service" class="nav-link" id="tabs-create-new-service-1-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-1" type="button" role="tab" aria-controls="tabs-create-new-service-1" aria-selected="true">
+      Generic service</button>
+  <button data-toggle-tab="manually" class="nav-link" id="tabs-create-new-service-2-tab" data-bs-toggle="tab" data-bs-target="#tabs-create-new-service-2" type="button" role="tab" aria-controls="tabs-create-new-service-2" aria-selected="true">
+      Manually</button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div data-pane="basic service" class="tab-pane fade show active" id="tabs-create-new-service-0" role="tabpanel" aria-labelledby="tabs-create-new-service-0-tab" tabindex="0">
+      <p>Creates a class extending <code>Pionia\Http\Services\Service</code>. You define each action method yourself — best for DeskFlow&rsquo;s custom task rules.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service task</span></span></code></pre></div>
+  </figure>
+</div></div>
+  <div data-pane="generic service" class="tab-pane fade" id="tabs-create-new-service-1" role="tabpanel" aria-labelledby="tabs-create-new-service-1-tab" tabindex="0">
+      <p>Creates a class extending <code>Pionia\Http\Services\GenericService</code> with CRUD over a Porm table — useful for <code>project</code> rows before you add custom rules.</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:service project
+</span></span><span class="line"><span class="cl"><span class="c1"># Choose Generic → UniversalGenericService (default)</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>See <a href="/documentation/building-api/generic-services/">Generic services</a> for mixin options.</p>
+</div>
+  <div data-pane="manually" class="tab-pane fade" id="tabs-create-new-service-2" role="tabpanel" aria-labelledby="tabs-create-new-service-2-tab" tabindex="0">
+      <ol>
+<li>Create <code>services/TaskService.php</code> under your app root.</li>
+<li>Extend <code>Pionia\Http\Services\Service</code>.</li>
+<li>Add public <code>*Action</code> methods; return <code>response()</code> envelopes.</li>
+<li>Register the alias in <code>MainSwitch::registerServices()</code>.</li>
 </ol>
 
 
 
 <div class="expressive-code">
-  <figure class="frame has-title not-content">
+  <figure class="frame not-content">
   <figcaption class="header">
-    <span class="title">services\AuthService.php</span>
+    <span class="title"></span>
   </figcaption>
-  <div class="highlight" title="services\AuthService.php"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Services</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Exception</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\ApiResponse</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Services\Service</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Bag\FileBag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AuthService</span> <span class="k">extends</span> <span class="nx">Service</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TaskService</span> <span class="k">extends</span> <span class="nx">Service</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">  * getUserAction action
-</span></span></span><span class="line"><span class="cl"><span class="sd">  * @throws Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">  */</span>
-</span></span><span class="line"><span class="cl">  <span class="k">protected</span> <span class="k">function</span> <span class="nf">retrieveUserAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">ApiResponse</span>
-</span></span><span class="line"><span class="cl">   <span class="p">{</span>
-</span></span><span class="line"><span class="cl">     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requires</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">     <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">     <span class="nv">$user</span> <span class="o">=</span> <span class="nx">db</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$user</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">         <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&#34;No user with id </span><span class="si">$id</span><span class="s2"> found.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">     <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$user</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Arrayable</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;tasks&#39;</span> <span class="o">=&gt;</span> <span class="p">[]]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 </div>
   </div>
 
@@ -1048,10 +1103,8 @@ just hit enter and the cli will select the default option for you which is the <
   </div>
 </div>
 
-<h2 id="service-registration">Service Registration<a href="#service-registration" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Creating a service is not enough in Pionia. You also need to register it in any switch to make it discoverable by the kernel.
-Service registration happens in the associated switch.</p>
-<p>In the switches folder, find the switch you want to use for this service. You can add your service as below.</p>
+<h2 id="service-registration">Service registration<a href="#service-registration" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Register services in your switch — usually <code>Application\Switches\MainSwitch</code>:</p>
 
 
 
@@ -1060,24 +1113,23 @@ Service registration happens in the associated switch.</p>
   <figcaption class="header">
     <span class="title"></span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">arr</span><span class="p">([</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">UserService</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;todo&#34;</span> <span class="o">=&gt;</span> <span class="nx">TodoService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// this is okay
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="nx">AuthService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// and this too
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">registerServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;task&#39;</span> <span class="o">=&gt;</span> <span class="nx">TaskService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;member&#39;</span> <span class="o">=&gt;</span> <span class="nx">MemberService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;project&#39;</span> <span class="o">=&gt;</span> <span class="nx">ProjectService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>The <code>keys</code> of are the names you shall use in your proceeding requests to access/identify this service. Therefore, it must be unique per switch!</p>
+<p>The array <strong>keys</strong> are the <code>service</code> names in JSON requests. They must be unique within a switch.</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>A single service can be registered in multiple switches. This is useful when you want to use the same service in different api versions.</p>
+      <p>Register the same service class in <code>v1</code> and <code>v2</code> switches when Northwind ships a breaking API version — see <a href="/documentation/building-api/api-versioning/">API versioning</a>.</p>
 
     </div>
   </div>
@@ -1094,22 +1146,12 @@ Service registration happens in the associated switch.</p>
     <span class="title"></span>
   </figcaption>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;task&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;list&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
-  
-  <div class="callout-content">
-    
-    <div class="callout-body">
-      <p>For details about request and responses, you can check the <a href="/documentation/requests-and-responses">request and response section</a>.</p>
-
-    </div>
-  </div>
-</div>
-
+<p>For envelopes and HTTP status codes, see <a href="/documentation/http/requests-and-responses/">Requests and responses</a>.</p>
 <h2 id="actions">Actions<a href="#actions" class="anchor" aria-hidden="true">#</a> </h2>
 <p>You can read more about actions in the <a href="/documentation/building-api/actions/">actions section</a>.</p>
 <h3 id="service-security">Service Security<a href="#service-security" class="anchor" aria-hidden="true">#</a> </h3>
@@ -1216,7 +1258,13 @@ the client always gets the same response format.</p>
 <p>Uncaught throwables flow through the <a href="/documentation/http/exceptions/">exception pipeline</a> — use clear exception messages for clients.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-				
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/bea914897f7d70e3eb8741a7c2b20b0f0a3ca28e">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on July 4, 2026
+    </a>
+  </div>
+
 				
 
 
@@ -1258,7 +1306,7 @@ the client always gets the same response format.</p>
 				</div>
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/http/collections/" class="stretched-link text-reset text-decoration-none">Collections (Arrayable)</a>
+					<a href="/documentation/building-api/moonlight-security/" class="stretched-link text-reset text-decoration-none">Moonlight security model</a>
 				</div>
 			</div>
 		</div>

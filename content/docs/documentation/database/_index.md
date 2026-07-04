@@ -6,6 +6,7 @@ date: 2026-03-01
 lastmod: 2026-03-01
 draft: false
 weight: 400
+url: /documentation/database/
 toc: true
 parent: "documentation"
 seo:
@@ -31,6 +32,24 @@ table('orders', null, 'db_pgsql')->save(['total' => 99]);
 {{<callout context="note" icon="outline/information-circle">}}
 Porm is built into your Pionia app. Use `table()` or `db()` — not legacy `Porm\Porm::from()` patterns from older tutorials.
 {{</callout>}}
+
+## Your first database steps (DeskFlow)
+
+In [API tutorial Part 1](/documentation/getting-started/api-tutorial/) you return hardcoded tasks. Part 3 (coming in the tutorial series) persists them in SQLite:
+
+1. Add a `tasks` table migration or SQL file under `database/`.
+2. Configure `[db]` in `environment/settings.ini` (SQLite is fine for local DeskFlow).
+3. In `TaskService::listAction`, replace the array with `table('tasks')->filter(['project_id' => $data->getInt('project_id')])->all()`.
+
+```php
+$tasks = table('tasks')
+    ->filter(['status' => 'open'])
+    ->orderBy('created_at', 'DESC')
+    ->limit(20)
+    ->all();
+```
+
+Try it: [Making queries](/documentation/database/making-queries/) walks through `get()`, `save()`, and `update()` on a single table.
 
 ## Guide map
 

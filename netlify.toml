@@ -194,6 +194,16 @@
   status = 301
 
 # Custom headers — https://docs.netlify.com/routing/headers/#syntax-for-the-netlify-configuration-file
+[[redirects]]
+  from = "/docs/examples/"
+  to = "/documentation/examples/"
+  status = 301
+
+[[redirects]]
+  from = "/docs/examples"
+  to = "/documentation/examples/"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

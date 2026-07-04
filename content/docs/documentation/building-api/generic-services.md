@@ -1,35 +1,39 @@
 ---
-title: "Generic Services"
+title: "Generic services"
 slug: "generic-services"
-parent: "services"
-description: "Guides you through services processing in Pionia Framework."
-summary: "All business logic in Pionia is stored in services. This guide will show you how to create, protect and use services in Pionia."
+description: "CRUD over Porm tables with mixins — less boilerplate for DeskFlow project rows."
+summary: "UniversalGenericService ships list, create, update, delete, and random actions out of the box."
 date: 2024-06-29 19:57:09.923 +0300
-lastmod: 2024-06-29 19:57:09.923 +0300
+lastmod: 2026-07-01
 draft: false
-weight: 502
+weight: 240
 toc: true
+doc_type: topic
 seo:
-  title: "Pionia Services" # custom title (optional)
-  description: "Handling Services in Pionia" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Generic services in Pionia"
+  description: "Build CRUD APIs over Porm tables with GenericService mixins."
+  noindex: false
 ---
 
-{{<callout tip>}}
-This section assumes that you have a basic understanding how Services work in Pionia. If you haven't, you can check the [Services section](/documentation/building-api/services/) first.
-{{</callout >}}
+{{< prerequisites >}}
+- [Services](/documentation/building-api/services/) — how aliases map to PHP classes
+- [Making queries](/documentation/database/making-queries/) — `table()` basics
+{{< /prerequisites >}}
 
-# Introduction
+**Generic services** extend `Pionia\Http\Services\GenericService` and combine **mixins** (`ListMixin`, `CreateMixin`, …) for standard CRUD. Use them when DeskFlow's `project` table needs list/create/update with little custom logic — keep `TaskService` manual when rules get complex.
 
-Pionia Generic Services get their inspiration from Django Rest Framework's Generic Views. They provide a set of actions that are common in most CRUD applications.
-This is to help you focus on the complex business logic and not the repetitive CRUD work.
-But it is not just CRUD, you can query random and paginated data too. You can also add your own actions as you see fit.
-This feature is available starting from the core version of v1.1.2.
+```bash
+php pionia make:service project
+# Generic → UniversalGenericService, table name: projects
+```
 
-## The Mixins
+Clients call the same Moonlight envelope:
 
-There a few mixins that have been provided to help you with the CRUD operations. These mixins are:
+```json
+{ "service": "project", "action": "list", "page": 1 }
+```
+
+## Mixins overview
 
 ### CreateMixin
 

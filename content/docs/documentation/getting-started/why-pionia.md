@@ -1,78 +1,46 @@
 ---
 title: "Why Pionia?"
 slug: "why-pionia"
-description: "Explains why you should use Pionia over other frameworks"
-summary: ""
+description: "When Moonlight APIs, Porm, and optional Vite frontends fit your project."
+summary: "Opinionated JSON APIs without controllers, models, or route files."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2024-05-24T13:45:48.890Z
+lastmod: 2026-07-01
 draft: false
-weight: 200
+weight: 102
 toc: true
+doc_type: topic
 seo:
-  title: "" # custom title (optional)
-  description: "" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Why Pionia?"
+  description: "Moonlight envelope, Porm query builder, API versioning, and RoadRunner workers."
+  noindex: false
 ---
 
-{{<picture src="pionia.png" alt="Pionia Logo">}}
+Pionia targets teams shipping **versioned JSON APIs** — like Northwind Studio's DeskFlow task board — without Symfony-sized boilerplate. You write **services** and register them on **switches**; clients POST `{ "service", "action" }` to `/api/v1/`.
 
-Pionia was developed to make it easy for developers to build high-performance REST applications removing the unnecessary
-complexities that come with most common traditional frameworks. Developers stay focused on the business logic only.
+## What you get
 
-Pionia is all the beautiful parts of Moonlight paradigm. But as the framework, it also has its own unique features. Here
-are some of the reasons why you should consider using Pionia:
+1. **Services, not controllers** — business logic lives in `services/TaskService.php`. Moonlight dispatch replaces per-route controllers.
+2. **Porm, not ORM** — `table('tasks')->filter(...)->all()` returns arrays; no model hydration overhead. See [Database](/documentation/database/).
+3. **Real HTTP semantics** — validation errors are **422**, auth failures **401**; the JSON body still uses `returnCode`. See [Requests & responses](/documentation/http/requests-and-responses/).
+4. **Versioned switches** — add `v2` in `settings.ini` without rewriting `v1`. See [API versioning](/documentation/building-api/api-versioning/).
+5. **Flexible auth** — pluggable backends and per-action checks. See [Security](/documentation/security/).
+6. **Optional Vite SPA** — scaffold React/Vue beside the API. See [Frontend integration](/documentation/frontend/vite-integration/).
+7. **Production workers** — RoadRunner, OPcache preload, maintenance mode. See [Operations](/documentation/operations/).
 
-1. **Simplicity**: Pionia is designed to be simple and easy to use. It has a clean and intuitive API that makes it easy
-   to get started with. Remember that boilerplate code you usually get after installing most frameworks? Pionia doesn't have even quarter of that. Staff like controllers, routes, models
-   are not here. You just need to write your services, and you are good to go.
+## When Pionia fits
 
-2. **Query Builder**: Pionia comes with a powerful query builder that makes it easy to interact with the database. We know you're
-   already used to models and ORM. This has both pros and cons. Models usually undergo a process called model hydration while populating the resultset
-   into your model class. This can really be more expensive especially when you're dealing with large datasets. Pionia uses a query builder
-   that returns everything as `arrays` and `objects`. This is more efficient and faster. You can read more about [Pionia Query Builder here](/documentation/database/configuration-getting-started/).
+| Good fit | Less ideal |
+|----------|------------|
+| Mobile or SPA backends with stable JSON contracts | Server-rendered HTML as the primary UI |
+| Small teams who want one envelope shape | GraphQL-first APIs |
+| CRUD plus custom actions on the same switch | Plugin-heavy CMS-style admin |
 
-3. **Performance**: Pionia is built with performance in mind. It is lightweight and fast, making it ideal for building
-   high-performance api applications. It is also designed to be scalable, so you can easily add more resources as your
-   application grows. You will be surprised how fast your api will be.
+## Moonlight in one paragraph
 
-4. **Api Versioning**: Pionia has a unique approach to api versioning. Every switch implies a new version of the api.
-   This means that you can easily add new versions of your api without having to change your existing code.
-   Just roll out a new switch and you are good to go.
+[Moonlight](/documentation/building-api/moonlight-overview/) is the `{ service, action }` contract: one POST target per API version, predictable JSON envelopes, and switches that map aliases to PHP classes. Pionia implements that contract with real HTTP status codes, OpenAPI export, and first-class tooling.
 
-5. **Security**: Pionia has built-in security features that help protect your application from common security threats.
-   It also has a flexible authentication system that allows you to easily integrate with third-party authentication providers.
-   Pionia's authentication especially the authentication backends are inspired by Django and Spring boot authentication
-   system but with less conventions and more configurations. We keep an open mind on what you want your backend to authenticate with
-   and we provide you with the tools to do so. We also have a built-in role-based access control system that allows you to
-   easily manage user permissions and access control. You can look at in the [Authentication and Authorization Section](/documentation/security/security-authentication-and-authorization/)
+## Next steps
 
-6. **Developer Performance**: Using Pionia, rolling out an api should not take even hours. This is achieved by the fact
-   that you don't need to write a lot of boilerplate code. You just need to write your services and you are good to go. This becomes
-   even simpler if you're using our [Generic Services](/documentation/building-api/generic-services/).
-
-7. **Moonlight Compatibility**: Pionia follows the standards defined by Moonlight. Advantages like, single endpoint,
-   single request format, single response format, single switch per api version, every request being post and many more... are all here.
-   Moonlight strips away the unnecessary complexities that come with most common traditional frameworks. Developers stay focused on the business logic only.
-   However much this seems to be a new pattern, most platforms have used this platform for years, and it has been proven to
-   be an excellent option for building high-performance api applications. [Get started with moonlight pattern here](/documentation/building-api/moonlight-overview/)
-
-8. **Single Request and Response Format**: In Pionia projects, all requests carry the same format and all responses too.
-   This makes it easy to understand and work with the api especially on the frontend side.
-
-9. **Community**: Pionia has a growing community of developers who are passionate about building high-performance api
-   applications. You can find help and support from the community through discord, twitter, and other social media channels.
-
-10. **Frontend Scaffolding and Serving**: Pionia is a backend REST framework. But we also scaffold most frameworks especially those supported by `vite`.
-    We also have a clean way of serving these frameworks' build files and assets at the root of the Pionia backend.
-    This is especially useful when you want to serve your frontend and backend from the same server. You can read more in [Frontend integration (Vite)](/documentation/frontend/vite-integration/).
-
-11. We also take most of the other advantages listed by most other frameworks like inbuilt logging, error handling, and many more.
-
-### Conclusion
-
-Not everything is as you expected in Pionia. We recommend you to first appreciate the moonlight paradigm(also nicknamed single endpoint paradigm or SS&R - Services, Switches and Routes) before you start using Pionia.
-This will help you understand the philosophy behind Pionia. The paradigm of Single endpoint, single route, single switch, single request format and single response format is what makes Pionia unique.
-
-Also, please note that Pionia is a REST framework and it intends to keep that way. If you're looking for something
-else, like a full stack framework, you might want to consider other frameworks like Laravel, Symfony, Yii2, CakePhp, CodeIgnitor and others.
+- Hands-on: [API tutorial Part 1](/documentation/getting-started/api-tutorial/)
+- Concepts: [Moonlight overview](/documentation/building-api/moonlight-overview/)
+- Upgrading: [From v2](/documentation/getting-started/upgrading-from-v2/)

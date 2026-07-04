@@ -6,6 +6,7 @@ date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
 weight: 600
+url: /documentation/frontend/
 toc: true
 doc_type: topic
 sidebar:

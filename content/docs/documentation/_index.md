@@ -6,6 +6,7 @@ date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
 weight: 10
+url: /documentation/
 toc: true
 doc_type: topic
 seo:

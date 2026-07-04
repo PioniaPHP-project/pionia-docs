@@ -357,7 +357,7 @@ Register `category` on your switch, run `php pionia api:docs --ui`, then open `/
 
 ## Related guides
 
-- [Services overview](/documentation/services/) — register services on switches
+- [Services overview](/documentation/building-api/services/) — register services on switches
 - [Actions](/documentation/building-api/actions/) — write action methods and envelopes
 - [Security](/documentation/security/security-authentication-and-authorization/) — auth traits and `@moonlight-auth`
 - [CLI commands](/documentation/operations/commands/) — full `api:docs` / `api:catalog` reference

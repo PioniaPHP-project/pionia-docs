@@ -1,18 +1,17 @@
 ---
 title: "Actions"
-parent: "building-api"
-description: "Getting started with Pionia Service Actions"
-summary: "Actions are the central logic for the entire app, this will guide you on handling actions in Pionia Framework."
+description: "Action methods — the logic behind each Moonlight request."
+summary: "Map JSON action names to *Action methods; read Arrayable data and return response() envelopes."
 date: 2024-10-07 20:24:56.303 +0300
-lastmod: 2024-10-07 20:24:56.303 +0300
+lastmod: 2026-07-01
 draft: false
-weight: 501
+weight: 220
 toc: true
+doc_type: topic
 seo:
-  title: "Services" # custom title (optional)
-  description: "Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Actions"
+  description: "Create and invoke Pionia service actions via the Moonlight envelope."
+  noindex: false
 ---
 
 {{<callout tip>}}

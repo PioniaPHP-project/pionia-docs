@@ -2,70 +2,69 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>http://localhost:1313/docs/documentation/</loc>
-      <lastmod>2026-07-02T17:00:53+03:00</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
-    </url>
-    
-    <url>
-      <loc>http://localhost:1313/docs/examples/</loc>
-      <lastmod>2026-07-01T00:00:00+00:00</lastmod>
+      <loc>http://localhost:1313/documentation/</loc>
+      <lastmod>2026-07-04T03:37:58+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
       <loc>http://localhost:1313/resources/</loc>
-      <lastmod>2026-07-02T17:00:53+03:00</lastmod>
+      <lastmod>2026-07-04T03:37:58+03:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-        <loc>http://localhost:1313/docs/documentation/getting-started/</loc>
+        <loc>http://localhost:1313/documentation/getting-started/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/building-api/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+      </url>
+      <url>
+        <loc>http://localhost:1313/documentation/examples/</loc>
         <lastmod>2026-07-01T00:00:00+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/building-api/</loc>
-        <lastmod>2026-07-01T00:00:00+00:00</lastmod>
+        <loc>http://localhost:1313/documentation/http/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/http/</loc>
-        <lastmod>2026-07-01T00:00:00+00:00</lastmod>
+        <loc>http://localhost:1313/documentation/database/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/database/</loc>
-        <lastmod>2026-07-02T17:00:53+03:00</lastmod>
+        <loc>http://localhost:1313/documentation/security/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/security/</loc>
-        <lastmod>2026-07-04T00:59:40+03:00</lastmod>
+        <loc>http://localhost:1313/documentation/frontend/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/frontend/</loc>
-        <lastmod>2026-07-01T00:00:00+00:00</lastmod>
+        <loc>http://localhost:1313/documentation/operations/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>
       <url>
-        <loc>http://localhost:1313/docs/documentation/operations/</loc>
-        <lastmod>2026-07-01T00:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-      </url>
-      <url>
-        <loc>http://localhost:1313/docs/documentation/extending/</loc>
-        <lastmod>2026-07-02T17:00:53+03:00</lastmod>
+        <loc>http://localhost:1313/documentation/extending/</loc>
+        <lastmod>2026-07-04T03:37:58+03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
       </url>

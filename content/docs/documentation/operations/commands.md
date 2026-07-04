@@ -22,6 +22,34 @@ v3 uses a **native console** (`Pionia\Console\Application`). Commands extend `Pi
 
 Custom commands live in `commands/` (generate with `make:command`).
 
+## Daily workflow
+
+Commands you run most often while building DeskFlow locally:
+
+| Task | Command |
+|------|---------|
+| Start dev server | `php pionia serve` (port **8000** by default) |
+| Scaffold a service | `php pionia make:service task` |
+| Scaffold middleware | `php pionia make:middleware RequestId` |
+| Clear cache | `php pionia cache:clear` |
+| Interactive REPL | `php pionia shell` |
+| List all commands | `php pionia list` |
+
+See [Introduction](/documentation/getting-started/introduction/) for install and [RoadRunner](/documentation/operations/roadrunner/) when you outgrow the built-in server.
+
+## Deployment & optimization
+
+Use these on staging and production — not on every code change:
+
+| Task | Command |
+|------|---------|
+| RoadRunner workers | `php pionia runserver --detach` |
+| Production optimize | `php pionia optimize --production` |
+| Maintenance gate | `php pionia maintenance:on` / `maintenance:off` |
+| Tail worker logs | `php pionia runserver:logs` |
+
+Full checklists: [Production performance](/documentation/operations/production-performance/) and [Maintainer notes](/documentation/extending/maintainer-notes/) (framework contributors only).
+
 ## Built-in commands (v3)
 
 Run `php pionia list` for the live registry in your app. Built-in commands ship with the framework; your app may add more under `commands/`.

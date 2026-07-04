@@ -6,6 +6,7 @@ date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
 weight: 200
+url: /documentation/building-api/
 toc: true
 doc_type: topic
 sidebar:

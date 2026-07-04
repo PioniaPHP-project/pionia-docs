@@ -6,6 +6,7 @@ date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
 weight: 100
+url: /documentation/getting-started/
 toc: true
 doc_type: topic
 sidebar:

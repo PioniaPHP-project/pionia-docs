@@ -1,38 +1,21 @@
 ---
-
-title: "Validations"
-
+title: "Validation"
 slug: "validation"
-
-parent: "services"
-
 description: "ValidationException, rules(), attributes, and custom validation rules."
-
-summary: "Return HTTP 422 for client errors with a consistent envelope."
-
+summary: "Return HTTP 422 when DeskFlow clients omit required fields like task title."
 date: 2026-07-01
-
-lastmod: 2026-07-02
-
+lastmod: 2026-07-01
 draft: false
-
-weight: 503
-
+weight: 230
 toc: true
-
+doc_type: topic
 seo:
-
   title: "Pionia service validation"
-
   description: "Validate Moonlight request data with attributes, rules(), or validate() chains."
-
-  canonical: ""
-
   noindex: false
-
 ---
 
-
+When Alex submits `task.create` without a `title`, DeskFlow should respond with **HTTP 422** and a clear JSON message — not a generic 500. Pionia maps `ValidationException` to that status automatically.
 
 Client errors (missing fields, bad input) should return **422 Unprocessable Entity**. Pionia throws `Pionia\Exceptions\ValidationException` — the exception pipeline maps it automatically.
 

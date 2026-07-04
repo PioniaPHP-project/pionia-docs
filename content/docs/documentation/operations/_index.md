@@ -6,6 +6,7 @@ date: 2026-07-01
 lastmod: 2026-07-01
 draft: false
 weight: 700
+url: /documentation/operations/
 toc: true
 doc_type: topic
 sidebar:

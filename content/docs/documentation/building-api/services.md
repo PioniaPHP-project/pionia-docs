@@ -1,128 +1,143 @@
 ---
 title: "Services"
-parent: "services"
-description: "Abstracting most of the CRUD work for so that you focus on only complex business logic."
-summary: "Some actions like list, delete, create, retrieve/details, random, updated, are provided by default. You can still add more actions as you see fit."
+description: "PHP classes that hold your business logic — one DeskFlow service per domain area."
+summary: "Register TaskService on MainSwitch; each public *Action method becomes a Moonlight endpoint."
 date: 2024-07-05 01:06:18.709 +0300
-lastmod: 2024-07-05 01:06:18.709 +0300
+lastmod: 2026-07-01
 draft: false
-weight: 500
+weight: 210
 toc: true
+doc_type: topic
 seo:
-  title: "Services" # custom title (optional)
-  description: "Putting Pionia Services on wheels by providing all the default logic so that you stay focused on the new, complex and special logic!" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Services"
+  description: "Create and register Pionia services for the Moonlight API."
+  noindex: false
 ---
 
-{{<callout tip>}}
-This section assumes that you have a basic understanding of the Pionia framework. If you are new to Pionia, you can start with the [tutorial](/documentation/getting-started/api-tutorial/).
-{{</callout >}}
+{{< prerequisites >}}
+- Completed [API tutorial Part 1](/documentation/getting-started/api-tutorial/) or read [Moonlight overview](/documentation/building-api/moonlight-overview/)
+- A running DeskFlow app on port **8000**
+{{< /prerequisites >}}
 
-# Introduction
+## What is a service?
 
-Services in Pionia Framework are central containers of business logic. This is where most of the work happens.
-Pionia has tried to reduce your work from other areas so that you mainly focus on this essential area.
-Services are in actual PHP code, just php classes that extend the `Pionia\Http\Services\Service`.
-As you might already know, a class can have multiple methods. In Pionia we call these `Actions`. Therefore, henceforth, the terms `service` and `actions` will be used for the same meaning throughout the same guide.
+**Services** are plain PHP classes under `services/` that extend `Pionia\Http\Services\Service`. Each **action** is a public method named `somethingAction()` — Pionia maps `"action": "list"` to `listAction()`.
 
-## Creating a service
+In DeskFlow, Northwind Studio uses three services:
 
-You can create a service using our pionia console or manually. All services, as a convention, MUST be located in the `services` folder.
+| Registered alias | Class | Role |
+|------------------|-------|------|
+| `task` | `TaskService` | Tasks for client projects |
+| `member` | `MemberService` | Login and profiles |
+| `project` | `ProjectService` | Group tasks by client |
 
-{{<callout tip >}}
-We recommend to name your services after your database tables. Example, if your table is called `users`, you can name your service `UserService`.
+Clients POST lowercase keys:
 
-If you are using our 'pionia console', then you can just name your service `user`. These are just conventions!
-{{</callout>}}
-
-{{< tabs "create-new-service" >}}
-{{< tab "pionia command" >}}
-
-Let's create a service called `TodoService`. In the terminal run the following command.
-
-```bash
-php pionia make:service todo
+```json
+{ "service": "task", "action": "list", "project_id": 1 }
 ```
 
-Running the above command will prompt you for two options.
+## Create a service
 
-1. `Basic` - These are services that extend the `Pionia\Http\Services\Service`. They are close to creating manual services.
-   If you select this option, you will be prompted to add actions to your service. You can add as many actions as you want
-   or let the cli add the default actions of `create`, `retrieve`, `update`, `delete` for you. Once you are done, the service will be created in the `services` folder.
+Generate a scaffold from your app root:
 
-You can delete or add more actions as you see fit.
+```bash
+php pionia make:service task
+```
 
-2. `Generic` - These are services that extend the `Pionia\Http\Services\GenericService`. They come with an entire CRUD logic out of the box.
-   Once you select this option you will be presented with a list of nine options to choose from. If you are not sure of what to select,
-   just hit enter and the cli will select the default option for you which is the `UniversalGenericService`. This service comes with all the CRUD logic out of the box.
+Choose **Basic** for hand-written actions, or **Generic** for CRUD over a Porm table — see [Generic services](/documentation/building-api/generic-services/).
 
-Other Options are :-
+The CLI creates `services/TaskService.php`:
 
-[0] UniversalGenericService
+```php
+namespace Application\Services;
 
-[1] RetrieveListUpdateDeleteService
+use Pionia\Http\Services\Service;
+use Pionia\Collections\Arrayable;
 
-[2] RetrieveListUpdateService
+class TaskService extends Service
+{
+    public function listAction(Arrayable $data)
+    {
+        return response(0, 'OK', ['tasks' => []]);
+    }
+}
+```
 
-[3] RetrieveListRandomService
+Register the alias on your switch (usually `Application\Switches\MainSwitch`):
 
-[4] RetrieveListDeleteService
+```php
+protected function registerServices(): array
+{
+    return [
+        'task' => TaskService::class,
+    ];
+}
+```
 
-[5] RetrieveListCreateUpdateService
+{{< try-it >}}
+```bash
+curl -s -X POST http://127.0.0.1:8000/api/v1/ \
+  -H "Content-Type: application/json" \
+  -d '{"service":"task","action":"list"}'
+```
+Expected: HTTP **200** with `"returnCode": 0` and a `tasks` array in `returnData`.
+{{< /try-it >}}
 
-[6] RetrieveListCreateService
+Next: [Actions](/documentation/building-api/actions/) — request data, responses, and validation.
 
-[7] RetrieveCreateUpdateService
+---
 
-[8] GenericService
+## CLI options (make:service)
 
-Choosing option 8 gives you freedom to define your own mixins to extend.
+When you run `make:service`, the CLI offers two paths:
+
+{{< tabs "create-new-service" >}}
+{{< tab "Basic service" >}}
+
+Creates a class extending `Pionia\Http\Services\Service`. You define each action method yourself — best for DeskFlow's custom task rules.
+
+```bash
+php pionia make:service task
+```
+
+{{< /tab >}}
+{{< tab "Generic service" >}}
+
+Creates a class extending `Pionia\Http\Services\GenericService` with CRUD over a Porm table — useful for `project` rows before you add custom rules.
+
+```bash
+php pionia make:service project
+# Choose Generic → UniversalGenericService (default)
+```
+
+See [Generic services](/documentation/building-api/generic-services/) for mixin options.
 
 {{< /tab >}}
 {{< tab "Manually" >}}
 
-> > >
+1. Create `services/TaskService.php` under your app root.
+2. Extend `Pionia\Http\Services\Service`.
+3. Add public `*Action` methods; return `response()` envelopes.
+4. Register the alias in `MainSwitch::registerServices()`.
 
-1. Head over to your `services` folder.
-2. Create a new service with a clear name, such as UserService, AuthService, CartService
-3. Extend Service
-4. Add your own actions each taking in `data` (POST body), optional `files`, and returning `ApiResponse`.
-5. Add your logic
-
-```php {title="services\AuthService.php"}
+```php
 namespace Application\Services;
 
-use Exception;
 use Pionia\Collections\Arrayable;
-use Pionia\Http\Response\ApiResponse;
 use Pionia\Http\Services\Service;
-use Pionia\Http\Bag\FileBag;
 
-class AuthService extends Service
+class TaskService extends Service
 {
- /**
-  * getUserAction action
-  * @throws Exception
-  */
-  protected function retrieveUserAction(Arrayable $data): ApiResponse
-   {
-     $this->requires('id');
-
-     $id = $data->get('id');
-
-     $user = db("users")->get($id);
-
-     if (!$user){
-         throw new Exception("No user with id $id found.");
-     }
-
-   return response(0, null, $user);
-  }
+    public function listAction(Arrayable $data)
+    {
+        return response(0, 'OK', ['tasks' => []]);
+    }
 }
 ```
-   > > > {{< /tab >}}
-   > > > {{< /tabs >}}
+
+{{< /tab >}}
+{{< /tabs >}}
 
 {{<callout note >}}
 Remember generic services target a base table.
@@ -134,29 +149,25 @@ However, starting from version 1.1.7, you can target relationships too!
 You can read more about this in the [Generic Services section](/documentation/building-api/generic-services/).
 {{</callout>}}
 
-## Service Registration
+## Service registration
 
-Creating a service is not enough in Pionia. You also need to register it in any switch to make it discoverable by the kernel.
-Service registration happens in the associated switch.
-
-In the switches folder, find the switch you want to use for this service. You can add your service as below.
+Register services in your switch — usually `Application\Switches\MainSwitch`:
 
 ```php
-
- public function registerServices(): Arrayable
-    {
-        return arr([
-            'user' => new UserService(),
-            "todo" => TodoService::class, // this is okay
-            'auth' => AuthService::class, // and this too
-        ]);
-    }
+protected function registerServices(): array
+{
+    return [
+        'task' => TaskService::class,
+        'member' => MemberService::class,
+        'project' => ProjectService::class,
+    ];
+}
 ```
 
-The `keys` of are the names you shall use in your proceeding requests to access/identify this service. Therefore, it must be unique per switch!
+The array **keys** are the `service` names in JSON requests. They must be unique within a switch.
 
 {{<callout note>}}
-A single service can be registered in multiple switches. This is useful when you want to use the same service in different api versions.
+Register the same service class in `v1` and `v2` switches when Northwind ships a breaking API version — see [API versioning](/documentation/building-api/api-versioning/).
 {{</callout>}}
 
 ## Targeting a service in the request
@@ -165,15 +176,12 @@ In the request, target a service with the lowercase `service` key:
 
 ```json
 {
-  "service": "user",
+  "service": "task",
   "action": "list"
 }
 ```
 
-
-{{<callout note>}}
-For details about request and responses, you can check the [request and response section](/documentation/requests-and-responses).
-{{</callout>}}
+For envelopes and HTTP status codes, see [Requests and responses](/documentation/http/requests-and-responses/).
 
 ## Actions
 

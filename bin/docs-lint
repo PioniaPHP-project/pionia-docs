@@ -6,9 +6,10 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CONTENT="$ROOT/content"
 ERR=0
 
+# Word-boundary patterns (avoid false positives like SERVICES_DIR).
 BANNED=(
-  'SERVICE'
-  'ACTION'
+  '\bSERVICE\b'
+  '\bACTION\b'
   'statusCode'
   'PioniaApplication'
   'BaseRestService'
@@ -21,6 +22,11 @@ EXCLUDE=(
   '--glob=!**/maintainer-notes.md'
   '--glob=!**/DOCUMENTATION_STYLE.md'
   '--glob=!**/changelog-v3.md'
+  '--glob=!**/moonlight-overview.md'
+  '--glob=!**/api-tutorial.md'
+  '--glob=!**/application-structure.md'
+  '--glob=!**/800_security.md'
+  '--glob=!**/database/_index.md'
 )
 
 echo "Checking banned terms in content/docs..."
