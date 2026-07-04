@@ -83,3 +83,159 @@
         }
     }
 }
+
+// Custom doc components
+.doc-step-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bs-primary);
+    margin-right: 0.5rem;
+}
+
+.doc-step-time {
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+.terminal-block-label,
+.envelope-preview-label,
+.compare-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bs-secondary-color);
+    margin-bottom: 0.35rem;
+}
+
+.envelope-preview,
+.terminal-block {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    background: var(--bs-tertiary-bg);
+}
+
+.deskflow-banner {
+    border-left: 4px solid var(--bs-primary);
+}
+
+.learning-path-list {
+    padding: 0;
+}
+
+.learning-path-item {
+    flex: 1 1 auto;
+    min-width: 8rem;
+}
+
+.learning-path-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.learning-path-item-active .learning-path-link {
+    border-color: var(--bs-primary);
+    background: var(--bs-primary-bg-subtle);
+    font-weight: 600;
+}
+
+.docs-version-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--bs-border-color);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.compare-col {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    height: 100%;
+}
+
+.compare-col-old {
+    background: var(--bs-tertiary-bg);
+}
+
+.doc-type-badge {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background: var(--bs-secondary-bg);
+    margin-left: 0.5rem;
+}
+
+// Landing page
+.landing-install {
+    max-width: 36rem;
+
+    pre {
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        color: var(--bs-secondary-color);
+        text-align: center;
+    }
+}
+
+.landing-path-card,
+.landing-topic-card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    background: var(--bs-body-bg);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.06);
+        color: inherit;
+    }
+}
+
+.landing-path-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--bs-primary);
+    margin-bottom: 0.35rem;
+}
+
+.landing-path-title,
+.landing-topic-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.landing-path-desc,
+.landing-topic-desc {
+    font-size: 0.875rem;
+    color: var(--bs-secondary-color);
+    margin-bottom: 0;
+}

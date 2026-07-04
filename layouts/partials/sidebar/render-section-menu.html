@@ -1,0 +1,63 @@
+{{- /*
+  Doks render-section-menu with nil-safe Page access for unresolved menu entries.
+  Based on @hyas/doks-core — see node_modules for upstream version.
+*/}}
+
+{{- $skipHome := true }}
+{{- $currentPage := .currentPage }}
+{{- $nodes := .nodes }}
+
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+    {{- range $nodes }}
+      {{- if not .Page }}
+        {{- continue }}
+      {{- end }}
+      {{- if and .Page.IsHome $skipHome }}
+        {{- continue }}
+      {{- end }}
+      {{- template "walk" (dict "node" . "currentPage" $currentPage) }}
+    {{- end }}
+  </ul>
+</nav>
+
+{{- define "walk" }}
+  {{- $currentPage := .currentPage }}
+  {{- $node := .node }}
+
+  {{- if $node.Page }}
+  {{- $linkContent := $node.Page.LinkTitle }}
+  {{- with $node.Name }}
+    {{- $linkContent = . }}
+  {{- end }}
+
+  {{- $ariaCurrent := "" }}
+  {{- $liClass := "" }}
+
+  {{- if in $currentPage.Ancestors $node.Page }}
+    {{- $ariaCurrent = "true" }}
+  {{- end }}
+
+  {{- if $currentPage.Eq $node.Page }}
+    {{- $ariaCurrent = "page" }}
+    {{- $liClass = "active" }}
+  {{- end }}
+
+  <li {{- with $liClass }} class="{{ . }}" {{ end -}}>
+    {{- with $node.Page.Pages }}
+    <details{{- with $ariaCurrent }} open{{- end }}>
+      <summary>{{ $linkContent }}</summary>
+      <ul class="list-unstyled list-nested">
+        {{- range . }}
+          {{- if .Page }}
+            {{- template "walk" (dict "node" . "currentPage" $currentPage) }}
+          {{- end }}
+        {{- end }}
+      </ul>
+    </details>
+    {{- else }}
+      <a {{- with $ariaCurrent }} aria-current="{{ . }}" {{- end }} href="{{- $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+    {{- end }}
+  </li>
+  {{- end }}
+{{- end }}

@@ -1,0 +1,14 @@
+<div class="compare-columns row my-4">
+  <div class="col-md-6">
+    <div class="compare-col compare-col-old">
+      <div class="compare-label">v2 / legacy</div>
+      {{ .Get "old" | markdownify }}
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="compare-col compare-col-new">
+      <div class="compare-label">v3</div>
+      {{ .Get "new" | markdownify }}
+    </div>
+  </div>
+</div>

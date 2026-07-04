@@ -3,10 +3,11 @@ title: "API Reference"
 description: "Porm public API cheat sheet."
 summary: "table(), Porm, Builder, Join, PaginationCore, and helpers."
 date: 2026-03-01
-lastmod: 2026-03-01
+lastmod: 2026-07-01
 draft: false
 weight: 821
 toc: true
+doc_type: reference
 parent: "database"
 seo:
   title: "Porm API reference"
@@ -14,6 +15,27 @@ seo:
   canonical: ""
   noindex: false
 ---
+
+This reference lists every public Porm method **DeskFlow** services use when querying `tasks`, `projects`, and `team_members`. Keep it open while implementing **Northwind Studio** actions on port **8000** — prose guides explain *why*; this page is the *what*.
+
+## What you will learn
+
+- Locate helpers, `Porm`, Builder, Join, and `PaginationCore` methods quickly
+- See which chain methods are terminal vs composable
+- Find related source files under `src/Pionia/Porm/`
+
+{{< prerequisites >}}
+- [Database index](/documentation/database/) — guide map and query modes
+- [Making queries](/documentation/database/making-queries/) — CRUD walkthrough with examples
+{{< /prerequisites >}}
+
+## How it works
+
+```text
+table()  →  Porm  →  filter() → Builder  |  join() → Join  |  direct CRUD
+                         ↓                      ↓
+                    PaginationCore         JoinLoader / Agg / Where
+```
 
 Namespaces live under `Pionia\Porm\`. Global helpers are defined in `src/Pionia/Utils/helpers.php`.
 
@@ -186,3 +208,18 @@ Low-level SQL engine (Medoo-compatible). Access via `$porm->getDatabase()`. Key 
 | `src/Pionia/Porm/ConnectionManager.php` | Pooling |
 
 Prose guides: [Database index](/documentation/database/).
+
+## Common mistakes
+
+- **Calling non-terminal methods after `all()` or `count()`** — start a fresh `table('tasks')` chain for the next operation.
+- **Using Builder methods on a bare `Porm` after `join()`** — join chains only expose Join + FilterTrait terminals.
+- **Assuming `saveOrUpdate()` targets joined tables** — writes always hit the base table from `table('tasks')`.
+- **Looking up deprecated `Porm\Porm` class names** — v3 lives under `Pionia\Porm\` per this reference.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="Making queries" description="Worked CRUD examples on tasks." href="/documentation/database/making-queries/" >}}
+{{< link-card title="WHERE DSL" description="Array operator reference." href="/documentation/database/where-dsl/" >}}
+{{< link-card title="Database index" description="Full guide map." href="/documentation/database/" >}}
+{{< /card-grid >}}

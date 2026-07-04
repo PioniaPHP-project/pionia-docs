@@ -8,7 +8,7 @@
   HUGO_VERSION = "0.125.1"
 
 [context.production]
-  command = "npm run build"
+  command = "npm run build -- -b $URL"
 
 [context.deploy-preview]
   command = "npm run build -- -b $DEPLOY_PRIME_URL"
@@ -34,22 +34,198 @@
 
 [[redirects]]
   from = "/documentation/services/validations/"
-  to = "/documentation/services/validation/"
+  to = "/documentation/building-api/validation/"
   status = 301
 
 [[redirects]]
   from = "/documentation/services/validations"
-  to = "/documentation/services/validation/"
+  to = "/documentation/building-api/validation/"
+  status = 301
+
+# v3 docs restructure — legacy flat URLs → topic folders
+[[redirects]]
+  from = "/documentation/introduction/"
+  to = "/documentation/getting-started/introduction/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/introduction"
+  to = "/documentation/getting-started/introduction/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/api-tutorial/"
+  to = "/documentation/deskflow-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/application-structure/"
+  to = "/documentation/getting-started/application-structure/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/changelog-v3/"
+  to = "/documentation/getting-started/changelog-v3/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/upgrading-from-v2/"
+  to = "/documentation/getting-started/upgrading-from-v2/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/why-pionia/"
+  to = "/documentation/getting-started/why-pionia/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/services/*"
+  to = "/documentation/building-api/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/requests-and-responses/"
+  to = "/documentation/http/requests-and-responses/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/collections/"
+  to = "/documentation/http/collections/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/middleware/"
+  to = "/documentation/http/middleware/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/middlewares/"
+  to = "/documentation/http/middleware/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/exceptions/"
+  to = "/documentation/http/exceptions/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/http-routing/"
+  to = "/documentation/http/http-routing/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/frontend-integration-vite/"
+  to = "/documentation/frontend/vite-integration/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/commands-pionia-cli/"
+  to = "/documentation/operations/commands/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/roadrunner/"
+  to = "/documentation/operations/roadrunner/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/production-performance/"
+  to = "/documentation/operations/production-performance/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/maintenance/"
+  to = "/documentation/operations/maintenance/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/caching-in-pionia/"
+  to = "/documentation/operations/caching/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/logging-in-pionia/"
+  to = "/documentation/operations/logging/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/logging-in-pionia"
+  to = "/documentation/operations/logging/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/background-work/"
+  to = "/documentation/operations/background-work/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/developer-stats/"
+  to = "/documentation/operations/developer-stats/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/helpers/"
+  to = "/documentation/extending/helpers/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/api-reference/"
+  to = "/documentation/building-api/api-reference/"
+  status = 301
+
+[[redirects]]
+  from = "/moonlight/*"
+  to = "/documentation/building-api/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/moonlight/introduction-to-moonlight-architecture/"
+  to = "/documentation/building-api/moonlight-overview/"
+  status = 301
+
+[[redirects]]
+  from = "/moonlight/security-in-moonlight/"
+  to = "/documentation/building-api/moonlight-security/"
+  status = 301
+
+[[redirects]]
+  from = "/moonlight/api-versioning-in-moonlight/"
+  to = "/documentation/building-api/api-versioning/"
   status = 301
 
 # Custom headers — https://docs.netlify.com/routing/headers/#syntax-for-the-netlify-configuration-file
+[[redirects]]
+  from = "/documentation/getting-started/api-tutorial/"
+  to = "/documentation/deskflow-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/getting-started/api-tutorial"
+  to = "/documentation/deskflow-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/getting-started/tutorial-part-1/"
+  to = "/documentation/deskflow-tutorial/01-create-project/"
+  status = 301
+
+[[redirects]]
+  from = "/docs/examples/"
+  to = "/documentation/examples/"
+  status = 301
+
+[[redirects]]
+  from = "/docs/examples"
+  to = "/documentation/examples/"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]
     Strict-Transport-Security = "max-age=60; includeSubDomains; preload"
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
-    Content-Security-Policy = "default-src 'self'; manifest-src 'self'; connect-src 'self'; font-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; script-src 'self' 'nonce-dXNlcj0iaGVsbG8iLGRvbWFpbj0iaGVua3ZlcmxpbmRlLmNvbSIsZG9jdW1lbnQud3JpdGUodXNlcisiQCIrZG9tYWluKTs=' 'sha256-aWZ3y/RxbBYKHXH0z8+8ljrHG1mSBvyzSfxSMjBSaXk='; style-src 'self'"
+    Content-Security-Policy = "default-src 'self'; manifest-src 'self'; connect-src 'self'; font-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; script-src 'self' https://cdn.jsdelivr.net 'nonce-dXNlcj0iaGVsbG8iLGRvbWFpbj0iaGVua3ZlcmxpbmRlLmNvbSIsZG9jdW1lbnQud3JpdGUodXNlcisiQCIrZG9tYWluKTs=' 'sha256-aWZ3y/RxbBYKHXH0z8+8ljrHG1mSBvyzSfxSMjBSaXk='; style-src 'self'"
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin"
     Permissions-Policy = "geolocation=(self), microphone=(), camera=()"

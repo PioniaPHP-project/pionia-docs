@@ -4,10 +4,11 @@ slug: "queries-with-filtering"
 description: "filter(), orderBy, limit, and the Where builder."
 summary: "Builder mode after filter() for complex reads."
 date: 2026-03-01
-lastmod: 2026-03-01
+lastmod: 2026-07-01
 draft: false
 weight: 813
 toc: true
+doc_type: topic
 parent: "database"
 seo:
   title: "Porm — filtering and ordering"
@@ -16,11 +17,27 @@ seo:
   noindex: false
 ---
 
-{{<callout context="tip"  icon="outline/pencil">}}
-This section assumes you have already completed configuring the database from the [Configuration Section](/documentation/database/configuration-getting-started/).
+This guide is for **DeskFlow** list endpoints — filtering `tasks` by status, scoping to a `project_id`, and sorting for alex@northwind.studio's board on port **8000**. You will move from simple `where()` arrays to the full Builder after `filter()`.
 
-Also read [Making queries](/documentation/database/making-queries/) and the [WHERE DSL reference](/documentation/database/where-dsl/).
-{{</callout>}}
+## What you will learn
+
+- Use fluent `where()` and Medoo-style array conditions on Northwind tables
+- Chain `orderBy`, `limit`, and `startAt` on a Builder
+- Build nested AND/OR clauses with the `Where` builder
+
+{{< prerequisites >}}
+- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` for DeskFlow
+- [Making queries](/documentation/database/making-queries/) — `get()`, `all()`, and table-level reads
+{{< /prerequisites >}}
+
+## How it works
+
+```text
+table('tasks')
+  → filter([...])     enters Builder mode
+  → where / orderBy / limit / startAt
+  → all() | count() | first()   (terminal — executes SQL)
+```
 
 {{<callout context="warning" icon="outline/exclamation-triangle">}}
 `startAt($offset)` requires a prior `limit()` call on the Builder.
@@ -39,62 +56,62 @@ Porm accepts a **Laravel-inspired** `where(column, operator, value)` syntax on `
 ### Equality
 
 ```php
-table('users')
+table('team_members')
     ->filter()
-    ->where('username', 'jet')   // WHERE username = 'jet'
+    ->where('email', 'alex@northwind.studio')   // WHERE email = 'alex@northwind.studio'
     ->all();
 
 // symbolic operator (3-arg)
-table('users')->filter()->where('age', '>', 18)->all();
+table('tasks')->filter()->where('priority', '>', 2)->all();
 ```
 
 ### Named operators
 
 | Operator | Example | SQL-ish |
 |----------|---------|---------|
-| `equals`, `is`, `eq`, `=` | `where('status', 'is', 'active')` | `status = 'active'` |
-| `not_equal`, `neq`, `!=` | `where('role', 'not_equal', 'guest')` | `role != 'guest'` |
-| `starts_with` | `where('name', 'starts_with', 'Pi')` | `LIKE 'Pi%'` |
-| `ends_with` | `where('email', 'ends_with', '.test')` | `LIKE '%.test'` |
-| `includes`, `contains`, `like` | `where('bio', 'includes', 'php')` | `LIKE '%php%'` |
-| `not_includes` | `where('tag', 'not_includes', 'draft')` | `NOT LIKE` |
-| `greater_than`, `gt`, `>` | `where('age', 'gt', 21)` | `age > 21` |
-| `less_than`, `lt`, `<` | `where('age', 'lt', 65)` | `age < 65` |
+| `equals`, `is`, `eq`, `=` | `where('status', 'is', 'open')` | `status = 'open'` |
+| `not_equal`, `neq`, `!=` | `where('status', 'not_equal', 'done')` | `status != 'done'` |
+| `starts_with` | `where('title', 'starts_with', 'Desk')` | `LIKE 'Desk%'` |
+| `ends_with` | `where('email', 'ends_with', '.studio')` | `LIKE '%.studio'` |
+| `includes`, `contains`, `like` | `where('title', 'includes', 'wireframe')` | `LIKE '%wireframe%'` |
+| `not_includes` | `where('title', 'not_includes', 'draft')` | `NOT LIKE` |
+| `greater_than`, `gt`, `>` | `where('priority', 'gt', 2)` | `priority > 2` |
+| `less_than`, `lt`, `<` | `where('sort_order', 'lt', 10)` | `sort_order < 10` |
 | `in` | `where('id', 'in', [1, 2, 3])` | `IN (...)` |
 | `not_in` | `where('id', 'not_in', [4, 5])` | `NOT IN` |
-| `between` | `where('age', 'between', [18, 65])` | `BETWEEN` |
-| `is_null` | `whereNull('deleted_at')` | `IS NULL` |
-| `is_not_null` | `whereNotNull('email')` | `IS NOT NULL` |
+| `between` | `where('priority', 'between', [1, 3])` | `BETWEEN` |
+| `is_null` | `whereNull('completed_at')` | `IS NULL` |
+| `is_not_null` | `whereNotNull('assignee_id')` | `IS NOT NULL` |
 
 ### Convenience methods
 
 ```php
-table('users')->filter()
-    ->whereEquals('username', 'jet')
-    ->whereStartsWith('name', 'J')
-    ->whereIncludes('email', 'pionia')
-    ->whereNotEqual('role', 'banned')
-    ->whereIn('id', [1, 2, 3])
-    ->whereBetween('age', 18, 65)
+table('tasks')->filter()
+    ->whereEquals('status', 'open')
+    ->whereStartsWith('title', 'Desk')
+    ->whereIncludes('title', 'Flow')
+    ->whereNotEqual('status', 'archived')
+    ->whereIn('project_id', [1, 2, 3])
+    ->whereBetween('priority', 1, 3)
     ->all();
 ```
 
 ### `orWhere()`
 
 ```php
-table('users')->filter()
-    ->where('username', 'jet')
-    ->orWhere('email', 'jet@example.com')
+table('team_members')->filter()
+    ->where('email', 'alex@northwind.studio')
+    ->orWhere('name', 'Alex Chen')
     ->all();
-// (username = 'jet' OR email = 'jet@example.com')
+// (email = 'alex@northwind.studio' OR name = 'Alex Chen')
 ```
 
-For multiple values on the **same column**, prefer `whereIn('username', ['jet', 'ada'])` over chaining `orWhere` on one column (PHP arrays cannot repeat keys).
+For multiple values on the **same column**, prefer `whereIn('status', ['open', 'in_progress'])` over chaining `orWhere` on one column (PHP arrays cannot repeat keys).
 
 ### Table-level chaining
 
 ```php
-table('users')->where('username', 'jet')->get();
+table('tasks')->where('status', 'open')->get();
 ```
 
 ## Array `where` (Medoo-style)
@@ -102,16 +119,16 @@ table('users')->where('username', 'jet')->get();
 This method can be used to filter data based on a single 'AND' condition. This method can be used with all the other methods in the query builder.
 
 ```php
-$users = table('users')->where(['age' => 10])->get();
+$tasks = table('tasks')->where(['project_id' => 1])->get();
 ```
 
 You can chain as many `where` methods as you want to filter the data.
 
 ```php
 
-$users = table('users')
-    ->where(['age' => 10])
-    ->where(['name' => 'John Doe'])
+$tasks = table('tasks')
+    ->where(['project_id' => 1])
+    ->where(['status' => 'open'])
     ->all();
 
 ```
@@ -124,8 +141,8 @@ The `filter` method can be used to filter data based on multiple conditions. The
 
 ```php
 
-$users = table('users')
-    ->filter(['age' => 10, 'name' => 'John Doe'])
+$tasks = table('tasks')
+    ->filter(['project_id' => 1, 'status' => 'open'])
     ->all();
 
 ```
@@ -135,9 +152,9 @@ This might look familiar, however, the `filter` method ports us to the underlyin
 Using filter, you can access methods such as `orderBy`, `group`, `limit`, `match`, `having`, `first`, `get`, `all` and many more.
 
 ```php
-$users = table('users')
-    ->filter(['age' => 10, 'name' => 'John Doe'])
-    ->orderBy(['age' => 'DESC'])
+$tasks = table('tasks')
+    ->filter(['project_id' => 1, 'status' => 'open'])
+    ->orderBy(['priority' => 'DESC'])
     ->limit(10)
     ->startAt(5)
     ->all();
@@ -176,23 +193,23 @@ $clause = Where::builder()
 // add here both AND and OR conditions
     ->build();
 
-$users = table('users')
+$tasks = table('tasks')
     ->where($clause) // with where method
     ->all();
 
-$users = table('users')
+$tasks = table('tasks')
     ->filter($clause) // with filter method
     ->all();
 
-$users = table('users')
+$tasks = table('tasks')
     ->all($clause); // with all method
 
-$users = table('users')
+$tasks = table('tasks')
     ->first($clause); // with first method
 
-$users = table('users')
+$tasks = table('tasks')
     ->filter($clause) // with filter method that also defines more complex queries
-    ->orderBy(['age' => 'DESC'])
+    ->orderBy(['priority' => 'DESC'])
     ->limit(10)
     ->startAt(5)
     ->all();
@@ -205,8 +222,8 @@ To add an 'AND' condition, you can use the `and` method.
 ```php
 
 $clause = Where::builder()
-    ->and(['age' => 10])
-    ->and(['name' => 'John Doe'])
+    ->and(['project_id' => 1])
+    ->and(['status' => 'open'])
     ->build();
 ```
 
@@ -219,8 +236,8 @@ To add an 'OR' condition, you can use the `or` method.
 ```php
 
 $clause = Where::builder()
-    ->or(['age' => 10])
-    ->or(['name' => 'John Doe'])
+    ->or(['status' => 'open'])
+    ->or(['status' => 'in_progress'])
     ->build();
 ```
 
@@ -243,8 +260,8 @@ You can mix 'AND' and 'OR' conditions to build more complex queries.
 ```php
 
 $clause = Where::builder()
-    ->and(['age' => 10])
-    ->or(['name' => 'John Doe'])
+    ->and(['project_id' => 1])
+    ->or(['status' => 'blocked'])
     ->build();
 ```
 
@@ -257,17 +274,32 @@ You can also build more complex queries by nesting conditions.
 ```php
 
 $clause = Where::builder()
-    ->and(['age' => 10])
+    ->and(['project_id' => 1])
     ->or(
         Where::builder()
-            ->and(['name' => 'John Doe'])
-            ->or(['name' => 'Jane Doe'])
-            ->and(['age' => 20])
+            ->and(['status' => 'open'])
+            ->or(['status' => 'in_progress'])
+            ->and(['assignee_id' => 2])
             ->build()
     )
     ->build();
 
-    // where age = 10 OR (name = 'John Doe' OR name = 'Jane Doe' AND age = 20)
+    // where project_id = 1 OR (status = 'open' OR status = 'in_progress' AND assignee_id = 2)
 ```
 
 You can nest as many conditions as you want to build more complex queries. This is where Porm shines!
+
+## Common mistakes
+
+- **Calling `startAt()` without `limit()`** — DeskFlow paginated lists need both or the Builder throws.
+- **Repeating the same array key in OR conditions** — use `whereIn('status', [...])` instead of duplicate keys.
+- **Mixing unqualified column names after joins** — prefix with `t.` when filtering joined task lists.
+- **Filtering on client fields without validation** — whitelist sort columns in `TaskService` before passing to `orderBy()`.
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="WHERE DSL" description="Medoo-style operator reference." href="/documentation/database/where-dsl/" >}}
+{{< link-card title="Pagination" description="limit/offset for list_* actions." href="/documentation/database/pagination/" >}}
+{{< link-card title="Relationships" description="Filter across joined tables." href="/documentation/database/relationships/" >}}
+{{< /card-grid >}}
