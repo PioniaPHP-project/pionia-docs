@@ -1,29 +1,20 @@
 ---
 title: "Pionia Framework"
 description: ""
-lead: "PHP Moonlight REST API framework for developers with deadlines"
+lead: "Build a real JSON API in an afternoon — PHP 8.5+, Moonlight, and optional Vite frontend."
 date: 2023-09-07T16:33:54+02:00
-lastmod: 2026-06-25T00:00:00.000Z
+lastmod: 2026-07-04T00:00:00.000Z
 draft: false
 seo:
-  title: "Pionia Framework" # custom title (optional)
-  description: "PHP Rest Framework for web developers with deadlines" # custom description (recommended)
-  canonical: "" # custom canonical URL (optional)
-  noindex: false # false (default) or true
+  title: "Pionia Framework"
+  description: "PHP Moonlight REST API framework for developers with deadlines"
+  canonical: ""
+  noindex: false
 ---
 
 ```bash
-php pionia new my-api --install
-# or
-composer create-project pionia/pionia-app my-api
+composer create-project pionia/pionia-app deskflow-api
+cd deskflow-api && php pionia serve
 ```
 
-Requires **PHP 8.5+** and `pionia/pionia-core` **^3.0**.
-
-## Pionia Framework
-
-Pionia is a PHP REST framework built on **Moonlight** — one versioned endpoint dispatches `{ service, action }` to service classes. v3 uses **`AppRealm`**, native CLI, optional **RoadRunner** workers, and **`pionia api:docs`** for OpenAPI from action comments.
-
-### [Get started](/documentation/introduction/)
-
-### [Why Pionia?](/documentation/why-pionia/)
+Requires **PHP 8.5+** and `pionia/pionia-core` **^3.0**. Every guide uses **DeskFlow** — Northwind Studio's task board API — so examples stay consistent from first ping to deploy. New to PHP? See [PHP basics](/documentation/getting-started/php-basics/).

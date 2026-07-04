@@ -2,9 +2,50 @@
 title: "Composer packages"
 slug: "composer-packages"
 description: "Ship reusable Pionia plugins and full providers on Packagist."
+summary: "Plain PHP plugins vs Provider boot hooks for Packagist packages."
+date: 2026-07-01
+lastmod: 2026-07-04
+draft: false
 weight: 6001
 toc: true
+doc_type: how-to
+parent: "extending"
+seo:
+  title: "Composer packages for Pionia"
+  description: "Publish plugins and providers that extend Pionia applications."
+  noindex: false
 ---
+
+## Who this is for
+
+You are packaging reusable logic for DeskFlow or other Pionia apps — a phone normalizer **plugin** with no boot hooks, or a billing **provider** that registers middleware, commands, and an API switch.
+
+## What you will learn
+
+- When to ship a plain Composer library vs a `Provider` subclass
+- Minimal plugin structure and a full provider package layout
+- Local path-repository development and Packagist checklist
+
+## Before you start
+
+{{< prerequisites >}}
+- [App providers](/documentation/extending/app-providers/) — hook reference and boot order
+- A sandbox app (`composer create-project pionia/pionia-app sandbox`)
+- Composer 2.x and PHP 8.5+
+{{< /prerequisites >}}
+
+## How it works
+
+{{< mermaid >}}
+flowchart LR
+  Consumer[DeskFlow app] --> Require[composer require]
+  Require --> Plugin[acme/phone-normalizer]
+  Require --> ProviderPkg[acme/pionia-billing]
+  Plugin --> Service[Used from TaskService]
+  ProviderPkg --> Prov[BillingProvider]
+  Prov --> INI["[app_providers]"]
+  INI --> Boot[Pionia boot hooks]
+{{< /mermaid >}}
 
 ## Plugins vs providers
 
@@ -43,7 +84,7 @@ final class Normalizer
 }
 ```
 
-Use from a service:
+Use from DeskFlow's `MemberService`:
 
 ```php
 use Acme\Phone\Normalizer;
@@ -171,8 +212,17 @@ php pionia cache:clear
 - [ ] Optional RoadRunner / Redis features declared in `suggest`, not `require`
 - [ ] `@moonlight-*` tags on public actions if you ship HTTP API docs
 
-## Related
+## Common mistakes
 
-- [App providers](/documentation/extending/app-providers/) — hook reference
-- [Commands](/documentation/commands-pionia-cli/) — CLI conventions
-- [Middleware](/documentation/middleware/) — HTTP pipeline
+- Importing `Application\Services\TaskService` from a package — packages must not depend on app namespaces
+- Using `v1` as the package switch slug — collides with the host app's `MainSwitch`
+- Shipping secrets or `.env` samples with real keys in the package README
+- Forgetting to document `[app_providers]` registration — consumers see a silent no-op install
+
+## What's next
+
+{{< card-grid >}}
+{{< link-card title="App providers" description="Full hook reference and boot order." href="/documentation/extending/app-providers/" >}}
+{{< link-card title="Commands" description="CLI conventions for package commands." href="/documentation/operations/commands/" >}}
+{{< link-card title="Middleware" description="HTTP pipeline for package middleware." href="/documentation/http/middleware/" >}}
+{{< /card-grid >}}

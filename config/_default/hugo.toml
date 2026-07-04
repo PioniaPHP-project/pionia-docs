@@ -1,6 +1,6 @@
 title = "Pionia"
-# baseurl = "http://localhost/"
-baseurl = "https://pionia.netlify.app/"
+# Omit baseurl here — local `hugo server` uses the dev host (localhost:1313).
+# Production URL lives in config/production/hugo.toml (npm run build -e production).
 canonifyURLs = false
 relativeURLS = false
 disableAliases = true
