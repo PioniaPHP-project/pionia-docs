@@ -14643,4 +14643,31 @@ body {
   color: var(--bs-secondary-color);
   margin-bottom: 0; }
 
+.mermaid {
+  overflow-x: auto; }
+
+[data-bs-theme="dark"] .mermaid svg .messageText,
+[data-bs-theme="dark"] .mermaid svg .loopText,
+[data-bs-theme="dark"] .mermaid svg .labelText {
+  fill: #f1f5f9 !important;
+  font-weight: 600; }
+
+[data-bs-theme="dark"] .mermaid svg .noteText {
+  fill: #1f2937 !important;
+  font-weight: 600; }
+
+[data-bs-theme="dark"] .mermaid svg text.actor > tspan {
+  fill: #1f2937 !important; }
+
+[data-bs-theme="dark"] .mermaid svg .messageLine0,
+[data-bs-theme="dark"] .mermaid svg .messageLine1,
+[data-bs-theme="dark"] .mermaid svg .actor-line {
+  stroke: #cbd5e1 !important; }
+
+[data-bs-theme="dark"] .mermaid svg .marker,
+[data-bs-theme="dark"] .mermaid svg #arrowhead path,
+[data-bs-theme="dark"] .mermaid svg #crosshead path {
+  fill: #cbd5e1 !important;
+  stroke: #cbd5e1 !important; }
+
 /*# sourceMappingURL=main.css.map */

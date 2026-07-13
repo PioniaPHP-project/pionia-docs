@@ -33,16 +33,17 @@ This guide is for DeskFlow developers who outgrow `php pionia serve` and need **
 
 {{< mermaid >}}
 sequenceDiagram
+  participant Client
   participant RR as RoadRunner
   participant W as PHP worker
-  participant API as DeskFlow API
+  participant API as "DeskFlow API"
   Note over W: bootOnce() once per worker
   RR->>W: PSR-7 request
   W->>API: handleRequest()
   API-->>W: Response
   W-->>RR: JSON envelope
   RR-->>Client: HTTP response
-  Note over W: PDO pool reused; no exit()
+  Note over W: PDO pool reused, no exit()
 {{< /mermaid >}}
 
 PHP-FPM boots the framework on every request. RoadRunner keeps workers alive — **boot once**, handle many requests. `ConnectionManager` reuses PDO across requests; call `disconnect()` only on worker shutdown.

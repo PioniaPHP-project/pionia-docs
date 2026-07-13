@@ -239,3 +239,42 @@
     color: var(--bs-secondary-color);
     margin-bottom: 0;
 }
+
+// Mermaid diagrams: neutral theme ships dark arrow labels (#333) that disappear
+// on the docs dark background. Boost contrast for sequence/flowchart labels.
+.mermaid {
+    overflow-x: auto;
+}
+
+@include color-mode(dark) {
+    .mermaid svg {
+        .messageText,
+        .loopText,
+        .labelText {
+            fill: #f1f5f9 !important;
+            font-weight: 600;
+        }
+
+        .noteText {
+            fill: #1f2937 !important;
+            font-weight: 600;
+        }
+
+        text.actor > tspan {
+            fill: #1f2937 !important;
+        }
+
+        .messageLine0,
+        .messageLine1,
+        .actor-line {
+            stroke: #cbd5e1 !important;
+        }
+
+        .marker,
+        #arrowhead path,
+        #crosshead path {
+            fill: #cbd5e1 !important;
+            stroke: #cbd5e1 !important;
+        }
+    }
+}
