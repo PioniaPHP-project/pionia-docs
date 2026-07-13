@@ -34,7 +34,7 @@ When a task is assigned, DeskFlow should **email Alex after the HTTP response** 
 In `createAction`, after `save()`:
 
 ```php
-$assignee = $data->getString('assignee', 'alex@northwind.studio');
+$assignee = $data->get('assignee', 'alex@northwind.studio');
 
 defer(function () use ($assignee, $task) {
     logger()->info('DeskFlow assignment email queued', [

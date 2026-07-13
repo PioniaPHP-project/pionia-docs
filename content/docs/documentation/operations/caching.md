@@ -34,13 +34,13 @@ This guide is for DeskFlow developers who need **application-level caching** —
 
 {{< mermaid >}}
 flowchart LR
-  Action[task.list action] --> CM[CacheManager]
+  Action["task.list action"] --> CM[CacheManager]
   CM --> Hit{Key exists?}
   Hit -->|Yes| Return[Cached JSON rows]
-  Hit -->|No| DB[(Porm / tasks table)]
+  Hit -->|No| DB[("Porm / tasks table")]
   DB --> Store[Write cache with TTL]
   Store --> Return
-  CM --> Backend[filesystem / redis / apcu / database]
+  CM --> Backend["filesystem / redis / apcu / database"]
 {{< /mermaid >}}
 
 Pionia v3 ships a **native PSR-16 cache layer** (`PioniaCache` + `CacheManager`).

@@ -489,11 +489,11 @@ protected function loginAction(Arrayable $data): ApiResponse
 For one field or dynamic checks:
 
 ```php
-validate('email', $data)->required()->email();
-validate('password', $data)->required()->asPassword();
+$email = validate('email', $data)->required()->email()->get();
+$password = validate('password', $data)->required()->asPassword()->get();
 ```
 
-Pass `$data`, `$this`, or `$this->request` as the second argument.
+Pass `$data`, `$this`, or `$this->request` as the second argument. Use **`->get()`** after the chain to validate and return the value in one line — see [Validation](/documentation/building-api/validation/#validate-and-extract---get).
 
 ### `$this->requires()` — presence only
 

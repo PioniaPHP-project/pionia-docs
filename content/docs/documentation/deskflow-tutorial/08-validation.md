@@ -39,10 +39,11 @@ use Pionia\Validations\Attributes\Validated;
 ])]
 protected function createAction(Arrayable $data): ApiResponse
 {
+    // #[Validated] already ran — read fields with get() / typed getters:
     $task = table('tasks')->save([
         'title' => $data->getString('title'),
-        'status' => $data->getString('status', 'open'),
-        'assignee' => $data->getString('assignee', 'alex@northwind.studio'),
+        'status' => $data->get('status', 'open'),
+        'assignee' => $data->get('assignee', 'alex@northwind.studio'),
     ]);
 
     return response(0, 'Task created', ['task' => $task]);
@@ -50,6 +51,10 @@ protected function createAction(Arrayable $data): ApiResponse
 ```
 
 Remove the manual `ValidationException` block from Step 7 — the attribute handles it.
+
+{{< callout context="tip" title="Validate and extract in one line" icon="outline/bulb" >}}
+Without attributes, use `validate('title', $data)->required()->string()->min(3)->get()` to run rules and return the value in one expression. See [Validation — `->get()`](/documentation/building-api/validation/#validate-and-extract---get).
+{{< /callout >}}
 
 ## Test failure
 
@@ -68,6 +73,6 @@ Reference: [Validation guide](/documentation/building-api/validation/).
 ## Common mistakes
 
 - **422 never fires** — typo in attribute namespace or rules string.
-- **Validating in both attribute and manual code** — pick one style per action.
+- **Skipping `validate()->get()` when chaining rules** — after `validate('email', $data)->required()->email()`, call `->get()` instead of a separate `$data->get('email')`. See [Validation — `->get()`](/documentation/building-api/validation/#validate-and-extract---get).
 
 {{< tutorial-nav >}}

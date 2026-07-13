@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="/main.2dda91215349f6c3fced0f77b8d86a0aa0b6438f2eb9046610539fd6fb83fd28b017f8218d9baca27fc203bf4f40b3f37ea6308c564d9e26cd0611bfc6ea3cc7.css" integrity="sha512-LdqRIVNJ9sP87Q93uNhqCqC2Q48uuQRmEFOf1vuD/SiwF/ghjZuson/CA79PQLPzfqYwjFZNnibNBhG/xuo8xw==" crossorigin="anonymous">
 
 <noscript><style>img.lazyload { display: none; }</style></noscript>
-  <link rel="canonical" href="http://localhost:1313/documentation/http/middleware/">
-<title>Middleware in Pionia v3</title>
-<meta name="description" content="Create middleware, register in settings.ini or providers, and use onRequest / onResponse hooks.">
+  <link rel="canonical" href="http://localhost:1313/introduction-to-moonlight-architecture/">
+<title>Introduction to Moonlight Architecture</title>
+<meta name="description" content="How Moonlight removes the unnecessary parts of HTTP to provide a slick way to build performant APIs faster">
 
     
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -43,20 +43,18 @@
         type="image/png"
       >
 <link rel="manifest" href="/manifest.webmanifest">
-<meta property="og:title" content="Middleware">
-<meta property="og:description" content="Request and response middleware chains in Pionia v3.">
+<meta property="og:title" content="Introduction to MoonLight Architecture">
+<meta property="og:description" content="This page describes the MoonLight Architecture.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/documentation/http/middleware/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2026-06-25T00:00:00+00:00">
-<meta property="article:modified_time" content="2026-07-04T04:53:15+03:00"><meta property="og:site_name" content="Pionia Framework">
+<meta property="og:url" content="http://localhost:1313/introduction-to-moonlight-architecture/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2024-05-24T13:45:48+00:00">
+<meta property="article:modified_time" content="2026-07-04T03:37:58+03:00"><meta property="og:site_name" content="Pionia Framework">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Middleware">
-<meta name="twitter:description" content="Request and response middleware chains in Pionia v3.">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Introduction to MoonLight Architecture">
+<meta name="twitter:description" content="This page describes the MoonLight Architecture.">
 <meta name="twitter:site" content="@pionia">
 
-    
-    
     
     <script type="application/ld+json">
   {
@@ -77,20 +75,8 @@
      },
      {
        "@type": "ListItem",
-       "item": "http://localhost:1313/documentation/",
-       "name": "Documentation",
+       "name": "Introduction to Moon Light Architecture",
        "position": 3
-     },
-     {
-       "@type": "ListItem",
-       "item": "http://localhost:1313/documentation/http/",
-       "name": "HTTP \u0026 Middleware",
-       "position": 4
-     },
-     {
-       "@type": "ListItem",
-       "name": "Middleware",
-       "position": 5
      }
    ]
  }
@@ -307,7 +293,7 @@
   </li>
 
   <li>
-    <details open>
+    <details>
       <summary>HTTP &amp; middleware</summary>
       <ul class="list-unstyled list-nested">
 
@@ -319,8 +305,8 @@
       <a href="/documentation/http/http-routing/">HTTP routing</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/http/middleware/">Middleware</a>
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
   </li>
 
   <li>
@@ -783,7 +769,7 @@
   </li>
 
   <li>
-    <details open>
+    <details>
       <summary>HTTP &amp; middleware</summary>
       <ul class="list-unstyled list-nested">
 
@@ -795,8 +781,8 @@
       <a href="/documentation/http/http-routing/">HTTP routing</a>
   </li>
 
-  <li class="active" >
-      <a aria-current="page" href="/documentation/http/middleware/">Middleware</a>
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
   </li>
 
   <li>
@@ -965,28 +951,16 @@
   <h3>On this page</h3>
     <nav id="toc">
   <ul>
-    <li><a href="#what-you-will-learn">What you will learn</a></li>
-    <li><a href="#how-it-works">How it works</a></li>
-    <li><a href="#request-lifecycle">Request lifecycle</a></li>
-    <li><a href="#create-a-middleware">Create a middleware</a>
+    <li><a href="#the-moonlight-paradigm">The MoonLight paradigm</a>
       <ul>
-        <li><a href="#onresponse-and-the-request"><code>onResponse</code> and the request</a></li>
-        <li><a href="#optional-hooks">Optional hooks</a></li>
-        <li><a href="#service-scoped-middleware">Service-scoped middleware</a></li>
+        <li><a href="#1-single-api-endpointroute">1. Single API endpoint/route</a></li>
+        <li><a href="#2-post-requests-only">2. POST Requests only</a></li>
+        <li><a href="#3-single-request-format">3. Single Request Format</a></li>
+        <li><a href="#4-single-response-format">4. Single Response Format</a></li>
+        <li><a href="#5-http-200-ok-for-all">5. HTTP 200 OK for all.</a></li>
+        <li><a href="#6-single-controller-per-application">6. Single Controller Per Application.</a></li>
       </ul>
     </li>
-    <li><a href="#registration">Registration</a>
-      <ul>
-        <li><a href="#settingsini-app-middleware">settings.ini (app middleware)</a></li>
-        <li><a href="#service-provider-packages">Service provider (packages)</a></li>
-        <li><a href="#cli-generator">CLI generator</a></li>
-      </ul>
-    </li>
-    <li><a href="#middleware-vs-authentication">Middleware vs authentication</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#inspecting-the-stack">Inspecting the stack</a></li>
-    <li><a href="#common-mistakes">Common mistakes</a></li>
-    <li><a href="#whats-next">What&rsquo;s next</a></li>
   </ul>
 </nav>
 </div>
@@ -994,7 +968,7 @@
 		</nav>
 		<main class="docs-content col-lg-11 col-xl-9">
 		
-			<h1>Middleware</h1>
+			<h1>Introduction to MoonLight Architecture</h1>
 			
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
 				<details>
@@ -1002,400 +976,235 @@
     <div class="page-links">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#what-you-will-learn">What you will learn</a></li>
-    <li><a href="#how-it-works">How it works</a></li>
-    <li><a href="#request-lifecycle">Request lifecycle</a></li>
-    <li><a href="#create-a-middleware">Create a middleware</a>
+    <li><a href="#the-moonlight-paradigm">The MoonLight paradigm</a>
       <ul>
-        <li><a href="#onresponse-and-the-request"><code>onResponse</code> and the request</a></li>
-        <li><a href="#optional-hooks">Optional hooks</a></li>
-        <li><a href="#service-scoped-middleware">Service-scoped middleware</a></li>
+        <li><a href="#1-single-api-endpointroute">1. Single API endpoint/route</a></li>
+        <li><a href="#2-post-requests-only">2. POST Requests only</a></li>
+        <li><a href="#3-single-request-format">3. Single Request Format</a></li>
+        <li><a href="#4-single-response-format">4. Single Response Format</a></li>
+        <li><a href="#5-http-200-ok-for-all">5. HTTP 200 OK for all.</a></li>
+        <li><a href="#6-single-controller-per-application">6. Single Controller Per Application.</a></li>
       </ul>
     </li>
-    <li><a href="#registration">Registration</a>
-      <ul>
-        <li><a href="#settingsini-app-middleware">settings.ini (app middleware)</a></li>
-        <li><a href="#service-provider-packages">Service provider (packages)</a></li>
-        <li><a href="#cli-generator">CLI generator</a></li>
-      </ul>
-    </li>
-    <li><a href="#middleware-vs-authentication">Middleware vs authentication</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#inspecting-the-stack">Inspecting the stack</a></li>
-    <li><a href="#common-mistakes">Common mistakes</a></li>
-    <li><a href="#whats-next">What&rsquo;s next</a></li>
   </ul>
 </nav>
     </div>
   </details>
 
 			</nav>
-			<p>This guide is for DeskFlow developers who need <strong>cross-cutting HTTP logic</strong> — request IDs, security headers, or metrics — without duplicating code in every <code>*Action</code> method.</p>
-<h2 id="what-you-will-learn">What you will learn<a href="#what-you-will-learn" class="anchor" aria-hidden="true">#</a> </h2>
-<ul>
-<li>How middleware runs <strong>before and after</strong> dispatch (not inside actions)</li>
-<li>How to add <code>RequestIdMiddleware</code> so support tickets reference one ID</li>
-<li>Where to register middleware (<code>settings.ini</code> vs providers)</li>
-</ul>
-<div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+			<p>MoonLight is a rather new architecture that is based on the commonly used architectures of gRPC, MVC(Model View Controller), Micro-Services and Monolothic. It picks the best of all these architectures and combines them to create a new architecture that is more efficient and scalable.</p>
+<h2 id="the-moonlight-paradigm">The MoonLight paradigm<a href="#the-moonlight-paradigm" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Below are the new conventions that MoonLight architecture brings to the table:</p>
+<p>Architecture overview (conceptual):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Client → /api/v1/ → Switch → Service → *Action → JSON envelope</span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="1-single-api-endpointroute">1. Single API endpoint/route<a href="#1-single-api-endpointroute" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In the moonlight, all requests target the same endpoint. This is to ensure that the application is scalable and easy to maintain. This also makes it easier to debug and monitor the application.</p>
+<p>Assuming the application is running on <code>http://localhost:3000</code>, all requests will be made to <code>http://localhost:3000/api/v1/</code>. This is the only endpoint that is exposed to the outside world.</p>
+<p>On top of other advantages, now frontend devs don&rsquo;t have to worry about the base URL of the API. They can just make requests to the <code>/api/v1/</code> endpoint and the application will handle the rest.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
   <div class="callout-content">
-    <div class="callout-title">Before you start</div>
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
     <div class="callout-body">
-      <ul>
-<li><a href="/documentation/deskflow-tutorial/01-create-project/">DeskFlow tutorial Step 1</a> — a running DeskFlow app</li>
-<li><a href="/documentation/getting-started/application-structure/">Application structure</a> — <code>middlewares/</code> folder</li>
-</ul>
+      <p>For anyone to interact with the application, they must go through this endpoint only.</p>
 
     </div>
   </div>
 </div>
 
-<h2 id="how-it-works">How it works<a href="#how-it-works" class="anchor" aria-hidden="true">#</a> </h2>
-<pre class="mermaid my-4">sequenceDiagram
-  participant Client
-  participant MW as Middleware chain
-  participant Auth as Authentication
-  participant API as &#34;Switch / Service&#34;
-  Client-&gt;&gt;MW: POST /api/v1/
-  MW-&gt;&gt;MW: onRequest (set X-Request-Id)
-  MW-&gt;&gt;Auth: identify caller
-  Auth-&gt;&gt;API: task.create
-  API--&gt;&gt;MW: Response
-  MW-&gt;&gt;MW: onResponse (echo X-Request-Id)
-  MW--&gt;&gt;Client: JSON envelope</pre>
-
-<p>Middleware runs <strong>twice per HTTP request</strong> — once on the incoming request (before routing and authentication) and once on the outgoing response (after the controller or exception handler builds it).</p>
-<p>Use middleware for cross-cutting concerns: request IDs, security headers, response shaping, metrics headers, and similar logic that should not live in every service action.</p>
-<p><strong>Authentication</strong> is separate: backends in <code>authentications/</code> run after the request middleware chain. See <a href="/documentation/security/security-authentication-and-authorization/">Security</a>.</p>
-<h2 id="request-lifecycle">Request lifecycle<a href="#request-lifecycle" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="2-post-requests-only">2. POST Requests only<a href="#2-post-requests-only" class="anchor" aria-hidden="true">#</a> </h3>
+<p>All requests under moonlight architecture are made using the http method of POST only. This is to ensure that the requests are secure and the data is not exposed in the server logs or in the URL. This also makes it easier to debug and monitor the application. <a href="/moonlight/security-in-moonlight/">Read more on security</a>.</p>
+<h3 id="3-single-request-format">3. Single Request Format<a href="#3-single-request-format" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In Moonlight architecture, all requests are made in a similar format. This makes it easier to understand and debug the requests. Requests can either be of type JSON or form-data.</p>
+<p>Every request must define the <code>SERVICE</code> and <code>ACTION</code> to execute in the request body plus the rest of the payload as required by the service.</p>
 
 
 
 <div class="expressive-code">
-  <figure class="frame not-content">
+  <figure class="frame has-title not-content">
   <figcaption class="header">
-    <span class="title"></span>
+    <span class="title">POST http://localhost:3000/api/v1/</span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">WebKernel::handle()
-</span></span><span class="line"><span class="cl">  → maintenance / CORS preflight (early exit)
-</span></span><span class="line"><span class="cl">  → WebKernel::boot()
-</span></span><span class="line"><span class="cl">      → MiddlewareChain::handle($request)     ← onRequest phase
-</span></span><span class="line"><span class="cl">      → AuthenticationChain::handle($request)
-</span></span><span class="line"><span class="cl">  → route match + dispatch (switch / static / docs)
-</span></span><span class="line"><span class="cl">  → WebKernel::terminate()
-</span></span><span class="line"><span class="cl">      → CORS response headers
-</span></span><span class="line"><span class="cl">      → MiddlewareChain::handle($request, $response)  ← onResponse phase
-</span></span><span class="line"><span class="cl">      → Response::prepare()</span></span></code></pre></div>
-  </figure>
-</div>
-<p>Middleware does <strong>not</strong> wrap individual service actions. To limit logic to specific Moonlight services, override <code>limitServicesTo()</code> (see below).</p>
-<h2 id="create-a-middleware">Create a middleware<a href="#create-a-middleware" class="anchor" aria-hidden="true">#</a> </h2>
-<p>Extend <code>Pionia\Middlewares\Middleware</code> and implement <code>onRequest</code> and <code>onResponse</code>:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Application\Middlewares</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Request\Request</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Http\Response\Response</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Middlewares\Middleware</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RequestIdMiddleware</span> <span class="k">extends</span> <span class="nx">Middleware</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">onRequest</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;X-Request-Id&#39;</span><span class="p">)</span> <span class="o">?:</span> <span class="nx">bin2hex</span><span class="p">(</span><span class="nx">random_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;X-Request-Id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">onResponse</span><span class="p">(</span><span class="nx">Response</span> <span class="nv">$response</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;X-Request-Id&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;X-Request-Id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+  <div class="highlight" title="POST http://localhost:3000/api/v1/"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;SERVICE&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;ACTION&#34;</span><span class="p">:</span> <span class="s2">&#34;get_user_by_profile&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="s2">&#34;@1233232&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<h3 id="onresponse-and-the-request"><code>onResponse</code> and the request<a href="#onresponse-and-the-request" class="anchor" aria-hidden="true">#</a> </h3>
-<p><code>onResponse</code> <strong>does</strong> receive the same <code>Request</code> instance from the current HTTP cycle. The framework passes both arguments:</p>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">onResponse</span><span class="p">(</span><span class="nx">Response</span> <span class="nv">$response</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>Use <code>$request</code> to read headers or attributes you set in <code>onRequest</code>, inspect the Moonlight <code>service</code> / <code>action</code> from the JSON body, or branch on the request path. The response phase runs in <code>WebKernel::terminate()</code> after dispatch (or after the exception pipeline renders an error).</p>
 <div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
   
   <div class="callout-content">
     
     <div class="callout-body">
-      <p>Older docs and generated stubs omitted the <code>$request</code> parameter on <code>onResponse</code>. The contract and runtime always passed both — update any middleware that only declared <code>onResponse(Response $response)</code>.</p>
+      <p>The <code>SERVICE</code> and <code>ACTION</code> are required in every request. The rest of the payload is dependent on the service and action being executed.</p>
 
     </div>
   </div>
 </div>
 
-<h3 id="optional-hooks">Optional hooks<a href="#optional-hooks" class="anchor" aria-hidden="true">#</a> </h3>
-<p><code>MiddlewareTrait</code> also exposes empty hooks you can override:</p>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>When</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>beforeRequest()</code></td>
-<td>Immediately before <code>onRequest()</code></td>
-</tr>
-<tr>
-<td><code>afterRequest()</code></td>
-<td>Immediately after <code>onRequest()</code></td>
-</tr>
-<tr>
-<td><code>beforeResponse()</code></td>
-<td>Immediately before <code>onResponse()</code></td>
-</tr>
-<tr>
-<td><code>afterResponse()</code></td>
-<td>Immediately after <code>onResponse()</code></td>
-</tr>
-</tbody>
-</table>
-<p>Return types for <code>onRequest</code> / <code>onResponse</code> are <code>void</code>. Mutate <code>$request</code> and <code>$response</code> in place.</p>
-<h3 id="service-scoped-middleware">Service-scoped middleware<a href="#service-scoped-middleware" class="anchor" aria-hidden="true">#</a> </h3>
-<p>By default middleware runs on <strong>every</strong> request. Override <code>limitServicesTo()</code> to run only when the JSON body <code>service</code> key matches:</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
+
+      </div>
+    <div class="callout-body">
+      <p>This architecture, if to be well implemented must follow the Object Oriented Programming paradigm.
+With this, <code>services</code> should/must be classes or interfaces(golang) that combine together related business logic like <code>AuthenticationService</code>, <code>ProductService</code>, <code>OrderService</code> etc.</p>
+<p>And Actions should be methods in these classes like <code>login</code>, <code>register</code> in the <code>AuthenticationService</code> class.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="4-single-response-format">4. Single Response Format<a href="#4-single-response-format" class="anchor" aria-hidden="true">#</a> </h3>
+<p>This architecture also calls for a single response format. This makes it way easier to understand and debug the responses. The response format is as follows:</p>
 
 
 
 <div class="expressive-code">
-  <figure class="frame not-content">
+  <figure class="frame has-title not-content">
   <figcaption class="header">
-    <span class="title"></span>
+    <span class="title">Response</span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Collections\Arrayable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">limitServicesTo</span><span class="p">()</span><span class="o">:</span> <span class="nx">Arrayable</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">Arrayable</span><span class="p">([</span><span class="s1">&#39;billing&#39;</span><span class="p">,</span> <span class="s1">&#39;reports&#39;</span><span class="p">]);</span>
+  <div class="highlight" title="Response"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;statusCode&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line hl"><span class="cl">  <span class="nt">&#34;returnMessage&#34;</span><span class="p">:</span> <span class="s2">&#34;Some cool message here or null&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;returnData&#34;</span><span class="p">:</span> <span class="s2">&#34;the data you&#39;re sending to the frontend&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;any extra data you want to send to the frontend&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>When the list is empty (default), middleware runs for all services.</p>
-<h2 id="registration">Registration<a href="#registration" class="anchor" aria-hidden="true">#</a> </h2>
-<h3 id="settingsini-app-middleware">settings.ini (app middleware)<a href="#settingsini-app-middleware" class="anchor" aria-hidden="true">#</a> </h3>
+<p>With <code>statusCode</code>, it implies that the developer/business can define their own custom status codes. However, by convention, a status code of <code>0</code> implies success and is recommended to be kept for the same.</p>
+<h3 id="5-http-200-ok-for-all">5. HTTP 200 OK for all.<a href="#5-http-200-ok-for-all" class="anchor" aria-hidden="true">#</a> </h3>
+<p>All requests in this architecture that reach the application server should/must return an http status of 200 OK. The only special case is 502 Gateway Error which is returned when the application server is down or unreachable.</p>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
 
+      </div>
+    <div class="callout-body">
+      <p>Think about it, the application server actually handled your request so whether the request raised an exception or successfully executed, the server actually handled it.
+And that&rsquo;s what we are actually looking for.</p>
 
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[app_middlewares]</span>
-</span></span><span class="line"><span class="cl"><span class="na">request_id</span> <span class="o">=</span> <span class="s">&#34;Application\Middlewares\RequestIdMiddleware&#34;</span></span></span></code></pre></div>
-  </figure>
+    </div>
+  </div>
 </div>
-<p>Keys are aliases (for ordering and stats); values are middleware class names. Entries merge with framework built-ins (for example <code>CacheMiddleware</code>).</p>
-<h3 id="service-provider-packages">Service provider (packages)<a href="#service-provider-packages" class="anchor" aria-hidden="true">#</a> </h3>
+
+<h3 id="6-single-controller-per-application">6. Single Controller Per Application.<a href="#6-single-controller-per-application" class="anchor" aria-hidden="true">#</a> </h3>
+<p>In this architecture, there is only one controller that handles all the requests. This controller is responsible for routing the requests to the appropriate service and action.
+This makes it easier to maintain and debug the application. This must be one per application.</p>
+<p>To achieve api versioning, this controller can have multiple actions each pointing to a different version switch of the application.
+Each action can then route the request to the appropriate service switch.</p>
+<p>This point is where the app should handle all exceptions that might be raised by the services and then return a 200 OK response with the appropriate message from the exception raised.</p>
+<p>Example using php.</p>
 
 
 
 <div class="expressive-code">
-  <figure class="frame not-content">
+  <figure class="frame has-title not-content">
   <figcaption class="header">
-    <span class="title"></span>
+    <span class="title">Controller</span>
   </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Pionia\Middlewares\MiddlewareChain</span><span class="p">;</span>
+  <div class="highlight" title="Controller"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">  <span class="k">class</span> <span class="nc">ApiController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">public</span> <span class="k">function</span> <span class="nf">v1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// point to the service switch for version one
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// handle the exception here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">middlewares</span><span class="p">(</span><span class="nx">MiddlewareChain</span> <span class="nv">$chain</span><span class="p">)</span><span class="o">:</span> <span class="nx">MiddlewareChain</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$chain</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nx">RequestIdMiddleware</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">      <span class="k">public</span> <span class="k">function</span> <span class="nf">v2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// point to the service switch for version two
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// handle the exception here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span></span></span></code></pre></div>
   </figure>
 </div>
-<p>Provider middleware merges during boot. Use <code>addBefore()</code> / <code>addAfter()</code> for position relative to another class:</p>
+<p>No logic should be in the controller; it should only be responsible for routing the requests to the appropriate switch.</p>
+<blockquote>
+<p>For Pionia Framework, this is not required at all, since the framework handles this for you internally!</p>
+</blockquote>
+<h5 id="7-single-service-switch-per-api-version">7. Single Service Switch Per API Version.<a href="#7-single-service-switch-per-api-version" class="anchor" aria-hidden="true">#</a> </h5>
+<p>In this architecture, there should only be one service switch that handles all the requests for a particular version of the application. This service switch is responsible reading the <code>SERVICE</code> in the request and call the responsible service passing it the action(<code>ACTION</code>) and the rest of the payload.</p>
+<p>The service switch is just a convention to make our controller clean and easy to maintain. It is not a must to have it, but it is recommended. Otherwise, the switching logic would be handled in the controller action responsible for the version.</p>
+<div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  <svg class="outline/book svg-inline callout-icon me-2 mb-3"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6a9 9 0 019 0 9 9 0 019 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/></svg>
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Point To Ponder!</p>
 
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">return</span> <span class="nv">$chain</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nx">LoggingMiddleware</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span><span class="nx">LoggingMiddleware</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="nx">MetricsMiddleware</span><span class="o">::</span><span class="na">class</span><span class="p">);</span></span></span></code></pre></div>
-  </figure>
-</div>
-<h3 id="cli-generator">CLI generator<a href="#cli-generator" class="anchor" aria-hidden="true">#</a> </h3>
-
-
-
-<div class="expressive-code">
-  <figure class="frame is-terminal not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia make:middleware RequestId</span></span></code></pre></div>
-  </figure>
-</div>
-<p>Creates <code>middlewares/RequestIdMiddleware.php</code> and appends the class to <code>environment/generated.ini</code> under <code>[app_middlewares]</code>. Move or copy the entry to <code>settings.ini</code> when you want it active in all environments.</p>
-<h2 id="middleware-vs-authentication">Middleware vs authentication<a href="#middleware-vs-authentication" class="anchor" aria-hidden="true">#</a> </h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Middleware</th>
-<th>Authentication</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Purpose</strong></td>
-<td>Cross-cutting request/response logic</td>
-<td>Identify the caller (<code>ContextUserObject</code>)</td>
-</tr>
-<tr>
-<td><strong>Directory</strong></td>
-<td><code>middlewares/</code></td>
-<td><code>authentications/</code></td>
-</tr>
-<tr>
-<td><strong>INI section</strong></td>
-<td><code>[app_middlewares]</code></td>
-<td><code>[app_authentications]</code></td>
-</tr>
-<tr>
-<td><strong>Runs</strong></td>
-<td>Before and after dispatch</td>
-<td>After request middleware, before dispatch</td>
-</tr>
-<tr>
-<td><strong>Generator</strong></td>
-<td><code>make:middleware</code></td>
-<td><code>make:auth</code></td>
-</tr>
-</tbody>
-</table>
-<p>Protect actions with <code>mustAuthenticate()</code> / <code>can()</code> on services — not by throwing from middleware alone.</p>
-<h2 id="events">Events<a href="#events" class="anchor" aria-hidden="true">#</a> </h2>
-<p>The chain dispatches PSR-14 events:</p>
-<table>
-<thead>
-<tr>
-<th>Event</th>
-<th>Phase</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>PreMiddlewareChainRunEvent</code></td>
-<td>Start of <code>onRequest</code> chain</td>
-</tr>
-<tr>
-<td><code>PostMiddlewareChainRunEvent</code></td>
-<td>Start of <code>onResponse</code> chain</td>
-</tr>
-</tbody>
-</table>
-<p>Listen via your event provider or <code>onBooted()</code> registrations.</p>
-<h2 id="inspecting-the-stack">Inspecting the stack<a href="#inspecting-the-stack" class="anchor" aria-hidden="true">#</a> </h2>
-
-
-
-<div class="expressive-code">
-  <figure class="frame not-content">
-  <figcaption class="header">
-    <span class="title"></span>
-  </figcaption>
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">middlewares</span><span class="p">();</span> <span class="c1">// Arrayable of registered middleware class strings
-</span></span></span></code></pre></div>
-  </figure>
-</div>
-<p>The developer stats page (<code>/stats</code> when enabled) lists the active middleware stack.</p>
-<h2 id="common-mistakes">Common mistakes<a href="#common-mistakes" class="anchor" aria-hidden="true">#</a> </h2>
-<ul>
-<li><strong>Throwing from middleware to block auth</strong> — use <code>mustAuthenticate()</code> on services instead; middleware should mutate request/response, not replace authorization.</li>
-<li><strong>Forgetting <code>onResponse</code> receives <code>$request</code></strong> — read headers you set in <code>onRequest</code> from the second parameter.</li>
-<li><strong>Editing <code>generated.ini</code> only</strong> — copy <code>[app_middlewares]</code> entries to <code>settings.ini</code> for all environments.</li>
-<li><strong>Heavy DB work in middleware</strong> — keep it fast; use <code>defer()</code> for slow logging after the response.</li>
-</ul>
-<h2 id="whats-next">What&rsquo;s next<a href="#whats-next" class="anchor" aria-hidden="true">#</a> </h2>
-<div class="card-nav d-flex flex-column flex-sm-row">
-  
-
-  <div class="card text-end w-100">
-    <div class="card-body d-flex">
-      <div class="d-flex flex-column me-auto text-start">
-        <h5 class="card-title my-0"><a href="/documentation/http/exceptions/" class="stretched-link text-reset text-decoration-none">Exceptions</a></h5>
-        <p class="card-text mt-1">How errors become HTTP 422/404/500 JSON.</p>
       </div>
-      <div class="d-flex flex-column justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M5 12l14 0"></path>
-          <path d="M13 18l6 -6"></path>
-          <path d="M13 6l6 6"></path>
-        </svg>
-      </div>
+    <div class="callout-body">
+      <p>The controller focuses on mapping the requests, and the switch focuses on mapping the services and actions.</p>
+
     </div>
   </div>
-
-  <div class="card text-end w-100">
-    <div class="card-body d-flex">
-      <div class="d-flex flex-column me-auto text-start">
-        <h5 class="card-title my-0"><a href="/documentation/security/security-authentication-and-authorization/" class="stretched-link text-reset text-decoration-none">Security</a></h5>
-        <p class="card-text mt-1">Authentication backends run after middleware.</p>
-      </div>
-      <div class="d-flex flex-column justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M5 12l14 0"></path>
-          <path d="M13 18l6 -6"></path>
-          <path d="M13 6l6 6"></path>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <div class="card text-end w-100">
-    <div class="card-body d-flex">
-      <div class="d-flex flex-column me-auto text-start">
-        <h5 class="card-title my-0"><a href="/documentation/extending/app-providers/" class="stretched-link text-reset text-decoration-none">App providers</a></h5>
-        <p class="card-text mt-1">Register middleware from Composer packages.</p>
-      </div>
-      <div class="d-flex flex-column justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M5 12l14 0"></path>
-          <path d="M13 18l6 -6"></path>
-          <path d="M13 6l6 6"></path>
-        </svg>
-      </div>
-    </div>
-  </div>
-
 </div>
 
+<h5 id="8-services-and-actions">8. Services and Actions<a href="#8-services-and-actions" class="anchor" aria-hidden="true">#</a> </h5>
+<p>In MoonLight architecture, services are classes or interfaces that combine related business logic. For example, <code>AuthenticationService</code>, <code>ProductService</code>, <code>OrderService</code> etc.</p>
+<p>Actions are methods in these classes, like <code>login</code>, <code>register</code> in the <code>AuthenticationService</code> class.</p>
+<h5 id="9-database-and-querying">9. Database and Querying<a href="#9-database-and-querying" class="anchor" aria-hidden="true">#</a> </h5>
+<p>This is a good to have but not enforced by the architecture.
+In moonlight architecture, querying the database is highly recommended over using an ORM.
+This is because querying the database directly is faster and more efficient than using an ORM.
+Also, querying the database directly gives the developer more control over the queries and the data being returned.</p>
+<p>All ORMs used in Moonlight should not map result sets to models. They should return the result set as is.</p>
+<p>This removes the unnecessary overhead of mapping the resultset to models(model hydration) and makes the application faster and more efficient.</p>
+<h5 id="10-separation-of-concerns">10. Separation of Concerns<a href="#10-separation-of-concerns" class="anchor" aria-hidden="true">#</a> </h5>
+<p>In this architecture, the backend is meant to support, command and act as a single source of truth for the frontend. This implies that the architecture requires implementers to implement the frontend and backend separately.</p>
+<p>However, this does not discourage serving the two together in production. Frameworks like Spring boot give you the ability to serve your
+entire frontend under your backend. This is highly encouraged. But Moonlight discourages writing of Frontend logic using the backend specific tools like
+PHP, Python and others.</p>
+<p>Developers should solely harness the existence of the frontend tools to write re-usable, modularised and maintainable frontend code.</p>
+<p>This way every tool will be maximised to its full potential.</p>
+<h6 id="advantages-of-moonlight-architecture">Advantages of MoonLight Architecture<a href="#advantages-of-moonlight-architecture" class="anchor" aria-hidden="true">#</a> </h6>
+<ol>
+<li>Scalability:- Since adding new services and actions is easy, the application can be scaled easily.</li>
+<li>Maintainability:- Small codebase and single-logic services make it easy to maintain the application. Even new developers can easily understand the codebase.</li>
+<li>Security:- Since all requests are made using POST, the data is secure and not exposed in the web server logs. Also, action-level authentication and authorisation make it easy to secure the application at lower levels.</li>
+<li>High Performance:- Architecture stresses on querying the database directly and not using ORMs. This makes the application faster and more efficient.</li>
+<li>Developer Performance:- Since the architecture is simple and easy to understand, developers can roll out new features quickly without having to write a lot of boilerplate code.</li>
+<li>Easy Debugging:- Since all requests and responses are made in a similar format, it is easy to debug the application. Also, the single endpoint makes it easy to monitor the application.</li>
+<li>Frontend Integration:- One endpoint for all requests, one request format, one response format makes it easy for frontend devs to integrate the api.</li>
+</ol>
+<h6 id="disadvantages-of-moonlight-architecture">Disadvantages of MoonLight Architecture<a href="#disadvantages-of-moonlight-architecture" class="anchor" aria-hidden="true">#</a> </h6>
+<ol>
+<li>Some languages may not support switching between form-data and JSON requests. This might dictate all uploads to be base64 encoded.</li>
+<li>Moonlight is only suitable for APIs and not for full-stack applications.</li>
+<li>The architecture being new, there might be a learning curve for new developers and a small community to get help from.</li>
+</ol>
+<p>The community is growing, and we are looking forward to having you on board.</p>
 
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				<div class="last-modified">
-    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/c388266042590220517979fc7a547ab48988c259">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/bea914897f7d70e3eb8741a7c2b20b0f0a3ca28e">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Last updated on July 4, 2026
     </a>
@@ -1419,7 +1228,7 @@
 
 
 <div class="edit-page">
-  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/http/middleware.md">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/moonlight/introduction.md">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
     </svg>
@@ -1430,28 +1239,11 @@
 				</div>
 			<div class="page-nav d-flex flex-column flex-sm-row">
 	
-	<div class="card w-100">
-			<div class="card-body d-flex">
-				<div class="d-flex flex-column justify-content-center">
-					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-						<path d="M5 12l14 0"></path>
-						<path d="M5 12l6 6"></path>
-						<path d="M5 12l6 -6"></path>
-				 	</svg>
-				</div>
-				<div class="d-flex flex-column">
-					<div class="text-body-secondary">Prev</div>
-					<a href="/documentation/frontend/vite-integration/" class="stretched-link text-reset text-decoration-none">Frontend Integration (Vite)</a>
-				</div>
-			</div>
-		</div>
-	<div class="m-2"></div>
 	<div class="card text-end w-100">
 			<div class="card-body d-flex justify-content-end">
 				<div class="d-flex flex-column">
 					<div class="text-body-secondary">Next</div>
-					<a href="/documentation/http/requests-and-responses/" class="stretched-link text-reset text-decoration-none">Requests and Responses</a>
+					<a href="/documentation/building-api/api-versioning/" class="stretched-link text-reset text-decoration-none">API versioning in Moonlight</a>
 				</div>
 				<div class="d-flex flex-column justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

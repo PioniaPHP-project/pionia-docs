@@ -34,12 +34,12 @@ This guide is for DeskFlow developers who want **visibility into API usage** —
 
 {{< mermaid >}}
 flowchart LR
-  API[POST /api/v1/ task.*] --> Metrics[Request metrics writer]
-  Metrics --> File[storage/metrics/requests.jsonl]
-  File --> Web[/stats + /stats.json]
-  File --> CLI[php pionia stats:view]
-  Workers[RoadRunner workers] --> Snap[opcache-snapshot.json]
-  Snap --> Preload[optimize:preload --snapshot]
+  API["POST /api/v1/ task.*"] --> Metrics[Request metrics writer]
+  Metrics --> File["storage/metrics/requests.jsonl"]
+  File --> Web["/stats + /stats.json"]
+  File --> CLI["php pionia stats:view"]
+  Workers[RoadRunner workers] --> Snap["opcache-snapshot.json"]
+  Snap --> Preload["optimize:preload --snapshot"]
 {{< /mermaid >}}
 
 Pionia records per-request metrics for Moonlight API calls and exposes them through a **web dashboard** and **CLI**.

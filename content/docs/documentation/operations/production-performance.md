@@ -34,12 +34,12 @@ This guide is for teams shipping DeskFlow to staging and production — **opt-in
 {{< mermaid >}}
 flowchart LR
   Install[composer install -o] --> Optimize[php pionia optimize]
-  Optimize --> Scaffold[bootstrap/preload.php]
-  Optimize --> Gen[storage/bootstrap/preload.php]
+  Optimize --> Scaffold["bootstrap/preload.php"]
+  Optimize --> Gen["storage/bootstrap/preload.php"]
   Optimize --> Cache[routes + providers cache]
   Gen --> FW[vendor framework manifest]
-  Gen --> App[DeskFlow services/switches]
-  Restart[Restart FPM / RR workers] --> Warm[OPcache warm on boot]
+  Gen --> App["DeskFlow services/switches"]
+  Restart["Restart FPM / RR workers"] --> Warm[OPcache warm on boot]
 {{< /mermaid >}}
 
 Pionia ships readable PHP source. Performance is **opt-in** at deploy time — nothing is preloaded or cached until you run `php pionia optimize`.

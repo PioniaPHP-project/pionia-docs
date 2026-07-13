@@ -36,8 +36,8 @@ This guide shows **Northwind Studio** developers how **DeskFlow** services persi
 flowchart TD
   A["table('tasks')"] --> B{Mode}
   B -->|direct| C["get / save / delete"]
-  B -->|filter| D[Builder → all / count]
-  B -->|join| E[Join → all / count]
+  B -->|filter| D["Builder → all / count"]
+  B -->|join| E["Join → all / count"]
 {{< /mermaid >}}
 
 All examples use the `table()` helper (`Pionia\Porm\Core\Porm`). Methods that execute SQL should be called **last** on the chain.

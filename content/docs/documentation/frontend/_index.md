@@ -40,9 +40,9 @@ Pionia ships optional **Vite** scaffolding so DeskFlow can have a React or Vue t
 
 {{< mermaid >}}
 flowchart LR
-  Dev[Vite :5173] -->|proxy /api| API[Pionia :8000]
+  Dev["Vite :5173"] -->|proxy /api| API["Pionia :8000"]
   API --> Moonlight["POST task.list"]
-  Build[frontend:build] --> Public[public/index.html + assets]
+  Build["frontend:build"] --> Public["public/index.html + assets"]
   Browser[Production browser] --> Public
   Public --> Moonlight2["same-origin /api/v1/"]
 {{< /mermaid >}}

@@ -4,7 +4,7 @@ slug: "validation"
 description: "ValidationException, rules(), attributes, and custom validation rules."
 summary: "Return HTTP 422 when DeskFlow clients omit required fields like task title."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-13
 draft: false
 weight: 230
 toc: true
@@ -50,7 +50,7 @@ DeskFlow should respond with `"returnCode": 422` and a field-specific message on
 |-------|------|
 | **`#[Validated]` / `#[ValidateField]`** | Declare rules on the action method — runs automatically before the body |
 | **`rules($data, [...])`** | Multiple fields inside the action — imperative or conditional |
-| **`validate('field', $data)->…`** | One field, custom chain, or dynamic checks |
+| **`validate('field', $data)->…->get()`** | One field — validate **and** return the value in one expression |
 | **`$this->requires([...])`** | Presence only (no format checks) — prefer `required` in `rules()` instead |
 | **GenericService columns** | CRUD scaffolding (`$createColumns`, `$updateColumns`) |
 
@@ -240,6 +240,54 @@ validate('code', $data)->string()->between(4, 8);
 
 Pass `$data`, `$this`, or `$this->request` as the second argument.
 
+### Validate and extract — `->get()`
+
+After the rule chain, call **`->get()`** to return the validated field value. This is the idiomatic way to avoid duplicating `$data->get('email')` on the next line:
+
+```php
+protected function createAction(Arrayable $data): ApiResponse
+{
+    $title = validate('title', $data)->required()->string()->min(3)->get();
+    $projectId = validate('project_id', $data)->required()->integer()->get();
+    $email = validate('assignee_email', $data)->email()->get(); // optional: skip required() when field may be absent
+
+    $task = table('tasks')->save([
+        'title' => $title,
+        'project_id' => $projectId,
+        'assignee' => $email,
+    ]);
+
+    return response(0, 'Task created', ['task' => $task]);
+}
+```
+
+DeskFlow login with one-liners:
+
+```php
+$email = validate('email', $data)->required()->email()->get();
+$password = validate('password', $data)->required()->asPassword()->get();
+```
+
+How it works:
+
+- Each chained rule (`required()`, `email()`, `min()`, custom `rule()`, …) runs in order.
+- If any rule fails, `ValidationException` is thrown (HTTP 422) — execution never reaches `get()`.
+- `get()` returns `$data->get($field)` for the field passed to `validate()` — the same value the rules just checked.
+
+Related helpers on the validator instance:
+
+| Method | Purpose |
+|--------|---------|
+| `get()` | Validated field value (after rules pass) |
+| `valueOf($otherField)` | Read another field from the same payload without validating it |
+
+```php
+validate('password', $data)->required()->asPassword()->matches('password_confirmation')->get();
+$confirmation = validate('password', $data)->valueOf('password_confirmation'); // read only
+```
+
+Use `->get()` with imperative chains; pair with `#[Validated]` when every field has static rules and you do not need inline variables.
+
 ## `$this->requires()` — presence only
 
 Checks that keys exist and are non-blank. Does **not** validate format — use `required` in `rules()` or attributes instead:
@@ -301,6 +349,7 @@ See [Exceptions](/documentation/http/exceptions/).
 - **Validating in the action body before calling `rules()`** — use `#[Validated]` so invalid requests never reach business logic.
 - **Returning custom error arrays instead of throwing** — let `ValidationException` flow through the pipeline for consistent 422 responses.
 - **Using `$this->requires()` for email format** — presence checks do not validate `@northwind.studio` domains; use `required|email`.
+- **Validating then calling `$data->get()` again** — use `validate('field', $data)->required()->…->get()` to validate and extract in one expression.
 - **Expecting HTTP 200 on validation failure** — clients must handle **422** and read `returnMessage`.
 
 ## What's next

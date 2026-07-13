@@ -42,10 +42,10 @@ You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-crea
 {{< mermaid >}}
 flowchart LR
   POST["POST /api/v1/"] --> Switch[MainSwitch]
-  Switch --> Task[task → TaskService]
-  Switch --> Member[member → MemberService]
-  Switch --> Project[project → ProjectService]
-  Task --> Action[listAction / createAction]
+  Switch --> Task["task → TaskService"]
+  Switch --> Member["member → MemberService"]
+  Switch --> Project["project → ProjectService"]
+  Task --> Action["listAction / createAction"]
 {{< /mermaid >}}
 
 ## Start here

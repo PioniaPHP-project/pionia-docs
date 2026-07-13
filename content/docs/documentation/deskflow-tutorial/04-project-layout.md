@@ -32,7 +32,7 @@ Before persistence and auth, orient yourself in the repo you have been editing.
 
 {{< mermaid >}}
 flowchart LR
-  HTTP[public/index.php] --> Boot[bootstrap/application.php]
+  HTTP["public/index.php"] --> Boot["bootstrap/application.php"]
   Boot --> Realm[AppRealm]
   Realm --> Switch[MainSwitch v1]
   Switch --> Task[TaskService]

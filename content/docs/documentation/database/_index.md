@@ -37,10 +37,10 @@ flowchart LR
   TaskService --> table["table('tasks')"]
   MemberService --> tm["table('team_members')"]
   ProjectService --> proj["table('projects')"]
-  table --> Porm[Porm / Piql]
+  table --> Porm["Porm / Piql"]
   tm --> Porm
   proj --> Porm
-  Porm --> SQLite[(SQLite / PostgreSQL)]
+  Porm --> SQLite[("SQLite / PostgreSQL")]
 {{< /mermaid >}}
 
 Pionia includes **Porm** (Pionia ORM) — a Medoo-inspired **query builder**, not a full ORM. There are no models or migrations in the framework; you work with tables, arrays, and a fluent API.

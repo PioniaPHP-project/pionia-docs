@@ -205,11 +205,11 @@ rules($data, [
 ### `validate()` — single field chain
 
 ```php
-validate('email', $data)->required()->email();
-validate('password', $data)->required()->asPassword();
+$email = validate('email', $data)->required()->email()->get();
+$password = validate('password', $data)->required()->asPassword()->get();
 ```
 
-Pass **`Arrayable $data`**, `$this`, or `$this->request` as the second argument.
+Chain rules, then call **`->get()`** to return the validated value in one expression. Pass **`Arrayable $data`**, `$this`, or `$this->request` as the second argument.
 
 All validation failures throw **`ValidationException`** (HTTP 422).
 

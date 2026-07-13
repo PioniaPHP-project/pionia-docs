@@ -43,7 +43,7 @@ flowchart LR
   Logger --> LM[LogManager]
   Report --> LM
   LM --> Handlers[Monolog handlers]
-  Handlers --> Out[stderr / storage/logs/]
+  Handlers --> Out["stderr / storage/logs/"]
 {{< /mermaid >}}
 
 Pionia v3 uses **Monolog** behind a thin wrapper:

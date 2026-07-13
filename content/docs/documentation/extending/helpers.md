@@ -40,10 +40,10 @@ Pionia exposes global **helpers** after the application boots. They wrap `AppRea
 
 {{< mermaid >}}
 flowchart LR
-  Boot[AppRealm::create] --> Helpers[Global helpers]
+  Boot["AppRealm::create"] --> Helpers[Global helpers]
   Helpers --> R[response]
-  Helpers --> T[table / db]
-  Helpers --> L[logger / report]
+  Helpers --> T["table / db"]
+  Helpers --> L["logger / report"]
   R --> Task[TaskService actions]
   T --> Task
   L --> Task
@@ -241,7 +241,10 @@ rules($data, [
     'password' => 'required|password|min:8',
 ]);
 
-validate('email', $this->request)->required()->email();
+// Validate and return the value in one expression:
+$email = validate('email', $data)->required()->email()->get();
+$title = validate('title', $data)->required()->string()->min(3)->get();
+
 validate('phone', $data)->required()->rule('kenya_phone');
 
 validations()->extend('kenya_phone', function (ValidationContext $ctx): void {
@@ -249,7 +252,20 @@ validations()->extend('kenya_phone', function (ValidationContext $ctx): void {
 });
 ```
 
-See [Validations](/documentation/building-api/validation/).
+See [Validations](/documentation/building-api/validation/) — especially [validate and extract with `->get()`](/documentation/building-api/validation/#validate-and-extract---get).
+
+---
+
+## Collections — `arr()`
+
+Wrap arrays or existing `Arrayable` instances:
+
+```php
+$payload = arr(['service' => 'task', 'action' => 'list']);
+$middleware = arr(['request_id' => RequestIdMiddleware::class])->merge(['cache' => CacheMiddleware::class]);
+```
+
+Same as `new Arrayable(...)`. Full method list: [Collections (Arrayable)](/documentation/http/collections/).
 
 ---
 
@@ -270,6 +286,7 @@ See [Caching](/documentation/operations/caching/).
 |--------|---------|
 | `alias()` | Resolve path aliases (`PUBLIC_DIR`, `STORAGE_DIR`) |
 | `addIniSection()` | Runtime INI section (default `environment/generated.ini`) |
+| `arr($array = [])` | `new Arrayable(...)` shorthand |
 | `tap($value, $closure)` | Side effect then return original value |
 | `envKeys()` | List loaded `.env` variable names (stats page) |
 | `yesNo()` / `asBool()` | Display and env boolean coercion |

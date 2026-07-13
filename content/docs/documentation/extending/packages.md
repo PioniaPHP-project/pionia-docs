@@ -39,8 +39,8 @@ You are packaging reusable logic for DeskFlow or other Pionia apps — a phone n
 {{< mermaid >}}
 flowchart LR
   Consumer[DeskFlow app] --> Require[composer require]
-  Require --> Plugin[acme/phone-normalizer]
-  Require --> ProviderPkg[acme/pionia-billing]
+  Require --> Plugin["acme/phone-normalizer"]
+  Require --> ProviderPkg["acme/pionia-billing"]
   Plugin --> Service[Used from TaskService]
   ProviderPkg --> Prov[BillingProvider]
   Prov --> INI["[app_providers]"]

@@ -41,13 +41,13 @@ Pionia is API-first. v3 adds first-class **Vite** scaffolding — React, Vue, an
 {{< mermaid >}}
 flowchart TB
   subgraph dev [Development]
-    Vite[Vite dev server :5173]
-    Pionia[Pionia php pionia serve :8000]
+    Vite["Vite dev server :5173"]
+    Pionia["Pionia php pionia serve :8000"]
     Vite -->|"/api/* proxy"| Pionia
   end
   subgraph prod [Production]
-    Build[php pionia frontend:build]
-    Build --> Index[public/index.html]
+    Build["php pionia frontend:build"]
+    Build --> Index["public/index.html"]
     Index --> API2["/api/v1/ same host"]
   end
 {{< /mermaid >}}

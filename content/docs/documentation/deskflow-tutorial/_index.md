@@ -57,13 +57,13 @@ You can rename characters and tables later. The tutorial teaches **Pionia patter
 {{< mermaid >}}
 flowchart TB
   subgraph northwind [Northwind Studio — fictional]
-    Alex[alex@northwind.studio]
-    Jamie[jamie@northwind.studio]
+    Alex["alex@northwind.studio"]
+    Jamie["jamie@northwind.studio"]
   end
   subgraph deskflow [DeskFlow API — you build]
-    Task[task.list / task.create]
-    Member[member.login]
-    Project[project.list]
+    Task["task.list / task.create"]
+    Member["member.login"]
+    Project["project.list"]
   end
   Alex -->|POST JSON| Task
   Jamie -->|Bearer JWT| Task

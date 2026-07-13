@@ -40,7 +40,7 @@ You want to **ship a versioned JSON API** with PHP. This page installs Pionia an
 {{< mermaid >}}
 flowchart LR
   Composer[composer create-project] --> App[deskflow-api]
-  App --> Serve[php pionia serve :8000]
+  App --> Serve["php pionia serve :8000"]
   Serve --> Ping["GET /api/v1/ping"]
   Ping --> Moonlight["POST task.list"]
 {{< /mermaid >}}

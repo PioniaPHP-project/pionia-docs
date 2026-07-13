@@ -37,10 +37,10 @@ You have a working DeskFlow task board API (`task`, `member`, `project` services
 
 {{< mermaid >}}
 flowchart LR
-  Dev[php pionia serve :8000] --> RR[php pionia runserver]
+  Dev["php pionia serve :8000"] --> RR[php pionia runserver]
   RR --> Opt[php pionia optimize --production]
   Opt --> Ship[Deploy + restart workers]
-  Ship --> Obs[Logs / stats / cache]
+  Ship --> Obs["Logs / stats / cache"]
 {{< /mermaid >}}
 
 Development uses a single-process PHP server. Production adds persistent workers, optional OPcache preload, shared cache stores, and observability — all configured in your app, not in framework vendor code.

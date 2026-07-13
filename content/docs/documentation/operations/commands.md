@@ -34,7 +34,7 @@ This reference is for DeskFlow developers who run **`php pionia`** from the proj
 flowchart LR
   CLI[php pionia …] --> Boot[bootConsole]
   Boot --> Realm[AppRealm]
-  Realm --> Cmd[Command::handle]
+  Realm --> Cmd["Command::handle"]
   Cmd --> Out[Terminal output]
 {{< /mermaid >}}
 

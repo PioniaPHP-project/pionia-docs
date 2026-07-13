@@ -36,7 +36,7 @@ This guide is for DeskFlow developers who need **post-response work** — log ac
 {{< mermaid >}}
 sequenceDiagram
   participant Client
-  participant Action as task.create action
+  participant Action as "task.create action"
   participant Resp as HTTP response
   participant Defer as Deferred buffer
   participant Job as RR jobs pool

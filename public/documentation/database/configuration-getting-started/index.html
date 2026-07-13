@@ -1,44 +1,1502 @@
-<!doctype html><html lang=en data-bs-theme=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-500.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-700.woff2 as=font type=font/woff2 crossorigin><script src=/js/color-mode.86a91f050a481d0a3f0c72ac26543cb6228c770875981c58dcbc008fd3f875c8.js integrity="sha256-hqkfBQpIHQo/DHKsJlQ8tiKMdwh1mBxY3LwAj9P4dcg="></script><link rel=stylesheet href="/main.aebf16ec74796da2a092bd8a2823a777500f09cb61163ace78c60a30b47e65e14f2ff5c26d14ac166dd8e5817ef4373f423ec6d5e590baf8803af9743df2c80a.css" integrity="sha512-rr8W7HR5baKgkr2KKCOnd1APCcthFjrOeMYKMLR+ZeFPL/XCbRSsFm3Y5YF+9Dc/Qj7G1eWQuviAOvl0PfLICg==" crossorigin=anonymous><noscript><style>img.lazyload{display:none}</style></noscript><link rel=canonical href=/documentation/database/configuration-getting-started/><title>Porm configuration</title>
-<meta name=description content="Database configuration and getting started with Porm in Pionia v3."><link rel=icon href=/favicon.ico sizes=32x32><link rel=icon href=/favicon.svg type=image/png><link rel=apple-touch-icon href=/apple-touch-icon.png sizes=180x180 type=image/png><link rel=icon href=/favicon-192x192.png sizes=192x192 type=image/png><link rel=icon href=/favicon-512x512.png sizes=512x512 type=image/png><link rel=manifest href=/manifest.webmanifest><meta property="og:title" content="Configuration - Getting Started"><meta property="og:description" content="Configure Porm and start querying with table()."><meta property="og:type" content="article"><meta property="og:url" content="/documentation/database/configuration-getting-started/"><meta property="og:image" content="/favicon.ico"><meta property="article:section" content="docs"><meta property="article:published_time" content="2026-03-01T00:00:00+00:00"><meta property="article:modified_time" content="2026-07-04T03:37:58+03:00"><meta property="og:site_name" content="Pionia Framework"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/favicon.ico"><meta name=twitter:title content="Configuration - Getting Started"><meta name=twitter:description content="Configure Porm and start querying with table()."><meta name=twitter:site content="@pionia"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"/","name":"Pionia Framework","position":1},{"@type":"ListItem","item":"/docs/","name":"Docs","position":2},{"@type":"ListItem","item":"/documentation/","name":"Documentation","position":3},{"@type":"ListItem","item":"/documentation/database/","name":"Database ( Porm)","position":4},{"@type":"ListItem","name":"Configuration Getting Started","position":5}]}</script></head><body class="single section docs" data-bs-spy=scroll data-bs-target=#toc data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll=true tabindex=0><div class=sticky-top><div class=header-bar></div><header class="navbar navbar-expand-lg"><div class=container-sm><a class="navbar-brand me-auto me-lg-3" href=/>Pionia
-<span class=docs-version-badge>Docs v3</span>
-</a><button type=button id=searchToggleMobile class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button class="btn btn-link d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavSection aria-controls=offcanvasNavSection aria-label="Open section navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 19m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 5m-1 0a1 1 0 102 0 1 1 0 10-2 0"/></svg></button><div class="offcanvas offcanvas-start d-lg-none" tabindex=-1 id=offcanvasNavSection aria-labelledby=offcanvasNavSectionLabel><div class=header-bar></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavSectionLabel>Docs</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class=offcanvas-body><aside class="doks-sidebar mt-n3"><nav id=doks-docs-nav aria-label="Tertiary navigation"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details><summary>Getting Started</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/getting-started/introduction/>Introduction</a></li><li><a href=/documentation/getting-started/php-basics/>PHP basics for Pionia</a></li><li><a href=/documentation/getting-started/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/getting-started/glossary/>Glossary</a></li><li><a href=/documentation/getting-started/changelog-v3/>Pionia v3 — Release notes</a></li><li><a href=/documentation/getting-started/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/getting-started/application-structure/>Application Structure</a></li></ul></details></li><li><details><summary>DeskFlow tutorial</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/deskflow-tutorial/01-create-project/>Step 1 — Create your project</a></li><li><a href=/documentation/deskflow-tutorial/02-dev-server-and-ping/>Step 2 — Dev server and ping</a></li><li><a href=/documentation/deskflow-tutorial/03-your-first-service/>Step 3 — Your first service</a></li><li><a href=/documentation/deskflow-tutorial/04-project-layout/>Step 4 — Know your project layout</a></li><li><a href=/documentation/deskflow-tutorial/05-database-setup/>Step 5 — Database setup</a></li><li><a href=/documentation/deskflow-tutorial/06-list-from-database/>Step 6 — List tasks from the database</a></li><li><a href=/documentation/deskflow-tutorial/07-create-tasks/>Step 7 — Create tasks</a></li><li><a href=/documentation/deskflow-tutorial/08-validation/>Step 8 — Validation</a></li><li><a href=/documentation/deskflow-tutorial/09-authentication/>Step 9 — Authentication</a></li><li><a href=/documentation/deskflow-tutorial/10-middleware/>Step 10 — Middleware</a></li><li><a href=/documentation/deskflow-tutorial/11-background-work/>Step 11 — Background work</a></li><li><a href=/documentation/deskflow-tutorial/12-frontend/>Step 12 — Frontend (optional)</a></li><li><a href=/documentation/deskflow-tutorial/13-deploy/>Step 13 — Deploy</a></li><li><a href=/documentation/deskflow-tutorial/14-app-provider/>Step 14 — App provider</a></li><li><a href=/documentation/deskflow-tutorial/15-contribute-to-core/>Step 15 — Contribute to PioniaCore</a></li></ul></details></li><li><details><summary>Building your API</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/building-api/api-versioning/>API versioning in Moonlight</a></li><li><a href=/documentation/building-api/moonlight-overview/>Moonlight overview</a></li><li><a href=/documentation/building-api/moonlight-security/>Moonlight security model</a></li><li><a href=/documentation/building-api/services/>Services</a></li><li><a href=/documentation/building-api/actions/>Actions</a></li><li><a href=/documentation/building-api/validation/>Validation</a></li><li><a href=/documentation/building-api/generic-services/>Generic services</a></li><li><a href=/documentation/building-api/advanced-generic-services/>Advanced Generic Services</a></li><li><a href=/documentation/building-api/api-reference/>Documenting your API (Moonlight)</a></li></ul></details></li><li><a href=/documentation/examples/>Examples</a></li><li><details><summary>HTTP & middleware</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/http/collections/>Collections (Arrayable)</a></li><li><a href=/documentation/http/http-routing/>HTTP routing</a></li><li><a href=/documentation/http/middleware/>Middleware</a></li><li><a href=/documentation/http/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/http/exceptions/>Exceptions & error handling</a></li></ul></details></li><li><details open><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li class=active><a aria-current=page href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li><a href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><details><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li><li><a href=/documentation/security/security-utilities/>Security utilities</a></li></ul></details></li><li><details><summary>Frontend</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/frontend/vite-integration/>Frontend Integration (Vite)</a></li></ul></details></li><li><details><summary>Operations & deploy</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/operations/maintenance/>Maintenance mode</a></li><li><a href=/documentation/operations/roadrunner/>RoadRunner</a></li><li><a href=/documentation/operations/production-performance/>Production performance</a></li><li><a href=/documentation/operations/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/operations/logging/>Logging</a></li><li><a href=/documentation/operations/background-work/>Background work</a></li><li><a href=/documentation/operations/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/operations/commands-pionia-cli/>Commands (Pionia CLI)</a></li></ul></details></li><li><details><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li><li><a href=/documentation/extending/helpers/>Pionia Helpers</a></li><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></nav></nav></aside></div></div><button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavMain aria-controls=offcanvasNavMain aria-label="Open main navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg></button><div class="offcanvas offcanvas-end h-auto" tabindex=-1 id=offcanvasNavMain aria-labelledby=offcanvasNavMainLabel><div class="header-bar d-lg-none"></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavMainLabel>Pionia</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between"><ul class="navbar-nav flex-grow-1"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href=# role=button data-bs-toggle=dropdown aria-expanded=false>Documentation<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6 6-6"/></svg></a><ul class="dropdown-menu shadow rounded border-0"><li><a class=dropdown-item href=/documentation/getting-started/introduction/>Getting Started</a></li><li><a class=dropdown-item href=/documentation/deskflow-tutorial/>DeskFlow tutorial</a></li><li><a class=dropdown-item href=/documentation/building-api/>Building your API</a></li><li><a class=dropdown-item href=/documentation/database/>Database</a></li><li><a class=dropdown-item href=/documentation/operations/roadrunner/>Operations</a></li></ul></li><li class=nav-item><a class=nav-link href=/resources/>Resources</a></li></ul><button type=button id=searchToggleDesktop class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button id=buttonColorMode class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type=button aria-label="Toggle theme"><svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132.0.263.0.393.0a7.5 7.5.0 007.92 12.446A9 9 0 1112 2.992z"/></svg><svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 108 0 4 4 0 10-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"/></svg></button><ul id=socialMenu class="nav mx-auto flex-row order-lg-4"><li class=nav-item><a class="nav-link social-link" href=https://github.com/PioniaPHP-project/pionia-docs><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg><small class="ms-2 visually-hidden">GitHub</small></a></li></ul><a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href=/documentation/getting-started/introduction/#get-started role=button>Get started</a></div></div><a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href=/documentation/getting-started/introduction/#get-started role=button>Get started</a></div></header></div><div class=modal id=searchModal tabindex=-1 aria-labelledby=searchModalLabel aria-hidden=true><div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down"><div class=modal-content><div class=modal-header><h1 class="modal-title fs-5 visually-hidden" id=searchModalLabel>Search</h1><button type=button class="btn-close visually-hidden" data-bs-dismiss=modal aria-label=Close></button><div class="search-input flex-grow-1 d-none"><form id=search-form class=search-form action=# method=post accept-charset=UTF-8 role=search><label for=query class=visually-hidden>Search</label><div class=d-flex><input type=search id=query name=query class="search-text form-control form-control-lg" placeholder=Search aria-label=Search maxlength=128 autocomplete=off>
-<button type=button class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss=modal aria-label=Close>Cancel</button></div></form></div></div><div class=modal-body><p class="search-loading status message d-none mt-3 text-center">Loading search index…</p><p class="search-no-recent message d-none mt-3 text-center">No recent searches</p><p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class=query-no-results>Query here</span></strong>"</p><div id=searchResults class=search-results></div><template><article class="search-result list-view"><div class="card my-3"><div class=card-body><header><h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href=#>Title here</a></h2><div class=submitted><time class=created-date>Date here</time></div></header><div class=content>Summary here</div></div></div></article></template></div><div class=modal-footer><ul class="list-inline me-auto d-none d-md-block"><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4m3 3-3-3 3-3"/></g></svg></kbd><span class=DocSearch-Label>to select</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8m3-3-3 3-3-3"/></g></svg></kbd><kbd class=me-2><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8m3 3-3-3-3 3"/></g></svg></kbd><span class=DocSearch-Label>to navigate</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993.0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016s1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5s-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864.0 1.6425 1.031 1.5443 2.2492h-2.956"/></g></svg></kbd><span class=DocSearch-Label>to close</span></li></ul><p class=d-md-none>Search by <a class=text-decoration-none href=https://github.com/nextapps-de/flexsearch>FlexSearch</a></p></div></div></div></div><div class="wrap container-sm" role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details><summary>Getting Started</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/getting-started/introduction/>Introduction</a></li><li><a href=/documentation/getting-started/php-basics/>PHP basics for Pionia</a></li><li><a href=/documentation/getting-started/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/getting-started/glossary/>Glossary</a></li><li><a href=/documentation/getting-started/changelog-v3/>Pionia v3 — Release notes</a></li><li><a href=/documentation/getting-started/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/getting-started/application-structure/>Application Structure</a></li></ul></details></li><li><details><summary>DeskFlow tutorial</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/deskflow-tutorial/01-create-project/>Step 1 — Create your project</a></li><li><a href=/documentation/deskflow-tutorial/02-dev-server-and-ping/>Step 2 — Dev server and ping</a></li><li><a href=/documentation/deskflow-tutorial/03-your-first-service/>Step 3 — Your first service</a></li><li><a href=/documentation/deskflow-tutorial/04-project-layout/>Step 4 — Know your project layout</a></li><li><a href=/documentation/deskflow-tutorial/05-database-setup/>Step 5 — Database setup</a></li><li><a href=/documentation/deskflow-tutorial/06-list-from-database/>Step 6 — List tasks from the database</a></li><li><a href=/documentation/deskflow-tutorial/07-create-tasks/>Step 7 — Create tasks</a></li><li><a href=/documentation/deskflow-tutorial/08-validation/>Step 8 — Validation</a></li><li><a href=/documentation/deskflow-tutorial/09-authentication/>Step 9 — Authentication</a></li><li><a href=/documentation/deskflow-tutorial/10-middleware/>Step 10 — Middleware</a></li><li><a href=/documentation/deskflow-tutorial/11-background-work/>Step 11 — Background work</a></li><li><a href=/documentation/deskflow-tutorial/12-frontend/>Step 12 — Frontend (optional)</a></li><li><a href=/documentation/deskflow-tutorial/13-deploy/>Step 13 — Deploy</a></li><li><a href=/documentation/deskflow-tutorial/14-app-provider/>Step 14 — App provider</a></li><li><a href=/documentation/deskflow-tutorial/15-contribute-to-core/>Step 15 — Contribute to PioniaCore</a></li></ul></details></li><li><details><summary>Building your API</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/building-api/api-versioning/>API versioning in Moonlight</a></li><li><a href=/documentation/building-api/moonlight-overview/>Moonlight overview</a></li><li><a href=/documentation/building-api/moonlight-security/>Moonlight security model</a></li><li><a href=/documentation/building-api/services/>Services</a></li><li><a href=/documentation/building-api/actions/>Actions</a></li><li><a href=/documentation/building-api/validation/>Validation</a></li><li><a href=/documentation/building-api/generic-services/>Generic services</a></li><li><a href=/documentation/building-api/advanced-generic-services/>Advanced Generic Services</a></li><li><a href=/documentation/building-api/api-reference/>Documenting your API (Moonlight)</a></li></ul></details></li><li><a href=/documentation/examples/>Examples</a></li><li><details><summary>HTTP & middleware</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/http/collections/>Collections (Arrayable)</a></li><li><a href=/documentation/http/http-routing/>HTTP routing</a></li><li><a href=/documentation/http/middleware/>Middleware</a></li><li><a href=/documentation/http/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/http/exceptions/>Exceptions & error handling</a></li></ul></details></li><li><details open><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li class=active><a aria-current=page href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li><a href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><details><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li><li><a href=/documentation/security/security-utilities/>Security utilities</a></li></ul></details></li><li><details><summary>Frontend</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/frontend/vite-integration/>Frontend Integration (Vite)</a></li></ul></details></li><li><details><summary>Operations & deploy</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/operations/maintenance/>Maintenance mode</a></li><li><a href=/documentation/operations/roadrunner/>RoadRunner</a></li><li><a href=/documentation/operations/production-performance/>Production performance</a></li><li><a href=/documentation/operations/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/operations/logging/>Logging</a></li><li><a href=/documentation/operations/background-work/>Background work</a></li><li><a href=/documentation/operations/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/operations/commands-pionia-cli/>Commands (Pionia CLI)</a></li></ul></details></li><li><details><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li><li><a href=/documentation/extending/helpers/>Pionia Helpers</a></li><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></nav></div><nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation"><div class=page-links><h3>On this page</h3><nav id=toc><ul><li><a href=#what-you-will-learn>What you will learn</a></li><li><a href=#how-it-works>How it works</a></li><li><a href=#what-is-porm>What is Porm?</a></li><li><a href=#entry-points>Entry points</a></li><li><a href=#configuration-settingsini>Configuration (<code>settings.ini</code>)</a><ul><li><a href=#recognized-keys>Recognized keys</a></li></ul></li><li><a href=#supported-databases>Supported databases</a></li><li><a href=#multiple-connections>Multiple connections</a></li><li><a href=#table--columns>Table & columns</a></li><li><a href=#last-insert-id--debugging>Last insert ID & debugging</a></li><li><a href=#piql-advanced>Piql (advanced)</a></li><li><a href=#common-mistakes>Common mistakes</a></li><li><a href=#whats-next>What&rsquo;s next</a></li></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Configuration - Getting Started</h1><nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation"><details><summary>On this page</summary><div class=page-links><nav id=TableOfContents><ul><li><a href=#what-you-will-learn>What you will learn</a></li><li><a href=#how-it-works>How it works</a></li><li><a href=#what-is-porm>What is Porm?</a></li><li><a href=#entry-points>Entry points</a></li><li><a href=#configuration-settingsini>Configuration (<code>settings.ini</code>)</a><ul><li><a href=#recognized-keys>Recognized keys</a></li></ul></li><li><a href=#supported-databases>Supported databases</a></li><li><a href=#multiple-connections>Multiple connections</a></li><li><a href=#table--columns>Table & columns</a></li><li><a href=#last-insert-id--debugging>Last insert ID & debugging</a></li><li><a href=#piql-advanced>Piql (advanced)</a></li><li><a href=#common-mistakes>Common mistakes</a></li><li><a href=#whats-next>What&rsquo;s next</a></li></ul></nav></div></details></nav><p>This guide is for <strong>Northwind Studio</strong> developers wiring <strong>DeskFlow</strong>&rsquo;s database layer before <code>TaskService</code> and <code>MemberService</code> touch real rows. You will configure <code>[db]</code> in <code>settings.ini</code>, then query <code>tasks</code>, <code>projects</code>, and <code>team_members</code> with <code>table()</code> on port <strong>8000</strong>.</p><h2 id=what-you-will-learn>What you will learn<a href=#what-you-will-learn class=anchor aria-hidden=true>#</a></h2><ul><li>Register default and named connections in <code>environment/settings.ini</code></li><li>Call <code>table()</code>, <code>db()</code>, and <code>connectionManager()</code> from DeskFlow services</li><li>Use table aliases and column casts when listing Northwind data</li></ul><div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3"><div class=callout-content><div class=callout-title>Before you start</div><div class=callout-body><ul><li><a href=/documentation/deskflow-tutorial/>API tutorial</a> — DeskFlow services before persistence</li><li><a href=/documentation/database/>Database index</a> — Porm overview and guide map</li></ul></div></div></div><h2 id=how-it-works>How it works<a href=#how-it-works class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>environment/settings.ini  →  [db] section discovered at boot
-</span></span><span class=line><span class=cl>        ↓
-</span></span><span class=line><span class=cl>connectionManager()  →  pooled PDO per process
-</span></span><span class=line><span class=cl>        ↓
-</span></span><span class=line><span class=cl>table(&#39;tasks&#39;)  →  Porm  →  Piql (prepared statements)</span></span></code></pre></div></figure></div><h2 id=what-is-porm>What is Porm?<a href=#what-is-porm class=anchor aria-hidden=true>#</a></h2><p><strong>Porm</strong> is Pionia&rsquo;s database access layer. It exposes a fluent API similar to <a href=https://medoo.in/>Medoo</a> with prepared statements under the hood.</p><ul><li>No Eloquent-style models — query tables directly.</li><li>Works with new or legacy schemas.</li><li>Included in every Pionia app — use <code>table()</code> / <code>db()</code> from day one.</li></ul><h2 id=entry-points>Entry points<a href=#entry-points class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Helper</th><th>Returns</th><th>Purpose</th></tr></thead><tbody><tr><td><code>table($name, $alias, $connection)</code></td><td><code>Pionia\Porm\Core\Porm</code></td><td>Primary API</td></tr><tr><td><code>db(...)</code></td><td>same as <code>table()</code></td><td>Alias</td></tr><tr><td><code>connectionManager()</code></td><td><code>ConnectionManager</code></td><td>Pooled PDO per process</td></tr></tbody></table><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;tasks&#39;</span><span class=p>);</span>                           <span class=c1>// default connection
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;tasks&#39;</span><span class=p>,</span> <span class=s1>&#39;t&#39;</span><span class=p>);</span>                      <span class=c1>// tasks AS t
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;tasks&#39;</span><span class=p>,</span> <span class=k>null</span><span class=p>,</span> <span class=s1>&#39;db_pgsql&#39;</span><span class=p>);</span>         <span class=c1>// section name from settings.ini
-</span></span></span></code></pre></div></figure></div><p><code>Db::table()</code> and <code>Db::from()</code> exist on <code>Pionia\Porm\Database\Db</code> but apps should prefer the global helpers.</p><h2 id=configuration-settingsini>Configuration (<code>settings.ini</code>)<a href=#configuration-settingsini class=anchor aria-hidden=true>#</a></h2><p>Database sections are auto-discovered when they define a driver + database name. Example <code>environment/settings.ini</code>:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[db]</span>
-</span></span><span class=line><span class=cl><span class=na>database_type</span> <span class=o>=</span> <span class=s>&#34;sqlite&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>database_name</span> <span class=o>=</span> <span class=s>&#34;database.sqlite3&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>default</span> <span class=o>=</span> <span class=s>1</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>[db_pgsql]</span>
-</span></span><span class=line><span class=cl><span class=na>database_type</span> <span class=o>=</span> <span class=s>&#34;pgsql&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>database_name</span> <span class=o>=</span> <span class=s>&#34;deskflow&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>username</span> <span class=o>=</span> <span class=s>&#34;app&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>host</span> <span class=o>=</span> <span class=s>&#34;localhost&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>port</span> <span class=o>=</span> <span class=s>5432</span>
-</span></span><span class=line><span class=cl><span class=c1>; Store DB_PASSWORD in environment/.env — do not commit real credentials</span></span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-env data-lang=env><span class=line><span class=cl><span class=c1># environment/.env (gitignored)</span>
-</span></span><span class=line><span class=cl><span class=nv>DB_PASSWORD</span><span class=o>=</span>your-local-password</span></span></code></pre></div></figure></div><h3 id=recognized-keys>Recognized keys<a href=#recognized-keys class=anchor aria-hidden=true>#</a></h3><table><thead><tr><th>Key</th><th>Aliases</th><th>Notes</th></tr></thead><tbody><tr><td><code>database_type</code></td><td><code>type</code></td><td><code>mysql</code>, <code>pgsql</code>, <code>sqlite</code>, <code>mssql</code>, <code>oracle</code>, <code>sybase</code></td></tr><tr><td><code>database_name</code></td><td><code>database</code></td><td>Database name or SQLite file path</td></tr><tr><td><code>host</code></td><td><code>server</code></td><td></td></tr><tr><td><code>username</code>, <code>password</code>, <code>port</code>, <code>socket</code></td><td></td><td></td></tr><tr><td><code>charset</code>, <code>collation</code>, <code>prefix</code></td><td></td><td>Table prefix in SQL</td></tr><tr><td><code>default</code></td><td><code>default=1</code></td><td>Marks the default connection</td></tr><tr><td><code>logging</code></td><td></td><td>Per-connection query logging</td></tr><tr><td><code>testMode</code></td><td></td><td>Skip real PDO (tests)</td></tr><tr><td><code>pdo</code></td><td></td><td>Inject an existing <code>PDO</code> instance</td></tr></tbody></table><p>Environment overrides: <code>LOG_QUERIES</code> / <code>SHOW_QUERIES</code> enable logging on the connection.</p><h2 id=supported-databases>Supported databases<a href=#supported-databases class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Driver</th><th>PHP extension</th></tr></thead><tbody><tr><td><code>mysql</code> / MariaDB</td><td><code>pdo_mysql</code></td></tr><tr><td><code>pgsql</code></td><td><code>pdo_pgsql</code></td></tr><tr><td><code>sqlite</code></td><td><code>pdo_sqlite</code></td></tr><tr><td><code>mssql</code></td><td><code>pdo_sqlsrv</code> or <code>pdo_dblib</code></td></tr><tr><td><code>oracle</code></td><td><code>pdo_oci</code></td></tr><tr><td><code>sybase</code></td><td><code>pdo_dblib</code></td></tr></tbody></table><h2 id=multiple-connections>Multiple connections<a href=#multiple-connections class=anchor aria-hidden=true>#</a></h2><p>Register sections as <code>[db]</code>, <code>[db_pgsql]</code>, etc. Pass the <strong>section name</strong> (without brackets) as the third argument to <code>table()</code>:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;projects&#39;</span><span class=p>,</span> <span class=k>null</span><span class=p>,</span> <span class=s1>&#39;db_pgsql&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>get</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span></span></span></code></pre></div></figure></div><p>See <a href=/documentation/database/connections/>Connections</a> for pooling, <code>Connection::connect()</code> vs <code>open()</code>, and RoadRunner workers.</p><h2 id=table--columns>Table & columns<a href=#table--columns class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>table</span><span class=p>(</span><span class=s1>&#39;tasks&#39;</span><span class=p>,</span> <span class=s1>&#39;t&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>columns</span><span class=p>([</span><span class=s1>&#39;t.id&#39;</span><span class=p>,</span> <span class=s1>&#39;t.title&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>filter</span><span class=p>([</span><span class=s1>&#39;status&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;open&#39;</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=o>-&gt;</span><span class=na>all</span><span class=p>();</span></span></span></code></pre></div></figure></div><p>Column alias in SELECT: <code>column_name(alias)</code> — e.g. <code>'p.name(project_name)'</code> returns <code>project_name</code> in the result.</p><p>Type casts on read: suffix <code>[Int]</code>, <code>[Bool]</code>, <code>[JSON]</code>, <code>[Object]</code> on column names (use <code>[Object]</code> only with trusted data).</p><h2 id=last-insert-id--debugging>Last insert ID & debugging<a href=#last-insert-id--debugging class=anchor aria-hidden=true>#</a></h2><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$porm</span> <span class=o>=</span> <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;tasks&#39;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$porm</span><span class=o>-&gt;</span><span class=na>save</span><span class=p>([</span><span class=s1>&#39;title&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Ship DeskFlow v1&#39;</span><span class=p>,</span> <span class=s1>&#39;project_id&#39;</span> <span class=o>=&gt;</span> <span class=mi>1</span><span class=p>]);</span>
-</span></span><span class=line><span class=cl><span class=nv>$id</span> <span class=o>=</span> <span class=nv>$porm</span><span class=o>-&gt;</span><span class=na>lastSaved</span><span class=p>();</span>   <span class=c1>// or Piql::id() via getDatabase()
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl><span class=nv>$sql</span> <span class=o>=</span> <span class=nv>$porm</span><span class=o>-&gt;</span><span class=na>lastQuery</span><span class=p>();</span>    <span class=c1>// last interpolated SQL string
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$piql</span> <span class=o>=</span> <span class=nv>$porm</span><span class=o>-&gt;</span><span class=na>getDatabase</span><span class=p>();</span> <span class=c1>// low-level Piql engine (advanced)
-</span></span></span></code></pre></div></figure></div><h2 id=piql-advanced>Piql (advanced)<a href=#piql-advanced class=anchor aria-hidden=true>#</a></h2><p><code>$porm->getDatabase()</code> returns <code>Pionia\Porm\Core\Piql</code>. Application code should use <code>table()</code> chains; Piql is for framework contributors and debugging (<code>debug()</code>, <code>log()</code>).</p><p>Next: <a href=/documentation/database/making-queries/>Making queries</a>.</p><h2 id=common-mistakes>Common mistakes<a href=#common-mistakes class=anchor aria-hidden=true>#</a></h2><ul><li><strong>Committing <code>DB_PASSWORD</code> to git</strong> — keep credentials in <code>environment/.env</code> for alex@northwind.studio&rsquo;s local DeskFlow setup.</li><li><strong>Using <code>Db::from()</code> in services</strong> — global <code>table()</code> is the supported entry point in v3.</li><li><strong>Forgetting <code>default = 1</code> on <code>[db]</code></strong> — without a default section, <code>table('tasks')</code> has nowhere to connect.</li><li><strong>Passing the bracketed section name</strong> — use <code>'db_pgsql'</code>, not <code>'[db_pgsql]'</code>, as the third <code>table()</code> argument.</li></ul><h2 id=whats-next>What&rsquo;s next<a href=#whats-next class=anchor aria-hidden=true>#</a></h2><div class="card-nav d-flex flex-column flex-sm-row"><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/database/making-queries/ class="stretched-link text-reset text-decoration-none">Making queries</a></h5><p class="card-text mt-1">get, save, update on tasks.</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/database/connections/ class="stretched-link text-reset text-decoration-none">Connections</a></h5><p class="card-text mt-1">Pooling under RoadRunner.</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/database/queries-with-filtering/ class="stretched-link text-reset text-decoration-none">Filtering</a></h5><p class="card-text mt-1">Builder mode after filter().</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"><div class=last-modified><a href=https://github.com/PioniaPHP-project/pionia-docs/commit/bea914897f7d70e3eb8741a7c2b20b0f0a3ca28e><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-Last updated on July 4, 2026</a></div><div class=edit-page><a href=https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/database/introduction.md><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828.0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-Edit this page on GitHub</a></div></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M5 12l6 6"/><path d="M5 12l6-6"/></svg></div><div class="d-flex flex-column"><div class=text-body-secondary>Prev</div><a href=/documentation/security/security-utilities/ class="stretched-link text-reset text-decoration-none">Security utilities</a></div></div></div><div class=m-2></div><div class="card text-end w-100"><div class="card-body d-flex justify-content-end"><div class="d-flex flex-column"><div class=text-body-secondary>Next</div><a href=/documentation/database/making-queries/ class="stretched-link text-reset text-decoration-none">Making Queries</a></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div></main></div></div></div><footer class="footer text-muted"><div class=container-sm><div class=row><div class="col-lg-8 text-center text-lg-start"><ul class=list-inline><li class=list-inline-item><a class=text-muted href=/privacy/>Privacy Policy</a></li><li class=list-inline-item><a class=text-muted href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li></ul></div><div class="col-lg-8 text-center text-lg-end"><ul class=list-inline><li class=list-inline-item>Brought to you by <a class=text-muted href=https://servicecops.com/>Service Cops</a></li></ul></div></div></div></footer><script async src=/js/app.47b84f3b640408af6efe7bf4add1a36f5b9c6227fbae7b8bcdf0c9ce42fefc54.js integrity="sha256-R7hPO2QECK9u/nv0rdGjb1ucYif7rnuLzfDJzkL+/FQ="></script><script async src=https://scripts.simpleanalyticscdn.com/latest.js></script><script type=module>
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f14b3e296de1d0b69e75af684b62a4a912a2cadab04e36123407cd8388204f1d.js"
+  integrity="sha256-8Us&#43;KW3h0Laeda9oS2KkqRKiytqwTjYSNAfNg4ggTx0=">
+</script>
+
+
+<link rel="stylesheet" href="/main.2dda91215349f6c3fced0f77b8d86a0aa0b6438f2eb9046610539fd6fb83fd28b017f8218d9baca27fc203bf4f40b3f37ea6308c564d9e26cd0611bfc6ea3cc7.css" integrity="sha512-LdqRIVNJ9sP87Q93uNhqCqC2Q48uuQRmEFOf1vuD/SiwF/ghjZuson/CA79PQLPzfqYwjFZNnibNBhG/xuo8xw==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript>
+  <link rel="canonical" href="http://localhost:1313/documentation/database/configuration-getting-started/">
+<title>Porm configuration</title>
+<meta name="description" content="Database configuration and getting started with Porm in Pionia v3.">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/png">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="Configuration - Getting Started">
+<meta property="og:description" content="Configure Porm and start querying with table().">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/documentation/database/configuration-getting-started/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2026-07-04T04:53:15+03:00"><meta property="og:site_name" content="Pionia Framework">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Configuration - Getting Started">
+<meta name="twitter:description" content="Configure Porm and start querying with table().">
+<meta name="twitter:site" content="@pionia">
+
+    
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Pionia Framework",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/documentation/",
+       "name": "Documentation",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/documentation/database/",
+       "name": "Database ( Porm)",
+       "position": 4
+     },
+     {
+       "@type": "ListItem",
+       "name": "Configuration Getting Started",
+       "position": 5
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<div class="header-bar"></div>
+<header class="navbar navbar-expand-lg">
+  <div class="container-sm">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">
+      Pionia
+      <span class="docs-version-badge">Docs v3</span>
+    </a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+    
+      
+
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>DeskFlow tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/04-project-layout/">Step 4 — Know your project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/06-list-from-database/">Step 6 — List tasks from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/07-create-tasks/">Step 7 — Create tasks</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/15-contribute-to-core/">Step 15 — Contribute to PioniaCore</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+    
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Documentation<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 9l6 6l6 -6"></path>
+                  </svg>
+                </a>
+                <ul class="dropdown-menu shadow rounded border-0">
+                  <li><a class="dropdown-item" href="/documentation/getting-started/introduction/">Getting Started</a></li>
+                  <li><a class="dropdown-item" href="/documentation/deskflow-tutorial/">DeskFlow tutorial</a></li>
+                  <li><a class="dropdown-item" href="/documentation/building-api/">Building your API</a></li>
+                  <li><a class="dropdown-item" href="/documentation/database/">Database</a></li>
+                  <li><a class="dropdown-item" href="/documentation/operations/roadrunner/">Operations</a></li>
+                  </ul>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resources/">Resources</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/PioniaPHP-project/pionia-docs"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          </ul>
+        
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-sm" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+			
+    
+      
+
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>DeskFlow tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/04-project-layout/">Step 4 — Know your project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/06-list-from-database/">Step 6 — List tasks from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/07-create-tasks/">Step 7 — Create tasks</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/deskflow-tutorial/15-contribute-to-core/">Step 15 — Contribute to PioniaCore</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+    
+
+		</div>
+		
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#what-you-will-learn">What you will learn</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#what-is-porm">What is Porm?</a></li>
+    <li><a href="#entry-points">Entry points</a></li>
+    <li><a href="#configuration-settingsini">Configuration (<code>settings.ini</code>)</a>
+      <ul>
+        <li><a href="#recognized-keys">Recognized keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#supported-databases">Supported databases</a></li>
+    <li><a href="#multiple-connections">Multiple connections</a></li>
+    <li><a href="#table--columns">Table &amp; columns</a></li>
+    <li><a href="#last-insert-id--debugging">Last insert ID &amp; debugging</a></li>
+    <li><a href="#piql-advanced">Piql (advanced)</a></li>
+    <li><a href="#common-mistakes">Common mistakes</a></li>
+    <li><a href="#whats-next">What&rsquo;s next</a></li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9">
+		
+			<h1>Configuration - Getting Started</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-you-will-learn">What you will learn</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#what-is-porm">What is Porm?</a></li>
+    <li><a href="#entry-points">Entry points</a></li>
+    <li><a href="#configuration-settingsini">Configuration (<code>settings.ini</code>)</a>
+      <ul>
+        <li><a href="#recognized-keys">Recognized keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#supported-databases">Supported databases</a></li>
+    <li><a href="#multiple-connections">Multiple connections</a></li>
+    <li><a href="#table--columns">Table &amp; columns</a></li>
+    <li><a href="#last-insert-id--debugging">Last insert ID &amp; debugging</a></li>
+    <li><a href="#piql-advanced">Piql (advanced)</a></li>
+    <li><a href="#common-mistakes">Common mistakes</a></li>
+    <li><a href="#whats-next">What&rsquo;s next</a></li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			<p>This guide is for <strong>Northwind Studio</strong> developers wiring <strong>DeskFlow</strong>&rsquo;s database layer before <code>TaskService</code> and <code>MemberService</code> touch real rows. You will configure <code>[db]</code> in <code>settings.ini</code>, then query <code>tasks</code>, <code>projects</code>, and <code>team_members</code> with <code>table()</code> on port <strong>8000</strong>.</p>
+<h2 id="what-you-will-learn">What you will learn<a href="#what-you-will-learn" class="anchor" aria-hidden="true">#</a> </h2>
+<ul>
+<li>Register default and named connections in <code>environment/settings.ini</code></li>
+<li>Call <code>table()</code>, <code>db()</code>, and <code>connectionManager()</code> from DeskFlow services</li>
+<li>Use table aliases and column casts when listing Northwind data</li>
+</ul>
+<div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Before you start</div>
+    <div class="callout-body">
+      <ul>
+<li><a href="/documentation/deskflow-tutorial/">API tutorial</a> — DeskFlow services before persistence</li>
+<li><a href="/documentation/database/">Database index</a> — Porm overview and guide map</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="how-it-works">How it works<a href="#how-it-works" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">environment/settings.ini  →  [db] section discovered at boot
+</span></span><span class="line"><span class="cl">        ↓
+</span></span><span class="line"><span class="cl">connectionManager()  →  pooled PDO per process
+</span></span><span class="line"><span class="cl">        ↓
+</span></span><span class="line"><span class="cl">table(&#39;tasks&#39;)  →  Porm  →  Piql (prepared statements)</span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="what-is-porm">What is Porm?<a href="#what-is-porm" class="anchor" aria-hidden="true">#</a> </h2>
+<p><strong>Porm</strong> is Pionia&rsquo;s database access layer. It exposes a fluent API similar to <a href="https://medoo.in/">Medoo</a> with prepared statements under the hood.</p>
+<ul>
+<li>No Eloquent-style models — query tables directly.</li>
+<li>Works with new or legacy schemas.</li>
+<li>Included in every Pionia app — use <code>table()</code> / <code>db()</code> from day one.</li>
+</ul>
+<h2 id="entry-points">Entry points<a href="#entry-points" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Returns</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>table($name, $alias, $connection)</code></td>
+<td><code>Pionia\Porm\Core\Porm</code></td>
+<td>Primary API</td>
+</tr>
+<tr>
+<td><code>db(...)</code></td>
+<td>same as <code>table()</code></td>
+<td>Alias</td>
+</tr>
+<tr>
+<td><code>connectionManager()</code></td>
+<td><code>ConnectionManager</code></td>
+<td>Pooled PDO per process</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">);</span>                           <span class="c1">// default connection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">);</span>                      <span class="c1">// tasks AS t
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;db_pgsql&#39;</span><span class="p">);</span>         <span class="c1">// section name from settings.ini
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p><code>Db::table()</code> and <code>Db::from()</code> exist on <code>Pionia\Porm\Database\Db</code> but apps should prefer the global helpers.</p>
+<h2 id="configuration-settingsini">Configuration (<code>settings.ini</code>)<a href="#configuration-settingsini" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Database sections are auto-discovered when they define a driver + database name. Example <code>environment/settings.ini</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[db]</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_type</span> <span class="o">=</span> <span class="s">&#34;sqlite&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_name</span> <span class="o">=</span> <span class="s">&#34;database.sqlite3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">default</span> <span class="o">=</span> <span class="s">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[db_pgsql]</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_type</span> <span class="o">=</span> <span class="s">&#34;pgsql&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">database_name</span> <span class="o">=</span> <span class="s">&#34;deskflow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">&#34;app&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">5432</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; Store DB_PASSWORD in environment/.env — do not commit real credentials</span></span></span></code></pre></div>
+  </figure>
+</div>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-env" data-lang="env"><span class="line"><span class="cl"><span class="c1"># environment/.env (gitignored)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DB_PASSWORD</span><span class="o">=</span>your-local-password</span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="recognized-keys">Recognized keys<a href="#recognized-keys" class="anchor" aria-hidden="true">#</a> </h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>database_type</code></td>
+<td><code>type</code></td>
+<td><code>mysql</code>, <code>pgsql</code>, <code>sqlite</code>, <code>mssql</code>, <code>oracle</code>, <code>sybase</code></td>
+</tr>
+<tr>
+<td><code>database_name</code></td>
+<td><code>database</code></td>
+<td>Database name or SQLite file path</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td><code>server</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>username</code>, <code>password</code>, <code>port</code>, <code>socket</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>charset</code>, <code>collation</code>, <code>prefix</code></td>
+<td></td>
+<td>Table prefix in SQL</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td><code>default=1</code></td>
+<td>Marks the default connection</td>
+</tr>
+<tr>
+<td><code>logging</code></td>
+<td></td>
+<td>Per-connection query logging</td>
+</tr>
+<tr>
+<td><code>testMode</code></td>
+<td></td>
+<td>Skip real PDO (tests)</td>
+</tr>
+<tr>
+<td><code>pdo</code></td>
+<td></td>
+<td>Inject an existing <code>PDO</code> instance</td>
+</tr>
+</tbody>
+</table>
+<p>Environment overrides: <code>LOG_QUERIES</code> / <code>SHOW_QUERIES</code> enable logging on the connection.</p>
+<h2 id="supported-databases">Supported databases<a href="#supported-databases" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Driver</th>
+<th>PHP extension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mysql</code> / MariaDB</td>
+<td><code>pdo_mysql</code></td>
+</tr>
+<tr>
+<td><code>pgsql</code></td>
+<td><code>pdo_pgsql</code></td>
+</tr>
+<tr>
+<td><code>sqlite</code></td>
+<td><code>pdo_sqlite</code></td>
+</tr>
+<tr>
+<td><code>mssql</code></td>
+<td><code>pdo_sqlsrv</code> or <code>pdo_dblib</code></td>
+</tr>
+<tr>
+<td><code>oracle</code></td>
+<td><code>pdo_oci</code></td>
+</tr>
+<tr>
+<td><code>sybase</code></td>
+<td><code>pdo_dblib</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="multiple-connections">Multiple connections<a href="#multiple-connections" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Register sections as <code>[db]</code>, <code>[db_pgsql]</code>, etc. Pass the <strong>section name</strong> (without brackets) as the third argument to <code>table()</code>:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;projects&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;db_pgsql&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>See <a href="/documentation/database/connections/">Connections</a> for pooling, <code>Connection::connect()</code> vs <code>open()</code>, and RoadRunner workers.</p>
+<h2 id="table--columns">Table &amp; columns<a href="#table--columns" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">columns</span><span class="p">([</span><span class="s1">&#39;t.id&#39;</span><span class="p">,</span> <span class="s1">&#39;t.title&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">filter</span><span class="p">([</span><span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;open&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Column alias in SELECT: <code>column_name(alias)</code> — e.g. <code>'p.name(project_name)'</code> returns <code>project_name</code> in the result.</p>
+<p>Type casts on read: suffix <code>[Int]</code>, <code>[Bool]</code>, <code>[JSON]</code>, <code>[Object]</code> on column names (use <code>[Object]</code> only with trusted data).</p>
+<h2 id="last-insert-id--debugging">Last insert ID &amp; debugging<a href="#last-insert-id--debugging" class="anchor" aria-hidden="true">#</a> </h2>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$porm</span> <span class="o">=</span> <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$porm</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Ship DeskFlow v1&#39;</span><span class="p">,</span> <span class="s1">&#39;project_id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$porm</span><span class="o">-&gt;</span><span class="na">lastSaved</span><span class="p">();</span>   <span class="c1">// or Piql::id() via getDatabase()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$porm</span><span class="o">-&gt;</span><span class="na">lastQuery</span><span class="p">();</span>    <span class="c1">// last interpolated SQL string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$piql</span> <span class="o">=</span> <span class="nv">$porm</span><span class="o">-&gt;</span><span class="na">getDatabase</span><span class="p">();</span> <span class="c1">// low-level Piql engine (advanced)
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="piql-advanced">Piql (advanced)<a href="#piql-advanced" class="anchor" aria-hidden="true">#</a> </h2>
+<p><code>$porm-&gt;getDatabase()</code> returns <code>Pionia\Porm\Core\Piql</code>. Application code should use <code>table()</code> chains; Piql is for framework contributors and debugging (<code>debug()</code>, <code>log()</code>).</p>
+<p>Next: <a href="/documentation/database/making-queries/">Making queries</a>.</p>
+<h2 id="common-mistakes">Common mistakes<a href="#common-mistakes" class="anchor" aria-hidden="true">#</a> </h2>
+<ul>
+<li><strong>Committing <code>DB_PASSWORD</code> to git</strong> — keep credentials in <code>environment/.env</code> for alex@northwind.studio&rsquo;s local DeskFlow setup.</li>
+<li><strong>Using <code>Db::from()</code> in services</strong> — global <code>table()</code> is the supported entry point in v3.</li>
+<li><strong>Forgetting <code>default = 1</code> on <code>[db]</code></strong> — without a default section, <code>table('tasks')</code> has nowhere to connect.</li>
+<li><strong>Passing the bracketed section name</strong> — use <code>'db_pgsql'</code>, not <code>'[db_pgsql]'</code>, as the third <code>table()</code> argument.</li>
+</ul>
+<h2 id="whats-next">What&rsquo;s next<a href="#whats-next" class="anchor" aria-hidden="true">#</a> </h2>
+<div class="card-nav d-flex flex-column flex-sm-row">
+  
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/database/making-queries/" class="stretched-link text-reset text-decoration-none">Making queries</a></h5>
+        <p class="card-text mt-1">get, save, update on tasks.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/database/connections/" class="stretched-link text-reset text-decoration-none">Connections</a></h5>
+        <p class="card-text mt-1">Pooling under RoadRunner.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/database/queries-with-filtering/" class="stretched-link text-reset text-decoration-none">Filtering</a></h5>
+        <p class="card-text mt-1">Builder mode after filter().</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/c388266042590220517979fc7a547ab48988c259">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on July 4, 2026
+    </a>
+  </div>
+
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/database/introduction.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/documentation/security/security-utilities/" class="stretched-link text-reset text-decoration-none">Security utilities</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/database/making-queries/" class="stretched-link text-reset text-decoration-none">Making Queries</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="text-muted" href="/privacy/">Privacy Policy</a></li><li class="list-inline-item"><a class="text-muted" href="/documentation/extending/maintainer-notes/">Maintainer notes</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+
+<script async
+  src="/js/app.fee9f8ec7475f74b15d2b2c76604e00670c577ef11ab1b2c92344ab979b9ace4.js"
+  integrity="sha256-/un47HR190sV0rLHZgTgBnDFd&#43;8RqxsskjRKuXm5rOQ=">
+</script>
+
+
+<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-</script><script>document.querySelectorAll(".section-nav.docs-links").forEach(function(e){e.querySelectorAll("details").forEach(function(t){t.addEventListener("toggle",function(){if(!t.open)return;e.querySelectorAll("details").forEach(function(e){e!==t&&(e.open=!1)})})})})</script><script async src=/js/flexsearch.b6f80717bc68cd38b6ded7a061f96a73896db6be17a6582f09a63a6040040919.js integrity="sha256-tvgHF7xozTi23tegYflqc4lttr4XplgvCaY6YEAECRk="></script><script async src=/js/search-modal.4e30271fef6fac86c3b4143167e9784bd3f7037ce1045d03a321e7e799e91476.js integrity="sha256-TjAnH+9vrIbDtBQxZ+l4S9P3A3zhBF0DoyHn55npFHY="></script><div class="d-inline-flex fixed-bottom-right pb-4 pe-4"><button id=toTop type=button class="btn btn-primary rounded-circle ms-auto p-2"><span class=visually-hidden>Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 15l6-6 6 6"/></svg></button></div></body></html>
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+  });
+
+  const nodes = document.querySelectorAll('.mermaid');
+  if (nodes.length > 0) {
+    await mermaid.run({ nodes });
+  }
+</script>
+<script>
+  document.querySelectorAll('.section-nav.docs-links').forEach(function (nav) {
+    nav.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+        if (!details.open) return;
+        nav.querySelectorAll('details').forEach(function (other) {
+          if (other !== details) other.open = false;
+        });
+      });
+    });
+  });
+</script>
+<script async
+  src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
+  integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">
+</script>
+<script async
+  src="/js/search-modal.bbdea845b287fc7f22a081c11a25b5bbfa96e74e43b36be5733f16439caf46be.js"
+  integrity="sha256-u96oRbKH/H8ioIHBGiW1u/qW505Ds2vlcz8WQ5yvRr4=">
+</script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
+
+    
+  </body>
+</html>

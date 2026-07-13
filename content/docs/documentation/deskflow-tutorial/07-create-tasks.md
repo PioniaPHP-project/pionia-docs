@@ -44,8 +44,8 @@ protected function createAction(Arrayable $data): ApiResponse
 
     $task = table('tasks')->save([
         'title' => trim($title),
-        'status' => $data->getString('status', 'open'),
-        'assignee' => $data->getString('assignee', 'alex@northwind.studio'),
+        'status' => $data->get('status', 'open'),
+        'assignee' => $data->get('assignee', 'alex@northwind.studio'),
     ]);
 
     return response(0, 'Task created', ['task' => $task]);

@@ -35,7 +35,7 @@ You understand HTTP APIs but want to know **why** Pionia uses one URL and a `{ s
 
 {{< mermaid >}}
 flowchart LR
-  Client[curl / SPA] --> Switch["/api/v1/ MainSwitch"]
+  Client["curl / SPA"] --> Switch["/api/v1/ MainSwitch"]
   Switch --> Service[TaskService]
   Service --> Action[listAction]
   Action --> Envelope["returnCode + returnData"]

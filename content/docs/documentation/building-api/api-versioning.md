@@ -41,7 +41,7 @@ Each **switch** is bound to one API version path (`/api/v1/`, `/api/v2/`, …). 
 flowchart LR
   INI["[app_switches]"] --> V1["/api/v1/ MainSwitch"]
   INI --> V2["/api/v2/ V2Switch"]
-  V1 --> TaskV1[task / member / project]
+  V1 --> TaskV1["task / member / project"]
   V2 --> TaskV2[task v2 contract]
 {{< /mermaid >}}
 

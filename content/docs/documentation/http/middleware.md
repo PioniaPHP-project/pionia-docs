@@ -35,7 +35,7 @@ sequenceDiagram
   participant Client
   participant MW as Middleware chain
   participant Auth as Authentication
-  participant API as Switch / Service
+  participant API as "Switch / Service"
   Client->>MW: POST /api/v1/
   MW->>MW: onRequest (set X-Request-Id)
   MW->>Auth: identify caller

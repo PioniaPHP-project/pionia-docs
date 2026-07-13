@@ -35,7 +35,7 @@ This guide is for Northwind Studio operators who need to **take DeskFlow offline
 {{< mermaid >}}
 flowchart TD
   Req[Incoming request] --> Gate{Maintenance enabled?}
-  Gate -->|No| App[DeskFlow API / static]
+  Gate -->|No| App["DeskFlow API / static"]
   Gate -->|Yes| Bypass{Bypass token valid?}
   Bypass -->|Yes| App
   Bypass -->|No| Block[HTTP 503 JSON or HTML]

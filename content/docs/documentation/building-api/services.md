@@ -39,7 +39,7 @@ You scaffolded DeskFlow and need to **create and register service classes** — 
 flowchart LR
   JSON["service: task"] --> Switch[MainSwitch]
   Switch --> Class[TaskService]
-  Class --> Actions[listAction / createAction]
+  Class --> Actions["listAction / createAction"]
 {{< /mermaid >}}
 
 ## What is a service?
