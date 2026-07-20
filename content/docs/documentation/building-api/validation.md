@@ -2,7 +2,7 @@
 title: "Validation"
 slug: "validation"
 description: "ValidationException, rules(), attributes, and custom validation rules."
-summary: "Return HTTP 422 when DeskFlow clients omit required fields like task title."
+summary: "Return HTTP 422 when Pionia Shop clients omit required fields like product name."
 date: 2026-07-01
 lastmod: 2026-07-13
 draft: false
@@ -17,7 +17,7 @@ seo:
 
 ## Who this is for
 
-You are building DeskFlow actions and need **clear 422 responses** when Alex submits `task.create` without a `title` or `member.login` with a malformed email.
+You are building Pionia Shop actions and need **clear 422 responses** when Ada submits `product.create` without a `name` or `customer.login` with a malformed email.
 
 ## What you will learn
 
@@ -28,8 +28,8 @@ You are building DeskFlow actions and need **clear 422 responses** when Alex sub
 ## Before you start
 
 {{< prerequisites >}}
-- [Actions](/documentation/building-api/actions/) — `createAction` on `TaskService`
-- [Services](/documentation/building-api/services/) — DeskFlow running on port **8000**
+- [Actions](/documentation/building-api/actions/) — `createAction` on `ProductService`
+- [Services](/documentation/building-api/services/) — Pionia Shop running on port **8000**
 {{< /prerequisites >}}
 
 ## How it works
@@ -39,10 +39,10 @@ When validation fails, Pionia throws `ValidationException`. The exception pipeli
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"task","action":"create","project_id":1}'
+  -d '{"service":"product","action":"create","project_id":1}'
 ```
 
-DeskFlow should respond with `"returnCode": 422` and a field-specific message once rules are in place.
+Pionia Shop should respond with `"returnCode": 422` and a field-specific message once rules are in place.
 
 ## Quick choice
 
@@ -78,7 +78,7 @@ protected function registerAction(Arrayable $data): ApiResponse
 }
 ```
 
-DeskFlow `member.login` example:
+Pionia Shop `customer.login` example:
 
 ```php
 #[Validated(rules: [
@@ -87,7 +87,7 @@ DeskFlow `member.login` example:
 ])]
 protected function loginAction(Arrayable $data): ApiResponse
 {
-    // alex@northwind.studio already validated as email format
+    // ada@pionia.shop already validated as email format
     return response(0, 'OK', ['token' => '…']);
 }
 ```
@@ -251,7 +251,7 @@ protected function createAction(Arrayable $data): ApiResponse
     $projectId = validate('project_id', $data)->required()->integer()->get();
     $email = validate('assignee_email', $data)->email()->get(); // optional: skip required() when field may be absent
 
-    $task = table('tasks')->save([
+    $task = table('products')->save([
         'title' => $title,
         'project_id' => $projectId,
         'assignee' => $email,
@@ -261,7 +261,7 @@ protected function createAction(Arrayable $data): ApiResponse
 }
 ```
 
-DeskFlow login with one-liners:
+Pionia Shop login with one-liners:
 
 ```php
 $email = validate('email', $data)->required()->email()->get();
@@ -304,7 +304,7 @@ When `$createColumns` or `$updateColumns` are set, missing **required** fields t
 ```php
 use Pionia\Http\Services\Generics\UniversalGenericService;
 
-class ProjectService extends UniversalGenericService
+class OrderService extends UniversalGenericService
 {
     public string $table = 'projects';
     public ?array $createColumns = ['name', 'client'];

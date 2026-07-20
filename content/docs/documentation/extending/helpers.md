@@ -2,7 +2,7 @@
 title: "Pionia Helpers"
 slug: "helpers"
 description: "Global shortcuts to AppRealm, Porm, Moonlight, cache, logging, and security after boot."
-summary: "Reference grouped by DeskFlow tasks — responses, database, logging, and more."
+summary: "Reference grouped by Pionia Shop tasks — responses, database, logging, and more."
 date: 2026-07-01
 lastmod: 2026-07-13
 draft: false
@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You are writing DeskFlow services and want quick access to common framework entry points — **`response()`** for Moonlight envelopes, **`table()`** for `tasks` / `team_members`, **`logger()`** for action traces — without wiring the container manually.
+You are writing Pionia Shop services and want quick access to common framework entry points — **`response()`** for Moonlight envelopes, **`table()`** for `products` / `customers`, **`logger()`** for action traces — without wiring the container manually.
 
 ## What you will learn
 
@@ -44,7 +44,7 @@ flowchart LR
   Helpers --> R[response]
   Helpers --> T["table / db"]
   Helpers --> L["logger / report"]
-  R --> Task[TaskService actions]
+  R --> Task[ProductService actions]
   T --> Task
   L --> Task
 {{< /mermaid >}}
@@ -71,7 +71,7 @@ $projectRoot = app()->appRoot();
 Alias of `app()` for readable boot-time chaining (`pionia()->addAppProvider(...)`). Returns the booted `AppRealm` instance.
 
 ```php
-pionia()->addAppProvider(\Application\Providers\DeskFlowProvider::class);
+pionia()->addAppProvider(\Application\Providers\Pionia ShopProvider::class);
 ```
 
 ### `realm()`
@@ -87,7 +87,7 @@ $pipeline = realm()->exceptions();
 Bootstraps and returns the `AppRealm` singleton on first call (loads `bootstrap/application.php`). All other container helpers delegate here. Returns `AppRealm`.
 
 ```php
-$memberService = container()->get(\Application\Services\MemberService::class);
+$memberService = container()->get(\Application\Services\CustomerService::class);
 ```
 
 ### `container_path()`
@@ -95,7 +95,7 @@ $memberService = container()->get(\Application\Services\MemberService::class);
 Resolves the absolute path to `bootstrap/application.php` (or `CONTAINER_PATH` when defined). Used internally by `container()`; rarely needed in application code. Returns `string`.
 
 ```php
-$bootstrap = container_path(); // …/DeskFlow/bootstrap/application.php
+$bootstrap = container_path(); // …/Pionia Shop/bootstrap/application.php
 ```
 
 ### `runtimeMode()`
@@ -104,7 +104,7 @@ Detects how PHP is running: `fpm`, `cli`, `worker`, or `testing` (from `PIONIA_R
 
 ```php
 if (runtimeMode() === \Pionia\Runtime\RuntimeMode::Worker) {
-    logger()->debug('DeskFlow worker handling task sync');
+    logger()->debug('Pionia Shop worker handling task sync');
 }
 ```
 
@@ -127,12 +127,12 @@ Builds the standard Moonlight JSON envelope (`ApiResponse`). This is the primary
 ```php
 protected function listAction(Arrayable $data): ApiResponse
 {
-    $tasks = table('tasks')
+    $products = table('products')
         ->where('project_id', $data->get('project_id'))
         ->where('status', 'open')
         ->all();
 
-    return response(0, 'OK', ['tasks' => $tasks]);
+    return response(0, 'OK', ['tasks' => $products]);
 }
 ```
 
@@ -143,7 +143,7 @@ Stores the response in cache when the service has caching enabled. Cache key is 
 ```php
 protected function listAction(Arrayable $data): ApiResponse
 {
-    $rows = table('tasks')->where('assignee', 'alex@northwind.studio')->all();
+    $rows = table('products')->where('assignee', 'ada@pionia.shop')->all();
     $envelope = response(0, 'OK', ['tasks' => $rows]);
 
     return cachedResponse($this, $envelope, 300);
@@ -157,7 +157,7 @@ Shorthand for `cachedResponse($instance, response(...), $ttl)` with readable pos
 ```php
 protected function summaryAction(Arrayable $data): ApiResponse
 {
-    $count = table('tasks')->where('project_id', $data->get('project_id'))->count();
+    $count = table('products')->where('project_id', $data->get('project_id'))->count();
 
     return recached($this, 0, 'Project summary', ['open_tasks' => $count], null, 120);
 }
@@ -169,8 +169,8 @@ Renders a template to an HTML string without terminating the process. Preferred 
 
 ```php
 $html = renderToString('emails/task-assigned', [
-    'member' => 'alex@northwind.studio',
-    'task' => table('tasks')->get($taskId),
+    'member' => 'ada@pionia.shop',
+    'task' => table('products')->get($taskId),
 ]);
 ```
 
@@ -180,7 +180,7 @@ $html = renderToString('emails/task-assigned', [
 
 ```php
 // Avoid in new code — use renderToString() instead
-render('pages/welcome', ['app' => 'DeskFlow']);
+render('pages/welcome', ['app' => 'Pionia Shop']);
 ```
 
 ---
@@ -205,8 +205,8 @@ $title = $payload->get('title');
 Primary Porm query-builder entry for a database table. Chain `where()`, `get()`, `all()`, etc. Returns `Porm`.
 
 ```php
-$task = table('tasks')->where('id', $taskId)->get();
-$members = table('team_members')->where('project_id', $projectId)->all();
+$task = table('products')->where('id', $taskId)->get();
+$members = table('customers')->where('project_id', $projectId)->all();
 ```
 
 ### `db(string $tableName, ?string $tableAlias = null, ?string $using = null)`
@@ -214,7 +214,7 @@ $members = table('team_members')->where('project_id', $projectId)->all();
 Alias of `table()`. Use whichever reads more naturally in your action. Returns `Porm|null` (always non-null in practice).
 
 ```php
-$project = db('projects')->where('slug', 'deskflow-alpha')->first();
+$project = db('projects')->where('slug', 'pionia-shop-alpha')->first();
 ```
 
 ### `connectionManager()`
@@ -242,7 +242,7 @@ protected function assignAction(Arrayable $data): ApiResponse
     $taskId = validate('task_id', $data)->required()->integer()->get();
     $email = validate('assignee', $data)->required()->email()->get();
 
-    table('tasks')->where('id', $taskId)->update(['assignee' => $email]);
+    table('products')->where('id', $taskId)->update(['assignee' => $email]);
 
     return response(0, 'Task assigned', ['assignee' => $email]);
 }
@@ -265,8 +265,8 @@ rules($data, [
 Returns the shared `ValidationManager` singleton for registering custom rules. Returns `ValidationManager`.
 
 ```php
-validations()->extend('deskflow_member', function (\Pionia\Validations\ValidationContext $ctx): void {
-    if (!table('team_members')->where('email', $ctx->value)->exists()) {
+validations()->extend('pionia-shop_member', function (\Pionia\Validations\ValidationContext $ctx): void {
+    if (!table('customers')->where('email', $ctx->value)->exists()) {
         $ctx->fail('Member not found in this project.');
     }
 });
@@ -281,9 +281,9 @@ validations()->extend('deskflow_member', function (\Pionia\Validations\Validatio
 Returns the default PSR-3 logger, or a named channel via `LogManager`. Use in every service action for traceability. Returns `LoggerInterface`.
 
 ```php
-logger()->info('task.create', [
+logger()->info('product.create', [
     'project_id' => $data->get('project_id'),
-    'created_by' => 'alex@northwind.studio',
+    'created_by' => 'ada@pionia.shop',
 ]);
 
 logger('api')->debug('Moonlight payload', $data->all());
@@ -295,13 +295,13 @@ Reports a throwable through the exception pipeline, or logs a string message at 
 
 ```php
 try {
-    table('tasks')->insert(['title' => $title, 'project_id' => $projectId]);
+    table('products')->insert(['title' => $title, 'project_id' => $projectId]);
 } catch (\Throwable $e) {
     report($e);
     throw $e;
 }
 
-report('DeskFlow sync failed for project', ['project_id' => $projectId]);
+report('Pionia Shop sync failed for project', ['project_id' => $projectId]);
 ```
 
 ### `pionia_handle_exception(\Throwable $e, ?Request $request = null)`
@@ -318,7 +318,7 @@ Returns whether API responses should be written to the log (`[logging] LOG_RESPO
 
 ```php
 if (shouldLogResponses()) {
-    logger('api')->info('response', ['action' => 'task.list']);
+    logger('api')->info('response', ['action' => 'product.list']);
 }
 ```
 
@@ -356,7 +356,7 @@ $loaded = envKeys(); // ['APP_NAME', 'PORT', 'JWT_SECRET_KEY', …]
 Resolves the HTTP port: CLI override → `PORT` / `SERVER_PORT` → `settings.ini` → default **8000**. Use in Vite proxy config and health checks. Returns `int`.
 
 ```php
-$port = serverPort();           // 8000 for DeskFlow dev
+$port = serverPort();           // 8000 for Pionia Shop dev
 $apiUrl = 'http://127.0.0.1:' . serverPort() . apiPingPath();
 ```
 
@@ -504,7 +504,7 @@ Returns the `Moonlight` dispatcher for sync calls, async jobs, and WebSocket fra
 
 ```php
 $result = moonlight()->dispatch('member', 'list', ['project_id' => 7]);
-$accepted = moonlight()->async('mail', 'task_assigned', ['email' => 'alex@northwind.studio']);
+$accepted = moonlight()->async('mail', 'task_assigned', ['email' => 'ada@pionia.shop']);
 ```
 
 ### `defer(\Closure $work)`
@@ -513,7 +513,7 @@ Queues a closure to run **after** the HTTP response is sent (same PHP process, n
 
 ```php
 defer(function () {
-    logger()->info('DeskFlow notified alex@northwind.studio after task create');
+    logger()->info('Pionia Shop notified ada@pionia.shop after task create');
 });
 ```
 
@@ -523,12 +523,12 @@ Queues post-response work or submits a Moonlight job. Closure form returns a `Pr
 
 ```php
 async('mail', 'task_assigned', [
-    'email' => 'alex@northwind.studio',
+    'email' => 'ada@pionia.shop',
     'task_id' => $taskId,
 ]);
 
 (void) async(function () {
-    table('tasks')->where('id', $taskId)->update(['notified' => 1]);
+    table('products')->where('id', $taskId)->update(['notified' => 1]);
 });
 ```
 
@@ -538,7 +538,7 @@ Blocks until a promise settles. Triggers deferred flush when work is still buffe
 
 ```php
 $result = await(async(function () {
-    return table('tasks')->where('project_id', 42)->count();
+    return table('products')->where('project_id', 42)->count();
 }));
 ```
 
@@ -558,8 +558,8 @@ Runs a callback when the promise settles (success or failure). Returns `PromiseI
 
 ```php
 promiseFinally(async(function () {
-    logger()->info('DeskFlow export started');
-}), fn () => logger()->info('DeskFlow export finished'));
+    logger()->info('Pionia Shop export started');
+}), fn () => logger()->info('Pionia Shop export finished'));
 ```
 
 ---
@@ -592,7 +592,7 @@ See [Caching](/documentation/operations/caching/).
 
 ## Security helpers
 
-`security()` returns the `Security` singleton. Every method has a snake_case helper. For algorithm details see [Security utilities](/documentation/security/security-utilities/).
+`security()` returns the `Security` singleton. Every method has a snake_case helper. For algorithm details see [Security utilities](/documentation/security/security-utilities/). For Bearer JWT end-to-end, see [JWT authentication](/documentation/security/jwt-authentication/).
 
 ### `security()`
 
@@ -600,6 +600,40 @@ Returns the cryptographic `Security` service from the container. Returns `Securi
 
 ```php
 $needsRehash = security()->needsRehash($storedHash);
+```
+
+### `jwt_encode(array $claims, ?string $secret = null, array $headers = [], string $alg = 'HS256')`
+
+Signs a JWT. Adds `iat` and (when missing) `exp` from `[jwt] TTL`. Secret falls back to `[jwt] SECRET` → `JWT_SECRET` → `APP_KEY`. Returns `string`.
+
+```php
+$token = jwt_encode(['sub' => $member->id, 'email' => $member->email]);
+```
+
+### `jwt_decode(string $token, bool $verify = true, ?string $secret = null)`
+
+Returns `['header' => array, 'payload' => array]`. Throws when `$verify` is true and the token is invalid.
+
+```php
+$payload = jwt_decode($token)['payload'];
+```
+
+### `jwt_verify(string $token, ?string $secret = null)`
+
+Returns `bool` — whether the token verifies with the configured secret.
+
+```php
+if (!jwt_verify($token)) {
+    return response(401, 'Invalid token');
+}
+```
+
+### `jwt_refresh_token(int $bytes = 32)`
+
+Opaque CSPRNG string for refresh-token storage (not a JWT). Returns `string`.
+
+```php
+$refresh = jwt_refresh_token();
 ```
 
 ### `secure_random_bytes(int $length)`
@@ -640,7 +674,7 @@ Generates a random UUID v4. Returns `string`.
 
 ```php
 $taskUuid = secure_uuid();
-table('tasks')->insert(['uuid' => $taskUuid, 'title' => 'Review wireframes']);
+table('products')->insert(['uuid' => $taskUuid, 'title' => 'Review wireframes']);
 ```
 
 ### `secure_ulid()`
@@ -688,8 +722,8 @@ $temporaryPassword = secure_password(20);
 Hashes a password for database storage. Returns `string`.
 
 ```php
-$hash = hash_password('DeskFlow!2026');
-table('team_members')->where('email', 'alex@northwind.studio')->update(['password' => $hash]);
+$hash = hash_password('Pionia Shop!2026');
+table('customers')->where('email', 'ada@pionia.shop')->update(['password' => $hash]);
 ```
 
 ### `verify_password(string $password, string $hash)`
@@ -745,7 +779,7 @@ $token = csrf_token();
 Symmetric encryption with `APP_KEY` or an explicit key (requires `ext-sodium`). Returns `string`.
 
 ```php
-$sealed = encrypt('deskflow-internal-notes');
+$sealed = encrypt('pionia-shop-internal-notes');
 ```
 
 ### `decrypt(string $payload, ?string $key = null)`
@@ -817,7 +851,7 @@ $rsa = rsa_key_pair(2048);
 RSA hybrid encryption for large payloads. Returns `string`.
 
 ```php
-$encrypted = rsa_encrypt(jsonify(['member' => 'alex@northwind.studio']), $rsa['public_key']);
+$encrypted = rsa_encrypt(jsonify(['member' => 'ada@pionia.shop']), $rsa['public_key']);
 ```
 
 ### `rsa_decrypt(string $payload, string $privateKey)`
@@ -889,7 +923,7 @@ $column = toSnakeCase('projectId'); // project_id
 Converts a string to StudlyCase class-name form. Returns `string`.
 
 ```php
-$class = classify('task_service'); // TaskService
+$class = classify('task_service'); // ProductService
 ```
 
 ### `slugify(string $value)`
@@ -897,7 +931,7 @@ $class = classify('task_service'); // TaskService
 Converts a string to a URL slug. Returns `string`.
 
 ```php
-$slug = slugify('DeskFlow Alpha Project'); // deskflow-alpha-project
+$slug = slugify('Pionia Shop Alpha Project'); // pionia-shop-alpha-project
 ```
 
 ### `singularize(string $word)`
@@ -975,7 +1009,7 @@ $public = alias('PUBLIC_DIR');
 Resolves a path relative to the application root. Returns `string`.
 
 ```php
-$logFile = path('storage/logs/deskflow.log');
+$logFile = path('storage/logs/pionia-shop.log');
 ```
 
 ### `directoryFor($key)`
@@ -1000,7 +1034,7 @@ Resolves a PHP namespace from `app.namespaces` (e.g. `SERVICE_NS` → `Applicati
 
 ```php
 $ns = namespaceFor('SERVICE_NS');
-$class = $ns . '\\TaskService';
+$class = $ns . '\\ProductService';
 ```
 
 ### `addIniSection(string $section, ?array $keyValueToAppend = [], string $iniFile = 'generated.ini')`
@@ -1008,7 +1042,7 @@ $class = $ns . '\\TaskService';
 Creates or merges a section in an INI file (default `environment/generated.ini`). Returns `bool`.
 
 ```php
-addIniSection('deskflow', ['LAST_SYNC' => now()->format('c')], 'generated.ini');
+addIniSection('pionia-shop', ['LAST_SYNC' => now()->format('c')], 'generated.ini');
 ```
 
 ### `write_ini_file(string $file, array $array = [])`
@@ -1017,7 +1051,7 @@ Writes an INI file in a lock-safe manner. Returns `bool` (false on lock failure)
 
 ```php
 write_ini_file(path('environment/generated.ini'), [
-    'deskflow' => ['PORT' => 8000, 'DEFAULT_PROJECT' => 'alpha'],
+    'pionia-shop' => ['PORT' => 8000, 'DEFAULT_PROJECT' => 'alpha'],
 ]);
 ```
 
@@ -1026,7 +1060,7 @@ write_ini_file(path('environment/generated.ini'), [
 Checks whether a container key is cached under a parent cache tag. Returns `bool`.
 
 ```php
-if (!is_cached_in('bootstrapped_providers', \Application\Providers\DeskFlowProvider::class)) {
+if (!is_cached_in('bootstrapped_providers', \Application\Providers\Pionia ShopProvider::class)) {
     // provider not yet booted
 }
 ```
@@ -1042,7 +1076,7 @@ Creates a `PioniaRouter` for registering HTTP routes in a provider's `routes()` 
 ```php
 public function routes(PioniaRouter $router): void
 {
-    router(app())->get('/health', fn () => response(0, 'DeskFlow OK'));
+    router(app())->get('/health', fn () => response(0, 'Pionia Shop OK'));
 }
 ```
 
@@ -1060,7 +1094,7 @@ $router = route(app());
 Builds a GET `RouteObject` for fluent route registration. Returns `RouteObject`.
 
 ```php
-router(app())->add(get('/deskflow/status')->to('StatusController@index'));
+router(app())->add(get('/pionia-shop/status')->to('StatusController@index'));
 ```
 
 ### `post(string $path)`
@@ -1068,7 +1102,7 @@ router(app())->add(get('/deskflow/status')->to('StatusController@index'));
 Builds a POST `RouteObject` for fluent route registration. Returns `RouteObject`.
 
 ```php
-router(app())->add(post('/deskflow/webhook')->to('WebhookController@handle'));
+router(app())->add(post('/pionia-shop/webhook')->to('WebhookController@handle'));
 ```
 
 ### `allRoutes()`
@@ -1133,7 +1167,7 @@ $stack = middlewares();
 Dispatches a domain event through the PSR-14 event dispatcher. Returns the event object.
 
 ```php
-event(new \Application\Events\TaskCreated($taskId, 'alex@northwind.studio'));
+event(new \Application\Events\TaskCreated($taskId, 'ada@pionia.shop'));
 ```
 
 ### `listen(string $eventName, array|callable $listener, int $priority = 0)`
@@ -1142,7 +1176,7 @@ Registers an event listener at boot (e.g. in a provider's `onBooted()`). Returns
 
 ```php
 listen(\Application\Events\TaskCreated::class, function ($event) {
-    logger()->info('DeskFlow task created', ['id' => $event->taskId]);
+    logger()->info('Pionia Shop task created', ['id' => $event->taskId]);
 });
 ```
 
@@ -1216,7 +1250,7 @@ Whether client-side routes should fall back to `public/index.html`. Follows `[fr
 
 ```php
 if (spaFallbackEnabled()) {
-    // non-API GET requests serve the DeskFlow SPA shell
+    // non-API GET requests serve the Pionia Shop SPA shell
 }
 ```
 
@@ -1238,7 +1272,7 @@ Whether RoadRunner Moonlight job queue is enabled (`[jobs] ENABLED` or `JOBS_ENA
 
 ```php
 if (moonlightJobsEnabled()) {
-    moonlight()->async('mail', 'task_assigned', ['email' => 'alex@northwind.studio']);
+    moonlight()->async('mail', 'task_assigned', ['email' => 'ada@pionia.shop']);
 }
 ```
 
@@ -1259,7 +1293,7 @@ $realtime = realtimeConfig();
 Parses a template into structured data without rendering output. Returns `array<string, mixed>|null`.
 
 ```php
-$structure = parseHtml('emails/task-digest', ['member' => 'alex@northwind.studio']);
+$structure = parseHtml('emails/task-digest', ['member' => 'ada@pionia.shop']);
 ```
 
 ### `asset($file, ?string $dir = null)`
@@ -1267,7 +1301,7 @@ $structure = parseHtml('emails/task-digest', ['member' => 'alex@northwind.studio
 Resolves an absolute filesystem path for a static asset under `public/static/` (or custom `$dir`). Returns `?string` (null when file missing).
 
 ```php
-$logoPath = asset('deskflow-logo.svg');
+$logoPath = asset('pionia-shop-logo.svg');
 ```
 
 ---
@@ -1279,7 +1313,7 @@ $logoPath = asset('deskflow-logo.svg');
 Runs a callback for side effects and returns the original value (or a `HighOrderTapProxy` when no callback). Returns `HighOrderTapProxy|TValue`.
 
 ```php
-$task = tap(table('tasks')->get($id), function ($row) {
+$task = tap(table('products')->get($id), function ($row) {
     logger()->info('Loaded task', ['id' => $row['id']]);
 });
 ```
@@ -1305,7 +1339,7 @@ $notify = asBool(env('DESKFLOW_NOTIFY', false));
 Returns the current time as a `DateTime` (Carbon-backed). Returns `DateTime`.
 
 ```php
-table('tasks')->insert([
+table('products')->insert([
     'title' => 'Ship MVP',
     'created_at' => now()->format('Y-m-d H:i:s'),
 ]);
@@ -1341,7 +1375,7 @@ $name = framework(); // Pionia
 Returns the Pionia core version string. Returns `string`.
 
 ```php
-logger()->info('DeskFlow boot', ['pionia' => version()]);
+logger()->info('Pionia Shop boot', ['pionia' => version()]);
 ```
 
 ### `frameworkLogo()`
@@ -1362,10 +1396,10 @@ $tagline = frameworkTag();
 
 ### `appName()`
 
-Returns the configured application name (e.g. DeskFlow). Returns `string`.
+Returns the configured application name (e.g. Pionia Shop). Returns `string`.
 
 ```php
-$subject = appName() . ': Task assigned to alex@northwind.studio';
+$subject = appName() . ': Task assigned to ada@pionia.shop';
 ```
 
 ---

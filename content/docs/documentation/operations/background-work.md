@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This guide is for DeskFlow developers who need **post-response work** — log activity after Alex gets a JSON response, or queue welcome emails without blocking the `member.create` action.
+This guide is for Pionia Shop developers who need **post-response work** — log activity after Ada gets a JSON response, or queue welcome emails without blocking the `customer.register` action.
 
 ## What you will learn
 
@@ -26,7 +26,7 @@ This guide is for DeskFlow developers who need **post-response work** — log ac
 - How RoadRunner Jobs change behaviour vs `php pionia serve`
 
 {{< prerequisites >}}
-- [Services](/documentation/building-api/services/) — DeskFlow actions that return envelopes
+- [Services](/documentation/building-api/services/) — Pionia Shop actions that return envelopes
 - `composer require react/promise` in your app (for `defer()` / closure `async()`)
 - Optional: [RoadRunner](/documentation/operations/roadrunner/) with `[jobs] ENABLED`
 {{< /prerequisites >}}
@@ -36,7 +36,7 @@ This guide is for DeskFlow developers who need **post-response work** — log ac
 {{< mermaid >}}
 sequenceDiagram
   participant Client
-  participant Action as "task.create action"
+  participant Action as "product.create action"
   participant Resp as HTTP response
   participant Defer as Deferred buffer
   participant Job as RR jobs pool
@@ -71,7 +71,7 @@ PHP is **single-threaded**. Pionia does not spawn OS threads. **`defer()`** and 
 
 ```php
 defer(function () use ($user) {
-    logger()->info('Welcome email queued', ['email' => 'alex@northwind.studio']);
+    logger()->info('Welcome email queued', ['email' => 'ada@pionia.shop']);
 });
 
 return response(0, 'OK', $rows);
@@ -96,9 +96,9 @@ On PHP 8.5+, `async()` is `#[NoDiscard]` — use the return value or `(void) asy
 ### Moonlight job form
 
 ```php
-async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
+async('mail', 'send_welcome', ['email' => 'ada@pionia.shop']);
 // or API-style 202:
-moonlight()->async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
+moonlight()->async('mail', 'send_welcome', ['email' => 'ada@pionia.shop']);
 ```
 
 | Context | Behaviour |

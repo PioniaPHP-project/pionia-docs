@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You are extending DeskFlow beyond inline `Application\` code — publishing a reusable Composer package, registering an **`AppProvider`** for middleware and routes, or looking up global helpers like `response()` and `table()`.
+You are extending Pionia Shop beyond inline `Application\` code — publishing a reusable Composer package, registering an **`AppProvider`** for middleware and routes, or looking up global helpers like `response()` and `table()`.
 
 ## What you will learn
 
@@ -29,7 +29,7 @@ You are extending DeskFlow beyond inline `Application\` code — publishing a re
 ## Before you start
 
 {{< prerequisites >}}
-- Working Pionia app (`composer create-project pionia/pionia-app` or DeskFlow from the [API tutorial](/documentation/deskflow-tutorial/))
+- Working Pionia app (`composer create-project pionia/pionia-app` or Pionia Shop from the [API tutorial](/documentation/shop-tutorial/))
 - Familiarity with [Services](/documentation/building-api/services/) and `[app_switches]` in `settings.ini`
 {{< /prerequisites >}}
 
@@ -42,7 +42,7 @@ Most teams extend Pionia in two ways:
 
 {{< mermaid >}}
 flowchart LR
-  App[DeskFlow app] --> Code[Application services]
+  App[Pionia Shop app] --> Code[Application services]
   App --> Pkg[Composer package]
   Pkg --> Plugin[Plain plugin class]
   Pkg --> Prov[Provider subclass]

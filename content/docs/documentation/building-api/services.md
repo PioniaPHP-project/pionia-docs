@@ -1,7 +1,7 @@
 ---
 title: "Services"
-description: "PHP classes that hold your business logic — one DeskFlow service per domain area."
-summary: "Register TaskService on MainSwitch; each public *Action method becomes a Moonlight endpoint."
+description: "PHP classes that hold your business logic — one Pionia Shop service per domain area."
+summary: "Register ProductService on MainSwitch; each public *Action method becomes a Moonlight endpoint."
 date: 2024-07-05 01:06:18.709 +0300
 lastmod: 2026-07-04
 draft: false
@@ -18,19 +18,19 @@ seo:
 
 ## Who this is for
 
-You scaffolded DeskFlow and need to **create and register service classes** — the PHP home for `task`, `member`, and `project` business logic.
+You scaffolded Pionia Shop and need to **create and register service classes** — the PHP home for `task`, `member`, and `project` business logic.
 
 ## What you will learn
 
-- How `make:service` scaffolds `TaskService` under `services/`
-- Registering aliases on `MainSwitch` so JSON `"service": "task"` resolves
-- Choosing **Basic** vs **Generic** services for Northwind tables
+- How `make:service` scaffolds `ProductService` under `services/`
+- Registering aliases on `MainSwitch` so JSON `"service": "product"` resolves
+- Choosing **Basic** vs **Generic** services for Pionia Shop tables
 
 ## Before you start
 
 {{< prerequisites >}}
-- Completed [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) or read [Moonlight overview](/documentation/building-api/moonlight-overview/)
-- A running DeskFlow app on port **8000**
+- Completed [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) or read [Moonlight overview](/documentation/building-api/moonlight-overview/)
+- A running Pionia Shop app on port **8000**
 {{< /prerequisites >}}
 
 ## How it works
@@ -38,25 +38,25 @@ You scaffolded DeskFlow and need to **create and register service classes** — 
 {{< mermaid >}}
 flowchart LR
   JSON["service: task"] --> Switch[MainSwitch]
-  Switch --> Class[TaskService]
+  Switch --> Class[ProductService]
   Class --> Actions["listAction / createAction"]
 {{< /mermaid >}}
 
 ## What is a service?
 **Services** are plain PHP classes under `services/` that extend `Pionia\Http\Services\Service`. Each **action** is a public method named `somethingAction()` — Pionia maps `"action": "list"` to `listAction()`.
 
-In DeskFlow, Northwind Studio uses three services:
+In Pionia Shop, Pionia Shop uses three services:
 
 | Registered alias | Class | Role |
 |------------------|-------|------|
-| `task` | `TaskService` | Tasks for client projects |
-| `member` | `MemberService` | Login and profiles |
-| `project` | `ProjectService` | Group tasks by client |
+| `task` | `ProductService` | Tasks for client projects |
+| `member` | `CustomerService` | Login and profiles |
+| `project` | `OrderService` | Group tasks by client |
 
 Clients POST lowercase keys:
 
 ```json
-{ "service": "task", "action": "list", "project_id": 1 }
+{ "service": "product", "action": "list", "project_id": 1 }
 ```
 
 ## Create a service
@@ -64,12 +64,12 @@ Clients POST lowercase keys:
 Generate a scaffold from your app root:
 
 ```bash
-php pionia make:service task
+php pionia make:service Product
 ```
 
 Choose **Basic** for hand-written actions, or **Generic** for CRUD over a Porm table — see [Generic services](/documentation/building-api/generic-services/).
 
-The CLI creates `services/TaskService.php`:
+The CLI creates `services/ProductService.php`:
 
 ```php
 namespace Application\Services;
@@ -77,7 +77,7 @@ namespace Application\Services;
 use Pionia\Http\Services\Service;
 use Pionia\Collections\Arrayable;
 
-class TaskService extends Service
+class ProductService extends Service
 {
     public function listAction(Arrayable $data)
     {
@@ -92,7 +92,7 @@ Register the alias on your switch (usually `Application\Switches\MainSwitch`):
 protected function registerServices(): array
 {
     return [
-        'task' => TaskService::class,
+        'task' => ProductService::class,
     ];
 }
 ```
@@ -101,9 +101,9 @@ protected function registerServices(): array
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"task","action":"list"}'
+  -d '{"service":"product","action":"list"}'
 ```
-Expected: HTTP **200** with `"returnCode": 0` and a `tasks` array in `returnData`.
+Expected: HTTP **200** with `"returnCode": 0` and a `products` array in `returnData`.
 {{< /try-it >}}
 
 ---
@@ -112,10 +112,10 @@ When you run `make:service`, the CLI offers two paths:
 {{< tabs "create-new-service" >}}
 {{< tab "Basic service" >}}
 
-Creates a class extending `Pionia\Http\Services\Service`. You define each action method yourself — best for DeskFlow's custom task rules.
+Creates a class extending `Pionia\Http\Services\Service`. You define each action method yourself — best for Pionia Shop's custom task rules.
 
 ```bash
-php pionia make:service task
+php pionia make:service Product
 ```
 
 {{< /tab >}}
@@ -124,7 +124,7 @@ php pionia make:service task
 Creates a class extending `Pionia\Http\Services\GenericService` with CRUD over a Porm table — useful for `project` rows before you add custom rules.
 
 ```bash
-php pionia make:service project
+php pionia make:service Order
 # Choose Generic → UniversalGenericService (default)
 ```
 
@@ -133,7 +133,7 @@ See [Generic services](/documentation/building-api/generic-services/) for mixin 
 {{< /tab >}}
 {{< tab "Manually" >}}
 
-1. Create `services/TaskService.php` under your app root.
+1. Create `services/ProductService.php` under your app root.
 2. Extend `Pionia\Http\Services\Service`.
 3. Add public `*Action` methods; return `response()` envelopes.
 4. Register the alias in `MainSwitch::registerServices()`.
@@ -144,7 +144,7 @@ namespace Application\Services;
 use Pionia\Collections\Arrayable;
 use Pionia\Http\Services\Service;
 
-class TaskService extends Service
+class ProductService extends Service
 {
     public function listAction(Arrayable $data)
     {
@@ -174,9 +174,9 @@ Register services in your switch — usually `Application\Switches\MainSwitch`:
 protected function registerServices(): array
 {
     return [
-        'task' => TaskService::class,
-        'member' => MemberService::class,
-        'project' => ProjectService::class,
+        'task' => ProductService::class,
+        'member' => CustomerService::class,
+        'project' => OrderService::class,
     ];
 }
 ```
@@ -184,7 +184,7 @@ protected function registerServices(): array
 The array **keys** are the `service` names in JSON requests. They must be unique within a switch.
 
 {{<callout note>}}
-Register the same service class in `v1` and `v2` switches when Northwind ships a breaking API version — see [API versioning](/documentation/building-api/api-versioning/).
+Register the same service class in `v1` and `v2` switches when Pionia Shop ships a breaking API version — see [API versioning](/documentation/building-api/api-versioning/).
 {{</callout>}}
 
 ## Targeting a service in the request
@@ -193,7 +193,7 @@ In the request, target a service with the lowercase `service` key:
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "list"
 }
 ```
@@ -281,15 +281,15 @@ Uncaught throwables flow through the [exception pipeline](/documentation/http/ex
 
 ## Common mistakes
 
-- **Wrong service alias** — the JSON key must match `registerServices()` exactly (`task`, not `TaskService`).
+- **Wrong service alias** — the JSON key must match `registerServices()` exactly (`task`, not `ProductService`).
 - **Forgetting to register after `make:service`** — the CLI creates the class but does not edit `MainSwitch` for you.
-- **Using `$serviceRequiresAuth` without JWT configured** — set up `member.login` first; see [Authentication](/documentation/security/security-authentication-and-authorization/).
+- **Using `$serviceRequiresAuth` without JWT configured** — set up `customer.login` first; see [Authentication](/documentation/security/security-authentication-and-authorization/).
 - **Expecting every error to be HTTP 200** — validation uses **422**, auth failures **401**; see [Requests & responses](/documentation/http/requests-and-responses/).
 
 ## What's next
 
 {{< card-grid >}}
 {{< link-card title="Actions" description="Request data, responses, and auth helpers." href="/documentation/building-api/actions/" >}}
-{{< link-card title="Validation" description="422 when Alex omits task title." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Validation" description="422 when Ada omits task title." href="/documentation/building-api/validation/" >}}
 {{< link-card title="Generic services" description="CRUD for project rows." href="/documentation/building-api/generic-services/" >}}
 {{< /card-grid >}}

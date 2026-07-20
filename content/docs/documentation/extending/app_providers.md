@@ -19,7 +19,7 @@ seo:
 
 ## Who this is for
 
-You need a central place to wire DeskFlow — register JWT auth from a package, add billing middleware, or bind services in **`AppProvider`** without scattering boot logic across actions.
+You need a central place to wire Pionia Shop — register JWT auth from a package, add billing middleware, or bind services in **`AppProvider`** without scattering boot logic across actions.
 
 ## What you will learn
 
@@ -31,7 +31,7 @@ You need a central place to wire DeskFlow — register JWT auth from a package, 
 
 {{< prerequisites >}}
 - [Extending Pionia overview](/documentation/extending/) — plugins vs providers
-- DeskFlow or any app with `bootstrap/application.php` and `environment/settings.ini`
+- Pionia Shop or any app with `bootstrap/application.php` and `environment/settings.ini`
 - Optional: [Authentication](/documentation/security/security-authentication-and-authorization/) — `authentications()` hook
 {{< /prerequisites >}}
 
@@ -53,7 +53,7 @@ Providers implement `Pionia\Contracts\ProviderContract` by extending `Pionia\Bas
 
 ## Creating a provider
 
-DeskFlow might register Northwind-specific wiring in `Application\Providers\AppProvider`:
+Pionia Shop might register Pionia Shop-specific wiring in `Application\Providers\AppProvider`:
 
 ```php
 use Pionia\Auth\AuthenticationChain;
@@ -76,7 +76,7 @@ class AppProvider extends Provider
     public function commands(): array
     {
         return [
-            'deskflow:sync' => SyncProjectsCommand::class,
+            'pionia-shop:sync' => SyncProjectsCommand::class,
         ];
     }
 
@@ -87,7 +87,7 @@ class AppProvider extends Provider
 
     public function onBooted(): void
     {
-        app()->set('northwind.client', fn () => new NorthwindClient());
+        app()->set('northwind.client', fn () => new Pionia ShopClient());
     }
 }
 ```

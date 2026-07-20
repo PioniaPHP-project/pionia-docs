@@ -19,7 +19,7 @@ seo:
 
 ## Who this is for
 
-You want to **ship a versioned JSON API** with PHP. This page installs Pionia and sends your first ping. The hands-on app we use everywhere is **DeskFlow** — see [Meet DeskFlow](#what-you-are-building-deskflow) below before you open the tutorial.
+You want to **ship a versioned JSON API** with PHP. This page installs Pionia and sends your first ping. The hands-on app we use everywhere is **Pionia Shop** — see [Meet Pionia Shop](#what-you-are-building-pionia-shop) below before you open the tutorial.
 
 ## What you will learn
 
@@ -39,10 +39,10 @@ You want to **ship a versioned JSON API** with PHP. This page installs Pionia an
 
 {{< mermaid >}}
 flowchart LR
-  Composer[composer create-project] --> App[deskflow-api]
+  Composer[composer create-project] --> App[pionia-shop]
   App --> Serve["php pionia serve :8000"]
   Serve --> Ping["GET /api/v1/ping"]
-  Ping --> Moonlight["POST task.list"]
+  Ping --> Moonlight["POST product.list"]
 {{< /mermaid >}}
 
 ## Meet Pionia
@@ -71,30 +71,22 @@ curl -s http://127.0.0.1:8000/api/v1/ping
 ```
 {{< /envelope >}}
 
-## What you are building: DeskFlow
+## What you are building: Pionia Shop
 
-Every hands-on page in these docs uses the **same example app** so you are not learning on random `User` and `Todo` snippets.
+Every hands-on page uses the **same small store** so names stay consistent.
 
-### Northwind Studio
-
-**Northwind Studio** is a **fictional** digital agency — designers and developers who ship client websites. They are not a real company (the name is a nod to the classic sample database, but this is our own story).
-
-They need an internal tool: who is doing what, which client project a task belongs to, and which team member owns each item.
-
-### DeskFlow
-
-**DeskFlow** is that internal **task board API**. Northwind staff use it from a small React app or curl — not public customers.
+**Pionia Shop** is a fictional online store + wallet named after the framework. Ada browses products, logs in, places orders, and pays from her wallet balance.
 
 | Piece | Meaning |
 |-------|---------|
-| **DeskFlow** | The product name — task board for the agency |
-| **deskflow-api** | The Pionia repo you create with Composer |
-| **task** service | List and create tasks (`task.list`, `task.create`) |
-| **member** service | Login as staff (`member.login`) |
-| **project** service | Group tasks by client project |
-| **alex@northwind.studio** | Sample developer account in examples |
+| **Pionia Shop** | The product you build in the tutorial |
+| **pionia-shop** | Composer project folder name |
+| **product** service | Catalog (`product.list`, `product.create`) |
+| **customer** service | Register / login (`customer.login`) |
+| **order** / **wallet** | Checkout and store credit |
+| **ada@pionia.shop** | Sample customer in examples |
 
-When you see those names in code samples, they all refer to this one tutorial app. Full step-by-step build: [DeskFlow tutorial](/documentation/deskflow-tutorial/) (after you install below).
+Tables: `products`, `customers`, `orders`, `order_items`, `wallets`, `wallet_transactions`. Full walkthrough: [Pionia Shop tutorial](/documentation/shop-tutorial/).
 
 ## Installation
 
@@ -102,8 +94,8 @@ When you see those names in code samples, they all refer to this one tutorial ap
 {{< tab "macOS / Linux" >}}
 
 ```bash
-composer create-project pionia/pionia-app deskflow-api
-cd deskflow-api
+composer create-project pionia/pionia-app pionia-shop
+cd pionia-shop
 php pionia serve
 ```
 
@@ -113,8 +105,8 @@ php pionia serve
 Install [PHP 8.5+](https://windows.php.net/download/) and [Composer](https://getcomposer.org/download/), then:
 
 ```powershell
-composer create-project pionia/pionia-app deskflow-api
-cd deskflow-api
+composer create-project pionia/pionia-app pionia-shop
+cd pionia-shop
 php pionia serve
 ```
 
@@ -129,14 +121,22 @@ Default URL: **http://127.0.0.1:8000/** (`PORT` in `environment/.env`).
 |------|------|
 | `bootstrap/application.php` | `return AppRealm::create(__DIR__)` — builds the DI container (singleton) |
 | `environment/settings.ini` | `[app_switches]` maps API versions to switch classes |
+| `environment/.env` | `APP_NAME`, `JWT_SECRET`, `PORT`, and other secrets |
 | `public/index.php` | Web entry → `bootHttp()` |
 | `pionia` | CLI entry → `bootConsole()` (same bootstrap as HTTP) |
 | `services/` | Business logic (`*Service` classes, `*Action` methods) |
 | `switches/` | API version wiring (`MainSwitch` → `/api/v1/`) |
+| `database/migrations/` | Schema migrations (`php pionia migrate`) |
 | `providers/` | Optional service providers (`make:provider`) |
 | `environment/` | `.env` + `settings.ini` |
 | `storage/` | Logs, cache, uploads |
 | `worker.php` + `.rr.yaml` | Optional RoadRunner workers |
+
+Set `APP_NAME=Pionia Shop` in `.env` so the welcome page and docs title match your store — see [Welcome page and branding](/documentation/http/welcome-page-and-branding/).
+
+{{< callout context="note" title="Workspace Trust" icon="outline/information-circle" >}}
+VS Code and JetBrains may ask you to trust the new folder once. Accept so Composer and the PHP language server work normally.
+{{< /callout >}}
 
 Helpers (`app()`, `logger()`, `router()`) are available after `AppRealm::create()` completes — not before `require` of `application.php` returns.
 
@@ -164,10 +164,10 @@ Both paths share the same `AppRealm` singleton (`app()` / `realm()` / `container
 ## Your first custom service (5 minutes)
 
 ```bash
-php pionia make:service Task
+php pionia make:service Product
 ```
 
-Open `services/TaskService.php`, add an action:
+Open `services/ProductService.php`, add an action:
 
 ```php
 protected function listAction(\Pionia\Collections\Arrayable $data): \Pionia\Http\Response\ApiResponse
@@ -181,7 +181,7 @@ Register the service alias in `switches/MainSwitch.php`:
 ```php
 return arr([
     'welcome' => \Application\Services\WelcomeService::class,
-    'task' => \Application\Services\TaskService::class,
+    'task' => \Application\Services\ProductService::class,
 ]);
 ```
 
@@ -190,7 +190,7 @@ Call it:
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H 'Content-Type: application/json' \
-  -d '{"service":"task","action":"list"}'
+  -d '{"service":"product","action":"list"}'
 ```
 
 ## CLI without memorizing paths
@@ -209,13 +209,13 @@ Commands extend `Pionia\Console\Command`. See [Commands](/documentation/operatio
 
 ## Next steps
 
-**API backend only** → [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) → [Services](/documentation/building-api/services/)
+**API backend only** → [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) → [Services](/documentation/building-api/services/)
 
-**API + Vite frontend** → [Tutorial](/documentation/deskflow-tutorial/) → [Vite integration](/documentation/frontend/vite-integration/)
+**API + Vite frontend** → [Tutorial](/documentation/shop-tutorial/) → [Vite integration](/documentation/frontend/vite-integration/)
 
 ## Documentation map
 
-- [API tutorial](/documentation/deskflow-tutorial/) — DeskFlow tutorial
+- [API tutorial](/documentation/shop-tutorial/) — Pionia Shop tutorial
 - [Application structure](/documentation/getting-started/application-structure/)
 - [Services & actions](/documentation/building-api/services/)
 - [Requests & responses](/documentation/http/requests-and-responses/)
@@ -294,15 +294,15 @@ See [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) for `
 
 ## Common mistakes
 
-- **Running commands outside the project root** — `php pionia serve` must run from `deskflow-api/` where the `pionia` script lives.
-- **Using port 3000 or 8003** — DeskFlow docs default to **8000** via `PORT` in `environment/.env`.
+- **Running commands outside the project root** — `php pionia serve` must run from `pionia-shop/` where the `pionia` script lives.
+- **Using port 3000 or 8003** — Pionia Shop docs default to **8000** via `PORT` in `environment/.env`.
 - **Editing vendor/** — business logic belongs in `services/` and `switches/`, never in `vendor/pionia/`.
 - **Skipping `[app_switches]` after adding a service** — register aliases in `MainSwitch` or Moonlight returns unknown service errors.
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="DeskFlow tutorial" description="Build DeskFlow task.list hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Pionia Shop tutorial" description="Build Pionia Shop product.list hands-on." href="/documentation/shop-tutorial/" >}}
 {{< link-card title="Application structure" description="Map every folder in your repo." href="/documentation/getting-started/application-structure/" >}}
-{{< link-card title="Services" description="TaskService and MainSwitch registration." href="/documentation/building-api/services/" >}}
+{{< link-card title="Services" description="ProductService and MainSwitch registration." href="/documentation/building-api/services/" >}}
 {{< /card-grid >}}

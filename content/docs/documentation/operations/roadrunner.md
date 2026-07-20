@@ -15,16 +15,16 @@ seo:
   noindex: false
 ---
 
-This guide is for DeskFlow developers who outgrow `php pionia serve` and need **persistent PHP workers** — same Moonlight API on port **8000**, but boot once and handle many requests with reused database connections.
+This guide is for Pionia Shop developers who outgrow `php pionia serve` and need **persistent PHP workers** — same Moonlight API on port **8000**, but boot once and handle many requests with reused database connections.
 
 ## What you will learn
 
-- How to install RoadRunner and run `php pionia runserver` for DeskFlow
+- How to install RoadRunner and run `php pionia runserver` for Pionia Shop
 - Where HTTP listen address, TLS, and HTTP/2 are configured
 - How Moonlight jobs and optional WebSockets fit the worker model
 
 {{< prerequisites >}}
-- DeskFlow running locally ([API tutorial](/documentation/deskflow-tutorial/))
+- Pionia Shop running locally ([API tutorial](/documentation/shop-tutorial/))
 - [Commands](/documentation/operations/commands/) — `rr:setup`, `runserver`, `stopserver`
 - Optional: `composer require spiral/roadrunner-http nyholm/psr7`
 {{< /prerequisites >}}
@@ -36,7 +36,7 @@ sequenceDiagram
   participant Client
   participant RR as RoadRunner
   participant W as PHP worker
-  participant API as "DeskFlow API"
+  participant API as "Pionia Shop API"
   Note over W: bootOnce() once per worker
   RR->>W: PSR-7 request
   W->>API: handleRequest()
@@ -174,7 +174,7 @@ RPC = tcp://127.0.0.1:6001
 `.rr.yaml` in your app root needs `rpc` + `jobs` sections when using background jobs.
 
 ```php
-moonlight()->async('mail', 'send_welcome', ['email' => 'alex@northwind.studio']);
+moonlight()->async('mail', 'send_welcome', ['email' => 'ada@pionia.shop']);
 ```
 
 Returns `returnCode: 202` with `job_id` when the queue accepts the job. See [Background work](/documentation/operations/background-work/).

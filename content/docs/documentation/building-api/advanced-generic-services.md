@@ -20,7 +20,7 @@ seo:
 
 ## Who this is for
 
-DeskFlow needs **projects with task counts** or **file uploads on project briefs**. You already use [Generic services](/documentation/building-api/generic-services/) and want joins, `$fileColumns`, and relationship queries without writing raw SQL in every action.
+Pionia Shop needs **projects with task counts** or **file uploads on project briefs**. You already use [Generic services](/documentation/building-api/generic-services/) and want joins, `$fileColumns`, and relationship queries without writing raw SQL in every action.
 
 ## What you will learn
 
@@ -37,7 +37,7 @@ DeskFlow needs **projects with task counts** or **file uploads on project briefs
 
 ## How it works
 
-Generic services can query **related tables** when you define `$joins` on the base `$table`. DeskFlow might join `tasks` to `projects` so Alex sees client names in one `task.list` response.
+Generic services can query **related tables** when you define `$joins` on the base `$table`. Pionia Shop might join `order_items` to `products` so staff see category names in one `product.list` response.
 
 # Introduction
 
@@ -251,7 +251,7 @@ however, if you had aliased your tables, you need to remember how you named your
 - **Saving across joined tables** — create/update only writes to the base `$table`; use separate actions for related rows.
 - **Forgetting `$baseAlias` after aliasing** — `$listColumns` must use the same alias (`cat.name`, not `category.name`).
 - **Omitting `[uploads]` config** — file columns default to `storage/media/`; set `max_size` before accepting large brief PDFs.
-- **Using uppercase `COLUMNS` in production clients** — prefer lowercase keys in new DeskFlow frontends; legacy params may still accept uppercase.
+- **Using uppercase `COLUMNS` in production clients** — prefer lowercase keys in new Pionia Shop frontends; legacy params may still accept uppercase.
 
 ## What's next
 

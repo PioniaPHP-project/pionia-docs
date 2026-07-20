@@ -17,23 +17,23 @@ seo:
   noindex: false
 ---
 
-This guide is for **DeskFlow** list endpoints — filtering `tasks` by status, scoping to a `project_id`, and sorting for alex@northwind.studio's board on port **8000**. You will move from simple `where()` arrays to the full Builder after `filter()`.
+This guide is for **Pionia Shop** list endpoints — filtering `products` by status, scoping to a `project_id`, and sorting for ada@pionia.shop's board on port **8000**. You will move from simple `where()` arrays to the full Builder after `filter()`.
 
 ## What you will learn
 
-- Use fluent `where()` and Medoo-style array conditions on Northwind tables
+- Use fluent `where()` and Medoo-style array conditions on Pionia Shop tables
 - Chain `orderBy`, `limit`, and `startAt` on a Builder
 - Build nested AND/OR clauses with the `Where` builder
 
 {{< prerequisites >}}
-- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` for DeskFlow
+- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` for Pionia Shop
 - [Making queries](/documentation/database/making-queries/) — `get()`, `all()`, and table-level reads
 {{< /prerequisites >}}
 
 ## How it works
 
 ```text
-table('tasks')
+table('products')
   → filter([...])     enters Builder mode
   → where / orderBy / limit / startAt
   → all() | count() | first()   (terminal — executes SQL)
@@ -56,13 +56,13 @@ Porm accepts a **Laravel-inspired** `where(column, operator, value)` syntax on `
 ### Equality
 
 ```php
-table('team_members')
+table('customers')
     ->filter()
-    ->where('email', 'alex@northwind.studio')   // WHERE email = 'alex@northwind.studio'
+    ->where('email', 'ada@pionia.shop')   // WHERE email = 'ada@pionia.shop'
     ->all();
 
 // symbolic operator (3-arg)
-table('tasks')->filter()->where('priority', '>', 2)->all();
+table('products')->filter()->where('priority', '>', 2)->all();
 ```
 
 ### Named operators
@@ -86,7 +86,7 @@ table('tasks')->filter()->where('priority', '>', 2)->all();
 ### Convenience methods
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->whereEquals('status', 'open')
     ->whereStartsWith('title', 'Desk')
     ->whereIncludes('title', 'Flow')
@@ -99,11 +99,11 @@ table('tasks')->filter()
 ### `orWhere()`
 
 ```php
-table('team_members')->filter()
-    ->where('email', 'alex@northwind.studio')
-    ->orWhere('name', 'Alex Chen')
+table('customers')->filter()
+    ->where('email', 'ada@pionia.shop')
+    ->orWhere('name', 'Ada Lovelace')
     ->all();
-// (email = 'alex@northwind.studio' OR name = 'Alex Chen')
+// (email = 'ada@pionia.shop' OR name = 'Ada Lovelace')
 ```
 
 For multiple values on the **same column**, prefer `whereIn('status', ['open', 'in_progress'])` over chaining `orWhere` on one column (PHP arrays cannot repeat keys).
@@ -111,7 +111,7 @@ For multiple values on the **same column**, prefer `whereIn('status', ['open', '
 ### Table-level chaining
 
 ```php
-table('tasks')->where('status', 'open')->get();
+table('products')->where('status', 'open')->get();
 ```
 
 ## Array `where` (Medoo-style)
@@ -119,14 +119,14 @@ table('tasks')->where('status', 'open')->get();
 This method can be used to filter data based on a single 'AND' condition. This method can be used with all the other methods in the query builder.
 
 ```php
-$tasks = table('tasks')->where(['project_id' => 1])->get();
+$products = table('products')->where(['project_id' => 1])->get();
 ```
 
 You can chain as many `where` methods as you want to filter the data.
 
 ```php
 
-$tasks = table('tasks')
+$products = table('products')
     ->where(['project_id' => 1])
     ->where(['status' => 'open'])
     ->all();
@@ -141,7 +141,7 @@ The `filter` method can be used to filter data based on multiple conditions. The
 
 ```php
 
-$tasks = table('tasks')
+$products = table('products')
     ->filter(['project_id' => 1, 'status' => 'open'])
     ->all();
 
@@ -152,7 +152,7 @@ This might look familiar, however, the `filter` method ports us to the underlyin
 Using filter, you can access methods such as `orderBy`, `group`, `limit`, `match`, `having`, `first`, `get`, `all` and many more.
 
 ```php
-$tasks = table('tasks')
+$products = table('products')
     ->filter(['project_id' => 1, 'status' => 'open'])
     ->orderBy(['priority' => 'DESC'])
     ->limit(10)
@@ -193,21 +193,21 @@ $clause = Where::builder()
 // add here both AND and OR conditions
     ->build();
 
-$tasks = table('tasks')
+$products = table('products')
     ->where($clause) // with where method
     ->all();
 
-$tasks = table('tasks')
+$products = table('products')
     ->filter($clause) // with filter method
     ->all();
 
-$tasks = table('tasks')
+$products = table('products')
     ->all($clause); // with all method
 
-$tasks = table('tasks')
+$products = table('products')
     ->first($clause); // with first method
 
-$tasks = table('tasks')
+$products = table('products')
     ->filter($clause) // with filter method that also defines more complex queries
     ->orderBy(['priority' => 'DESC'])
     ->limit(10)
@@ -291,10 +291,10 @@ You can nest as many conditions as you want to build more complex queries. This 
 
 ## Common mistakes
 
-- **Calling `startAt()` without `limit()`** — DeskFlow paginated lists need both or the Builder throws.
+- **Calling `startAt()` without `limit()`** — Pionia Shop paginated lists need both or the Builder throws.
 - **Repeating the same array key in OR conditions** — use `whereIn('status', [...])` instead of duplicate keys.
 - **Mixing unqualified column names after joins** — prefix with `t.` when filtering joined task lists.
-- **Filtering on client fields without validation** — whitelist sort columns in `TaskService` before passing to `orderBy()`.
+- **Filtering on client fields without validation** — whitelist sort columns in `ProductService` before passing to `orderBy()`.
 
 ## What's next
 

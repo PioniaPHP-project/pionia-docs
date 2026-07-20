@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This guide is for DeskFlow developers who want **visibility into API usage** — slow `task.list` calls, OPcache hit rate, and framework health at `/stats` on port **8000**.
+This guide is for Pionia Shop developers who want **visibility into API usage** — slow `product.list` calls, OPcache hit rate, and framework health at `/stats` on port **8000**.
 
 ## What you will learn
 
@@ -26,7 +26,7 @@ This guide is for DeskFlow developers who want **visibility into API usage** —
 - How OPcache snapshots feed [Production performance](/documentation/operations/production-performance/)
 
 {{< prerequisites >}}
-- DeskFlow running (`php pionia serve` or `runserver`)
+- Pionia Shop running (`php pionia serve` or `runserver`)
 - Familiarity with [Logging](/documentation/operations/logging/) — complementary, not a replacement
 {{< /prerequisites >}}
 

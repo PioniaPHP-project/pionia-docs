@@ -3,7 +3,7 @@ title: "Documenting your API (Moonlight)"
 slug: "api-reference"
 description: "How to document services and actions with @moonlight-* tags, generate OpenAPI, and expose /docs."
 date: 2026-06-25T00:00:00.000Z
-lastmod: 2026-07-04
+lastmod: 2026-07-20
 draft: false
 weight: 560
 toc: true
@@ -13,28 +13,26 @@ seo:
   noindex: false
 ---
 
----
-
 ## Who this is for
 
-Northwind's frontend team needs **`/docs`** and an OpenAPI file they can trust. You have DeskFlow services with `*Action` methods and want to document every `{ service, action }` pair without maintaining a separate spec by hand.
+the shop's frontend team needs **`/docs`** and an OpenAPI file they can trust. You have Pionia Shop services with `*Action` methods and want to document every `{ service, action }` pair without maintaining a separate spec by hand.
 
 ## What you will learn
 
-- `@moonlight-*` PHPDoc tags for `task`, `member`, and `project` actions
+- `@moonlight-*` PHPDoc tags for `product`, `customer`, and `order` actions
 - Generating `docs/api/openapi.json` with `php pionia api:docs`
-- Enabling Scalar UI at **`http://127.0.0.1:8000/docs`** in development
+- Enabling Scalar UI at **`http://127.0.0.1:8000/docs`** and using **Try it** against real `POST /api/v1/`
 
 ## Before you start
 
 {{< prerequisites >}}
 - [Services](/documentation/building-api/services/) with `*Action` methods registered on [MainSwitch](/documentation/building-api/api-versioning/)
-- DeskFlow running locally on port **8000**
+- Pionia Shop running locally on port **8000**
 {{< /prerequisites >}}
 
 ## How it works
 
-Moonlight docs scan your `services/` classes at boot and when you run `api:docs`. Each action becomes one OpenAPI operation grouped by service tag — clients still POST to a single `/api/v1/` URL.
+Moonlight docs scan your `services/` classes at boot and when you run `api:docs`. OpenAPI documents the real endpoint — **`POST /api/v1/`** — with a named **example** per action. Clients never hit a different path per action.
 
 ## What Moonlight docs are
 
@@ -42,7 +40,7 @@ Pionia’s HTTP API is **not** one OpenAPI path per REST resource. Clients POST 
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "list",
   "project_id": 1
 }
@@ -80,7 +78,6 @@ open http://127.0.0.1:8000/docs
 
 ```bash
 php pionia api:docs --check
-# or: composer document:api:check   # in PioniaCore monorepo
 ```
 
 ## Document a service (class level)
@@ -95,13 +92,13 @@ namespace Application\Services;
 use Pionia\Http\Services\Service;
 
 /**
- * DeskFlow tasks for Northwind Studio.
+ * Pionia Shop tasks for Pionia Shop.
  *
  * @moonlight-service task
  * @moonlight-version v1
  * @moonlight-auth partial
  */
-class TaskService extends Service
+class ProductService extends Service
 {
     // actions …
 }
@@ -164,6 +161,10 @@ Examples:
  * @moonlight-param int id Row id
  * @moonlight-param object data Row payload (name, optional id)
 ```
+
+{{< callout context="tip" title="Params without examples" icon="outline/bulb" >}}
+`@moonlight-param` is enough for OpenAPI and Markdown request fields. You do **not** need `@moonlight-example` for parameters to appear — the example tag is optional and only supplies a full sample JSON body (including `service` and `action`).
+{{< /callout >}}
 
 ### PHP 8 attributes (alternative)
 
@@ -252,25 +253,21 @@ When `DEBUG=true` or docs are explicitly enabled, the app serves live documentat
 
 ### Browsing `/docs`
 
-The Scalar sidebar is organized by **service**, then **action**:
+Scalar lists **one document per service** (`auth`, `product`, …). Inside each document the endpoint is still the real Moonlight URL:
 
-```
-auth
-  └ list_auth
-  └ create_auth
-todo
-  └ list_todo_action
-  └ delete_todo_action
+```text
+POST /api/v1/
 ```
 
-Each action page shows:
+Pick an **example** for the action (`list_auth`, `create_auth`, …). The combined OpenAPI file (toolbar **OpenAPI** / `/docs/openapi.json`) keeps every action as examples on a single `POST /api/v1/`.
 
-- Summary, auth, and permissions
-- **Dispatch** table with the real runtime URL (`POST /api/v1/`)
-- Inline **request** body (parameters + example)
-- Inline **response** envelope (`returnCode`, `returnMessage`, `returnData`)
+### Try it (Scalar sandbox)
 
-There is no separate **Models** or **Overview** section — request and response shapes live on each action page. OpenAPI may list documentation paths like `/api/v1/moonlight/todo/delete_todo_action`; those are for navigation only. Clients always call the versioned base path with `{ "service", "action", ...params }`.
+1. Open `/docs` and select **`POST /api/v1/`**
+2. Choose an **Example** such as `auth.create_auth`
+3. Send — the request goes to `POST /api/v1/` with body `{ "service": "auth", "action": "create_auth", … }`
+
+Optional `Authorization: Bearer …` headers work the same as curl. Clients and SDKs must always call the versioned base path with `{ "service", "action", ...params }` — never invent `/api/v1/auth/create_auth` or `/api/v1#auth.create_auth` URLs.
 
 ### Enable in staging/production
 
@@ -305,16 +302,16 @@ See also [Developer stats](/documentation/operations/developer-stats/) — `/sta
 
 ## OpenAPI shape
 
-Moonlight OpenAPI is optimized for **browsing**, not for pretending each action is a separate REST URL.
+Moonlight OpenAPI matches the runtime: **one POST URL**, many actions in the body.
 
 | Layer | What it is |
 |-------|------------|
 | **Runtime** | One `POST` per API version (e.g. `/api/v1/`) with JSON `{ "service", "action", ...params }` |
-| **OpenAPI / Scalar** | One documented operation per action, grouped by service tag in the sidebar |
-| **Doc paths** | Virtual paths such as `/api/v1/moonlight/todo/delete_todo_action` — reference only |
-| **`x-pionia-dispatch`** | On each operation: real URL, `service`, and `action` for copy-paste integration |
+| **OpenAPI / Scalar** | One path `POST /api/v1/` with `oneOf` request schemas and named **examples** per action |
+| **Sidebar tags** | One tag per service (`auth`, `product`, …) pointing at that same POST |
+| **`x-pionia-dispatch`** | Confirms method + URL for tooling |
 
-Request and response schemas are **inlined** on each action operation (not listed in a global Models catalog). Scalar is configured with `hideModels: true`.
+Request shapes are inlined under `oneOf` (not a global Models catalog). Scalar is configured with `hideModels: true`.
 
 Commit `docs/api/openapi.json` if your team consumes it in CI or client generators; regenerate after changing `@moonlight-*` tags.
 

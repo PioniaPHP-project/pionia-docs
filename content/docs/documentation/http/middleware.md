@@ -15,7 +15,7 @@ seo:
   noindex: false
 ---
 
-This guide is for DeskFlow developers who need **cross-cutting HTTP logic** — request IDs, security headers, or metrics — without duplicating code in every `*Action` method.
+This guide is for Pionia Shop developers who need **cross-cutting HTTP logic** — request IDs, security headers, or metrics — without duplicating code in every `*Action` method.
 
 ## What you will learn
 
@@ -24,7 +24,7 @@ This guide is for DeskFlow developers who need **cross-cutting HTTP logic** — 
 - Where to register middleware (`settings.ini` vs providers)
 
 {{< prerequisites >}}
-- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — a running DeskFlow app
+- [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) — a running Pionia Shop app
 - [Application structure](/documentation/getting-started/application-structure/) — `middlewares/` folder
 {{< /prerequisites >}}
 
@@ -39,7 +39,7 @@ sequenceDiagram
   Client->>MW: POST /api/v1/
   MW->>MW: onRequest (set X-Request-Id)
   MW->>Auth: identify caller
-  Auth->>API: task.create
+  Auth->>API: product.create
   API-->>MW: Response
   MW->>MW: onResponse (echo X-Request-Id)
   MW-->>Client: JSON envelope

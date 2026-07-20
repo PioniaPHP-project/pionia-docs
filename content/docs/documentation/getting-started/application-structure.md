@@ -2,8 +2,8 @@
 title: "Application Structure"
 slug: "application-structure"
 parent: "documentation"
-description: "How a Pionia v3 application is organised — DeskFlow folder map."
-summary: "bootstrap/, services/, switches/, storage/, and where Alex's code lives."
+description: "How a Pionia v3 application is organised — Pionia Shop folder map."
+summary: "bootstrap/, services/, switches/, storage/, and where your application lives."
 date: 2024-05-24T13:45:48.890Z
 lastmod: 2026-07-04
 draft: false
@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) and want to **understand every folder** in your DeskFlow repo before adding database tables and auth.
+You finished [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) and want to **understand every folder** in your Pionia Shop repo before adding database tables and auth.
 
 ## What you will learn
 
@@ -29,8 +29,8 @@ You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-crea
 ## Before you start
 
 {{< prerequisites >}}
-- [Introduction](/documentation/getting-started/introduction/) — scaffold `deskflow-api` with Composer
-- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — `TaskService` and ping curl
+- [Introduction](/documentation/getting-started/introduction/) — scaffold `pionia-shop` with Composer
+- [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) — `ProductService` and ping curl
 {{< /prerequisites >}}
 
 ## How it works
@@ -49,10 +49,10 @@ public/
   index.php          HTTP entry → bootHttp()
   .htaccess
   static/            optional user assets (favicon, SPA build output)
-services/            *Action business logic (TaskService, MemberService)
+services/            *Action business logic (ProductService, CustomerService)
 switches/            registerServices() → service aliases
 middlewares/         request/response middleware
-authentications/     auth backends (JWT for alex@northwind.studio)
+authentications/     auth backends (JWT for ada@pionia.shop)
 commands/            custom CLI commands
 storage/
   cache/
@@ -73,20 +73,20 @@ composer.json
 | `environment/` | `.env` + `settings.ini` (`[app_switches]`, database, cache, logging, maintenance) |
 | `public/` | Web root only — never expose project root |
 | `services/` | Classes extending `Service`; methods named `{action}Action` |
-| `switches/` | Map service alias → class (`task` → `TaskService`) |
+| `switches/` | Map service alias → class (`task` → `ProductService`) |
 | `middlewares/` | Global or route middleware chains |
 | `authentications/` | Pluggable auth strategies |
 | `commands/` | Custom `pionia` commands |
 | `storage/` | Cache, logs, metrics, and generated bootstrap caches |
 | `worker.php` | Persistent workers via RoadRunner |
 
-## DeskFlow services map
+## Pionia Shop services map
 
-| Folder / file | DeskFlow usage |
+| Folder / file | Pionia Shop usage |
 |---------------|----------------|
-| `services/TaskService.php` | `task.list`, `task.create` |
-| `services/MemberService.php` | `member.login` for alex@northwind.studio |
-| `services/ProjectService.php` | `project.list` (often generic CRUD) |
+| `services/ProductService.php` | `product.list`, `product.create` |
+| `services/CustomerService.php` | `customer.login` for ada@pionia.shop |
+| `services/OrderService.php` | `order.list` (often generic CRUD) |
 | `switches/MainSwitch.php` | Registers `task`, `member`, `project` on `/api/v1/` |
 | `environment/settings.ini` | `[app_switches]`, `[db]`, `[cache]` |
 | `storage/logs/` | Errors when `DEBUG=true` |
@@ -112,7 +112,7 @@ Autoload namespace: **`Application\`** mapped to the project root (`composer.jso
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="API tutorial" description="Continue DeskFlow tutorial." href="/documentation/deskflow-tutorial/" >}}
-{{< link-card title="Database getting started" description="SQLite tasks table for DeskFlow." href="/documentation/database/configuration-getting-started/" >}}
+{{< link-card title="API tutorial" description="Continue Pionia Shop tutorial." href="/documentation/shop-tutorial/" >}}
+{{< link-card title="Database getting started" description="SQLite tasks table for Pionia Shop." href="/documentation/database/configuration-getting-started/" >}}
 {{< link-card title="Building your API" description="Services, actions, validation." href="/documentation/building-api/" >}}
 {{< /card-grid >}}

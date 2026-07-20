@@ -2,7 +2,7 @@
 title: "Upgrading from v2"
 slug: "upgrading-from-v2"
 description: "Migrate PioniaApplication apps to AppRealm and v3 bootstrap."
-summary: "Bootstrap, switches, routing, and a fresh DeskFlow scaffold option."
+summary: "Bootstrap, switches, routing, and a fresh Pionia Shop scaffold option."
 date: 2026-06-25T00:00:00.000Z
 lastmod: 2026-07-04
 draft: false
@@ -14,7 +14,7 @@ seo:
 
 ## Who this is for
 
-You maintain a **v2 Pionia app** (pre-AppRealm) and need a clear path to v3 — or you want to regenerate DeskFlow with `pionia/pionia-app` and port your services.
+You maintain a **v2 Pionia app** (pre-AppRealm) and need a clear path to v3 — or you want to regenerate Pionia Shop with `pionia/pionia-app` and port your services.
 
 ## What you will learn
 
@@ -32,7 +32,7 @@ You maintain a **v2 Pionia app** (pre-AppRealm) and need a clear path to v3 — 
 
 ## How it works
 
-v3 separates **framework boot** (`AppRealm`) from **API versioning** (`[app_switches]`). Your DeskFlow services (`task`, `member`, `project`) port mostly unchanged — the wiring around them moves to `settings.ini` and `bootHttp()`.
+v3 separates **framework boot** (`AppRealm`) from **API versioning** (`[app_switches]`). Your Pionia Shop services (`task`, `member`, `project`) port mostly unchanged — the wiring around them moves to `settings.ini` and `bootHttp()`.
 
 ## Requirements
 
@@ -75,9 +75,9 @@ return AppRealm::create(__DIR__);
 public static function registerServices(): Arrayable
 {
     return arr([
-        'task' => TaskService::class,
-        'member' => MemberService::class,
-        'project' => ProjectService::class,
+        'task' => ProductService::class,
+        'member' => CustomerService::class,
+        'project' => OrderService::class,
     ]);
 }
 ```
@@ -128,7 +128,7 @@ See [Production performance](/documentation/operations/production-performance/).
 Regenerate and port services:
 
 ```bash
-composer create-project pionia/pionia-app deskflow-api-v3
+composer create-project pionia/pionia-app pionia-shop-v3
 # copy services/, switches/, environment/ from the old app
 php pionia serve
 curl -s http://127.0.0.1:8000/api/v1/ping
@@ -148,5 +148,5 @@ See [Application structure](/documentation/getting-started/application-structure
 {{< card-grid >}}
 {{< link-card title="Application structure" description="Full v3 folder map." href="/documentation/getting-started/application-structure/" >}}
 {{< link-card title="Release notes (v3)" description="Complete feature changelog." href="/documentation/getting-started/changelog-v3/" >}}
-{{< link-card title="API tutorial" description="Rebuild DeskFlow on v3." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="API tutorial" description="Rebuild Pionia Shop on v3." href="/documentation/shop-tutorial/" >}}
 {{< /card-grid >}}

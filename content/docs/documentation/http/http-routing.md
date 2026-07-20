@@ -16,7 +16,7 @@ seo:
   noindex: false
 ---
 
-You register DeskFlow's API at `/api/v1/` without maintaining a routes file — **`[app_switches]`** in `settings.ini` tells Pionia which switch class handles each version.
+You register Pionia Shop's API at `/api/v1/` without maintaining a routes file — **`[app_switches]`** in `settings.ini` tells Pionia which switch class handles each version.
 
 ## What you will learn
 
@@ -228,7 +228,7 @@ Symfony HttpFoundation, HttpKernel, and Routing packages are **removed** from fr
 <details>
 <summary>Advanced — kernel classes (maintainers)</summary>
 
-Classes like `RouteTable`, `RouteMatcher`, `CompiledRouteMatcher`, and `RouteDispatcher` live in `Pionia\Http\Routing`. App developers rarely touch them directly — switches and `settings.ini` are enough for DeskFlow.
+Classes like `RouteTable`, `RouteMatcher`, `CompiledRouteMatcher`, and `RouteDispatcher` live in `Pionia\Http\Routing`. App developers rarely touch them directly — switches and `settings.ini` are enough for Pionia Shop.
 
 </details>
 
@@ -242,7 +242,7 @@ Classes like `RouteTable`, `RouteMatcher`, `CompiledRouteMatcher`, and `RouteDis
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="API versioning" description="When Northwind adds v2." href="/documentation/building-api/api-versioning/" >}}
+{{< link-card title="API versioning" description="When Pionia Shop adds v2." href="/documentation/building-api/api-versioning/" >}}
 {{< link-card title="Requests & responses" description="Moonlight envelopes after routing." href="/documentation/http/requests-and-responses/" >}}
 {{< link-card title="Production performance" description="Bootstrap cache and preload." href="/documentation/operations/production-performance/" >}}
 {{< /card-grid >}}

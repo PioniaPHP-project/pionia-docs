@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-When Alex submits `task.create` without a `title`, DeskFlow should return **HTTP 422** — not a blank 500 page. Pionia's **ExceptionPipeline** maps `ValidationException` and other throwables to consistent JSON envelopes.
+When Ada submits `product.create` without a `name`, Pionia Shop should return **HTTP 422** — not a blank 500 page. Pionia's **ExceptionPipeline** maps `ValidationException` and other throwables to consistent JSON envelopes.
 
 ## What you will learn
 
@@ -34,7 +34,7 @@ When Alex submits `task.create` without a `title`, DeskFlow should return **HTTP
 
 {{< mermaid >}}
 flowchart LR
-  Action[task.createAction] --> Throw{Throwable?}
+  Action[product.createAction] --> Throw{Throwable?}
   Throw -->|ValidationException| P422[HTTP 422]
   Throw -->|ResourceNotFoundException| P404[HTTP 404]
   Throw -->|Other| P500[HTTP 500]

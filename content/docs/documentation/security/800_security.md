@@ -1,10 +1,10 @@
 ---
 title: "Security — authentication and authorization"
 slug: "security-authentication-and-authorization"
-description: "Authentication backends, service-level authorization, and secrets hygiene in Pionia v3."
-summary: "Implement auth backends and protect actions with can() / mustAuthenticate()."
+description: "Wire who Ada is, keep secrets safe, and choose attributes or custom backends."
+summary: "Backends identify the caller; attributes decide what they may do in the shop."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-21
 draft: false
 weight: 801
 toc: true
@@ -12,183 +12,103 @@ doc_type: topic
 parent: "security"
 seo:
   title: "Pionia security"
-  description: "Authentication backends and authorization in Pionia v3 apps."
+  description: "Authentication backends and authorization for Pionia apps."
   noindex: false
 ---
 
 ## Who this is for
 
-You finished [Steps 5–7](/documentation/deskflow-tutorial/07-create-tasks/) (tasks CRUD) and need **`member.login`** to issue a JWT, plus **`TaskService`** actions that reject anonymous callers with **401** via `mustAuthenticate()`.
+Pionia Shop already lists products. Now you need login and clear rules for who may create catalog rows or place orders. For attribute-only how-tos, start with [Protecting actions](/documentation/security/protecting-actions/). This page covers backends, secrets, and custom authentication classes.
 
 ## What you will learn
 
-- How to scaffold and register a JWT authentication backend
-- When to use `mustAuthenticate()` vs `can('task.update')` in service actions
-- Where to store signing keys and how to document auth with `@moonlight-auth`
+- What an authentication backend does
+- How to keep signing secrets out of git
+- When to use built-in JWT vs `make:auth`
+- How attributes and in-method checks fit together
 
 ## Before you start
 
 {{< prerequisites >}}
-- [Tutorial Step 7](/documentation/deskflow-tutorial/07-create-tasks/) — `TaskService` with list/create actions
-- `php pionia make:auth jwt` available in your app tree
-- `JWT_SECRET_KEY` ready for `environment/.env` (generate with `secure_random_hex(32)` — see [Security utilities](/documentation/security/security-utilities/))
+- [Shop tutorial Step 7](/documentation/shop-tutorial/07-create-products/) — catalog writes work
+- A place for secrets in `environment/.env`
 {{< /prerequisites >}}
 
-## How it works
+## Two moments in every request
 
-Authentication runs **before** your action method. Pionia tries each backend registered in `[app_authentications]` until one returns a `ContextUserObject`. Authorization checks happen **inside** the action when you call `mustAuthenticate()` or `can()`.
+1. **Identify** — backends look at headers. The first match fills `$this->auth()` (usually `JwtAuthentication`).
+2. **Authorize** — attributes on the service/method decide if this action may run.
 
 {{< mermaid >}}
 flowchart TD
-  Req[HTTP request] --> Backends["Auth backends in order"]
-  Backends --> JWT[JwtAuthBackend]
-  JWT -->|Bearer valid| Ctx[ContextUserObject]
-  JWT -->|missing/invalid| Null[null user]
-  Ctx --> Action[TaskService action]
-  Null --> Action
-  Action --> Must{mustAuthenticate?}
-  Must -->|not logged in| E401[HTTP 401 envelope]
-  Must -->|logged in| Can{can permission?}
-  Can -->|denied| E403[HTTP 403 envelope]
-  Can -->|allowed| OK[returnCode 0]
+  Req[HTTP request] --> Backends[Auth backends]
+  Backends -->|recognized| User["$this->auth()"]
+  Backends -->|unknown| Empty[no user]
+  User --> Attr["#[Authenticated] / #[Can]"]
+  Empty --> Attr
+  Attr -->|no| Stop[401 or 403]
+  Attr -->|yes| Action[Your action]
 {{< /mermaid >}}
 
-## Secrets and credentials
-
-**Do not commit real passwords, API keys, or tokens** to git — including in `environment/settings.ini` if that file is tracked.
+## Secrets stay in `.env`
 
 | Do | Don't |
 |----|--------|
-| Put secrets in `environment/.env` (gitignored) | Paste production credentials in docs or chat |
-| Use placeholders in tutorials | Return password hashes in API `returnData` |
-| Rotate tokens if they were ever committed | Reuse example JWT keys from old guides |
-
-Generate local-only values with Pionia's CSPRNG helpers ([Security utilities](/documentation/security/security-utilities/)):
+| Put `JWT_SECRET` in `.env` | Commit production secrets |
+| Use placeholders in tutorials | Return password hashes in `returnData` |
+| Rotate leaked values | Reuse sample keys from screenshots |
 
 ```bash
 php pionia shell
+# secure_random_hex(32);
 ```
 
-```php
-secure_random_hex(32); // paste into JWT_SECRET_KEY= in environment/.env
-```
-
-```ini
-# environment/.env
-JWT_SECRET_KEY=paste-the-value-here
-```
-
-## Authentication overview
-
-Pionia does not ship a fixed auth scheme. You implement **authentication backends** that return a `ContextUserObject` when a request is authenticated.
-
-Common choices: JWT (`firebase/php-jwt`), session cookies, API keys, OAuth proxies.
-
-### Scaffold a backend
-
-```bash
-php pionia make:auth jwt
-```
-
-Creates `Application\Authentications\JwtAuthBackend` (name + `AuthBackend` suffix).
-
-```php
-namespace Application\Authentications;
-
-use Pionia\Auth\AuthenticationBackend;
-use Pionia\Auth\ContextUserObject;
-use Pionia\Http\Request\Request;
-
-class JwtAuthBackend extends AuthenticationBackend
-{
-    public function authenticate(Request $request): ?ContextUserObject
-    {
-        $header = $request->headers->get('Authorization');
-        if ($header === null || $header === '') {
-            return null;
-        }
-
-        // Decode token, load user from db('users'), etc.
-
-        $context = new ContextUserObject();
-        $context->authenticated = true;
-        $context->user = $userRow;
-        $context->authExtra = ['role' => $userRow->role ?? 'USER'];
-
-        return $context;
-    }
-}
-```
-
-Register in `environment/settings.ini`:
+## Usual path: JWT
 
 ```ini
 [app_authentications]
-jwt = "Application\Authentications\JwtAuthBackend"
+jwt = "Pionia\Auth\JwtAuthentication"
 ```
 
-Order matters — Pionia tries backends in registration order until one returns a user.
+Issue tokens in `customer.login` with `jwt_encode()`. Full guide: [JWT authentication](/documentation/security/jwt-authentication/).
 
-Store signing keys in `.env` (`JWT_SECRET_KEY=`), not in committed INI files.
+## Custom backend
 
-## Authorization in services
+Sessions, partner API keys, or a proxy that already authenticated the user:
 
-Extend `Pionia\Http\Services\Service` (not the removed v2 `BaseRestService`).
+```bash
+php pionia make:auth ApiKey
+```
 
-DeskFlow example — protect destructive task actions:
+Return a `ContextUserObject` or `null`. Register under `[app_authentications]`. Order matters — first success wins.
+
+## After identify: authorize
 
 ```php
-namespace Application\Services;
-
-use Pionia\Collections\Arrayable;
-use Pionia\Http\Response\ApiResponse;
-use Pionia\Http\Services\Service;
-
-class TaskService extends Service
-{
-    protected function createAction(Arrayable $data): ApiResponse
-    {
-        $this->mustAuthenticate();
-
-        // … insert into table('tasks')
-
-        return response(0, 'Task created');
-    }
-
-    protected function listAction(Arrayable $data): ApiResponse
-    {
-        if (!$this->can('task.list')) {
-            return response(403, 'Forbidden');
-        }
-
-        return response(0, null, table('tasks')->all());
-    }
-}
+#[Authenticated(except: ['login', 'register'])]
+class CustomerService extends Service { /* … */ }
 ```
 
-| Method | Purpose |
+Ownership checks (“only cancel your own order”) stay inside the method with `$this->auth()`. Walkthrough: [Protecting actions](/documentation/security/protecting-actions/).
+
+| Helper | Meaning |
 |--------|---------|
-| `$this->auth()` | Current `ContextUserObject` or null |
-| `$this->mustAuthenticate()` | Fail with 401 if not authenticated |
-| `$this->can('permission')` | Check permission / role |
-
-Document auth requirements with `@moonlight-auth required` or `@moonlight-auth none` on actions.
-
-## Demo authentication
-
-The app template ships `Application\Authentications\DemoAuthentication` — send `Authorization: Bearer demo-token` to exercise protected actions in development.
+| `$this->auth()` | Current user context |
+| `$this->mustAuthenticate()` | Require login (401) |
+| `$this->can('…')` | One permission |
+| `$this->canAny` / `canAll` | Any / all permissions |
 
 ## Common mistakes
 
-- Registering the backend in PHP but forgetting `[app_authentications]` in `settings.ini` — requests stay anonymous
-- Using `mustAuthenticate()` on `member.login` — login actions should allow unauthenticated callers (`@moonlight-auth none`)
-- Checking permissions with string typos (`task.updat` vs `task.update`) — failures look like silent 403s
-- Committing `JWT_SECRET_KEY` or demo tokens to git — rotate immediately if exposed
+- Backend class exists but missing from `[app_authentications]`
+- Locking `login` / `register`
+- Permission string typos → quiet 403s
+- Scaffolding a custom JWT class when `JwtAuthentication` already fits
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Security utilities" description="Hash passwords for member.login with hash_password()." href="/documentation/security/security-utilities/" >}}
-{{< link-card title="Moonlight security model" description="Switch-level auth wiring and catalog." href="/documentation/building-api/moonlight-security/" >}}
-{{< link-card title="Middleware" description="CORS, request IDs, global pipeline hooks." href="/documentation/http/middleware/" >}}
+{{< link-card title="Protecting actions" description="Shop-focused attribute guide." href="/documentation/security/protecting-actions/" >}}
+{{< link-card title="JWT authentication" description="customer.login tokens." href="/documentation/security/jwt-authentication/" >}}
+{{< link-card title="Security utilities" description="hash_password and more." href="/documentation/security/security-utilities/" >}}
 {{< /card-grid >}}

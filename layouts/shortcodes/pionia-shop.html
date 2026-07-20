@@ -1,0 +1,13 @@
+{{- $chapter := .Get "chapter" | default "" -}}
+<div class="pionia-shop-banner callout callout-note d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Pionia Shop example</div>
+    <div class="callout-body">
+      <p class="mb-2"><small><strong>Pionia Shop</strong> is a fictional online store + wallet — the app you build in the <a href="/documentation/shop-tutorial/">tutorial</a>.</small></p>
+      {{ .Inner | markdownify }}
+      {{- with $chapter -}}
+      <p class="mb-0 mt-2"><small>Start the <a href="/documentation/shop-tutorial/">Pionia Shop tutorial</a> if you have not built the app yet.</small></p>
+      {{- end -}}
+    </div>
+  </div>
+</div>

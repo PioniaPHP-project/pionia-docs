@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This guide is for Northwind Studio operators who need to **take DeskFlow offline during deploys** — visitors get HTTP 503, while Alex can still reach the API with a bypass token.
+This guide is for Pionia Shop operators who need to **take Pionia Shop offline during deploys** — visitors get HTTP 503, while you can still reach the API with a bypass token.
 
 ## What you will learn
 
@@ -26,7 +26,7 @@ This guide is for Northwind Studio operators who need to **take DeskFlow offline
 - Why RoadRunner picks up toggles without a restart
 
 {{< prerequisites >}}
-- DeskFlow running on port **8000** ([Introduction](/documentation/getting-started/introduction/))
+- Pionia Shop running on port **8000** ([Introduction](/documentation/getting-started/introduction/))
 - [Commands](/documentation/operations/commands/) — `maintenance:on` / `maintenance:off`
 {{< /prerequisites >}}
 
@@ -35,7 +35,7 @@ This guide is for Northwind Studio operators who need to **take DeskFlow offline
 {{< mermaid >}}
 flowchart TD
   Req[Incoming request] --> Gate{Maintenance enabled?}
-  Gate -->|No| App["DeskFlow API / static"]
+  Gate -->|No| App["Pionia Shop API / static"]
   Gate -->|Yes| Bypass{Bypass token valid?}
   Bypass -->|Yes| App
   Bypass -->|No| Block[HTTP 503 JSON or HTML]

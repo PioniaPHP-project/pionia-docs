@@ -16,19 +16,19 @@ seo:
 
 ## Who this is for
 
-You registered DeskFlow services on `MainSwitch` and need to **write and call action methods** — the PHP functions behind `"action": "list"` and `"action": "create"`.
+You registered Pionia Shop services on `MainSwitch` and need to **write and call action methods** — the PHP functions behind `"action": "list"` and `"action": "create"`.
 
 ## What you will learn
 
 - How Moonlight maps JSON action names to `listAction()` and `createAction()`
 - Reading request data from `Arrayable` and returning `response()` envelopes
-- Auth helpers (`mustAuthenticate()`, `can()`) inside actions
+- Auth attributes (`#[Authenticated]`, `#[Can]`) and helpers when rules need runtime data
 
 ## Before you start
 
 {{< prerequisites >}}
-- [Services](/documentation/building-api/services/) — `TaskService` registered as `task`
-- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — working `task.list` curl on port **8000**
+- [Services](/documentation/building-api/services/) — `ProductService` registered as `task`
+- [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) — working `product.list` curl on port **8000**
 - Optional: [Documenting your API](/documentation/building-api/api-reference/) for `@moonlight-*` tags
 {{< /prerequisites >}}
 
@@ -41,7 +41,7 @@ flowchart LR
   Method --> Envelope["response(0, OK, returnData)"]
 {{< /mermaid >}}
 
-DeskFlow POSTs to **`http://127.0.0.1:8000/api/v1/`**. Pionia resolves `"list"` → `listAction()` on the service registered as `"task"`.
+Pionia Shop POSTs to **`http://127.0.0.1:8000/api/v1/`**. Pionia resolves `"list"` → `listAction()` on the service registered as `"task"`.
 
 ---
 
@@ -85,11 +85,11 @@ The action method takes an `Arrayable` object as a parameter. The `Arrayable` ob
 
 To target an action in your request, set the **`action`** key (lowercase) in the JSON body. Pionia maps `"list"` → `listAction()` on the service registered as `"task"`.
 
-DeskFlow example:
+Pionia Shop example:
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "list"
 }
 ```
@@ -98,7 +98,7 @@ You may also pass the full method name:
 
 ```json
 {
-  "service": "member",
+  "service": "customer",
   "action": "loginAction"
 }
 ```
@@ -606,15 +606,32 @@ The exception message is returned as the `returnMessage` in the response with a 
 
 ## Securing Actions
 
-Pionia provides a way to secure actions using various methods.
+**Prefer attributes** so you do not repeat checks in every method:
 
-The following are some of the ways you can secure actions in Pionia:
+```php
+use Pionia\Auth\Attributes\Authenticated;
+use Pionia\Auth\Attributes\Can;
+
+#[Authenticated]
+protected function getUserAction(Arrayable $data): ApiResponse
+{
+    // …
+}
+
+#[Can('users.delete')]
+protected function deleteUserAction(Arrayable $data): ApiResponse
+{
+    // …
+}
+```
+
+Human guide with Pionia Shop examples, `#[CanAny]`, and service-level `except`: **[Protecting actions](/documentation/security/protecting-actions/)**.
+
+You can still call helpers **inside** an action when the rule depends on runtime data.
 
 ### mustAuthenticate(?string $message)
 
-The `mustAuthenticate` method is used to secure an action by ensuring that the request is authenticated. If the request is not authenticated, an exception is thrown and the response is returned to the client.
-
-Here is an example of how to use the `mustAuthenticate` method:
+The `mustAuthenticate` method ensures the request is authenticated. If not, an exception is thrown and the client receives **HTTP 401**.
 
 ```php {linenos=table}
 
@@ -737,7 +754,7 @@ The methods `can`, `canAll`, and `canAny` check for `mustAuthenticate()` before 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Validation" description="Reject task.create without a title." href="/documentation/building-api/validation/" >}}
+{{< link-card title="Validation" description="Reject product.create without a title." href="/documentation/building-api/validation/" >}}
 {{< link-card title="Documenting your API" description="@moonlight-* tags and /docs." href="/documentation/building-api/api-reference/" >}}
 {{< link-card title="Moonlight security" description="Where auth runs in the pipeline." href="/documentation/building-api/moonlight-security/" >}}
 {{< /card-grid >}}

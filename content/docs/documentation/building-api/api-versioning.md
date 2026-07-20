@@ -18,12 +18,12 @@ seo:
 
 ## Who this is for
 
-Northwind Studio is shipping DeskFlow v2 with breaking payload changes. You need **two API versions running in parallel** — `/api/v1/` for existing clients and `/api/v2/` for the new contract.
+Pionia Shop is shipping Pionia Shop v2 with breaking payload changes. You need **two API versions running in parallel** — `/api/v1/` for existing clients and `/api/v2/` for the new contract.
 
 ## What you will learn
 
 - Creating a `V2Switch` class and registering it in `settings.ini`
-- Which DeskFlow changes warrant a new version vs a new action on `v1`
+- Which Pionia Shop changes warrant a new version vs a new action on `v1`
 - How each version gets its own ping and service catalog
 
 ## Before you start
@@ -50,8 +50,8 @@ flowchart LR
 ```php
 namespace Application\Switches;
 
-use Application\Services\MemberService;
-use Application\Services\V2\TaskService as TaskServiceV2;
+use Application\Services\CustomerService;
+use Application\Services\V2\ProductService as ProductServiceV2;
 use Pionia\Collections\Arrayable;
 use Pionia\Http\Switches\ApiSwitch;
 
@@ -60,8 +60,8 @@ class V2Switch extends ApiSwitch
     public static function registerServices(): Arrayable
     {
         return arr([
-            'task' => TaskServiceV2::class,
-            'member' => MemberService::class,
+            'task' => ProductServiceV2::class,
+            'member' => CustomerService::class,
         ]);
     }
 }
@@ -89,7 +89,7 @@ Clients POST to the version prefix:
 
 ```json
 POST http://127.0.0.1:8000/api/v2/
-{ "service": "task", "action": "list" }
+{ "service": "product", "action": "list" }
 ```
 
 Each version has its own ping endpoint:
@@ -105,14 +105,14 @@ curl -s http://127.0.0.1:8000/api/v2/ping
 - Removing services from the public surface
 - Running old and new implementations in parallel during migration
 
-Non-breaking additions (new actions on existing services) usually stay on the current version — Alex's mobile app keeps calling `/api/v1/` until Northwind sunsets it.
+Non-breaking additions (new actions on existing services) usually stay on the current version — Ada's mobile app keeps calling `/api/v1/` until Pionia Shop sunsets it.
 
 ## Common mistakes
 
 - **Creating v2 for every new action** — `task.archive` can live on `v1` if existing clients ignore unknown actions.
 - **Forgetting to register the switch in `settings.ini`** — the class alone does not create a route.
 - **Different service aliases per version without documentation** — if `v2` removes `project`, update `/docs` and notify frontend teams.
-- **Hardcoding `/api/v1/` in the SPA** — use `apiVersionPath()` or env config so DeskFlow can migrate gradually.
+- **Hardcoding `/api/v1/` in the SPA** — use `apiVersionPath()` or env config so Pionia Shop can migrate gradually.
 
 ## What's next
 

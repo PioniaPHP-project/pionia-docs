@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frontend on Pionia</title><link>/documentation/frontend/</link><description>Recent content in Frontend on Pionia</description><generator>Hugo</generator><language>en</language><copyright>Copyright (c) 2024 Pionia</copyright><lastBuildDate>Mon, 13 Jul 2026 09:37:23 +0300</lastBuildDate><atom:link href="/documentation/frontend/index.xml" rel="self" type="application/rss+xml"/><item><title>Frontend Integration (Vite)</title><link>/documentation/frontend/vite-integration/</link><pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate><guid>/documentation/frontend/vite-integration/</guid><description>First-class Vite scaffolding with dev proxy and SPA fallback.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Frontend on Pionia</title>
+    <link>http://localhost:1313/documentation/frontend/</link>
+    <description>Recent content in Frontend on Pionia</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2024 Pionia</copyright>
+    <lastBuildDate>Mon, 13 Jul 2026 09:37:23 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/documentation/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Frontend Integration (Vite)</title>
+      <link>http://localhost:1313/documentation/frontend/vite-integration/</link>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/documentation/frontend/vite-integration/</guid>
+      <description>First-class Vite scaffolding with dev proxy and SPA fallback.</description>
+    </item>
+  </channel>
+</rss>

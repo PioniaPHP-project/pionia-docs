@@ -17,16 +17,16 @@ seo:
   noindex: false
 ---
 
-This guide is for **Northwind Studio** developers wiring **DeskFlow**'s database layer before `TaskService` and `MemberService` touch real rows. You will configure `[db]` in `settings.ini`, then query `tasks`, `projects`, and `team_members` with `table()` on port **8000**.
+This guide is for **Pionia Shop** developers wiring **Pionia Shop**'s database layer before `ProductService` and `CustomerService` touch real rows. You will configure `[db]` in `settings.ini`, then query `products`, `projects`, and `customers` with `table()` on port **8000**.
 
 ## What you will learn
 
 - Register default and named connections in `environment/settings.ini`
-- Call `table()`, `db()`, and `connectionManager()` from DeskFlow services
-- Use table aliases and column casts when listing Northwind data
+- Call `table()`, `db()`, and `connectionManager()` from Pionia Shop services
+- Use table aliases and column casts when listing Pionia Shop data
 
 {{< prerequisites >}}
-- [API tutorial](/documentation/deskflow-tutorial/) — DeskFlow services before persistence
+- [API tutorial](/documentation/shop-tutorial/) — Pionia Shop services before persistence
 - [Database index](/documentation/database/) — Porm overview and guide map
 {{< /prerequisites >}}
 
@@ -37,7 +37,7 @@ environment/settings.ini  →  [db] section discovered at boot
         ↓
 connectionManager()  →  pooled PDO per process
         ↓
-table('tasks')  →  Porm  →  Piql (prepared statements)
+table('products')  →  Porm  →  Piql (prepared statements)
 ```
 
 ## What is Porm?
@@ -57,7 +57,7 @@ table('tasks')  →  Porm  →  Piql (prepared statements)
 | `connectionManager()` | `ConnectionManager` | Pooled PDO per process |
 
 ```php
-table('tasks');                           // default connection
+table('products');                           // default connection
 table('tasks', 't');                      // tasks AS t
 table('tasks', null, 'db_pgsql');         // section name from settings.ini
 ```
@@ -76,7 +76,7 @@ default = 1
 
 [db_pgsql]
 database_type = "pgsql"
-database_name = "deskflow"
+database_name = "pionia-shop"
 username = "app"
 host = "localhost"
 port = 5432
@@ -141,8 +141,8 @@ Type casts on read: suffix `[Int]`, `[Bool]`, `[JSON]`, `[Object]` on column nam
 ## Last insert ID & debugging
 
 ```php
-$porm = table('tasks');
-$porm->save(['title' => 'Ship DeskFlow v1', 'project_id' => 1]);
+$porm = table('products');
+$porm->save(['title' => 'Ship Pionia Shop v1', 'project_id' => 1]);
 $id = $porm->lastSaved();   // or Piql::id() via getDatabase()
 
 $sql = $porm->lastQuery();    // last interpolated SQL string
@@ -157,9 +157,9 @@ Next: [Making queries](/documentation/database/making-queries/).
 
 ## Common mistakes
 
-- **Committing `DB_PASSWORD` to git** — keep credentials in `environment/.env` for alex@northwind.studio's local DeskFlow setup.
+- **Committing `DB_PASSWORD` to git** — keep credentials in `environment/.env` for ada@pionia.shop's local Pionia Shop setup.
 - **Using `Db::from()` in services** — global `table()` is the supported entry point in v3.
-- **Forgetting `default = 1` on `[db]`** — without a default section, `table('tasks')` has nowhere to connect.
+- **Forgetting `default = 1` on `[db]`** — without a default section, `table('products')` has nowhere to connect.
 - **Passing the bracketed section name** — use `'db_pgsql'`, not `'[db_pgsql]'`, as the third `table()` argument.
 
 ## What's next

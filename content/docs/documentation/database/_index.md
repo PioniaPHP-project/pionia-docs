@@ -3,7 +3,7 @@ title: "Database (Porm)"
 description: "Query the database with Porm — Pionia's fluent SQL layer."
 summary: "Configuration, CRUD, filtering, joins, pagination, connections, and the full Porm API."
 date: 2026-03-01
-lastmod: 2026-07-01
+lastmod: 2026-07-20
 draft: false
 weight: 400
 url: /documentation/database/
@@ -17,16 +17,16 @@ seo:
   noindex: false
 ---
 
-This section is for **Northwind Studio** engineers building **DeskFlow** — the task board API on port **8000**. Porm is how `TaskService`, `MemberService`, and `ProjectService` query `tasks`, `team_members`, and `projects` without Eloquent-style models.
+This section is for developers building **Pionia Shop** — the store API on port **8000**. Porm is how `ProductService`, `CustomerService`, and `OrderService` query `products`, `customers`, and `orders` without Eloquent-style models.
 
 ## What you will learn
 
-- Configure `[db]` and call `table()` from DeskFlow services
-- Filter, join, paginate, and aggregate Northwind tables
+- Configure `[db]` and call `table()` from Pionia Shop services
+- Filter, join, paginate, and aggregate Pionia Shop tables
 - Pool PDO connections under RoadRunner and FPM
 
 {{< prerequisites >}}
-- [API tutorial](/documentation/deskflow-tutorial/) — DeskFlow services before persistence
+- [API tutorial](/documentation/shop-tutorial/) — Pionia Shop services before persistence
 - [Helpers](/documentation/extending/helpers/) — `table()`, `db()`, and `connectionManager()`
 {{< /prerequisites >}}
 
@@ -34,43 +34,43 @@ This section is for **Northwind Studio** engineers building **DeskFlow** — the
 
 {{< mermaid >}}
 flowchart LR
-  TaskService --> table["table('tasks')"]
-  MemberService --> tm["table('team_members')"]
-  ProjectService --> proj["table('projects')"]
+  ProductService --> table["table('products')"]
+  CustomerService --> tm["table('customers')"]
+  OrderService --> orders["table('orders')"]
   table --> Porm["Porm / Piql"]
   tm --> Porm
-  proj --> Porm
+  orders --> Porm
   Porm --> SQLite[("SQLite / PostgreSQL")]
 {{< /mermaid >}}
 
-Pionia includes **Porm** (Pionia ORM) — a Medoo-inspired **query builder**, not a full ORM. There are no models or migrations in the framework; you work with tables, arrays, and a fluent API.
+Pionia includes **Porm** (Pionia ORM) — a Medoo-inspired **query builder**, not a full Eloquent-style ORM. You work with tables, arrays, and a fluent API. Schema changes use **PHP migrations** (`Schema` + `Blueprint`) — see [Migrations](/documentation/database/migrations/).
 
 ## Quick start
 
 ```php
 // Global helpers (recommended)
-$row = table('tasks')->get(1);
-$rows = table('tasks')->filter(['status' => 'open'])->limit(10)->all();
+$row = table('products')->get(1);
+$rows = table('products')->filter(['status' => 'open'])->limit(10)->all();
 
 // Named connection from environment/settings.ini
-table('projects', null, 'db_pgsql')->save(['name' => 'Northwind rebrand']);
+table('orders', null, 'db_pgsql')->save(['customer_id' => 1, 'status' => 'pending', 'total' => 49.0]);
 ```
 
 {{<callout context="note" icon="outline/information-circle">}}
 Porm is built into your Pionia app. Use `table()` or `db()` — not legacy `Porm\Porm::from()` patterns from older tutorials.
 {{</callout>}}
 
-## Your first database steps (DeskFlow)
+## Your first database steps (Pionia Shop)
 
-In the [DeskFlow tutorial](/documentation/deskflow-tutorial/) you start with hardcoded tasks, then persist them in SQLite and add `task.create`:
+In the [Pionia Shop tutorial](/documentation/shop-tutorial/) you start with a hardcoded catalog, then persist products in SQLite and add `product.create`:
 
-1. Add a `tasks` table migration or SQL file under `database/`.
-2. Configure `[db]` in `environment/settings.ini` (SQLite is fine for local DeskFlow).
-3. In `TaskService::listAction`, replace the array with `table('tasks')->filter(['project_id' => $data->getInt('project_id')])->all()`.
+1. Create tables with `php pionia make:table` and `php pionia migrate` — see [Migrations](/documentation/database/migrations/).
+2. Configure `[db]` in `environment/settings.ini` (SQLite is fine for local Pionia Shop).
+3. In `ProductService::listAction`, replace the array with `table('products')->all()`.
 
 ```php
-$tasks = table('tasks')
-    ->filter(['status' => 'open'])
+$products = table('products')
+    ->filter(['stock[>]' => 0])
     ->orderBy('created_at', 'DESC')
     ->limit(20)
     ->all();
@@ -82,6 +82,7 @@ Try it: [Making queries](/documentation/database/making-queries/) walks through 
 
 | Topic | Page |
 |-------|------|
+| Schema & migrations | [Migrations](/documentation/database/migrations/) |
 | Configuration & entry points | [Getting started](/documentation/database/configuration-getting-started/) |
 | CRUD & reads | [Making queries](/documentation/database/making-queries/) |
 | `filter()`, `orderBy`, `limit` | [Filtering](/documentation/database/queries-with-filtering/) |
@@ -97,7 +98,7 @@ Try it: [Making queries](/documentation/database/making-queries/) walks through 
 ## Query modes
 
 ```text
-table('tasks')
+table('products')
   ├─ Direct mode   → get(), save(), update(), delete(), has(), random(), …
   ├─ filter()      → Builder (where, orderBy, limit, all, count, …)
   └─ join()        → Join (left, inner, right, full, all, count, random, …)
@@ -114,15 +115,15 @@ After `filter()` or `join()`, table-level write methods (`save`, `get`, etc.) ar
 
 ## Common mistakes
 
-- **Using `Porm::from()` or `Db::from()` in DeskFlow services** — prefer the global `table()` helper wired in bootstrap.
-- **Calling `save()` after `filter()` on the same chain** — finish reads with `all()` / `get()` first, then start a new `table('tasks')` for writes.
-- **Skipping `[db]` in `settings.ini`** — DeskFlow on port 8000 still needs a default connection (SQLite is fine locally).
+- **Using `Porm::from()` or `Db::from()` in Pionia Shop services** — prefer the global `table()` helper wired in bootstrap.
+- **Calling `save()` after `filter()` on the same chain** — finish reads with `all()` / `get()` first, then start a new `table('products')` for writes.
+- **Skipping `[db]` in `settings.ini`** — Pionia Shop on port 8000 still needs a default connection (SQLite is fine locally).
 - **Opening a new PDO per query** — reuse `connectionManager()`; do not call `disconnect()` between HTTP requests.
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Configuration" description="Wire SQLite for DeskFlow on port 8000." href="/documentation/database/configuration-getting-started/" >}}
+{{< link-card title="Migrations" description="make:table, migrate, Blueprint columns." href="/documentation/database/migrations/" >}}
+{{< link-card title="Configuration" description="Wire SQLite for Pionia Shop on port 8000." href="/documentation/database/configuration-getting-started/" >}}
 {{< link-card title="Making queries" description="CRUD on tasks and projects." href="/documentation/database/making-queries/" >}}
-{{< link-card title="API reference" description="Method cheat sheet for Porm." href="/documentation/database/api-reference/" >}}
 {{< /card-grid >}}

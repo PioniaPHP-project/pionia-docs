@@ -16,15 +16,15 @@ seo:
   description: "Moonlight overview, services, actions, validation, and API documentation."
 ---
 
-All business logic in a Pionia app lives in **services** — PHP classes with one method per **action**. DeskFlow clients POST JSON to **`http://127.0.0.1:8000/api/v1/`**:
+All business logic in a Pionia app lives in **services** — PHP classes with one method per **action**. Pionia Shop clients POST JSON to **`http://127.0.0.1:8000/api/v1/`**:
 
 ```json
-{ "service": "task", "action": "list" }
+{ "service": "product", "action": "list" }
 ```
 
 ## Who this is for
 
-You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) and want to **design DeskFlow's Moonlight API** — services, actions, validation, and optional generic CRUD for `task`, `member`, and `project`.
+You finished [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) and want to **design Pionia Shop's Moonlight API** — services, actions, validation, and optional generic CRUD for `task`, `member`, and `project`.
 
 ## What you will learn
 
@@ -33,7 +33,7 @@ You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-crea
 - How to document actions for frontend teams at `/docs`
 
 {{< prerequisites >}}
-- [Introduction](/documentation/getting-started/introduction/) — DeskFlow scaffold and ping curl
+- [Introduction](/documentation/getting-started/introduction/) — Pionia Shop scaffold and ping curl
 - [Moonlight overview](/documentation/building-api/moonlight-overview/) — envelope and switch model
 {{< /prerequisites >}}
 
@@ -42,9 +42,9 @@ You finished [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-crea
 {{< mermaid >}}
 flowchart LR
   POST["POST /api/v1/"] --> Switch[MainSwitch]
-  Switch --> Task["task → TaskService"]
-  Switch --> Member["member → MemberService"]
-  Switch --> Project["project → ProjectService"]
+  Switch --> Task["task → ProductService"]
+  Switch --> Member["member → CustomerService"]
+  Switch --> Project["project → OrderService"]
   Task --> Action["listAction / createAction"]
 {{< /mermaid >}}
 
@@ -58,9 +58,9 @@ flowchart LR
 | Input rules | [Validation](/documentation/building-api/validation/) |
 | CRUD without boilerplate | [Generic services](/documentation/building-api/generic-services/) |
 
-## DeskFlow services
+## Pionia Shop services
 
-In the [DeskFlow tutorial](/documentation/deskflow-tutorial/) you build:
+In the [Pionia Shop tutorial](/documentation/shop-tutorial/) you build:
 
 | Service | Purpose |
 |---------|---------|
@@ -70,7 +70,7 @@ In the [DeskFlow tutorial](/documentation/deskflow-tutorial/) you build:
 
 ## Reference
 
-- [API versioning](/documentation/building-api/api-versioning/) — when Northwind adds `/api/v2/`
+- [API versioning](/documentation/building-api/api-versioning/) — when Pionia Shop adds `/api/v2/`
 - [Moonlight security model](/documentation/building-api/moonlight-security/) — auth at the switch layer
 - [Documenting your API](/documentation/building-api/api-reference/) — `@moonlight-*` and OpenAPI
 
@@ -79,14 +79,14 @@ Every response uses the same envelope: `returnCode`, `returnMessage`, `returnDat
 ## Common mistakes
 
 - **Legacy uppercase JSON keys** — Moonlight expects lowercase `service` and `action`.
-- **Skipping switch registration** — scaffolding `TaskService` is not enough; add `'task' => TaskService::class` in `MainSwitch::registerServices()`.
-- **Using generic services for complex rules** — keep `TaskService` manual when assignee logic grows; use `ProjectService` as generic CRUD first.
-- **Wrong dev port** — DeskFlow examples use **8000** (`PORT` in `environment/.env`), not 3000 or 8003.
+- **Skipping switch registration** — scaffolding `ProductService` is not enough; add `'task' => ProductService::class` in `MainSwitch::registerServices()`.
+- **Using generic services for complex rules** — keep `ProductService` manual when assignee logic grows; use `OrderService` as generic CRUD first.
+- **Wrong dev port** — Pionia Shop examples use **8000** (`PORT` in `environment/.env`), not 3000 or 8003.
 
 ## What's next
 
 {{< card-grid >}}
 {{< link-card title="Services" description="Register task, member, and project." href="/documentation/building-api/services/" >}}
-{{< link-card title="API tutorial" description="Continue DeskFlow tutorial hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="API tutorial" description="Continue Pionia Shop tutorial hands-on." href="/documentation/shop-tutorial/" >}}
 {{< link-card title="Validation" description="422 errors when title is missing." href="/documentation/building-api/validation/" >}}
 {{< /card-grid >}}

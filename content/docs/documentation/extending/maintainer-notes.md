@@ -20,7 +20,7 @@ seo:
 
 ## Who this is for
 
-**Framework contributors only** — people working on **PioniaCore**, the docs repo, or release tooling. App developers should use `composer create-project pionia/pionia-app`; DeskFlow examples are optional here.
+**Framework contributors only** — people working on **PioniaCore**, the docs repo, or release tooling. App developers should use `composer create-project pionia/pionia-app`; Pionia Shop examples are optional here.
 
 ## What you will learn
 
@@ -32,7 +32,7 @@ seo:
 
 {{< prerequisites >}}
 - Local clone of [PioniaCore](https://github.com/PioniaPHP-project/PioniaCore) with PHP 8.5+
-- Not required: DeskFlow or `pionia/pionia-app` — this page is maintainer-focused
+- Not required: Pionia Shop or `pionia/pionia-app` — this page is maintainer-focused
 {{< /prerequisites >}}
 
 {{< callout context="warning" title="Maintainers only" icon="outline/alert-triangle" >}}

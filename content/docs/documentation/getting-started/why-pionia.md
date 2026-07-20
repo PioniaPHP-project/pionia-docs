@@ -17,30 +17,30 @@ seo:
 
 ## Who this is for
 
-You are choosing a PHP framework for **Northwind Studio's DeskFlow** — or any mobile/SPA backend — and want to know whether Moonlight's `{ service, action }` model beats dozens of REST controllers.
+You are choosing a PHP framework for **Pionia Shop's Pionia Shop** — or any mobile/SPA backend — and want to know whether Moonlight's `{ service, action }` model beats dozens of REST controllers.
 
 ## What you will learn
 
 - What Pionia optimizes for (versioned JSON APIs, small teams)
-- How DeskFlow maps to services, switches, and Porm queries
+- How Pionia Shop maps to services, switches, and Porm queries
 - When to pick something else (server-rendered HTML, GraphQL-first)
 
 ## Before you start
 
-No install required. For a hands-on comparison, scaffold DeskFlow in [Introduction](/documentation/getting-started/introduction/) first.
+No install required. For a hands-on comparison, scaffold Pionia Shop in [Introduction](/documentation/getting-started/introduction/) first.
 
 ## How it works
 
 Pionia targets teams shipping **versioned JSON APIs** without Symfony-sized boilerplate. You write **services** and register them on **switches**; clients POST `{ "service", "action" }` to **`http://127.0.0.1:8000/api/v1/`**.
 
-{{< deskflow >}}
-**DeskFlow** — Northwind Studio's internal task board. Services: `task`, `member`, `project`. Sample user: **alex@northwind.studio**.
-{{< /deskflow >}}
+{{< pionia-shop >}}
+**Pionia Shop** — a fictional online store + wallet. Services: `product`, `customer`, `order`, `wallet`. Sample customer: **ada@pionia.shop**.
+{{< /pionia-shop >}}
 
 ## What you get
 
-1. **Services, not controllers** — business logic lives in `services/TaskService.php`. Moonlight dispatch replaces per-route controllers.
-2. **Porm, not ORM** — `table('tasks')->filter(...)->all()` returns arrays; no model hydration overhead. See [Database](/documentation/database/).
+1. **Services, not controllers** — business logic lives in `services/ProductService.php`. Moonlight dispatch replaces per-route controllers.
+2. **Porm, not ORM** — `table('products')->filter(...)->all()` returns arrays; no model hydration overhead. See [Database](/documentation/database/).
 3. **Real HTTP semantics** — validation errors are **422**, auth failures **401**; the JSON body still uses `returnCode`. See [Requests & responses](/documentation/http/requests-and-responses/).
 4. **Versioned switches** — add `v2` in `settings.ini` without rewriting `v1`. See [API versioning](/documentation/building-api/api-versioning/).
 5. **Flexible auth** — pluggable backends and per-action checks. See [Security](/documentation/security/).
@@ -68,7 +68,7 @@ Pionia targets teams shipping **versioned JSON APIs** without Symfony-sized boil
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="DeskFlow tutorial" description="Build DeskFlow hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Pionia Shop tutorial" description="Build Pionia Shop hands-on." href="/documentation/shop-tutorial/" >}}
 {{< link-card title="Moonlight overview" description="Architecture deep dive." href="/documentation/building-api/moonlight-overview/" >}}
 {{< link-card title="Upgrading from v2" description="Migration checklist." href="/documentation/getting-started/upgrading-from-v2/" >}}
 {{< /card-grid >}}

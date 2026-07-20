@@ -2,9 +2,9 @@
 title: "Glossary"
 slug: "glossary"
 description: "Shared terms used across Pionia documentation."
-summary: "Service, action, switch, envelope, and other Moonlight vocabulary."
+summary: "Service, action, switch, envelope, and Pionia Shop vocabulary."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-21
 draft: false
 weight: 104
 toc: true
@@ -16,60 +16,49 @@ seo:
 
 ## Who this is for
 
-You are reading DeskFlow docs and hit an unfamiliar term — **switch**, **envelope**, **Porm**. Use this page as a quick reference while following the [API tutorial](/documentation/deskflow-tutorial/).
+You are reading Pionia Shop docs and hit an unfamiliar term — **switch**, **envelope**, **Porm**. Use this page while following the [tutorial](/documentation/shop-tutorial/).
 
-## What you will learn
-
-- Moonlight vocabulary: service, action, switch, envelope
-- DeskFlow-specific names: Northwind Studio, `task` / `member` / `project`
-- How `returnCode` relates to HTTP status codes
-
-## Before you start
-
-Optional — no setup required. For context, skim [Moonlight overview](/documentation/building-api/moonlight-overview/) first.
-
-## How it works
-
-Pionia docs reuse the same terms everywhere. **DeskFlow** is the canonical example app; when you see `alex@northwind.studio` or port **8000**, that refers to the fictional Northwind Studio team running their local API.
+## Framework terms
 
 | Term | Meaning |
 |------|---------|
-| **Action** | A method on a service invoked by name in JSON (`"action": "list"` → `listAction`) |
-| **AppRealm** | The booted application container returned by `app()` / `realm()` |
-| **DeskFlow** | The canonical docs example — a task board API for Northwind Studio |
-| **Envelope** | JSON response shape: `returnCode`, `returnMessage`, `returnData` |
-| **GenericService** | Base class that provides CRUD actions for one database table |
-| **Moonlight** | Pionia's `{ service, action }` dispatch model over versioned `/api/v1/` |
-| **Porm** | Pionia's fluent SQL layer (`table()`, `where()`, joins) — lives in your app |
-| **returnCode** | Business outcome in the JSON body (`0` = success); distinct from HTTP status |
-| **Service** | PHP class holding business logic; registered on a switch |
-| **Switch** | Versioned API entry (e.g. `MainSwitch` for `/api/v1/`) |
+| **Action** | Method on a service (`"action": "list"` → `listAction`) |
+| **AppRealm** | Booted application container (`app()` / `realm()`) |
+| **Envelope** | JSON shape: `returnCode`, `returnMessage`, `returnData` |
+| **GenericService** | Base class with CRUD actions for one table |
+| **Moonlight** | `{ service, action }` dispatch on `/api/v1/` |
+| **Porm** | Fluent SQL (`table()`, filters, joins) |
+| **returnCode** | Business result (`0` = success); not the same as HTTP status |
+| **Service** | PHP class with business logic |
+| **Switch** | Versioned API entry (`MainSwitch` → `/api/v1/`) |
 
-## DeskFlow services
+## Pionia Shop names
 
-| Service | Example action | Purpose |
-|---------|----------------|---------|
-| `task` | `list`, `create` | Tasks on the team board |
-| `member` | `login`, `profile` | Team authentication |
-| `project` | `list` | Client projects grouping tasks |
+| Name | Meaning |
+|------|---------|
+| **Pionia Shop** | Canonical example — online store + wallet |
+| **ada@pionia.shop** | Sample customer |
+| **product** | Catalog service |
+| **customer** | Auth / profile service |
+| **order** | Checkout service |
+| **wallet** | Store credit service |
 
-Example request Alex sends from the React board:
+Example request:
 
 ```json
 POST http://127.0.0.1:8000/api/v1/
-{ "service": "task", "action": "list", "status": "open" }
+{ "service": "product", "action": "list" }
 ```
 
 ## Common mistakes
 
-- **Confusing `returnCode` with HTTP status** — `returnCode: 0` can arrive with HTTP 200; errors may use **422** or **401** with a non-zero `returnCode`.
-- **Calling it a "route"** — Moonlight uses one POST URL per version; `service` and `action` select the handler.
-- **Uppercase JSON keys** — v3 expects lowercase `service` and `action`.
+- Confusing `returnCode` with HTTP status
+- Thinking each action is a separate URL — one POST path per version
+- Uppercase JSON keys — use lowercase `service` and `action`
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Building your API" description="How terms connect in practice." href="/documentation/building-api/" >}}
-{{< link-card title="Moonlight overview" description="Full request flow diagram." href="/documentation/building-api/moonlight-overview/" >}}
-{{< link-card title="API tutorial" description="Use the vocabulary hands-on." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Moonlight overview" description="Full request flow." href="/documentation/building-api/moonlight-overview/" >}}
+{{< link-card title="Pionia Shop tutorial" description="Use the vocabulary hands-on." href="/documentation/shop-tutorial/" >}}
 {{< /card-grid >}}

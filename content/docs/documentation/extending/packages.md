@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You are packaging reusable logic for DeskFlow or other Pionia apps — a phone normalizer **plugin** with no boot hooks, or a billing **provider** that registers middleware, commands, and an API switch.
+You are packaging reusable logic for Pionia Shop or other Pionia apps — a phone normalizer **plugin** with no boot hooks, or a billing **provider** that registers middleware, commands, and an API switch.
 
 ## What you will learn
 
@@ -38,10 +38,10 @@ You are packaging reusable logic for DeskFlow or other Pionia apps — a phone n
 
 {{< mermaid >}}
 flowchart LR
-  Consumer[DeskFlow app] --> Require[composer require]
+  Consumer[Pionia Shop app] --> Require[composer require]
   Require --> Plugin["acme/phone-normalizer"]
   Require --> ProviderPkg["acme/pionia-billing"]
-  Plugin --> Service[Used from TaskService]
+  Plugin --> Service[Used from ProductService]
   ProviderPkg --> Prov[BillingProvider]
   Prov --> INI["[app_providers]"]
   INI --> Boot[Pionia boot hooks]
@@ -84,7 +84,7 @@ final class Normalizer
 }
 ```
 
-Use from DeskFlow's `MemberService`:
+Use from Pionia Shop's `CustomerService`:
 
 ```php
 use Acme\Phone\Normalizer;
@@ -214,7 +214,7 @@ php pionia cache:clear
 
 ## Common mistakes
 
-- Importing `Application\Services\TaskService` from a package — packages must not depend on app namespaces
+- Importing `Application\Services\ProductService` from a package — packages must not depend on app namespaces
 - Using `v1` as the package switch slug — collides with the host app's `MainSwitch`
 - Shipping secrets or `.env` samples with real keys in the package README
 - Forgetting to document `[app_providers]` registration — consumers see a silent no-op install

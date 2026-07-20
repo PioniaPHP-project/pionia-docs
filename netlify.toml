@@ -55,7 +55,12 @@
 
 [[redirects]]
   from = "/documentation/api-tutorial/"
-  to = "/documentation/deskflow-tutorial/"
+  to = "/documentation/shop-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/api-tutorial"
+  to = "/documentation/shop-tutorial/"
   status = 301
 
 [[redirects]]
@@ -196,17 +201,43 @@
 # Custom headers — https://docs.netlify.com/routing/headers/#syntax-for-the-netlify-configuration-file
 [[redirects]]
   from = "/documentation/getting-started/api-tutorial/"
-  to = "/documentation/deskflow-tutorial/"
+  to = "/documentation/shop-tutorial/"
   status = 301
 
 [[redirects]]
   from = "/documentation/getting-started/api-tutorial"
-  to = "/documentation/deskflow-tutorial/"
+  to = "/documentation/shop-tutorial/"
   status = 301
 
 [[redirects]]
   from = "/documentation/getting-started/tutorial-part-1/"
-  to = "/documentation/deskflow-tutorial/01-create-project/"
+  to = "/documentation/shop-tutorial/01-create-project/"
+  status = 301
+
+# DeskFlow → Pionia Shop tutorial rename
+[[redirects]]
+  from = "/documentation/deskflow-tutorial/"
+  to = "/documentation/shop-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/deskflow-tutorial"
+  to = "/documentation/shop-tutorial/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/deskflow-tutorial/07-create-tasks/"
+  to = "/documentation/shop-tutorial/07-create-products/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/deskflow-tutorial/07-create-tasks"
+  to = "/documentation/shop-tutorial/07-create-products/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/deskflow-tutorial/*"
+  to = "/documentation/shop-tutorial/:splat"
   status = 301
 
 [[redirects]]

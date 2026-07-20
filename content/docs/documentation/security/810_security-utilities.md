@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You are implementing DeskFlow **`member.login`** (password hashing with `hash_password()`), issuing session tokens after JWT sign-in, or sealing sensitive columns — and want the built-in **`security()`** helpers instead of ad-hoc crypto.
+You are implementing Pionia Shop **`customer.login`** (password hashing with `hash_password()`), issuing session tokens after JWT sign-in, or sealing sensitive columns — and want the built-in **`security()`** helpers instead of ad-hoc crypto.
 
 ## What you will learn
 
@@ -30,7 +30,8 @@ You are implementing DeskFlow **`member.login`** (password hashing with `hash_pa
 
 {{< prerequisites >}}
 - Booted app (`php pionia serve` on port **8000**)
-- [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) — where JWT and `mustAuthenticate()` fit
+- [JWT authentication](/documentation/security/jwt-authentication/) — Bearer tokens with `jwt_encode()` / `JwtAuthentication`
+- [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) — where backends and `mustAuthenticate()` fit
 - `ext-sodium` enabled for `encrypt()` / `decrypt()` (check `php -m`)
 {{< /prerequisites >}}
 
@@ -40,7 +41,7 @@ Pionia ships a single **`Pionia\Security\Security`** class on the application co
 
 {{< mermaid >}}
 flowchart LR
-  Login["member.login"] --> Hash["hash_password() / verify_password()"]
+  Login["customer.login"] --> Hash["hash_password() / verify_password()"]
   Token["API session"] --> ST["secure_token()"]
   OTP["Email reset code"] --> OTPH["secure_otp() + otp rule"]
   AtRest["Encrypted column"] --> Enc["encrypt() with APP_KEY"]
@@ -118,13 +119,13 @@ $pin = secure_random_string(6, Security::ALPHABET_NUMERIC);
 | `verify_password($password, $hash)` | `verifyPassword()` | Check login |
 | `password_needs_rehash($hash)` (PHP built-in) or `security()->needsRehash()` | `needsRehash()` | Upgrade algorithm on login |
 
-DeskFlow `member.login` — verify without leaking hashes in the response:
+Pionia Shop `customer.login` — verify without leaking hashes in the response:
 
 ```php
 $hash = hash_password($plain);
 if (verify_password($plain, $user->password_hash)) {
   if (password_needs_rehash($user->password_hash)) {
-    table('team_members')->update($user->id, ['password_hash' => hash_password($plain)]);
+    table('customers')->update($user->id, ['password_hash' => hash_password($plain)]);
   }
 }
 ```

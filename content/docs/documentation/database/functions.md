@@ -17,28 +17,28 @@ seo:
   noindex: false
 ---
 
-This guide is for **DeskFlow** dashboards and reports — counting open tasks per project, summing story points, and building HAVING clauses for **Northwind Studio** on port **8000**.
+This guide is for **Pionia Shop** dashboards and reports — counting open tasks per project, summing story points, and building HAVING clauses for **Pionia Shop** on port **8000**.
 
 ## What you will learn
 
-- Run `count`, `sum`, `avg`, `min`, and `max` on `tasks` and `projects`
+- Run `count`, `sum`, `avg`, `min`, and `max` on `products` and `projects`
 - Chain conditions before terminal aggregate methods
 - Build complex filters with the `Agg` builder
 
 {{< prerequisites >}}
-- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` for DeskFlow
+- [Configuration](/documentation/database/configuration-getting-started/) — `[db]` for Pionia Shop
 - [Making queries](/documentation/database/making-queries/) — terminal methods on `table()`
 {{< /prerequisites >}}
 
 ## How it works
 
 ```text
-table('tasks')  →  count / sum / avg  →  single scalar result
-table('tasks')  →  filter(Agg::builder()->…->build())  →  rows or aggregates
+table('products')  →  count / sum / avg  →  single scalar result
+table('products')  →  filter(Agg::builder()->…->build())  →  rows or aggregates
 ```
 
 {{<callout context="note" icon="outline/information-circle">}}
-v3 uses `table()` and namespaces under `Pionia\Porm\`. Examples below use `table('tasks')` and `table('team_members')`.
+v3 uses `table()` and namespaces under `Pionia\Porm\`. Examples below use `table('products')` and `table('customers')`.
 {{</callout>}}
 
 # Introduction
@@ -58,7 +58,7 @@ The `count` function is used to count the number of records in the database. Thi
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->count(); // select count(*) from tasks
+table('products')->count(); // select count(*) from tasks
 ```
 
 You can also provide a column name to count the number of records in the database that have a value in the specified column.
@@ -67,7 +67,7 @@ You can also provide a column name to count the number of records in the databas
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->count('priority'); // select count(priority) from tasks
+table('products')->count('priority'); // select count(priority) from tasks
 ```
 
 You can also provide conditions to count the number of records in the database that meet certain conditions.
@@ -76,7 +76,7 @@ You can also provide conditions to count the number of records in the database t
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->count('priority', ['priority' => 10]); // select count(*) from tasks where priority = 10
+table('products')->count('priority', ['priority' => 10]); // select count(*) from tasks where priority = 10
 ```
 
 The `count` function returns the number of records in the database that meet the specified conditions.
@@ -89,7 +89,7 @@ The `sum` function is used to calculate the sum of the values in a column in the
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->sum('priority'); // select sum(priority) from tasks
+table('products')->sum('priority'); // select sum(priority) from tasks
 ```
 
 You can also provide conditions to calculate the sum of the values in a column in the database that meet certain conditions.
@@ -98,7 +98,7 @@ You can also provide conditions to calculate the sum of the values in a column i
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->sum('priority', ['priority' => 10]); // select sum(priority) from tasks where priority = 10
+table('products')->sum('priority', ['priority' => 10]); // select sum(priority) from tasks where priority = 10
 ```
 
 The `sum` function returns the sum of the values in the column in the database that meet the specified conditions.
@@ -117,7 +117,7 @@ The `avg` function is used to calculate the average of the values in a column in
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->avg('priority'); // select avg(priority) from tasks
+table('products')->avg('priority'); // select avg(priority) from tasks
 ```
 
 You can also provide conditions to calculate the average of the values in a column in the database that meet certain conditions.
@@ -126,7 +126,7 @@ You can also provide conditions to calculate the average of the values in a colu
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->avg('priority', ['priority' => 10]); // select avg(priority) from tasks where priority = 10
+table('products')->avg('priority', ['priority' => 10]); // select avg(priority) from tasks where priority = 10
 ```
 
 The `avg` function returns the average of the values in the column in the database that meet the specified conditions.
@@ -139,7 +139,7 @@ The `max` function is used to calculate the maximum value in a column in the dat
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->max('priority'); // select max(priority) from tasks
+table('products')->max('priority'); // select max(priority) from tasks
 ```
 
 You can also provide conditions to calculate the maximum value in a column in the database that meet certain conditions.
@@ -148,7 +148,7 @@ You can also provide conditions to calculate the maximum value in a column in th
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->max('priority', ['priority' => 10]); // select max(priority) from tasks where priority = 10
+table('products')->max('priority', ['priority' => 10]); // select max(priority) from tasks where priority = 10
 ```
 
 The `max` function returns the maximum value in the column in the database that meet the specified conditions.
@@ -161,7 +161,7 @@ The `min` function is used to calculate the minimum value in a column in the dat
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->min('priority'); // select min(priority) from tasks
+table('products')->min('priority'); // select min(priority) from tasks
 ```
 
 You can also provide conditions to calculate the minimum value in a column in the database that meet certain conditions.
@@ -170,7 +170,7 @@ You can also provide conditions to calculate the minimum value in a column in th
 
 use Pionia\Porm\Database\Aggregation\Agg;
 
-table('tasks')->min('priority', ['priority' => 10]); // select min(priority) from tasks where priority = 10
+table('products')->min('priority', ['priority' => 10]); // select min(priority) from tasks where priority = 10
 ```
 
 The `min` function returns the minimum value in the column in the database that meet the specified conditions.
@@ -243,7 +243,7 @@ Used to add a like condition to a query
 
 ```php
 
-$user = table("tasks")
+$user = table("products")
           ->get(Agg::builder()
                 ->like('title', $name)
                 ->build()
@@ -259,7 +259,7 @@ Used to add a not like condition to a query
 
 ```php
 
-$user = table("tasks")
+$user = table("products")
           ->get(Agg::builder()
                 ->notLike('title', $name)
                 ->build()
@@ -275,7 +275,7 @@ Used to divide a column by a certain value in the database
 
 ```php
 
-$user = table("tasks")
+$user = table("products")
             ->get(Agg::builder()
                 ->div('total', 5)
                 ->build()
@@ -290,7 +290,7 @@ Adds a between check on a column. It checks if the value of the given column is 
 
 ```php
 
-$results = table("tasks")
+$results = table("products")
     ->where(Agg::builder()
         ->between('id', [1, 10])
         ->build()
@@ -304,7 +304,7 @@ $results = table("tasks")
 Checks if the value of the given column is `not between` the given points.
 
 ```php
-$results = table("tasks")
+$results = table("products")
     ->where(Agg::builder()
         ->notBetween('id', [1, 10])
         ->build()
@@ -318,7 +318,7 @@ Jsonify the given value and assigns it to the given column.
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->jsonified('someAlias', ['x'=>1, 'y'=>5])
                 ->build()
@@ -334,7 +334,7 @@ Multiplies a column by a certain value in the database
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->of('priority', 10)
                 ->build()
@@ -350,7 +350,7 @@ Subtracts a column by a certain value in the database
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->minus('priority', 10)
                 ->build()
@@ -366,7 +366,7 @@ Adds a column by a certain value in the database
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->plus('priority', 10)
                 ->build()
@@ -382,7 +382,7 @@ Opposite of eq. Checks if the value of the given column is `equal` to the given 
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->eq('priority', 10)
                 ->build()
@@ -398,7 +398,7 @@ Opposite of eq. Checks if the value of the given is `not equal` to the given val
 
 ```php
 
-table("tasks")
+table("products")
             ->filter(Agg::builder()
                 ->neq('priority', 10)
                 ->build()
@@ -414,7 +414,7 @@ Assigns the current timestamp to the given alias or column.
 
 ```php
 
-table("tasks")
+table("products")
         ->update(Agg::builder()->now("updated_at")->build(), 1); // update tasks set updated_at = now() where id =1
 
 ```
@@ -424,7 +424,7 @@ table("tasks")
 Check if the column value is `less than` the given value.
 
 ```php
-table("tasks")
+table("products")
     ->where(Agg::builder()->lt('priority', 20)->build())
     ->all();
 ```
@@ -435,7 +435,7 @@ Checks if the column value is `less than or equal` to the given value.
 
 ```php
 
-table("tasks")
+table("products")
     ->where(Agg::builder()->lte('priority', 20)->build())
     ->all();
 
@@ -447,7 +447,7 @@ Checks if the column value is `greater than` the given value.
 
 ```php
 
-table("tasks")
+table("products")
             ->where(Agg::builder()->gt('priority', 20)->build())
             ->all();
 ```
@@ -458,7 +458,7 @@ Checks if the column value is `greater than or equal` the given value.
 
 ```php
 
-table("tasks")
+table("products")
             ->where(Agg::builder()->gte('priority', 20)->build())
             ->all();
 ```
@@ -533,10 +533,10 @@ $agg = Agg::builder()
 
 ## Common mistakes
 
-- **Chaining methods after `count()` or `sum()`** — aggregates execute immediately; start a new `table('tasks')` chain for the next query.
-- **Using `count('priority')` when you mean `count()` with a WHERE** — non-null column counts differ from row counts on DeskFlow boards.
+- **Chaining methods after `count()` or `sum()`** — aggregates execute immediately; start a new `table('products')` chain for the next query.
+- **Using `count('priority')` when you mean `count()` with a WHERE** — non-null column counts differ from row counts on Pionia Shop boards.
 - **Building Agg regex from client input** — never pass unsanitized search strings into `Agg::builder()->regex()`.
-- **Forgetting `build()` on Agg chains** — incomplete clauses silently produce empty WHERE arrays in `TaskService`.
+- **Forgetting `build()` on Agg chains** — incomplete clauses silently produce empty WHERE arrays in `ProductService`.
 
 ## What's next
 

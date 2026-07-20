@@ -1,62 +1,1804 @@
-<!doctype html><html lang=en data-bs-theme=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-500.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/vendor/jost/jost-v4-latin-700.woff2 as=font type=font/woff2 crossorigin><script src=/js/color-mode.86a91f050a481d0a3f0c72ac26543cb6228c770875981c58dcbc008fd3f875c8.js integrity="sha256-hqkfBQpIHQo/DHKsJlQ8tiKMdwh1mBxY3LwAj9P4dcg="></script><link rel=stylesheet href="/main.394a6fdc754a238a607e002078fe68ce8b2510110933afc78f2d78dcb17e22c6ea3fce67960e6687368194b9339ee54c90a5cf5521c6c36df9c6909e6ad32e3d.css" integrity="sha512-OUpv3HVKI4pgfgAgeP5ozoslEBEJM6/Hjy143LF+IsbqP85nlg5mhzaBlLkznuVMkKXPVSHGw235xpCeatMuPQ==" crossorigin=anonymous><noscript><style>img.lazyload{display:none}</style></noscript><link rel=canonical href=/documentation/security/security-utilities/><title>Pionia security utilities</title>
-<meta name=description content="security(), secure_token(), encrypt(), and public-key encryption in Pionia v3."><link rel=icon href=/favicon.ico sizes=32x32><link rel=icon href=/favicon.svg type=image/png><link rel=apple-touch-icon href=/apple-touch-icon.png sizes=180x180 type=image/png><link rel=icon href=/favicon-192x192.png sizes=192x192 type=image/png><link rel=icon href=/favicon-512x512.png sizes=512x512 type=image/png><link rel=manifest href=/manifest.webmanifest><meta property="og:title" content="Security utilities"><meta property="og:description" content="Pionia Security class and helpers for passwords, tokens, OTPs, hashing, and encryption."><meta property="og:type" content="article"><meta property="og:url" content="/documentation/security/security-utilities/"><meta property="og:image" content="/favicon.ico"><meta property="article:section" content="docs"><meta property="article:published_time" content="2026-07-01T00:00:00+00:00"><meta property="article:modified_time" content="2026-07-04T04:53:15+03:00"><meta property="og:site_name" content="Pionia Framework"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/favicon.ico"><meta name=twitter:title content="Security utilities"><meta name=twitter:description content="Pionia Security class and helpers for passwords, tokens, OTPs, hashing, and encryption."><meta name=twitter:site content="@pionia"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"/","name":"Pionia Framework","position":1},{"@type":"ListItem","item":"/docs/","name":"Docs","position":2},{"@type":"ListItem","item":"/documentation/","name":"Documentation","position":3},{"@type":"ListItem","item":"/documentation/security/","name":"Security","position":4},{"@type":"ListItem","name":"Security Utilities","position":5}]}</script></head><body class="single section docs" data-bs-spy=scroll data-bs-target=#toc data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll=true tabindex=0><div class=sticky-top><div class=header-bar></div><header class="navbar navbar-expand-lg"><div class=container-sm><a class="navbar-brand me-auto me-lg-3" href=/>Pionia
-<span class=docs-version-badge>Docs v3</span>
-</a><button type=button id=searchToggleMobile class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button class="btn btn-link d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavSection aria-controls=offcanvasNavSection aria-label="Open section navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 19m-1 0a1 1 0 102 0 1 1 0 10-2 0"/><path d="M12 5m-1 0a1 1 0 102 0 1 1 0 10-2 0"/></svg></button><div class="offcanvas offcanvas-start d-lg-none" tabindex=-1 id=offcanvasNavSection aria-labelledby=offcanvasNavSectionLabel><div class=header-bar></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavSectionLabel>Docs</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class=offcanvas-body><aside class="doks-sidebar mt-n3"><nav id=doks-docs-nav aria-label="Tertiary navigation"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details><summary>Getting Started</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/getting-started/introduction/>Introduction</a></li><li><a href=/documentation/getting-started/php-basics/>PHP basics for Pionia</a></li><li><a href=/documentation/getting-started/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/getting-started/glossary/>Glossary</a></li><li><a href=/documentation/getting-started/changelog-v3/>Pionia v3 — Release notes</a></li><li><a href=/documentation/getting-started/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/getting-started/application-structure/>Application Structure</a></li></ul></details></li><li><details><summary>DeskFlow tutorial</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/deskflow-tutorial/01-create-project/>Step 1 — Create your project</a></li><li><a href=/documentation/deskflow-tutorial/02-dev-server-and-ping/>Step 2 — Dev server and ping</a></li><li><a href=/documentation/deskflow-tutorial/03-your-first-service/>Step 3 — Your first service</a></li><li><a href=/documentation/deskflow-tutorial/04-project-layout/>Step 4 — Know your project layout</a></li><li><a href=/documentation/deskflow-tutorial/05-database-setup/>Step 5 — Database setup</a></li><li><a href=/documentation/deskflow-tutorial/06-list-from-database/>Step 6 — List tasks from the database</a></li><li><a href=/documentation/deskflow-tutorial/07-create-tasks/>Step 7 — Create tasks</a></li><li><a href=/documentation/deskflow-tutorial/08-validation/>Step 8 — Validation</a></li><li><a href=/documentation/deskflow-tutorial/09-authentication/>Step 9 — Authentication</a></li><li><a href=/documentation/deskflow-tutorial/10-middleware/>Step 10 — Middleware</a></li><li><a href=/documentation/deskflow-tutorial/11-background-work/>Step 11 — Background work</a></li><li><a href=/documentation/deskflow-tutorial/12-frontend/>Step 12 — Frontend (optional)</a></li><li><a href=/documentation/deskflow-tutorial/13-deploy/>Step 13 — Deploy</a></li><li><a href=/documentation/deskflow-tutorial/14-app-provider/>Step 14 — App provider</a></li><li><a href=/documentation/deskflow-tutorial/15-contribute-to-core/>Step 15 — Contribute to PioniaCore</a></li></ul></details></li><li><details><summary>Building your API</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/building-api/api-versioning/>API versioning in Moonlight</a></li><li><a href=/documentation/building-api/moonlight-overview/>Moonlight overview</a></li><li><a href=/documentation/building-api/moonlight-security/>Moonlight security model</a></li><li><a href=/documentation/building-api/services/>Services</a></li><li><a href=/documentation/building-api/actions/>Actions</a></li><li><a href=/documentation/building-api/validation/>Validation</a></li><li><a href=/documentation/building-api/generic-services/>Generic services</a></li><li><a href=/documentation/building-api/advanced-generic-services/>Advanced Generic Services</a></li><li><a href=/documentation/building-api/api-reference/>Documenting your API (Moonlight)</a></li></ul></details></li><li><a href=/documentation/examples/>Examples</a></li><li><details><summary>HTTP & middleware</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/http/collections/>Collections (Arrayable)</a></li><li><a href=/documentation/http/http-routing/>HTTP routing</a></li><li><a href=/documentation/http/middleware/>Middleware</a></li><li><a href=/documentation/http/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/http/exceptions/>Exceptions & error handling</a></li></ul></details></li><li><details><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li><a href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><details open><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li><li class=active><a aria-current=page href=/documentation/security/security-utilities/>Security utilities</a></li></ul></details></li><li><details><summary>Frontend</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/frontend/vite-integration/>Frontend Integration (Vite)</a></li></ul></details></li><li><details><summary>Operations & deploy</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/operations/maintenance/>Maintenance mode</a></li><li><a href=/documentation/operations/roadrunner/>RoadRunner</a></li><li><a href=/documentation/operations/production-performance/>Production performance</a></li><li><a href=/documentation/operations/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/operations/logging/>Logging</a></li><li><a href=/documentation/operations/background-work/>Background work</a></li><li><a href=/documentation/operations/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/operations/commands-pionia-cli/>Commands (Pionia CLI)</a></li></ul></details></li><li><details><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li><li><a href=/documentation/extending/helpers/>Pionia Helpers</a></li><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></nav></nav></aside></div></div><button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasNavMain aria-controls=offcanvasNavMain aria-label="Open main navigation menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg></button><div class="offcanvas offcanvas-end h-auto" tabindex=-1 id=offcanvasNavMain aria-labelledby=offcanvasNavMainLabel><div class="header-bar d-lg-none"></div><div class=offcanvas-header><h5 class=offcanvas-title id=offcanvasNavMainLabel>Pionia</h5><button type=button class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss=offcanvas aria-label=Close><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button></div><div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between"><ul class="navbar-nav flex-grow-1"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href=# role=button data-bs-toggle=dropdown aria-expanded=false>Documentation<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6 6-6"/></svg></a><ul class="dropdown-menu shadow rounded border-0"><li><a class=dropdown-item href=/documentation/getting-started/introduction/>Getting Started</a></li><li><a class=dropdown-item href=/documentation/deskflow-tutorial/>DeskFlow tutorial</a></li><li><a class=dropdown-item href=/documentation/building-api/>Building your API</a></li><li><a class=dropdown-item href=/documentation/database/>Database</a></li><li><a class=dropdown-item href=/documentation/operations/roadrunner/>Operations</a></li></ul></li><li class=nav-item><a class=nav-link href=/resources/>Resources</a></li></ul><button type=button id=searchToggleDesktop class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-<button id=buttonColorMode class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type=button aria-label="Toggle theme"><svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132.0.263.0.393.0a7.5 7.5.0 007.92 12.446A9 9 0 1112 2.992z"/></svg><svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 108 0 4 4 0 10-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"/></svg></button><ul id=socialMenu class="nav mx-auto flex-row order-lg-4"><li class=nav-item><a class="nav-link social-link" href=https://github.com/PioniaPHP-project/pionia-docs><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg><small class="ms-2 visually-hidden">GitHub</small></a></li></ul><a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href=/documentation/getting-started/introduction/#get-started role=button>Get started</a></div></div><a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href=/documentation/getting-started/introduction/#get-started role=button>Get started</a></div></header></div><div class=modal id=searchModal tabindex=-1 aria-labelledby=searchModalLabel aria-hidden=true><div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down"><div class=modal-content><div class=modal-header><h1 class="modal-title fs-5 visually-hidden" id=searchModalLabel>Search</h1><button type=button class="btn-close visually-hidden" data-bs-dismiss=modal aria-label=Close></button><div class="search-input flex-grow-1 d-none"><form id=search-form class=search-form action=# method=post accept-charset=UTF-8 role=search><label for=query class=visually-hidden>Search</label><div class=d-flex><input type=search id=query name=query class="search-text form-control form-control-lg" placeholder=Search aria-label=Search maxlength=128 autocomplete=off>
-<button type=button class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss=modal aria-label=Close>Cancel</button></div></form></div></div><div class=modal-body><p class="search-loading status message d-none mt-3 text-center">Loading search index…</p><p class="search-no-recent message d-none mt-3 text-center">No recent searches</p><p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class=query-no-results>Query here</span></strong>"</p><div id=searchResults class=search-results></div><template><article class="search-result list-view"><div class="card my-3"><div class=card-body><header><h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href=#>Title here</a></h2><div class=submitted><time class=created-date>Date here</time></div></header><div class=content>Summary here</div></div></div></article></template></div><div class=modal-footer><ul class="list-inline me-auto d-none d-md-block"><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4m3 3-3-3 3-3"/></g></svg></kbd><span class=DocSearch-Label>to select</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8m3-3-3 3-3-3"/></g></svg></kbd><kbd class=me-2><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8m3 3-3-3-3 3"/></g></svg></kbd><span class=DocSearch-Label>to navigate</span></li><li class=list-inline-item><kbd class=me-2><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993.0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016s1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5s-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864.0 1.6425 1.031 1.5443 2.2492h-2.956"/></g></svg></kbd><span class=DocSearch-Label>to close</span></li></ul><p class=d-md-none>Search by <a class=text-decoration-none href=https://github.com/nextapps-de/flexsearch>FlexSearch</a></p></div></div></div></div><div class="wrap container-sm" role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block"><nav class="section-nav docs-links"><ul class=list-unstyled><li><details><summary>Getting Started</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/getting-started/introduction/>Introduction</a></li><li><a href=/documentation/getting-started/php-basics/>PHP basics for Pionia</a></li><li><a href=/documentation/getting-started/why-pionia/>Why Pionia?</a></li><li><a href=/documentation/getting-started/glossary/>Glossary</a></li><li><a href=/documentation/getting-started/changelog-v3/>Pionia v3 — Release notes</a></li><li><a href=/documentation/getting-started/upgrading-from-v2/>Upgrading from v2</a></li><li><a href=/documentation/getting-started/application-structure/>Application Structure</a></li></ul></details></li><li><details><summary>DeskFlow tutorial</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/deskflow-tutorial/01-create-project/>Step 1 — Create your project</a></li><li><a href=/documentation/deskflow-tutorial/02-dev-server-and-ping/>Step 2 — Dev server and ping</a></li><li><a href=/documentation/deskflow-tutorial/03-your-first-service/>Step 3 — Your first service</a></li><li><a href=/documentation/deskflow-tutorial/04-project-layout/>Step 4 — Know your project layout</a></li><li><a href=/documentation/deskflow-tutorial/05-database-setup/>Step 5 — Database setup</a></li><li><a href=/documentation/deskflow-tutorial/06-list-from-database/>Step 6 — List tasks from the database</a></li><li><a href=/documentation/deskflow-tutorial/07-create-tasks/>Step 7 — Create tasks</a></li><li><a href=/documentation/deskflow-tutorial/08-validation/>Step 8 — Validation</a></li><li><a href=/documentation/deskflow-tutorial/09-authentication/>Step 9 — Authentication</a></li><li><a href=/documentation/deskflow-tutorial/10-middleware/>Step 10 — Middleware</a></li><li><a href=/documentation/deskflow-tutorial/11-background-work/>Step 11 — Background work</a></li><li><a href=/documentation/deskflow-tutorial/12-frontend/>Step 12 — Frontend (optional)</a></li><li><a href=/documentation/deskflow-tutorial/13-deploy/>Step 13 — Deploy</a></li><li><a href=/documentation/deskflow-tutorial/14-app-provider/>Step 14 — App provider</a></li><li><a href=/documentation/deskflow-tutorial/15-contribute-to-core/>Step 15 — Contribute to PioniaCore</a></li></ul></details></li><li><details><summary>Building your API</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/building-api/api-versioning/>API versioning in Moonlight</a></li><li><a href=/documentation/building-api/moonlight-overview/>Moonlight overview</a></li><li><a href=/documentation/building-api/moonlight-security/>Moonlight security model</a></li><li><a href=/documentation/building-api/services/>Services</a></li><li><a href=/documentation/building-api/actions/>Actions</a></li><li><a href=/documentation/building-api/validation/>Validation</a></li><li><a href=/documentation/building-api/generic-services/>Generic services</a></li><li><a href=/documentation/building-api/advanced-generic-services/>Advanced Generic Services</a></li><li><a href=/documentation/building-api/api-reference/>Documenting your API (Moonlight)</a></li></ul></details></li><li><a href=/documentation/examples/>Examples</a></li><li><details><summary>HTTP & middleware</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/http/collections/>Collections (Arrayable)</a></li><li><a href=/documentation/http/http-routing/>HTTP routing</a></li><li><a href=/documentation/http/middleware/>Middleware</a></li><li><a href=/documentation/http/requests-and-responses/>Requests and Responses</a></li><li><a href=/documentation/http/exceptions/>Exceptions & error handling</a></li></ul></details></li><li><details><summary>Database (Porm)</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/database/configuration-getting-started/>Configuration - Getting Started</a></li><li><a href=/documentation/database/making-queries/>Making Queries</a></li><li><a href=/documentation/database/queries-with-filtering/>Queries with Filtering</a></li><li><a href=/documentation/database/where-dsl/>WHERE DSL Reference</a></li><li><a href=/documentation/database/relationships/>Relationships & Joins</a></li><li><a href=/documentation/database/using-functions-aggregation/>Using Functions - Aggregation</a></li><li><a href=/documentation/database/pagination/>Pagination</a></li><li><a href=/documentation/database/connections/>Connections</a></li><li><a href=/documentation/database/transactions-and-raw-sql/>Transactions & Raw SQL</a></li><li><a href=/documentation/database/performance/>Performance</a></li><li><a href=/documentation/database/api-reference/>API Reference</a></li></ul></details></li><li><details open><summary>Security</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/security/security-authentication-and-authorization/>Security — authentication and authorization</a></li><li class=active><a aria-current=page href=/documentation/security/security-utilities/>Security utilities</a></li></ul></details></li><li><details><summary>Frontend</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/frontend/vite-integration/>Frontend Integration (Vite)</a></li></ul></details></li><li><details><summary>Operations & deploy</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/operations/maintenance/>Maintenance mode</a></li><li><a href=/documentation/operations/roadrunner/>RoadRunner</a></li><li><a href=/documentation/operations/production-performance/>Production performance</a></li><li><a href=/documentation/operations/developer-stats/>Developer stats & metrics</a></li><li><a href=/documentation/operations/logging/>Logging</a></li><li><a href=/documentation/operations/background-work/>Background work</a></li><li><a href=/documentation/operations/caching-in-pionia/>Caching in Pionia</a></li><li><a href=/documentation/operations/commands-pionia-cli/>Commands (Pionia CLI)</a></li></ul></details></li><li><details><summary>Extending Pionia</summary><ul class="list-unstyled list-nested"><li><a href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li><li><a href=/documentation/extending/helpers/>Pionia Helpers</a></li><li><a href=/documentation/extending/composer-packages/>Composer packages</a></li><li><a href=/documentation/extending/app-providers/>App Providers</a></li></ul></details></li></ul></nav></div><nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation"><div class=page-links><h3>On this page</h3><nav id=toc><ul><li><a href=#who-this-is-for>Who this is for</a></li><li><a href=#what-you-will-learn>What you will learn</a></li><li><a href=#before-you-start>Before you start</a></li><li><a href=#how-it-works>How it works</a></li><li><a href=#requirements>Requirements</a></li><li><a href=#random-data-and-identifiers>Random data and identifiers</a><ul><li><a href=#examples>Examples</a></li></ul></li><li><a href=#password-hashing>Password hashing</a></li><li><a href=#hashing-and-comparison>Hashing and comparison</a></li><li><a href=#symmetric-encryption-shared-secret>Symmetric encryption (shared secret)</a></li><li><a href=#public-key-encryption-libsodium-box>Public-key encryption (libsodium box)</a><ul><li><a href=#seal-anonymous-sender>Seal (anonymous sender)</a></li><li><a href=#authenticated-box-known-sender>Authenticated box (known sender)</a></li></ul></li><li><a href=#rsa-pem-keys>RSA (PEM keys)</a></li><li><a href=#validators>Validators</a></li><li><a href=#choosing-an-approach>Choosing an approach</a></li><li><a href=#common-mistakes>Common mistakes</a></li><li><a href=#whats-next>What&rsquo;s next</a></li></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Security utilities</h1><nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation"><details><summary>On this page</summary><div class=page-links><nav id=TableOfContents><ul><li><a href=#who-this-is-for>Who this is for</a></li><li><a href=#what-you-will-learn>What you will learn</a></li><li><a href=#before-you-start>Before you start</a></li><li><a href=#how-it-works>How it works</a></li><li><a href=#requirements>Requirements</a></li><li><a href=#random-data-and-identifiers>Random data and identifiers</a><ul><li><a href=#examples>Examples</a></li></ul></li><li><a href=#password-hashing>Password hashing</a></li><li><a href=#hashing-and-comparison>Hashing and comparison</a></li><li><a href=#symmetric-encryption-shared-secret>Symmetric encryption (shared secret)</a></li><li><a href=#public-key-encryption-libsodium-box>Public-key encryption (libsodium box)</a><ul><li><a href=#seal-anonymous-sender>Seal (anonymous sender)</a></li><li><a href=#authenticated-box-known-sender>Authenticated box (known sender)</a></li></ul></li><li><a href=#rsa-pem-keys>RSA (PEM keys)</a></li><li><a href=#validators>Validators</a></li><li><a href=#choosing-an-approach>Choosing an approach</a></li><li><a href=#common-mistakes>Common mistakes</a></li><li><a href=#whats-next>What&rsquo;s next</a></li></ul></nav></div></details></nav><h2 id=who-this-is-for>Who this is for<a href=#who-this-is-for class=anchor aria-hidden=true>#</a></h2><p>You are implementing DeskFlow <strong><code>member.login</code></strong> (password hashing with <code>hash_password()</code>), issuing session tokens after JWT sign-in, or sealing sensitive columns — and want the built-in <strong><code>security()</code></strong> helpers instead of ad-hoc crypto.</p><h2 id=what-you-will-learn>What you will learn<a href=#what-you-will-learn class=anchor aria-hidden=true>#</a></h2><ul><li>Which <code>secure_*</code> helper to use for passwords, API keys, OTPs, and encryption</li><li>How <code>APP_KEY</code> and PHP extensions (<code>ext-sodium</code>, <code>ext-openssl</code>) fit together</li><li>Validation rules (<code>otp</code>, <code>token</code>, <code>ulid</code>) that pair with security validators</li></ul><h2 id=before-you-start>Before you start<a href=#before-you-start class=anchor aria-hidden=true>#</a></h2><div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3"><div class=callout-content><div class=callout-title>Before you start</div><div class=callout-body><ul><li>Booted app (<code>php pionia serve</code> on port <strong>8000</strong>)</li><li><a href=/documentation/security/security-authentication-and-authorization/>Authentication & authorization</a> — where JWT and <code>mustAuthenticate()</code> fit</li><li><code>ext-sodium</code> enabled for <code>encrypt()</code> / <code>decrypt()</code> (check <code>php -m</code>)</li></ul></div></div></div><h2 id=how-it-works>How it works<a href=#how-it-works class=anchor aria-hidden=true>#</a></h2><p>Pionia ships a single <strong><code>Pionia\Security\Security</code></strong> class on the application container. Global helpers mirror every public method — use <code>security()->token()</code> or <code>secure_token()</code> interchangeably after boot.</p><pre class="mermaid my-4">flowchart LR
-  Login[&#34;member.login&#34;] --&gt; Hash[&#34;hash_password() / verify_password()&#34;]
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f14b3e296de1d0b69e75af684b62a4a912a2cadab04e36123407cd8388204f1d.js"
+  integrity="sha256-8Us&#43;KW3h0Laeda9oS2KkqRKiytqwTjYSNAfNg4ggTx0=">
+</script>
+
+
+<link rel="stylesheet" href="/main.ee409fb63749138aae91e452d9ea4b8d255a0c77e6c0cae4820a77bbf3b1cadb13456cadaee8333cfe007ac4406793433c115cd16f2d51c286120bcd880f5f84.css" integrity="sha512-7kCftjdJE4qukeRS2epLjSVaDHfmwMrkggp3u/OxytsTRWytrugzPP4AesRAZ5NDPBFc0W8tUcKGEgvNiA9fhA==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript>
+  <link rel="canonical" href="http://localhost:1313/documentation/security/security-utilities/">
+<title>Pionia security utilities</title>
+<meta name="description" content="security(), secure_token(), encrypt(), and public-key encryption in Pionia v3.">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/png">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="Security utilities">
+<meta property="og:description" content="Pionia Security class and helpers for passwords, tokens, OTPs, hashing, and encryption.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/documentation/security/security-utilities/"><meta property="og:image" content="http://localhost:1313/favicon.ico"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2026-07-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2026-07-04T04:53:15+03:00"><meta property="og:site_name" content="Pionia Framework">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/favicon.ico"><meta name="twitter:title" content="Security utilities">
+<meta name="twitter:description" content="Pionia Security class and helpers for passwords, tokens, OTPs, hashing, and encryption.">
+<meta name="twitter:site" content="@pionia">
+
+    
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Pionia Framework",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/documentation/",
+       "name": "Documentation",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/documentation/security/",
+       "name": "Security",
+       "position": 4
+     },
+     {
+       "@type": "ListItem",
+       "name": "Security Utilities",
+       "position": 5
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<div class="header-bar"></div>
+<header class="navbar navbar-expand-lg">
+  <div class="container-sm">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">
+      Pionia
+      <span class="docs-version-badge">Docs v3</span>
+    </a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="header-bar"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+    
+      
+
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Pionia Shop tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/shop-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/04-project-layout/">Step 4 — Project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/06-list-from-database/">Step 6 — List products from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/07-create-products/">Step 7 — Create products</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/15-contribute-to-core/">Step 15 — Contribute to core (optional)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/welcome-page-and-branding/">Welcome page and branding</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/migrations/">Database migrations</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/protecting-actions/">Protecting actions with attributes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/jwt-authentication/">JWT authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/benchmarking/">In-process benchmarking</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+    
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="header-bar d-lg-none"></div>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Pionia</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Documentation<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 9l6 6l6 -6"></path>
+                  </svg>
+                </a>
+                <ul class="dropdown-menu shadow rounded border-0">
+                  <li><a class="dropdown-item" href="/documentation/getting-started/introduction/">Getting Started</a></li>
+                  <li><a class="dropdown-item" href="/documentation/shop-tutorial/">Pionia Shop tutorial</a></li>
+                  <li><a class="dropdown-item" href="/documentation/building-api/">Building your API</a></li>
+                  <li><a class="dropdown-item" href="/documentation/database/">Database</a></li>
+                  <li><a class="dropdown-item" href="/documentation/operations/roadrunner/">Operations</a></li>
+                  </ul>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resources/">Resources</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/PioniaPHP-project/pionia-docs"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          </ul>
+        
+        <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-sm" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+			
+    
+      
+
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details>
+      <summary>Getting Started</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/getting-started/introduction/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/php-basics/">PHP basics for Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/why-pionia/">Why Pionia?</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/glossary/">Glossary</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/changelog-v3/">Pionia v3 — Release notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/upgrading-from-v2/">Upgrading from v2</a>
+  </li>
+
+  <li>
+      <a href="/documentation/getting-started/application-structure/">Application Structure</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Pionia Shop tutorial</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/shop-tutorial/01-create-project/">Step 1 — Create your project</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/02-dev-server-and-ping/">Step 2 — Dev server and ping</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/03-your-first-service/">Step 3 — Your first service</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/04-project-layout/">Step 4 — Project layout</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/05-database-setup/">Step 5 — Database setup</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/06-list-from-database/">Step 6 — List products from the database</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/07-create-products/">Step 7 — Create products</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/08-validation/">Step 8 — Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/09-authentication/">Step 9 — Authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/10-middleware/">Step 10 — Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/11-background-work/">Step 11 — Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/12-frontend/">Step 12 — Frontend (optional)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/13-deploy/">Step 13 — Deploy</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/14-app-provider/">Step 14 — App provider</a>
+  </li>
+
+  <li>
+      <a href="/documentation/shop-tutorial/15-contribute-to-core/">Step 15 — Contribute to core (optional)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Building your API</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/building-api/api-versioning/">API versioning in Moonlight</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-overview/">Moonlight overview</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/moonlight-security/">Moonlight security model</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/services/">Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/actions/">Actions</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/validation/">Validation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/generic-services/">Generic services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/advanced-generic-services/">Advanced Generic Services</a>
+  </li>
+
+  <li>
+      <a href="/documentation/building-api/api-reference/">Documenting your API (Moonlight)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+      <a href="/documentation/examples/">Examples</a>
+  </li>
+
+  <li>
+    <details>
+      <summary>HTTP &amp; middleware</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/http/welcome-page-and-branding/">Welcome page and branding</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/collections/">Collections (Arrayable)</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/http-routing/">HTTP routing</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/middleware/">Middleware</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/requests-and-responses/">Requests and Responses</a>
+  </li>
+
+  <li>
+      <a href="/documentation/http/exceptions/">Exceptions &amp; error handling</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Database (Porm)</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/database/migrations/">Database migrations</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/configuration-getting-started/">Configuration - Getting Started</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/making-queries/">Making Queries</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/queries-with-filtering/">Queries with Filtering</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/where-dsl/">WHERE DSL Reference</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/relationships/">Relationships &amp; Joins</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/using-functions-aggregation/">Using Functions - Aggregation</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/pagination/">Pagination</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/connections/">Connections</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/transactions-and-raw-sql/">Transactions &amp; Raw SQL</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/performance/">Performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/database/api-reference/">API Reference</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Security</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/security/protecting-actions/">Protecting actions with attributes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/jwt-authentication/">JWT authentication</a>
+  </li>
+
+  <li>
+      <a href="/documentation/security/security-authentication-and-authorization/">Security — authentication and authorization</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/documentation/security/security-utilities/">Security utilities</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Frontend</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/frontend/vite-integration/">Frontend Integration (Vite)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Operations &amp; deploy</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/operations/maintenance/">Maintenance mode</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/roadrunner/">RoadRunner</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/production-performance/">Production performance</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/benchmarking/">In-process benchmarking</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/developer-stats/">Developer stats &amp; metrics</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/logging/">Logging</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/background-work/">Background work</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/caching-in-pionia/">Caching in Pionia</a>
+  </li>
+
+  <li>
+      <a href="/documentation/operations/commands-pionia-cli/">Commands (Pionia CLI)</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>Extending Pionia</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/documentation/extending/maintainer-notes/">Maintainer notes</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/helpers/">Pionia Helpers</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/composer-packages/">Composer packages</a>
+  </li>
+
+  <li>
+      <a href="/documentation/extending/app-providers/">App Providers</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+    
+
+		</div>
+		
+		<nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#who-this-is-for">Who this is for</a></li>
+    <li><a href="#what-you-will-learn">What you will learn</a></li>
+    <li><a href="#before-you-start">Before you start</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#random-data-and-identifiers">Random data and identifiers</a>
+      <ul>
+        <li><a href="#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#password-hashing">Password hashing</a></li>
+    <li><a href="#hashing-and-comparison">Hashing and comparison</a></li>
+    <li><a href="#symmetric-encryption-shared-secret">Symmetric encryption (shared secret)</a></li>
+    <li><a href="#public-key-encryption-libsodium-box">Public-key encryption (libsodium box)</a>
+      <ul>
+        <li><a href="#seal-anonymous-sender">Seal (anonymous sender)</a></li>
+        <li><a href="#authenticated-box-known-sender">Authenticated box (known sender)</a></li>
+      </ul>
+    </li>
+    <li><a href="#rsa-pem-keys">RSA (PEM keys)</a></li>
+    <li><a href="#validators">Validators</a></li>
+    <li><a href="#choosing-an-approach">Choosing an approach</a></li>
+    <li><a href="#common-mistakes">Common mistakes</a></li>
+    <li><a href="#whats-next">What&rsquo;s next</a></li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9">
+		
+			<h1>Security utilities</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#who-this-is-for">Who this is for</a></li>
+    <li><a href="#what-you-will-learn">What you will learn</a></li>
+    <li><a href="#before-you-start">Before you start</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#random-data-and-identifiers">Random data and identifiers</a>
+      <ul>
+        <li><a href="#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#password-hashing">Password hashing</a></li>
+    <li><a href="#hashing-and-comparison">Hashing and comparison</a></li>
+    <li><a href="#symmetric-encryption-shared-secret">Symmetric encryption (shared secret)</a></li>
+    <li><a href="#public-key-encryption-libsodium-box">Public-key encryption (libsodium box)</a>
+      <ul>
+        <li><a href="#seal-anonymous-sender">Seal (anonymous sender)</a></li>
+        <li><a href="#authenticated-box-known-sender">Authenticated box (known sender)</a></li>
+      </ul>
+    </li>
+    <li><a href="#rsa-pem-keys">RSA (PEM keys)</a></li>
+    <li><a href="#validators">Validators</a></li>
+    <li><a href="#choosing-an-approach">Choosing an approach</a></li>
+    <li><a href="#common-mistakes">Common mistakes</a></li>
+    <li><a href="#whats-next">What&rsquo;s next</a></li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			<h2 id="who-this-is-for">Who this is for<a href="#who-this-is-for" class="anchor" aria-hidden="true">#</a> </h2>
+<p>You are implementing Pionia Shop <strong><code>customer.login</code></strong> (password hashing with <code>hash_password()</code>), issuing session tokens after JWT sign-in, or sealing sensitive columns — and want the built-in <strong><code>security()</code></strong> helpers instead of ad-hoc crypto.</p>
+<h2 id="what-you-will-learn">What you will learn<a href="#what-you-will-learn" class="anchor" aria-hidden="true">#</a> </h2>
+<ul>
+<li>Which <code>secure_*</code> helper to use for passwords, API keys, OTPs, and encryption</li>
+<li>How <code>APP_KEY</code> and PHP extensions (<code>ext-sodium</code>, <code>ext-openssl</code>) fit together</li>
+<li>Validation rules (<code>otp</code>, <code>token</code>, <code>ulid</code>) that pair with security validators</li>
+</ul>
+<h2 id="before-you-start">Before you start<a href="#before-you-start" class="anchor" aria-hidden="true">#</a> </h2>
+<div class="prerequisites-block callout callout-info d-flex flex-row my-4 pt-3 pe-3 pb-2 ps-3">
+  <div class="callout-content">
+    <div class="callout-title">Before you start</div>
+    <div class="callout-body">
+      <ul>
+<li>Booted app (<code>php pionia serve</code> on port <strong>8000</strong>)</li>
+<li><a href="/documentation/security/jwt-authentication/">JWT authentication</a> — Bearer tokens with <code>jwt_encode()</code> / <code>JwtAuthentication</code></li>
+<li><a href="/documentation/security/security-authentication-and-authorization/">Authentication &amp; authorization</a> — where backends and <code>mustAuthenticate()</code> fit</li>
+<li><code>ext-sodium</code> enabled for <code>encrypt()</code> / <code>decrypt()</code> (check <code>php -m</code>)</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="how-it-works">How it works<a href="#how-it-works" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Pionia ships a single <strong><code>Pionia\Security\Security</code></strong> class on the application container. Global helpers mirror every public method — use <code>security()-&gt;token()</code> or <code>secure_token()</code> interchangeably after boot.</p>
+<pre class="mermaid my-4">flowchart LR
+  Login[&#34;customer.login&#34;] --&gt; Hash[&#34;hash_password() / verify_password()&#34;]
   Token[&#34;API session&#34;] --&gt; ST[&#34;secure_token()&#34;]
   OTP[&#34;Email reset code&#34;] --&gt; OTPH[&#34;secure_otp() &#43; otp rule&#34;]
-  AtRest[&#34;Encrypted column&#34;] --&gt; Enc[&#34;encrypt() with APP_KEY&#34;]</pre><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$token</span> <span class=o>=</span> <span class=nx>security</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>token</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$token</span> <span class=o>=</span> <span class=nx>secure_token</span><span class=p>();</span> <span class=c1>// same result
-</span></span></span></code></pre></div></figure></div><div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><div class=callout-content><div class=callout-title><p>Boot required</p></div><div class=callout-body><p>Helpers like <code>security()</code> require a booted application (<code>bootstrap/application.php</code>). For one-off scripts, call <code>AppRealm::create()</code> first or use the class directly: <code>(new Security())->token()</code>.</p></div></div></div><h2 id=requirements>Requirements<a href=#requirements class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Feature</th><th>PHP extension</th></tr></thead><tbody><tr><td><code>encrypt()</code> / <code>decrypt()</code>, libsodium box, <code>keyPair()</code></td><td><code>ext-sodium</code></td></tr><tr><td><code>rsaEncrypt()</code> / <code>rsaDecrypt()</code> (hybrid large payloads)</td><td><code>ext-openssl</code> + <code>ext-sodium</code></td></tr><tr><td>Password hashing, HMAC, random bytes</td><td>core PHP</td></tr></tbody></table><p>Set <code>APP_KEY</code> in <code>environment/.env</code> for symmetric encryption (supports <code>base64:…</code> prefix):</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>php pionia shell</span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=s1>&#39;base64:&#39;</span> <span class=o>.</span> <span class=nx>secure_random_base64</span><span class=p>(</span><span class=mi>32</span><span class=p>,</span> <span class=k>false</span><span class=p>);</span></span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=c1># environment/.env</span>
-</span></span><span class=line><span class=cl><span class=na>APP_KEY</span><span class=o>=</span><span class=s>base64:paste-the-value-here</span></span></span></code></pre></div></figure></div><p>For scripts without a booted app, <code>(new Security())->randomHex(32)</code> and <code>(new Security())->randomBase64(32, false)</code> work the same way — no OpenSSL CLI required.</p><h2 id=random-data-and-identifiers>Random data and identifiers<a href=#random-data-and-identifiers class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Helper</th><th><code>security()</code> method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>secure_random_bytes($length)</code></td><td><code>randomBytes()</code></td><td>Raw CSPRNG bytes</td></tr><tr><td><code>secure_random_string($length, $alphabet?)</code></td><td><code>randomString()</code></td><td>Random string from a custom alphabet</td></tr><tr><td><code>secure_random_hex($bytes = 16)</code></td><td><code>randomHex()</code></td><td>Hex-encoded random bytes</td></tr><tr><td><code>secure_random_base64($bytes = 32, $urlSafe = true)</code></td><td><code>randomBase64()</code></td><td>Base64 (optionally URL-safe)</td></tr><tr><td><code>secure_uuid()</code></td><td><code>uuid()</code></td><td>UUID v4</td></tr><tr><td><code>secure_ulid()</code></td><td><code>ulid()</code></td><td>Sortable ULID</td></tr><tr><td><code>secure_otp($length = 6, $numericOnly = true)</code></td><td><code>otp()</code></td><td>One-time code (4–20 chars)</td></tr><tr><td><code>secure_token($bytes = 32)</code></td><td><code>token()</code></td><td>URL-safe API/session token</td></tr><tr><td><code>secure_secret($bytes = 32)</code></td><td><code>secret()</code></td><td>Alias of <code>secure_token()</code></td></tr><tr><td><code>secure_password($length = 16, $symbols = true)</code></td><td><code>password()</code></td><td>Random password matching the <code>password</code> validation rule</td></tr><tr><td><code>csrf_token($bytes = 32)</code></td><td><code>csrfToken()</code></td><td>CSRF token (alias of <code>token()</code>)</td></tr></tbody></table><p>Alphabet constants on the class: <code>Security::ALPHABET_LOWER</code>, <code>ALPHABET_UPPER</code>, <code>ALPHABET_NUMERIC</code>, <code>ALPHABET_ALPHANUMERIC</code>, <code>ALPHABET_HEX</code>, <code>ALPHABET_SYMBOLS</code>.</p><h3 id=examples>Examples<a href=#examples class=anchor aria-hidden=true>#</a></h3><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$apiKey</span> <span class=o>=</span> <span class=nx>secure_secret</span><span class=p>(</span><span class=mi>32</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$code</span> <span class=o>=</span> <span class=nx>secure_otp</span><span class=p>(</span><span class=mi>8</span><span class=p>);</span>              <span class=c1>// 8-digit numeric OTP
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$invite</span> <span class=o>=</span> <span class=nx>secure_ulid</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$resetToken</span> <span class=o>=</span> <span class=nx>secure_token</span><span class=p>(</span><span class=mi>48</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// Custom alphabet
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$pin</span> <span class=o>=</span> <span class=nx>secure_random_string</span><span class=p>(</span><span class=mi>6</span><span class=p>,</span> <span class=nx>Security</span><span class=o>::</span><span class=na>ALPHABET_NUMERIC</span><span class=p>);</span></span></span></code></pre></div></figure></div><h2 id=password-hashing>Password hashing<a href=#password-hashing class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Helper</th><th>Method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>hash_password($password, $options = [])</code></td><td><code>hashPassword()</code></td><td>Store bcrypt/argon hash</td></tr><tr><td><code>verify_password($password, $hash)</code></td><td><code>verifyPassword()</code></td><td>Check login</td></tr><tr><td><code>password_needs_rehash($hash)</code> (PHP built-in) or <code>security()->needsRehash()</code></td><td><code>needsRehash()</code></td><td>Upgrade algorithm on login</td></tr></tbody></table><p>DeskFlow <code>member.login</code> — verify without leaking hashes in the response:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$hash</span> <span class=o>=</span> <span class=nx>hash_password</span><span class=p>(</span><span class=nv>$plain</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=nx>verify_password</span><span class=p>(</span><span class=nv>$plain</span><span class=p>,</span> <span class=nv>$user</span><span class=o>-&gt;</span><span class=na>password_hash</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=nx>password_needs_rehash</span><span class=p>(</span><span class=nv>$user</span><span class=o>-&gt;</span><span class=na>password_hash</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>table</span><span class=p>(</span><span class=s1>&#39;team_members&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>update</span><span class=p>(</span><span class=nv>$user</span><span class=o>-&gt;</span><span class=na>id</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;password_hash&#39;</span> <span class=o>=&gt;</span> <span class=nx>hash_password</span><span class=p>(</span><span class=nv>$plain</span><span class=p>)]);</span>
-</span></span><span class=line><span class=cl>  <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure></div><p>Never return password hashes in API <code>returnData</code>. Pair with the <code>password</code> validation rule — see <a href=/documentation/building-api/validation/>Validations</a>.</p><h2 id=hashing-and-comparison>Hashing and comparison<a href=#hashing-and-comparison class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Helper</th><th>Method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>secure_hash($data, $algo = 'sha256')</code></td><td><code>hash()</code></td><td>One-way digest</td></tr><tr><td><code>secure_hmac($data, $key, $algo = 'sha256')</code></td><td><code>hmac()</code></td><td>Message authentication code</td></tr><tr><td><code>verify_hmac($data, $key, $expected, $algo = 'sha256')</code></td><td><code>verifyHmac()</code></td><td>Timing-safe HMAC check (hex or binary)</td></tr><tr><td><code>secure_equals($known, $user)</code></td><td><code>equals()</code></td><td>Timing-safe string compare</td></tr></tbody></table><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$signature</span> <span class=o>=</span> <span class=nx>secure_hmac</span><span class=p>(</span><span class=nv>$payload</span><span class=p>,</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;WEBHOOK_SECRET&#39;</span><span class=p>));</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>verify_hmac</span><span class=p>(</span><span class=nv>$payload</span><span class=p>,</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;WEBHOOK_SECRET&#39;</span><span class=p>),</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>headers</span><span class=o>-&gt;</span><span class=na>get</span><span class=p>(</span><span class=s1>&#39;X-Signature&#39;</span><span class=p>)))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>response</span><span class=p>(</span><span class=mi>401</span><span class=p>,</span> <span class=s1>&#39;Invalid signature&#39;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>secure_equals</span><span class=p>(</span><span class=nv>$storedToken</span><span class=p>,</span> <span class=nv>$submittedToken</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>response</span><span class=p>(</span><span class=mi>403</span><span class=p>,</span> <span class=s1>&#39;Forbidden&#39;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure></div><h2 id=symmetric-encryption-shared-secret>Symmetric encryption (shared secret)<a href=#symmetric-encryption-shared-secret class=anchor aria-hidden=true>#</a></h2><p>Encrypt sensitive values at rest with <code>APP_KEY</code> or an explicit key:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$encrypted</span> <span class=o>=</span> <span class=nx>encrypt</span><span class=p>(</span><span class=s1>&#39;sensitive payload&#39;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$plain</span> <span class=o>=</span> <span class=nx>decrypt</span><span class=p>(</span><span class=nv>$encrypted</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// Explicit key (32+ bytes or base64: prefix)
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$key</span> <span class=o>=</span> <span class=nx>secure_random_bytes</span><span class=p>(</span><span class=mi>32</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$blob</span> <span class=o>=</span> <span class=nx>encrypt</span><span class=p>(</span><span class=nv>$json</span><span class=p>,</span> <span class=nv>$key</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nv>$json</span> <span class=o>=</span> <span class=nx>decrypt</span><span class=p>(</span><span class=nv>$blob</span><span class=p>,</span> <span class=nv>$key</span><span class=p>);</span></span></span></code></pre></div></figure></div><p>Payload format: base64(<code>nonce</code> + <code>ciphertext</code>) using libsodium secretbox.</p><h2 id=public-key-encryption-libsodium-box>Public-key encryption (libsodium box)<a href=#public-key-encryption-libsodium-box class=anchor aria-hidden=true>#</a></h2><p>X25519 key pairs are returned <strong>base64-encoded</strong>:</p><table><thead><tr><th>Helper</th><th>Method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>security_key_pair()</code></td><td><code>keyPair()</code></td><td>Generate <code>{ public_key, private_key }</code></td></tr><tr><td><code>encrypt_with_public_key($plain, $publicKey)</code></td><td><code>encryptWithPublicKey()</code></td><td>Seal — encrypt with public key only</td></tr><tr><td><code>decrypt_with_private_key($payload, $publicKey, $privateKey)</code></td><td><code>decryptWithPrivateKey()</code></td><td>Open sealed message</td></tr><tr><td><code>encrypt_for_recipient($plain, $recipientPublic, $senderPrivate)</code></td><td><code>encryptForRecipient()</code></td><td>Authenticated sender → recipient</td></tr><tr><td><code>decrypt_from_sender($payload, $senderPublic, $recipientPrivate)</code></td><td><code>decryptFromSender()</code></td><td>Decrypt authenticated message</td></tr><tr><td><code>public_key_from_private($privateKey)</code></td><td><code>publicKeyFromPrivateKey()</code></td><td>Derive public key</td></tr></tbody></table><h3 id=seal-anonymous-sender>Seal (anonymous sender)<a href=#seal-anonymous-sender class=anchor aria-hidden=true>#</a></h3><p>Anyone with the public key can encrypt; only the holder of the private key can decrypt:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$keys</span> <span class=o>=</span> <span class=nx>security_key_pair</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nv>$encrypted</span> <span class=o>=</span> <span class=nx>encrypt_with_public_key</span><span class=p>(</span><span class=s1>&#39;secret&#39;</span><span class=p>,</span> <span class=nv>$keys</span><span class=p>[</span><span class=s1>&#39;public_key&#39;</span><span class=p>]);</span>
-</span></span><span class=line><span class=cl><span class=nv>$plain</span> <span class=o>=</span> <span class=nx>decrypt_with_private_key</span><span class=p>(</span><span class=nv>$encrypted</span><span class=p>,</span> <span class=nv>$keys</span><span class=p>[</span><span class=s1>&#39;public_key&#39;</span><span class=p>],</span> <span class=nv>$keys</span><span class=p>[</span><span class=s1>&#39;private_key&#39;</span><span class=p>]);</span></span></span></code></pre></div></figure></div><h3 id=authenticated-box-known-sender>Authenticated box (known sender)<a href=#authenticated-box-known-sender class=anchor aria-hidden=true>#</a></h3><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$alice</span> <span class=o>=</span> <span class=nx>security_key_pair</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$bob</span> <span class=o>=</span> <span class=nx>security_key_pair</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nv>$encrypted</span> <span class=o>=</span> <span class=nx>encrypt_for_recipient</span><span class=p>(</span><span class=s1>&#39;hello bob&#39;</span><span class=p>,</span> <span class=nv>$bob</span><span class=p>[</span><span class=s1>&#39;public_key&#39;</span><span class=p>],</span> <span class=nv>$alice</span><span class=p>[</span><span class=s1>&#39;private_key&#39;</span><span class=p>]);</span>
-</span></span><span class=line><span class=cl><span class=nv>$plain</span> <span class=o>=</span> <span class=nx>decrypt_from_sender</span><span class=p>(</span><span class=nv>$encrypted</span><span class=p>,</span> <span class=nv>$alice</span><span class=p>[</span><span class=s1>&#39;public_key&#39;</span><span class=p>],</span> <span class=nv>$bob</span><span class=p>[</span><span class=s1>&#39;private_key&#39;</span><span class=p>]);</span></span></span></code></pre></div></figure></div><h2 id=rsa-pem-keys>RSA (PEM keys)<a href=#rsa-pem-keys class=anchor aria-hidden=true>#</a></h2><p>For interoperability with external systems that expect standard PEM RSA keys:</p><table><thead><tr><th>Helper</th><th>Method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>rsa_key_pair($bits = 2048)</code></td><td><code>rsaKeyPair()</code></td><td>Generate PEM <code>{ public_key, private_key }</code></td></tr><tr><td><code>rsa_encrypt($plain, $publicKeyPem)</code></td><td><code>rsaEncrypt()</code></td><td>RSA-OAEP (hybrid for large messages)</td></tr><tr><td><code>rsa_decrypt($payload, $privateKeyPem)</code></td><td><code>rsaDecrypt()</code></td><td>Decrypt RSA payload</td></tr></tbody></table><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$keys</span> <span class=o>=</span> <span class=nx>rsa_key_pair</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=nv>$encrypted</span> <span class=o>=</span> <span class=nx>rsa_encrypt</span><span class=p>(</span><span class=s1>&#39;any size message&#39;</span><span class=p>,</span> <span class=nv>$keys</span><span class=p>[</span><span class=s1>&#39;public_key&#39;</span><span class=p>]);</span>
-</span></span><span class=line><span class=cl><span class=nv>$plain</span> <span class=o>=</span> <span class=nx>rsa_decrypt</span><span class=p>(</span><span class=nv>$encrypted</span><span class=p>,</span> <span class=nv>$keys</span><span class=p>[</span><span class=s1>&#39;private_key&#39;</span><span class=p>]);</span></span></span></code></pre></div></figure></div><p>Minimum key size is <strong>2048</strong> bits. Small messages use direct RSA-OAEP; larger payloads wrap a symmetric key with secretbox.</p><h2 id=validators>Validators<a href=#validators class=anchor aria-hidden=true>#</a></h2><p>Static checks on the <code>Security</code> class — also exposed as helpers:</p><table><thead><tr><th>Helper</th><th>Method</th><th>Checks</th></tr></thead><tbody><tr><td><code>is_uuid($value)</code></td><td><code>isUuid()</code></td><td>UUID v4 format</td></tr><tr><td><code>is_ulid($value)</code></td><td><code>isUlid()</code></td><td>26-char Crockford ULID</td></tr><tr><td><code>is_otp($value, $length = 6, $numericOnly = true)</code></td><td><code>isOtp()</code></td><td>OTP length and charset</td></tr><tr><td><code>is_token($value, $minBytes = 16)</code></td><td><code>isToken()</code></td><td>Hex or URL-safe base64 entropy</td></tr></tbody></table><p>Use in validation pipes and chains:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>rules</span><span class=p>(</span><span class=nv>$data</span><span class=p>,</span> <span class=p>[</span>
-</span></span><span class=line><span class=cl>  <span class=s1>&#39;session_id&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|uuid&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=s1>&#39;request_id&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|ulid&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=s1>&#39;code&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|otp:6&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=s1>&#39;api_token&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|token:24&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl><span class=p>]);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>validate</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>,</span> <span class=nv>$data</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>asOtp</span><span class=p>(</span><span class=mi>8</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nx>validate</span><span class=p>(</span><span class=s1>&#39;token&#39;</span><span class=p>,</span> <span class=nv>$data</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>asToken</span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>
-</span></span><span class=line><span class=cl><span class=nx>validate</span><span class=p>(</span><span class=s1>&#39;id&#39;</span><span class=p>,</span> <span class=nv>$data</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>ulid</span><span class=p>();</span></span></span></code></pre></div></figure></div><p>See <a href=/documentation/building-api/validation/>Validations</a> for the full rule list.</p><h2 id=choosing-an-approach>Choosing an approach<a href=#choosing-an-approach class=anchor aria-hidden=true>#</a></h2><table><thead><tr><th>Use case</th><th>Recommendation</th></tr></thead><tbody><tr><td>API keys, session IDs, reset tokens</td><td><code>secure_token()</code> / <code>secure_secret()</code></td></tr><tr><td>Email/SMS OTP</td><td><code>secure_otp($length)</code> + <code>otp</code> validation rule</td></tr><tr><td>User passwords</td><td><code>hash_password()</code> / <code>verify_password()</code> + <code>password</code> rule</td></tr><tr><td>Webhook signatures</td><td><code>secure_hmac()</code> / <code>verify_hmac()</code></td></tr><tr><td>Compare secrets in constant time</td><td><code>secure_equals()</code></td></tr><tr><td>Encrypt DB column with app master key</td><td><code>encrypt()</code> / <code>decrypt()</code> + <code>APP_KEY</code></td></tr><tr><td>Encrypt for one recipient (no sender identity)</td><td><code>encrypt_with_public_key()</code></td></tr><tr><td>Encrypt between two known parties</td><td><code>encrypt_for_recipient()</code></td></tr><tr><td>Exchange with third-party PEM RSA</td><td><code>rsa_encrypt()</code> / <code>rsa_decrypt()</code></td></tr></tbody></table><h2 id=common-mistakes>Common mistakes<a href=#common-mistakes class=anchor aria-hidden=true>#</a></h2><ul><li>Using <code>md5()</code> or plain <code>sha256()</code> for passwords — use <code>hash_password()</code> / <code>verify_password()</code> only</li><li>Calling <code>encrypt()</code> without <code>APP_KEY</code> set — symmetric crypto fails at runtime</li><li>Comparing tokens with <code>===</code> when timing attacks matter — use <code>secure_equals()</code> or <code>verify_hmac()</code></li><li>Returning OTPs or reset tokens in logs — redact via <code>[logging] HIDE_IN_LOGS</code></li></ul><h2 id=whats-next>What&rsquo;s next<a href=#whats-next class=anchor aria-hidden=true>#</a></h2><div class="card-nav d-flex flex-column flex-sm-row"><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/security/security-authentication-and-authorization/ class="stretched-link text-reset text-decoration-none">Authentication & authorization</a></h5><p class="card-text mt-1">Wire JWT backends and mustAuthenticate().</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/building-api/validation/ class="stretched-link text-reset text-decoration-none">Validations</a></h5><p class="card-text mt-1">otp, token, ulid, uuid rules.</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div><div class="card text-end w-100"><div class="card-body d-flex"><div class="d-flex flex-column me-auto text-start"><h5 class="card-title my-0"><a href=/documentation/extending/helpers/ class="stretched-link text-reset text-decoration-none">Helpers reference</a></h5><p class="card-text mt-1">All global helpers including security().</p></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"><div class=last-modified><a href=https://github.com/PioniaPHP-project/pionia-docs/commit/c388266042590220517979fc7a547ab48988c259><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-Last updated on July 4, 2026</a></div><div class=edit-page><a href=https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/security/810_security-utilities.md><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828.0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-Edit this page on GitHub</a></div></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M5 12l6 6"/><path d="M5 12l6-6"/></svg></div><div class="d-flex flex-column"><div class=text-body-secondary>Prev</div><a href=/documentation/security/security-authentication-and-authorization/ class="stretched-link text-reset text-decoration-none">Security — authentication and authorization</a></div></div></div><div class=m-2></div><div class="card text-end w-100"><div class="card-body d-flex justify-content-end"><div class="d-flex flex-column"><div class=text-body-secondary>Next</div><a href=/documentation/database/configuration-getting-started/ class="stretched-link text-reset text-decoration-none">Configuration - Getting Started</a></div><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div></main></div></div></div><footer class="footer text-muted"><div class=container-sm><div class=row><div class="col-lg-8 text-center text-lg-start"><ul class=list-inline><li class=list-inline-item><a class=text-muted href=/privacy/>Privacy Policy</a></li><li class=list-inline-item><a class=text-muted href=/documentation/extending/maintainer-notes/>Maintainer notes</a></li></ul></div><div class="col-lg-8 text-center text-lg-end"><ul class=list-inline><li class=list-inline-item>Brought to you by <a class=text-muted href=https://servicecops.com/>Service Cops</a></li></ul></div></div></div></footer><script async src=/js/app.b908bcf63ffecedb33f5e341eb4a75910f5a0aa2b073a0cff48d0703881fa366.js integrity="sha256-uQi89j/+ztsz9eNB60p1kQ9aCqKwc6DP9I0HA4gfo2Y="></script><script async src=https://scripts.simpleanalyticscdn.com/latest.js></script><script type=module src=/js/mermaid-init.min.7ee8225aeff4e4514ac27dcba69d20532a1262f54a7fd0355eb1d8995ecef8fb.js integrity="sha256-fugiWu/05FFKwn3Lpp0gUyoSYvVKf9A1XrHYmV7O+Ps=" crossorigin=anonymous></script><script async src=/js/flexsearch.b6f80717bc68cd38b6ded7a061f96a73896db6be17a6582f09a63a6040040919.js integrity="sha256-tvgHF7xozTi23tegYflqc4lttr4XplgvCaY6YEAECRk="></script><script async src=/js/search-modal.4e30271fef6fac86c3b4143167e9784bd3f7037ce1045d03a321e7e799e91476.js integrity="sha256-TjAnH+9vrIbDtBQxZ+l4S9P3A3zhBF0DoyHn55npFHY="></script><div class="d-inline-flex fixed-bottom-right pb-4 pe-4"><button id=toTop type=button class="btn btn-primary rounded-circle ms-auto p-2"><span class=visually-hidden>Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 15l6-6 6 6"/></svg></button></div></body></html>
+  AtRest[&#34;Encrypted column&#34;] --&gt; Enc[&#34;encrypt() with APP_KEY&#34;]</pre>
+
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$token</span> <span class="o">=</span> <span class="nx">security</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">token</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$token</span> <span class="o">=</span> <span class="nx">secure_token</span><span class="p">();</span> <span class="c1">// same result
+</span></span></span></code></pre></div>
+  </figure>
+</div>
+<div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+  
+  <div class="callout-content">
+    <div class="callout-title">
+        <p>Boot required</p>
+
+      </div>
+    <div class="callout-body">
+      <p>Helpers like <code>security()</code> require a booted application (<code>bootstrap/application.php</code>). For one-off scripts, call <code>AppRealm::create()</code> first or use the class directly: <code>(new Security())-&gt;token()</code>.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="requirements">Requirements<a href="#requirements" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>PHP extension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>encrypt()</code> / <code>decrypt()</code>, libsodium box, <code>keyPair()</code></td>
+<td><code>ext-sodium</code></td>
+</tr>
+<tr>
+<td><code>rsaEncrypt()</code> / <code>rsaDecrypt()</code> (hybrid large payloads)</td>
+<td><code>ext-openssl</code> + <code>ext-sodium</code></td>
+</tr>
+<tr>
+<td>Password hashing, HMAC, random bytes</td>
+<td>core PHP</td>
+</tr>
+</tbody>
+</table>
+<p>Set <code>APP_KEY</code> in <code>environment/.env</code> for symmetric encryption (supports <code>base64:…</code> prefix):</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php pionia shell</span></span></code></pre></div>
+  </figure>
+</div>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;base64:&#39;</span> <span class="o">.</span> <span class="nx">secure_random_base64</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1"># environment/.env</span>
+</span></span><span class="line"><span class="cl"><span class="na">APP_KEY</span><span class="o">=</span><span class="s">base64:paste-the-value-here</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>For scripts without a booted app, <code>(new Security())-&gt;randomHex(32)</code> and <code>(new Security())-&gt;randomBase64(32, false)</code> work the same way — no OpenSSL CLI required.</p>
+<h2 id="random-data-and-identifiers">Random data and identifiers<a href="#random-data-and-identifiers" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th><code>security()</code> method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>secure_random_bytes($length)</code></td>
+<td><code>randomBytes()</code></td>
+<td>Raw CSPRNG bytes</td>
+</tr>
+<tr>
+<td><code>secure_random_string($length, $alphabet?)</code></td>
+<td><code>randomString()</code></td>
+<td>Random string from a custom alphabet</td>
+</tr>
+<tr>
+<td><code>secure_random_hex($bytes = 16)</code></td>
+<td><code>randomHex()</code></td>
+<td>Hex-encoded random bytes</td>
+</tr>
+<tr>
+<td><code>secure_random_base64($bytes = 32, $urlSafe = true)</code></td>
+<td><code>randomBase64()</code></td>
+<td>Base64 (optionally URL-safe)</td>
+</tr>
+<tr>
+<td><code>secure_uuid()</code></td>
+<td><code>uuid()</code></td>
+<td>UUID v4</td>
+</tr>
+<tr>
+<td><code>secure_ulid()</code></td>
+<td><code>ulid()</code></td>
+<td>Sortable ULID</td>
+</tr>
+<tr>
+<td><code>secure_otp($length = 6, $numericOnly = true)</code></td>
+<td><code>otp()</code></td>
+<td>One-time code (4–20 chars)</td>
+</tr>
+<tr>
+<td><code>secure_token($bytes = 32)</code></td>
+<td><code>token()</code></td>
+<td>URL-safe API/session token</td>
+</tr>
+<tr>
+<td><code>secure_secret($bytes = 32)</code></td>
+<td><code>secret()</code></td>
+<td>Alias of <code>secure_token()</code></td>
+</tr>
+<tr>
+<td><code>secure_password($length = 16, $symbols = true)</code></td>
+<td><code>password()</code></td>
+<td>Random password matching the <code>password</code> validation rule</td>
+</tr>
+<tr>
+<td><code>csrf_token($bytes = 32)</code></td>
+<td><code>csrfToken()</code></td>
+<td>CSRF token (alias of <code>token()</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Alphabet constants on the class: <code>Security::ALPHABET_LOWER</code>, <code>ALPHABET_UPPER</code>, <code>ALPHABET_NUMERIC</code>, <code>ALPHABET_ALPHANUMERIC</code>, <code>ALPHABET_HEX</code>, <code>ALPHABET_SYMBOLS</code>.</p>
+<h3 id="examples">Examples<a href="#examples" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$apiKey</span> <span class="o">=</span> <span class="nx">secure_secret</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$code</span> <span class="o">=</span> <span class="nx">secure_otp</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>              <span class="c1">// 8-digit numeric OTP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$invite</span> <span class="o">=</span> <span class="nx">secure_ulid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resetToken</span> <span class="o">=</span> <span class="nx">secure_token</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Custom alphabet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$pin</span> <span class="o">=</span> <span class="nx">secure_random_string</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="nx">Security</span><span class="o">::</span><span class="na">ALPHABET_NUMERIC</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="password-hashing">Password hashing<a href="#password-hashing" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hash_password($password, $options = [])</code></td>
+<td><code>hashPassword()</code></td>
+<td>Store bcrypt/argon hash</td>
+</tr>
+<tr>
+<td><code>verify_password($password, $hash)</code></td>
+<td><code>verifyPassword()</code></td>
+<td>Check login</td>
+</tr>
+<tr>
+<td><code>password_needs_rehash($hash)</code> (PHP built-in) or <code>security()-&gt;needsRehash()</code></td>
+<td><code>needsRehash()</code></td>
+<td>Upgrade algorithm on login</td>
+</tr>
+</tbody>
+</table>
+<p>Pionia Shop <code>customer.login</code> — verify without leaking hashes in the response:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$hash</span> <span class="o">=</span> <span class="nx">hash_password</span><span class="p">(</span><span class="nv">$plain</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">verify_password</span><span class="p">(</span><span class="nv">$plain</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">password_hash</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">password_needs_rehash</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">password_hash</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">table</span><span class="p">(</span><span class="s1">&#39;customers&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;password_hash&#39;</span> <span class="o">=&gt;</span> <span class="nx">hash_password</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Never return password hashes in API <code>returnData</code>. Pair with the <code>password</code> validation rule — see <a href="/documentation/building-api/validation/">Validations</a>.</p>
+<h2 id="hashing-and-comparison">Hashing and comparison<a href="#hashing-and-comparison" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>secure_hash($data, $algo = 'sha256')</code></td>
+<td><code>hash()</code></td>
+<td>One-way digest</td>
+</tr>
+<tr>
+<td><code>secure_hmac($data, $key, $algo = 'sha256')</code></td>
+<td><code>hmac()</code></td>
+<td>Message authentication code</td>
+</tr>
+<tr>
+<td><code>verify_hmac($data, $key, $expected, $algo = 'sha256')</code></td>
+<td><code>verifyHmac()</code></td>
+<td>Timing-safe HMAC check (hex or binary)</td>
+</tr>
+<tr>
+<td><code>secure_equals($known, $user)</code></td>
+<td><code>equals()</code></td>
+<td>Timing-safe string compare</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$signature</span> <span class="o">=</span> <span class="nx">secure_hmac</span><span class="p">(</span><span class="nv">$payload</span><span class="p">,</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;WEBHOOK_SECRET&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">verify_hmac</span><span class="p">(</span><span class="nv">$payload</span><span class="p">,</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;WEBHOOK_SECRET&#39;</span><span class="p">),</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;X-Signature&#39;</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;Invalid signature&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">secure_equals</span><span class="p">(</span><span class="nv">$storedToken</span><span class="p">,</span> <span class="nv">$submittedToken</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">response</span><span class="p">(</span><span class="mi">403</span><span class="p">,</span> <span class="s1">&#39;Forbidden&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="symmetric-encryption-shared-secret">Symmetric encryption (shared secret)<a href="#symmetric-encryption-shared-secret" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Encrypt sensitive values at rest with <code>APP_KEY</code> or an explicit key:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$encrypted</span> <span class="o">=</span> <span class="nx">encrypt</span><span class="p">(</span><span class="s1">&#39;sensitive payload&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$plain</span> <span class="o">=</span> <span class="nx">decrypt</span><span class="p">(</span><span class="nv">$encrypted</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Explicit key (32+ bytes or base64: prefix)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$key</span> <span class="o">=</span> <span class="nx">secure_random_bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$blob</span> <span class="o">=</span> <span class="nx">encrypt</span><span class="p">(</span><span class="nv">$json</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$json</span> <span class="o">=</span> <span class="nx">decrypt</span><span class="p">(</span><span class="nv">$blob</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Payload format: base64(<code>nonce</code> + <code>ciphertext</code>) using libsodium secretbox.</p>
+<h2 id="public-key-encryption-libsodium-box">Public-key encryption (libsodium box)<a href="#public-key-encryption-libsodium-box" class="anchor" aria-hidden="true">#</a> </h2>
+<p>X25519 key pairs are returned <strong>base64-encoded</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>security_key_pair()</code></td>
+<td><code>keyPair()</code></td>
+<td>Generate <code>{ public_key, private_key }</code></td>
+</tr>
+<tr>
+<td><code>encrypt_with_public_key($plain, $publicKey)</code></td>
+<td><code>encryptWithPublicKey()</code></td>
+<td>Seal — encrypt with public key only</td>
+</tr>
+<tr>
+<td><code>decrypt_with_private_key($payload, $publicKey, $privateKey)</code></td>
+<td><code>decryptWithPrivateKey()</code></td>
+<td>Open sealed message</td>
+</tr>
+<tr>
+<td><code>encrypt_for_recipient($plain, $recipientPublic, $senderPrivate)</code></td>
+<td><code>encryptForRecipient()</code></td>
+<td>Authenticated sender → recipient</td>
+</tr>
+<tr>
+<td><code>decrypt_from_sender($payload, $senderPublic, $recipientPrivate)</code></td>
+<td><code>decryptFromSender()</code></td>
+<td>Decrypt authenticated message</td>
+</tr>
+<tr>
+<td><code>public_key_from_private($privateKey)</code></td>
+<td><code>publicKeyFromPrivateKey()</code></td>
+<td>Derive public key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="seal-anonymous-sender">Seal (anonymous sender)<a href="#seal-anonymous-sender" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Anyone with the public key can encrypt; only the holder of the private key can decrypt:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$keys</span> <span class="o">=</span> <span class="nx">security_key_pair</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$encrypted</span> <span class="o">=</span> <span class="nx">encrypt_with_public_key</span><span class="p">(</span><span class="s1">&#39;secret&#39;</span><span class="p">,</span> <span class="nv">$keys</span><span class="p">[</span><span class="s1">&#39;public_key&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$plain</span> <span class="o">=</span> <span class="nx">decrypt_with_private_key</span><span class="p">(</span><span class="nv">$encrypted</span><span class="p">,</span> <span class="nv">$keys</span><span class="p">[</span><span class="s1">&#39;public_key&#39;</span><span class="p">],</span> <span class="nv">$keys</span><span class="p">[</span><span class="s1">&#39;private_key&#39;</span><span class="p">]);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h3 id="authenticated-box-known-sender">Authenticated box (known sender)<a href="#authenticated-box-known-sender" class="anchor" aria-hidden="true">#</a> </h3>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$alice</span> <span class="o">=</span> <span class="nx">security_key_pair</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$bob</span> <span class="o">=</span> <span class="nx">security_key_pair</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$encrypted</span> <span class="o">=</span> <span class="nx">encrypt_for_recipient</span><span class="p">(</span><span class="s1">&#39;hello bob&#39;</span><span class="p">,</span> <span class="nv">$bob</span><span class="p">[</span><span class="s1">&#39;public_key&#39;</span><span class="p">],</span> <span class="nv">$alice</span><span class="p">[</span><span class="s1">&#39;private_key&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$plain</span> <span class="o">=</span> <span class="nx">decrypt_from_sender</span><span class="p">(</span><span class="nv">$encrypted</span><span class="p">,</span> <span class="nv">$alice</span><span class="p">[</span><span class="s1">&#39;public_key&#39;</span><span class="p">],</span> <span class="nv">$bob</span><span class="p">[</span><span class="s1">&#39;private_key&#39;</span><span class="p">]);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<h2 id="rsa-pem-keys">RSA (PEM keys)<a href="#rsa-pem-keys" class="anchor" aria-hidden="true">#</a> </h2>
+<p>For interoperability with external systems that expect standard PEM RSA keys:</p>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rsa_key_pair($bits = 2048)</code></td>
+<td><code>rsaKeyPair()</code></td>
+<td>Generate PEM <code>{ public_key, private_key }</code></td>
+</tr>
+<tr>
+<td><code>rsa_encrypt($plain, $publicKeyPem)</code></td>
+<td><code>rsaEncrypt()</code></td>
+<td>RSA-OAEP (hybrid for large messages)</td>
+</tr>
+<tr>
+<td><code>rsa_decrypt($payload, $privateKeyPem)</code></td>
+<td><code>rsaDecrypt()</code></td>
+<td>Decrypt RSA payload</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$keys</span> <span class="o">=</span> <span class="nx">rsa_key_pair</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$encrypted</span> <span class="o">=</span> <span class="nx">rsa_encrypt</span><span class="p">(</span><span class="s1">&#39;any size message&#39;</span><span class="p">,</span> <span class="nv">$keys</span><span class="p">[</span><span class="s1">&#39;public_key&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$plain</span> <span class="o">=</span> <span class="nx">rsa_decrypt</span><span class="p">(</span><span class="nv">$encrypted</span><span class="p">,</span> <span class="nv">$keys</span><span class="p">[</span><span class="s1">&#39;private_key&#39;</span><span class="p">]);</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>Minimum key size is <strong>2048</strong> bits. Small messages use direct RSA-OAEP; larger payloads wrap a symmetric key with secretbox.</p>
+<h2 id="validators">Validators<a href="#validators" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Static checks on the <code>Security</code> class — also exposed as helpers:</p>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Method</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>is_uuid($value)</code></td>
+<td><code>isUuid()</code></td>
+<td>UUID v4 format</td>
+</tr>
+<tr>
+<td><code>is_ulid($value)</code></td>
+<td><code>isUlid()</code></td>
+<td>26-char Crockford ULID</td>
+</tr>
+<tr>
+<td><code>is_otp($value, $length = 6, $numericOnly = true)</code></td>
+<td><code>isOtp()</code></td>
+<td>OTP length and charset</td>
+</tr>
+<tr>
+<td><code>is_token($value, $minBytes = 16)</code></td>
+<td><code>isToken()</code></td>
+<td>Hex or URL-safe base64 entropy</td>
+</tr>
+</tbody>
+</table>
+<p>Use in validation pipes and chains:</p>
+
+
+
+<div class="expressive-code">
+  <figure class="frame not-content">
+  <figcaption class="header">
+    <span class="title"></span>
+  </figcaption>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">rules</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;session_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|uuid&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;request_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|ulid&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;code&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|otp:6&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;api_token&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|token:24&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">asOtp</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">asToken</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">validate</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">ulid</span><span class="p">();</span></span></span></code></pre></div>
+  </figure>
+</div>
+<p>See <a href="/documentation/building-api/validation/">Validations</a> for the full rule list.</p>
+<h2 id="choosing-an-approach">Choosing an approach<a href="#choosing-an-approach" class="anchor" aria-hidden="true">#</a> </h2>
+<table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API keys, session IDs, reset tokens</td>
+<td><code>secure_token()</code> / <code>secure_secret()</code></td>
+</tr>
+<tr>
+<td>Email/SMS OTP</td>
+<td><code>secure_otp($length)</code> + <code>otp</code> validation rule</td>
+</tr>
+<tr>
+<td>User passwords</td>
+<td><code>hash_password()</code> / <code>verify_password()</code> + <code>password</code> rule</td>
+</tr>
+<tr>
+<td>Webhook signatures</td>
+<td><code>secure_hmac()</code> / <code>verify_hmac()</code></td>
+</tr>
+<tr>
+<td>Compare secrets in constant time</td>
+<td><code>secure_equals()</code></td>
+</tr>
+<tr>
+<td>Encrypt DB column with app master key</td>
+<td><code>encrypt()</code> / <code>decrypt()</code> + <code>APP_KEY</code></td>
+</tr>
+<tr>
+<td>Encrypt for one recipient (no sender identity)</td>
+<td><code>encrypt_with_public_key()</code></td>
+</tr>
+<tr>
+<td>Encrypt between two known parties</td>
+<td><code>encrypt_for_recipient()</code></td>
+</tr>
+<tr>
+<td>Exchange with third-party PEM RSA</td>
+<td><code>rsa_encrypt()</code> / <code>rsa_decrypt()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-mistakes">Common mistakes<a href="#common-mistakes" class="anchor" aria-hidden="true">#</a> </h2>
+<ul>
+<li>Using <code>md5()</code> or plain <code>sha256()</code> for passwords — use <code>hash_password()</code> / <code>verify_password()</code> only</li>
+<li>Calling <code>encrypt()</code> without <code>APP_KEY</code> set — symmetric crypto fails at runtime</li>
+<li>Comparing tokens with <code>===</code> when timing attacks matter — use <code>secure_equals()</code> or <code>verify_hmac()</code></li>
+<li>Returning OTPs or reset tokens in logs — redact via <code>[logging] HIDE_IN_LOGS</code></li>
+</ul>
+<h2 id="whats-next">What&rsquo;s next<a href="#whats-next" class="anchor" aria-hidden="true">#</a> </h2>
+<div class="card-nav d-flex flex-column flex-sm-row">
+  
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/security/security-authentication-and-authorization/" class="stretched-link text-reset text-decoration-none">Authentication &amp; authorization</a></h5>
+        <p class="card-text mt-1">Wire JWT backends and mustAuthenticate().</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/building-api/validation/" class="stretched-link text-reset text-decoration-none">Validations</a></h5>
+        <p class="card-text mt-1">otp, token, ulid, uuid rules.</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card text-end w-100">
+    <div class="card-body d-flex">
+      <div class="d-flex flex-column me-auto text-start">
+        <h5 class="card-title my-0"><a href="/documentation/extending/helpers/" class="stretched-link text-reset text-decoration-none">Helpers reference</a></h5>
+        <p class="card-text mt-1">All global helpers including security().</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12l14 0"></path>
+          <path d="M13 18l6 -6"></path>
+          <path d="M13 6l6 6"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				<div class="last-modified">
+    <a href="https://github.com/PioniaPHP-project/pionia-docs/commit/c388266042590220517979fc7a547ab48988c259">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Last updated on July 4, 2026
+    </a>
+  </div>
+
+				
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="edit-page">
+  <a href="https://github.com/PioniaPHP-project/pionia-docs/blob/main/content//docs/documentation/security/810_security-utilities.md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+    </svg>
+    Edit this page on GitHub
+  </a>
+</div>
+
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/documentation/security/security-authentication-and-authorization/" class="stretched-link text-reset text-decoration-none">Security — authentication and authorization</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/documentation/database/migrations/" class="stretched-link text-reset text-decoration-none">Database migrations</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="text-muted" href="/privacy/">Privacy Policy</a></li><li class="list-inline-item"><a class="text-muted" href="/documentation/extending/maintainer-notes/">Maintainer notes</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://servicecops.com/">Service Cops</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+
+<script async
+  src="/js/app.74bef2eec587d38cbbdcfa573e4ad446966dff417e850c0daeb1ae0fd215a037.js"
+  integrity="sha256-dL7y7sWH04y73PpXPkrURpZt/0F&#43;hQwNrrGuD9IVoDc=">
+</script>
+
+
+<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<script type="module" src="/js/mermaid-init.min.7ee8225aeff4e4514ac27dcba69d20532a1262f54a7fd0355eb1d8995ecef8fb.js" integrity="sha256-fugiWu/05FFKwn3Lpp0gUyoSYvVKf9A1XrHYmV7O&#43;Ps=" crossorigin="anonymous"></script>
+<script async
+  src="/js/flexsearch.f41f5ca0007df2c47e9e7872158f93feda934e4cc9dbcbc02e471503b49d8087.js"
+  integrity="sha256-9B9coAB98sR&#43;nnhyFY&#43;T/tqTTkzJ28vALkcVA7SdgIc=">
+</script>
+<script async
+  src="/js/search-modal.bbdea845b287fc7f22a081c11a25b5bbfa96e74e43b36be5733f16439caf46be.js"
+  integrity="sha256-u96oRbKH/H8ioIHBGiW1u/qW505Ds2vlcz8WQ5yvRr4=">
+</script>
+
+    <div class="d-inline-flex fixed-bottom-right pb-4 pe-4">
+  <button id="toTop" type="button" class="btn btn-primary rounded-circle ms-auto p-2"><span class="visually-hidden">Top</span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 15l6 -6l6 6"></path></svg></button>
+</div>
+
+    
+  </body>
+</html>

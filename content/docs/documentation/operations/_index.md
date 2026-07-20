@@ -1,9 +1,9 @@
 ---
 title: "Operations & deploy"
 description: "CLI, RoadRunner, caching, logging, maintenance, and production optimization."
-summary: "Run DeskFlow in development and ship it with workers and OPcache preload."
+summary: "Run Pionia Shop in development and ship it with workers and OPcache preload."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-20
 draft: false
 weight: 700
 url: /documentation/operations/
@@ -16,20 +16,20 @@ seo:
   description: "RoadRunner, optimize, maintenance mode, caching, and logging."
 ---
 
-Once DeskFlow works locally, this section covers **how to run and ship it** — from `php pionia serve` on port **8000** to RoadRunner workers, OPcache preload, and zero-downtime deploys for Northwind Studio.
+Once Pionia Shop works locally, this section covers **how to run and ship it** — from `php pionia serve` on port **8000** to RoadRunner workers, OPcache preload, and zero-downtime deploys for Pionia Shop.
 
 ## Who this is for
 
-You have a working DeskFlow task board API (`task`, `member`, `project` services) and need to **operate it in dev and production** — CLI commands, persistent workers, logs under `storage/logs/`, and deploy-time optimization without rewriting application code.
+You have a working Pionia Shop API (`product`, `customer`, `order`, `wallet` services) and need to **operate it in dev and production** — CLI commands, persistent workers, logs under `storage/logs/`, and deploy-time optimization without rewriting application code.
 
 ## What you will learn
 
-- Which CLI commands Alex runs daily vs only on deploy
+- Which CLI commands you run daily vs only on deploy
 - How to move from the built-in server to RoadRunner workers
 - Where to configure caching, logging, maintenance mode, and `/stats` metrics
 
 {{< prerequisites >}}
-- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — DeskFlow running locally
+- [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) — Pionia Shop running locally
 - [Application structure](/documentation/getting-started/application-structure/) — `storage/`, `environment/settings.ini`
 {{< /prerequisites >}}
 
@@ -50,6 +50,8 @@ Development uses a single-process PHP server. Production adds persistent workers
 | Task | Guide |
 |------|-------|
 | CLI overview | [Commands](/documentation/operations/commands/) |
+| Schema changes | [Migrations](/documentation/database/migrations/) |
+| Warm microbenchmarks | [Benchmarking](/documentation/operations/benchmarking/) |
 | Persistent workers | [RoadRunner](/documentation/operations/roadrunner/) |
 | Deploy checklist | [Production performance](/documentation/operations/production-performance/) |
 | Zero-downtime deploys | [Maintenance mode](/documentation/operations/maintenance/) |
@@ -67,6 +69,7 @@ Development uses a single-process PHP server. Production adds persistent workers
 
 ```bash
 composer install --no-dev -o
+php pionia migrate
 php pionia optimize --production
 php pionia runserver --detach
 curl -s http://127.0.0.1:8000/api/v1/ping
@@ -83,6 +86,6 @@ curl -s http://127.0.0.1:8000/api/v1/ping
 
 {{< card-grid >}}
 {{< link-card title="Commands" description="Daily CLI and make:* scaffolds." href="/documentation/operations/commands/" >}}
+{{< link-card title="Benchmarking" description="php pionia bench microbenchmarks." href="/documentation/operations/benchmarking/" >}}
 {{< link-card title="RoadRunner" description="Persistent workers and Moonlight jobs." href="/documentation/operations/roadrunner/" >}}
-{{< link-card title="Production performance" description="OPcache preload and deploy optimize." href="/documentation/operations/production-performance/" >}}
 {{< /card-grid >}}

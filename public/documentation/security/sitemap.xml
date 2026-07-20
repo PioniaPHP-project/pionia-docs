@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>/documentation/security/security-authentication-and-authorization/</loc><lastmod>2026-07-04T04:53:15+03:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url><loc>/documentation/security/security-utilities/</loc><lastmod>2026-07-04T04:53:15+03:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    <url>
+      <loc>http://localhost:1313/documentation/security/protecting-actions/</loc>
+      <lastmod>2026-07-21T00:00:00+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/security/jwt-authentication/</loc>
+      <lastmod>2026-07-21T00:00:00+00:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/security/security-authentication-and-authorization/</loc>
+      <lastmod>2026-07-04T04:53:15+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+    <url>
+      <loc>http://localhost:1313/documentation/security/security-utilities/</loc>
+      <lastmod>2026-07-04T04:53:15+03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    </urlset>

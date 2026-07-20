@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This guide covers atomic **DeskFlow** writes — creating a task and audit log in one transaction — plus parameterized raw SQL when the fluent builder is not enough. **Northwind Studio** uses these patterns on port **8000** when `TaskService` must stay consistent across tables.
+This guide covers atomic **Pionia Shop** writes — creating a task and audit log in one transaction — plus parameterized raw SQL when the fluent builder is not enough. **Pionia Shop** uses these patterns on port **8000** when `ProductService` must stay consistent across tables.
 
 ## What you will learn
 
@@ -48,9 +48,9 @@ Wrap multiple statements in a single database transaction. Piql rolls back on an
 ```php
 $saved = null;
 
-table('team_members')->inTransaction(function ($porm) use (&$saved, $payload) {
+table('customers')->inTransaction(function ($porm) use (&$saved, $payload) {
     $saved = $porm->save($payload);
-    table('tasks')->save([
+    table('products')->save([
         'assignee_id' => $porm->lastSaved(),
         'title'       => 'Onboard new member',
         'project_id'  => 1,
@@ -65,11 +65,11 @@ Use a `use (&$var)` reference when you need values after the transaction complet
 ## Full raw queries — `raw()`
 
 ```php
-$stats = table('tasks')->raw(
+$stats = table('products')->raw(
     'SELECT status, COUNT(*) AS c FROM tasks GROUP BY status',
 );
 
-$one = table('tasks')->raw(
+$one = table('products')->raw(
     'SELECT * FROM tasks WHERE id = :id LIMIT 1',
     ['id' => 42],
 );
@@ -86,7 +86,7 @@ Embed safe literal SQL inside WHERE arrays:
 ```php
 use Pionia\Porm\Core\Piql;
 
-table('tasks')->filter([
+table('products')->filter([
     'completed_at[<=]' => Piql::raw('CURRENT_TIMESTAMP'),
 ])->all();
 ```
@@ -98,7 +98,7 @@ table('tasks')->filter([
 `$porm->getDatabase()` returns `Pionia\Porm\Core\Piql` with Medoo-compatible methods (`select`, `insert`, `update`, `delete`, `query`, `action`, etc.). Prefer `table()` for application code; Piql is for debugging and framework extensions.
 
 ```php
-$piql = table('tasks')->getDatabase();
+$piql = table('products')->getDatabase();
 $piql->debug();  // echo generated SQL
 $piql->log();    // return query log array
 ```
@@ -111,7 +111,7 @@ Related: [Making queries](/documentation/database/making-queries/) · [WHERE DSL
 
 ## Common mistakes
 
-- **Concatenating `$data->getString('title')` into raw SQL** — always bind named parameters in DeskFlow search endpoints.
+- **Concatenating `$data->getString('title')` into raw SQL** — always bind named parameters in Pionia Shop search endpoints.
 - **Using `Piql::raw()` for user-supplied dates or IDs** — only trusted SQL functions like `CURRENT_TIMESTAMP`.
 - **Calling `table()` inside a transaction with a different connection** — both statements must share the transactional `$porm` or default pool.
 - **Swallowing throwables inside `inTransaction()`** — let exceptions bubble so Piql rolls back task + audit writes together.

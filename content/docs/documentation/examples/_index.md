@@ -1,39 +1,37 @@
 ---
 title: "Examples"
-description: "Copy-paste DeskFlow API payloads and responses."
-summary: "Annotated curl examples for Northwind Studio's task board API."
+description: "Copy-paste Pionia Shop API payloads and responses."
+summary: "Annotated curl examples for catalog, login, orders, and wallet."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-21
 draft: false
 weight: 250
 url: /documentation/examples/
 toc: true
 doc_type: reference
 seo:
-  title: "DeskFlow API examples"
-  description: "Sample Moonlight envelopes for ping, tasks, login, and filters."
+  title: "Pionia Shop API examples"
+  description: "Sample Moonlight envelopes for ping, products, login, and orders."
 ---
 
-These snippets match the [DeskFlow tutorial](/documentation/deskflow-tutorial/). Each section links back to the guide that explains the concept — no new ideas here, just copy-paste starting points for Northwind Studio's task board on port **8000**.
+These snippets match the [Pionia Shop tutorial](/documentation/shop-tutorial/). Copy them as starting points for the store API on port **8000**.
 
 ## Pick your learning path
 
 {{< card-grid >}}
-{{< link-card title="Try the tutorial" description="Build the services behind these curl calls." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Try the tutorial" description="Build the services behind these curls." href="/documentation/shop-tutorial/" >}}
 {{< link-card title="Moonlight overview" description="How service and action map to HTTP." href="/documentation/building-api/moonlight-overview/" >}}
-{{< link-card title="Documentation hub" description="All topic sections and layer index." href="/documentation/" >}}
 {{< /card-grid >}}
 
 ## What these examples cover
 
-| Example | DeskFlow action | Learn more |
-|---------|-----------------|------------|
+| Example | Action | Learn more |
+|---------|--------|------------|
 | Ping | Health check | [Introduction](/documentation/getting-started/introduction/) |
-| List tasks | `task.list` | [API tutorial](/documentation/deskflow-tutorial/) |
-| Create task | `task.create` | [Validation](/documentation/building-api/validation/) |
-| Member login | `member.login` | [Security](/documentation/security/security-authentication-and-authorization/) |
-| Filter open tasks | `task.list` + filter | [Filtering](/documentation/database/queries-with-filtering/) |
-| settings.ini | Switch registration | [Application structure](/documentation/getting-started/application-structure/) |
+| List products | `product.list` | [Tutorial](/documentation/shop-tutorial/) |
+| Create product | `product.create` | [Validation](/documentation/building-api/validation/) |
+| Customer login | `customer.login` | [JWT](/documentation/security/jwt-authentication/) |
+| Place order | `order.place` | [Protecting actions](/documentation/security/protecting-actions/) |
 
 ## Ping
 
@@ -41,22 +39,12 @@ These snippets match the [DeskFlow tutorial](/documentation/deskflow-tutorial/).
 curl -s http://127.0.0.1:8000/api/v1/ping
 ```
 
-{{< envelope title="Result" >}}
-```json
-{
-  "returnCode": 0,
-  "returnMessage": "pong",
-  "returnData": { "version": "v1" }
-}
-```
-{{< /envelope >}}
-
-## List tasks
+## List products
 
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"task","action":"list"}'
+  -d '{"service":"product","action":"list"}'
 ```
 
 {{< envelope title="Result" >}}
@@ -65,72 +53,55 @@ curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   "returnCode": 0,
   "returnMessage": "OK",
   "returnData": {
-    "tasks": [
-      {
-        "id": 1,
-        "title": "Review homepage mockups",
-        "status": "open",
-        "assignee": "alex@northwind.studio"
-      }
+    "products": [
+      { "id": 1, "name": "Ada Mug", "price": 24.5, "stock": 12 }
     ]
   }
 }
 ```
 {{< /envelope >}}
 
-Learn how this is built: [API tutorial](/documentation/deskflow-tutorial/).
-
-## Create a task
+## Create product (authenticated)
 
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"task","action":"create","title":"Ship DeskFlow docs","project_id":1}'
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"service":"product","action":"create","name":"Tote Bag","price":18,"stock":40}'
 ```
 
-Missing `title` returns **HTTP 422** — see [Validation](/documentation/building-api/validation/).
-
-## Member login
+## Customer login
 
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"member","action":"login","email":"alex@northwind.studio","password":"secret"}'
+  -d '{"service":"customer","action":"login","email":"ada@pionia.shop","password":"secret"}'
 ```
 
-Use the returned JWT in `Authorization: Bearer …` for protected actions — [Security](/documentation/security/security-authentication-and-authorization/).
+{{< envelope title="Result" >}}
+```json
+{
+  "returnCode": 0,
+  "returnMessage": "Logged in",
+  "returnData": { "token": "eyJhbGciOiJIUzI1NiJ9..." }
+}
+```
+{{< /envelope >}}
 
-## Filter open tasks
+## Place order (authenticated)
 
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"task","action":"list","status":"open"}'
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"service":"order","action":"place","product_id":1,"quantity":2}'
 ```
 
-## Sample settings.ini
+## Wallet balance
 
-```ini
-[app_switches]
-v1=Application\Switches\MainSwitch
-
-[app]
-DEBUG=true
+```bash
+curl -s -X POST http://127.0.0.1:8000/api/v1/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"service":"wallet","action":"balance"}'
 ```
-
-Full reference: [Application structure](/documentation/getting-started/application-structure/).
-
-## Common mistakes
-
-- **Running curl before `php pionia serve`** — start the dev server on port **8000** first.
-- **Wrong Content-Type** — Moonlight POST dispatch requires `Content-Type: application/json`.
-- **Forgetting to register the service** — `task.list` fails until `TaskService` is on `MainSwitch`.
-- **Copying v2 uppercase keys** — use lowercase `"service"` and `"action"` in every payload.
-
-## What's next
-
-{{< card-grid >}}
-{{< link-card title="Tutorial Step 3" description="Implement task.list in TaskService." href="/documentation/deskflow-tutorial/03-your-first-service/" >}}
-{{< link-card title="Services" description="Register DeskFlow services on MainSwitch." href="/documentation/building-api/services/" >}}
-{{< link-card title="Resources" description="Packages, CLI cheatsheet, and community links." href="/resources/" >}}
-{{< /card-grid >}}

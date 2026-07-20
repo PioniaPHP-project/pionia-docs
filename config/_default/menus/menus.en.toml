@@ -16,8 +16,8 @@
   parent = "documentation"
 
 [[main]]
-  name = "DeskFlow tutorial"
-  url = "/documentation/deskflow-tutorial/"
+  name = "Pionia Shop tutorial"
+  url = "/documentation/shop-tutorial/"
   weight = 12
   parent = "documentation"
 
@@ -48,7 +48,7 @@
   name = "Tutorial"
   weight = 10
   identifier = "tutorial"
-  url = "/documentation/deskflow-tutorial/"
+  url = "/documentation/shop-tutorial/"
 
 [[social]]
   name = "GitHub"

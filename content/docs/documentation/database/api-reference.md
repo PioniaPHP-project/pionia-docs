@@ -16,7 +16,7 @@ seo:
   noindex: false
 ---
 
-This reference lists every public Porm method **DeskFlow** services use when querying `tasks`, `projects`, and `team_members`. Keep it open while implementing **Northwind Studio** actions on port **8000** — prose guides explain *why*; this page is the *what*.
+This reference lists every public Porm method **Pionia Shop** services use when querying `products`, `projects`, and `customers`. Keep it open while implementing **Pionia Shop** actions on port **8000** — prose guides explain *why*; this page is the *what*.
 
 ## What you will learn
 
@@ -43,26 +43,26 @@ Namespaces live under `Pionia\Porm\`. Global helpers are defined in `src/Pionia/
 
 ### `table(string $name, ?string $alias = null, ?string $using = null)`
 
-Returns a `Porm` instance bound to the named table. This is the primary entry point for DeskFlow queries against `tasks`, `projects`, and `team_members` on the default connection. Pass an alias when you plan to join (for example `table('tasks', 't')`). Pass `$using` to target a named connection from `settings.ini`.
+Returns a `Porm` instance bound to the named table. This is the primary entry point for Pionia Shop queries against `products`, `projects`, and `customers` on the default connection. Pass an alias when you plan to join (for example `table('tasks', 't')`). Pass `$using` to target a named connection from `settings.ini`.
 
 ```php
-$task = table('tasks')->get(42);
+$task = table('products')->get(42);
 $project = table('projects', 'p')->columns(['p.id', 'p.name'])->get(1);
 ```
 
 ### `db(string $name, ?string $alias = null, ?string $using = null)`
 
-Alias of `table()`. Use whichever reads better in a Northwind Studio service — both resolve to the same `Porm` chain starting at `http://127.0.0.1:8000` API handlers.
+Alias of `table()`. Use whichever reads better in a Pionia Shop service — both resolve to the same `Porm` chain starting at `http://127.0.0.1:8000` API handlers.
 
 ```php
-$members = db('team_members')
+$members = db('customers')
     ->filter(['project_id' => 1])
     ->all();
 ```
 
 ### `connectionManager()`
 
-Returns the process-scoped `ConnectionManager` that pools PDO handles for FPM and RoadRunner workers. Use it when a DeskFlow action needs to inspect or register connections outside a single `table()` chain.
+Returns the process-scoped `ConnectionManager` that pools PDO handles for FPM and RoadRunner workers. Use it when a Pionia Shop action needs to inspect or register connections outside a single `table()` chain.
 
 ```php
 $pdo = connectionManager()->connection('default')->getPdo();
@@ -80,7 +80,7 @@ Created via `table()`. Combines **table-level** CRUD with entry into builder mod
 Sets the SELECT list before any terminal method runs. Supports column aliases (`title(task_title)`) and type casts (`priority[Int]`). Call early — after `filter()` or `join()` it is locked.
 
 ```php
-$task = table('tasks')
+$task = table('products')
     ->columns(['id', 'title', 'status'])
     ->get(['status' => 'open']);
 ```
@@ -90,12 +90,12 @@ $task = table('tasks')
 Merges Medoo-style array conditions or fluent `where(column, operator, value)` clauses at the table level before `filter()` or a terminal read. Conditions accumulate with AND semantics.
 
 ```php
-$open = table('tasks')
+$open = table('products')
     ->where('status', 'open')
     ->where('project_id', 1)
     ->all();
 
-$byArray = table('tasks')->where(['project_id' => 1])->get();
+$byArray = table('products')->where(['project_id' => 1])->get();
 ```
 
 ### `filter(?array $where = [])`
@@ -103,7 +103,7 @@ $byArray = table('tasks')->where(['project_id' => 1])->get();
 Enters **Builder** mode for fluent chaining (`orderBy`, `limit`, symbolic operators). Optional initial `$where` is merged before the builder is returned. Terminal methods on the builder execute SQL.
 
 ```php
-$rows = table('tasks')
+$rows = table('products')
     ->filter(['status' => 'open'])
     ->orderBy('priority')
     ->limit(20)
@@ -128,7 +128,7 @@ $rows = table('tasks', 't')
 Hints MySQL to use a named index for the next query on this chain. No-op on SQLite and PostgreSQL. Helpful when EXPLAIN shows a full scan on `tasks.status`.
 
 ```php
-$rows = table('tasks')
+$rows = table('products')
     ->useIndex('idx_tasks_status')
     ->where('status', 'open')
     ->all();
@@ -139,7 +139,7 @@ $rows = table('tasks')
 Switches the active connection for this `Porm` instance. Accepts a connection name, inline config array, or a `Connection` object. Must be called before `filter()` or `join()`.
 
 ```php
-$archive = table('tasks')
+$archive = table('products')
     ->using('reporting')
     ->where('status', 'archived')
     ->count();
@@ -152,17 +152,17 @@ $archive = table('tasks')
 Fetches a single row. Pass a primary-key scalar, a Medoo-style array, or `null` to fetch the latest row by `$idField` descending. Returns `null` when no row matches.
 
 ```php
-$task = table('tasks')->get(7);
-$bySlug = table('projects')->get(['slug' => 'deskflow-alpha']);
-$latest = table('tasks')->get(); // newest task by id
+$task = table('products')->get(7);
+$bySlug = table('projects')->get(['slug' => 'pionia-shop-alpha']);
+$latest = table('products')->get(); // newest task by id
 ```
 
 ### `getOrThrow(int|array|string|null $where = null, string $message = 'Item not found', ?string $idField = 'id')`
 
-Same as `get()` but throws `NotFoundException` when the row is missing. Use in Northwind Studio actions that must return HTTP 404 for unknown task IDs.
+Same as `get()` but throws `NotFoundException` when the row is missing. Use in Pionia Shop actions that must return HTTP 404 for unknown task IDs.
 
 ```php
-$task = table('tasks')->getOrThrow(99, 'Task not found');
+$task = table('products')->getOrThrow(99, 'Task not found');
 ```
 
 ### `first(?int $size = 1, ?array $where = [], string $pkField = 'id')`
@@ -170,8 +170,8 @@ $task = table('tasks')->getOrThrow(99, 'Task not found');
 Returns the most recent row(s) ordered by `$pkField` DESC. With `$size > 1`, returns an array of rows. Useful for “latest open task” widgets on port 8000.
 
 ```php
-$latest = table('tasks')->first(1, ['status' => 'open']);
-$recentFive = table('tasks')->first(5, ['project_id' => 1]);
+$latest = table('products')->first(1, ['status' => 'open']);
+$recentFive = table('products')->first(5, ['project_id' => 1]);
 ```
 
 ### `all(?callable $callback = null)`
@@ -179,9 +179,9 @@ $recentFive = table('tasks')->first(5, ['project_id' => 1]);
 Returns every row matching accumulated conditions. Optional callback runs per row without building a full in-memory array first.
 
 ```php
-$tasks = table('tasks')->where('project_id', 1)->all();
+$products = table('products')->where('project_id', 1)->all();
 
-table('tasks')->where('status', 'open')->all(function ($row) {
+table('products')->where('status', 'open')->all(function ($row) {
     logger()->info('open task', ['id' => $row->id]);
 });
 ```
@@ -191,8 +191,8 @@ table('tasks')->where('status', 'open')->all(function ($row) {
 Returns `true` when at least one row matches. Accepts a scalar PK or a condition array. Throws when no conditions are provided.
 
 ```php
-$exists = table('tasks')->has(['id' => 42, 'status' => 'open']);
-$memberExists = table('team_members')->has('alex@northwind.studio', 'email');
+$exists = table('products')->has(['id' => 42, 'status' => 'open']);
+$memberExists = table('customers')->has('ada@pionia.shop', 'email');
 ```
 
 ### `save(array $data, bool $returnRow = true)`
@@ -200,7 +200,7 @@ $memberExists = table('team_members')->has('alex@northwind.studio', 'email');
 Inserts one row and returns the saved object (by default re-fetches via `get()`). Set `$returnRow = false` to skip the extra SELECT.
 
 ```php
-$task = table('tasks')->save([
+$task = table('products')->save([
     'project_id' => 1,
     'title' => 'Wireframe review',
     'status' => 'open',
@@ -212,8 +212,8 @@ $task = table('tasks')->save([
 Inserts multiple rows inside a transaction. When `$returning` is true, returns an array of saved objects; when false, returns the raw `PDOStatement`.
 
 ```php
-$created = table('team_members')->saveAll([
-    ['project_id' => 1, 'email' => 'alex@northwind.studio', 'name' => 'Alex Chen'],
+$created = table('customers')->saveAll([
+    ['project_id' => 1, 'email' => 'ada@pionia.shop', 'name' => 'Ada Lovelace'],
     ['project_id' => 1, 'email' => 'sam@northwind.studio', 'name' => 'Sam Park'],
 ]);
 ```
@@ -223,7 +223,7 @@ $created = table('team_members')->saveAll([
 Inserts when the PK is absent or unknown; updates when the row exists. Uses native `UPSERT` when the driver supports it and the PK is present in `$data`.
 
 ```php
-$task = table('tasks')->saveOrUpdate([
+$task = table('products')->saveOrUpdate([
     'id' => 7,
     'status' => 'done',
     'completed_at' => date('Y-m-d H:i:s'),
@@ -235,12 +235,12 @@ $task = table('tasks')->saveOrUpdate([
 Updates rows matching `$where`. Scalar `$where` is treated as a primary-key lookup.
 
 ```php
-table('tasks')->update(
+table('products')->update(
     ['status' => 'in_progress'],
     ['project_id' => 1, 'status' => 'open']
 );
 
-table('tasks')->update(['assignee' => 'alex@northwind.studio'], 42);
+table('products')->update(['assignee' => 'ada@pionia.shop'], 42);
 ```
 
 ### `delete(array|int|string $where, ?string $idField = 'id')`
@@ -248,16 +248,16 @@ table('tasks')->update(['assignee' => 'alex@northwind.studio'], 42);
 Deletes rows matching `$where`. Scalar `$where` deletes by primary key.
 
 ```php
-table('tasks')->delete(['status' => 'draft', 'project_id' => 99]);
-table('tasks')->delete(42);
+table('products')->delete(['status' => 'draft', 'project_id' => 99]);
+table('products')->delete(42);
 ```
 
 ### `deleteById(string|int $id, ?string $idField = 'id')`
 
-Explicit alias for deleting a single row by primary key. Reads clearer than `delete($id)` in DeskFlow maintenance actions.
+Explicit alias for deleting a single row by primary key. Reads clearer than `delete($id)` in Pionia Shop maintenance actions.
 
 ```php
-table('tasks')->deleteById(42);
+table('products')->deleteById(42);
 ```
 
 ### `deleteAll(array $where)`
@@ -265,7 +265,7 @@ table('tasks')->deleteById(42);
 Alias of `delete()` with an array WHERE clause. Deletes every matching row in one statement.
 
 ```php
-table('tasks')->deleteAll(['project_id' => 99, 'status' => 'draft']);
+table('products')->deleteAll(['project_id' => 99, 'status' => 'draft']);
 ```
 
 ### `random(?int $limit = 1, ?array $where = null, ?string $pkField = 'id', string $strategy = 'sample')`
@@ -273,8 +273,8 @@ table('tasks')->deleteAll(['project_id' => 99, 'status' => 'draft']);
 Fetches random row(s). Default `sample` strategy picks random PK values in range; pass `native` to use `ORDER BY RAND()`.
 
 ```php
-$spotlight = table('tasks')->random(1, ['status' => 'open']);
-$five = table('team_members')->random(5, ['project_id' => 1], 'id', 'native');
+$spotlight = table('products')->random(1, ['status' => 'open']);
+$five = table('customers')->random(5, ['project_id' => 1], 'id', 'native');
 ```
 
 ### `chunk(int $size, callable $callback, ?array $where = null, string $pkField = 'id')`
@@ -282,7 +282,7 @@ $five = table('team_members')->random(5, ['project_id' => 1], 'id', 'native');
 Processes result sets in pages without loading the full table. Each callback receives up to `$size` rows. Must be called before `filter()`.
 
 ```php
-table('tasks')->chunk(100, function (array $rows) {
+table('products')->chunk(100, function (array $rows) {
     foreach ($rows as $task) {
         logger()->debug('task', ['id' => $task->id]);
     }
@@ -291,10 +291,10 @@ table('tasks')->chunk(100, function (array $rows) {
 
 ### `explain(?array $where = null)`
 
-Returns the database `EXPLAIN` plan for the current table, columns, and WHERE. Use when a DeskFlow list endpoint on port 8000 is slow.
+Returns the database `EXPLAIN` plan for the current table, columns, and WHERE. Use when a Pionia Shop list endpoint on port 8000 is slow.
 
 ```php
-$plan = table('tasks')->explain(['status' => 'open', 'project_id' => 1]);
+$plan = table('products')->explain(['status' => 'open', 'project_id' => 1]);
 ```
 
 ### `count(?string $column = null, ?array $where = null)`
@@ -302,8 +302,8 @@ $plan = table('tasks')->explain(['status' => 'open', 'project_id' => 1]);
 Returns `COUNT(*)` or `COUNT(column)` for matching rows. Merges optional `$where` before counting.
 
 ```php
-$openCount = table('tasks')->count('*', ['status' => 'open']);
-$perProject = table('tasks')->count('id', ['project_id' => 1]);
+$openCount = table('products')->count('*', ['status' => 'open']);
+$perProject = table('products')->count('id', ['project_id' => 1]);
 ```
 
 ### `sum(string $column, ?array $where = null)`
@@ -311,7 +311,7 @@ $perProject = table('tasks')->count('id', ['project_id' => 1]);
 Returns the numeric sum of `$column` as a string (driver-dependent formatting). Merge `$where` to scope aggregates.
 
 ```php
-$totalEstimate = table('tasks')->sum('estimate_hours', ['project_id' => 1]);
+$totalEstimate = table('products')->sum('estimate_hours', ['project_id' => 1]);
 ```
 
 ### `avg(string $column, ?array $where = null)`
@@ -319,7 +319,7 @@ $totalEstimate = table('tasks')->sum('estimate_hours', ['project_id' => 1]);
 Returns the average of `$column` for matching rows.
 
 ```php
-$avgPriority = table('tasks')->avg('priority', ['status' => 'open']);
+$avgPriority = table('products')->avg('priority', ['status' => 'open']);
 ```
 
 ### `max(string $column, ?array $where = null)`
@@ -327,7 +327,7 @@ $avgPriority = table('tasks')->avg('priority', ['status' => 'open']);
 Returns the maximum value of `$column`.
 
 ```php
-$latestSort = table('tasks')->max('sort_order', ['project_id' => 1]);
+$latestSort = table('products')->max('sort_order', ['project_id' => 1]);
 ```
 
 ### `min(string $column, ?array $where = null)`
@@ -335,15 +335,15 @@ $latestSort = table('tasks')->max('sort_order', ['project_id' => 1]);
 Returns the minimum value of `$column`.
 
 ```php
-$earliest = table('tasks')->min('created_at', ['project_id' => 1]);
+$earliest = table('products')->min('created_at', ['project_id' => 1]);
 ```
 
 ### `raw(string $query, ?array $params = [], ?string $using = 'db')`
 
-Executes a parameterized SQL string and returns one object (single row) or an array of rows. Prefer `table()` chains for routine DeskFlow CRUD; reserve `raw()` for reporting queries.
+Executes a parameterized SQL string and returns one object (single row) or an array of rows. Prefer `table()` chains for routine Pionia Shop CRUD; reserve `raw()` for reporting queries.
 
 ```php
-$stats = table('tasks')->raw(
+$stats = table('products')->raw(
     'SELECT status, COUNT(*) AS cnt FROM tasks WHERE project_id = :pid GROUP BY status',
     ['pid' => 1]
 );
@@ -355,7 +355,7 @@ Wraps `$callback` in a database transaction. Assign results from inside the clos
 
 ```php
 $row = null;
-table('tasks')->inTransaction(function ($porm) use (&$row) {
+table('products')->inTransaction(function ($porm) use (&$row) {
     $row = $porm->save(['project_id' => 1, 'title' => 'Deploy', 'status' => 'open']);
     table('projects')->update(['updated_at' => date('Y-m-d H:i:s')], 1);
 });
@@ -366,8 +366,8 @@ table('tasks')->inTransaction(function ($porm) use (&$row) {
 Returns the most recently executed SQL with inlined parameters (human-readable). Useful while debugging Moonlight actions against port 8000.
 
 ```php
-table('tasks')->where('status', 'open')->all();
-$sql = table('tasks')->lastQuery();
+table('products')->where('status', 'open')->all();
+$sql = table('products')->lastQuery();
 ```
 
 ### `getDatabase()`
@@ -375,7 +375,7 @@ $sql = table('tasks')->lastQuery();
 Returns the underlying `Piql` engine for advanced SQL. Chain `lastPrepared()` on the result for placeholder maps.
 
 ```php
-$piql = table('tasks')->getDatabase();
+$piql = table('products')->getDatabase();
 $prepared = $piql->lastPrepared(); // ['statement' => '...', 'map' => [...]]
 ```
 
@@ -384,8 +384,8 @@ $prepared = $piql->lastPrepared(); // ['statement' => '...', 'map' => [...]]
 Returns the auto-increment ID from the last `insert` on this connection.
 
 ```php
-table('tasks')->save(['project_id' => 1, 'title' => 'New', 'status' => 'open']);
-$newId = table('tasks')->lastSaved();
+table('products')->save(['project_id' => 1, 'title' => 'New', 'status' => 'open']);
+$newId = table('products')->lastSaved();
 ```
 
 ### `info()`
@@ -393,7 +393,7 @@ $newId = table('tasks')->lastSaved();
 Returns metadata about the active connection (driver type, server version, etc.).
 
 ```php
-$meta = table('tasks')->info();
+$meta = table('products')->info();
 ```
 
 ## `Pionia\Porm\Database\Builders\Builder`
@@ -405,7 +405,7 @@ Returned by `filter()`. Supports fluent WHERE, ordering, limits, and aggregates.
 Adds AND conditions. Pass a Medoo array or fluent `(column, value)` / `(column, operator, value)` forms.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->where('status', 'open')
     ->where('priority', '>', 2)
     ->all();
@@ -413,11 +413,11 @@ table('tasks')->filter()
 
 ### `orWhere(array|string $column, mixed $operatorOrValue = null, mixed $value = null)`
 
-Adds OR conditions relative to prior clauses. Use for alternate assignee matches on a task board.
+Adds OR conditions relative to prior clauses. Use for alternate matches — for example email **or** name when looking up a customer.
 
 ```php
-table('tasks')->filter()
-    ->where('assignee', 'alex@northwind.studio')
+table('products')->filter()
+    ->where('assignee', 'ada@pionia.shop')
     ->orWhere('assignee', 'sam@northwind.studio')
     ->all();
 ```
@@ -427,7 +427,7 @@ table('tasks')->filter()
 Shorthand for `where($column, $value)`.
 
 ```php
-table('tasks')->filter()->whereEquals('status', 'open')->count();
+table('products')->filter()->whereEquals('status', 'open')->count();
 ```
 
 ### `whereIs(string $column, mixed $value)`
@@ -435,7 +435,7 @@ table('tasks')->filter()->whereEquals('status', 'open')->count();
 Explicit equality with the `is` operator alias.
 
 ```php
-table('team_members')->filter()->whereIs('email', 'alex@northwind.studio')->first();
+table('customers')->filter()->whereIs('email', 'ada@pionia.shop')->first();
 ```
 
 ### `whereNotEqual(string $column, mixed $value)`
@@ -443,7 +443,7 @@ table('team_members')->filter()->whereIs('email', 'alex@northwind.studio')->firs
 `column != value`.
 
 ```php
-table('tasks')->filter()->whereNotEqual('status', 'archived')->all();
+table('products')->filter()->whereNotEqual('status', 'archived')->all();
 ```
 
 ### `whereStartsWith(string $column, string $value)`
@@ -451,7 +451,7 @@ table('tasks')->filter()->whereNotEqual('status', 'archived')->all();
 `LIKE 'value%'`.
 
 ```php
-table('tasks')->filter()->whereStartsWith('title', 'Desk')->all();
+table('products')->filter()->whereStartsWith('title', 'Desk')->all();
 ```
 
 ### `whereEndsWith(string $column, string $value)`
@@ -459,7 +459,7 @@ table('tasks')->filter()->whereStartsWith('title', 'Desk')->all();
 `LIKE '%value'`.
 
 ```php
-table('team_members')->filter()->whereEndsWith('email', '.studio')->all();
+table('customers')->filter()->whereEndsWith('email', '.studio')->all();
 ```
 
 ### `whereIncludes(string $column, string $value)`
@@ -467,7 +467,7 @@ table('team_members')->filter()->whereEndsWith('email', '.studio')->all();
 `LIKE '%value%'` (contains).
 
 ```php
-table('tasks')->filter()->whereIncludes('title', 'wireframe')->all();
+table('products')->filter()->whereIncludes('title', 'wireframe')->all();
 ```
 
 ### `whereNotIncludes(string $column, string $value)`
@@ -475,7 +475,7 @@ table('tasks')->filter()->whereIncludes('title', 'wireframe')->all();
 `NOT LIKE '%value%'`.
 
 ```php
-table('tasks')->filter()->whereNotIncludes('title', 'draft')->all();
+table('products')->filter()->whereNotIncludes('title', 'draft')->all();
 ```
 
 ### `whereGreaterThan(string $column, mixed $value)`
@@ -483,7 +483,7 @@ table('tasks')->filter()->whereNotIncludes('title', 'draft')->all();
 `column > value`.
 
 ```php
-table('tasks')->filter()->whereGreaterThan('priority', 2)->all();
+table('products')->filter()->whereGreaterThan('priority', 2)->all();
 ```
 
 ### `whereGreaterThanOrEqual(string $column, mixed $value)`
@@ -491,7 +491,7 @@ table('tasks')->filter()->whereGreaterThan('priority', 2)->all();
 `column >= value`.
 
 ```php
-table('tasks')->filter()->whereGreaterThanOrEqual('sort_order', 10)->all();
+table('products')->filter()->whereGreaterThanOrEqual('sort_order', 10)->all();
 ```
 
 ### `whereLessThan(string $column, mixed $value)`
@@ -499,7 +499,7 @@ table('tasks')->filter()->whereGreaterThanOrEqual('sort_order', 10)->all();
 `column < value`.
 
 ```php
-table('tasks')->filter()->whereLessThan('estimate_hours', 8)->all();
+table('products')->filter()->whereLessThan('estimate_hours', 8)->all();
 ```
 
 ### `whereLessThanOrEqual(string $column, mixed $value)`
@@ -507,7 +507,7 @@ table('tasks')->filter()->whereLessThan('estimate_hours', 8)->all();
 `column <= value`.
 
 ```php
-table('tasks')->filter()->whereLessThanOrEqual('priority', 3)->all();
+table('products')->filter()->whereLessThanOrEqual('priority', 3)->all();
 ```
 
 ### `whereIn(string $column, array $values)`
@@ -515,7 +515,7 @@ table('tasks')->filter()->whereLessThanOrEqual('priority', 3)->all();
 `column IN (...)`.
 
 ```php
-table('tasks')->filter()->whereIn('status', ['open', 'in_progress'])->all();
+table('products')->filter()->whereIn('status', ['open', 'in_progress'])->all();
 ```
 
 ### `whereNotIn(string $column, array $values)`
@@ -523,7 +523,7 @@ table('tasks')->filter()->whereIn('status', ['open', 'in_progress'])->all();
 `column NOT IN (...)`.
 
 ```php
-table('tasks')->filter()->whereNotIn('project_id', [98, 99])->all();
+table('products')->filter()->whereNotIn('project_id', [98, 99])->all();
 ```
 
 ### `whereNull(string $column)`
@@ -531,7 +531,7 @@ table('tasks')->filter()->whereNotIn('project_id', [98, 99])->all();
 `column IS NULL`.
 
 ```php
-table('tasks')->filter()->whereNull('completed_at')->all();
+table('products')->filter()->whereNull('completed_at')->all();
 ```
 
 ### `whereNotNull(string $column)`
@@ -539,7 +539,7 @@ table('tasks')->filter()->whereNull('completed_at')->all();
 `column IS NOT NULL`.
 
 ```php
-table('tasks')->filter()->whereNotNull('assignee')->all();
+table('products')->filter()->whereNotNull('assignee')->all();
 ```
 
 ### `whereBetween(string $column, mixed $min, mixed $max)`
@@ -547,7 +547,7 @@ table('tasks')->filter()->whereNotNull('assignee')->all();
 `column BETWEEN min AND max`.
 
 ```php
-table('tasks')->filter()->whereBetween('priority', 1, 3)->all();
+table('products')->filter()->whereBetween('priority', 1, 3)->all();
 ```
 
 ### `whereNotBetween(string $column, mixed $min, mixed $max)`
@@ -555,7 +555,7 @@ table('tasks')->filter()->whereBetween('priority', 1, 3)->all();
 `column NOT BETWEEN min AND max`.
 
 ```php
-table('tasks')->filter()->whereNotBetween('sort_order', 0, 5)->all();
+table('products')->filter()->whereNotBetween('sort_order', 0, 5)->all();
 ```
 
 ### `orderBy(string|array $value)`
@@ -563,7 +563,7 @@ table('tasks')->filter()->whereNotBetween('sort_order', 0, 5)->all();
 Sets `ORDER BY`. Pass a column name (defaults ASC) or an associative array of column => direction.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->where('project_id', 1)
     ->orderBy(['priority' => 'DESC', 'sort_order' => 'ASC'])
     ->all();
@@ -574,7 +574,7 @@ table('tasks')->filter()
 Sets `GROUP BY` columns.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->columns(['status', 'count' => 'COUNT(*)'])
     ->group('status')
     ->all();
@@ -585,7 +585,7 @@ table('tasks')->filter()
 Adds a `HAVING` clause. Append `$needle` (`>`, `<`, `!`, `>=`, `<=`) for comparisons.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->columns(['project_id', 'total' => 'COUNT(*)'])
     ->group('project_id')
     ->having('total', 5, '>')
@@ -597,7 +597,7 @@ table('tasks')->filter()
 Sets `LIMIT`. Required before `startAt()`.
 
 ```php
-table('tasks')->filter()->where('status', 'open')->limit(25)->all();
+table('products')->filter()->where('status', 'open')->limit(25)->all();
 ```
 
 ### `startAt(int $startPoint = 0)`
@@ -605,7 +605,7 @@ table('tasks')->filter()->where('status', 'open')->limit(25)->all();
 Sets `OFFSET`. Must follow `limit()`.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->where('project_id', 1)
     ->orderBy('id')
     ->limit(25)
@@ -618,7 +618,7 @@ table('tasks')->filter()
 Adds a `MATCH ... AGAINST` full-text condition (MySQL). `$mode` can be `natural` or `boolean`.
 
 ```php
-table('tasks')->filter()
+table('products')->filter()
     ->match(['title', 'description'], 'wireframe', 'boolean')
     ->all();
 ```
@@ -628,7 +628,7 @@ table('tasks')->filter()
 Executes and returns a single row object. Optional `$where` merges before execution; integer offset uses `LIMIT`.
 
 ```php
-$row = table('tasks')->filter()->where('status', 'open')->get();
+$row = table('products')->filter()->where('status', 'open')->get();
 ```
 
 ### `first()`
@@ -636,7 +636,7 @@ $row = table('tasks')->filter()->where('status', 'open')->get();
 Returns the first row of the result set (`get(0)`).
 
 ```php
-$next = table('tasks')->filter()
+$next = table('products')->filter()
     ->where('status', 'open')
     ->orderBy('sort_order')
     ->first();
@@ -647,7 +647,7 @@ $next = table('tasks')->filter()
 Executes and returns all matching rows.
 
 ```php
-$board = table('tasks')->filter()
+$board = table('products')->filter()
     ->where('project_id', 1)
     ->orderBy('sort_order')
     ->all();
@@ -658,7 +658,7 @@ $board = table('tasks')->filter()
 Returns the row count for the built query.
 
 ```php
-$open = table('tasks')->filter()->where('status', 'open')->count();
+$open = table('products')->filter()->where('status', 'open')->count();
 ```
 
 ### `sum(string $column, ?array $where = null)`
@@ -666,7 +666,7 @@ $open = table('tasks')->filter()->where('status', 'open')->count();
 Aggregate sum on the filtered set.
 
 ```php
-$hours = table('tasks')->filter()->where('project_id', 1)->sum('estimate_hours');
+$hours = table('products')->filter()->where('project_id', 1)->sum('estimate_hours');
 ```
 
 ### `avg(string $column, ?array $where = null)`
@@ -674,7 +674,7 @@ $hours = table('tasks')->filter()->where('project_id', 1)->sum('estimate_hours')
 Aggregate average on the filtered set.
 
 ```php
-$avg = table('tasks')->filter()->where('status', 'done')->avg('estimate_hours');
+$avg = table('products')->filter()->where('status', 'done')->avg('estimate_hours');
 ```
 
 ### `max(string $column, ?array $where = null)`
@@ -682,7 +682,7 @@ $avg = table('tasks')->filter()->where('status', 'done')->avg('estimate_hours');
 Aggregate maximum on the filtered set.
 
 ```php
-$peak = table('tasks')->filter()->where('project_id', 1)->max('priority');
+$peak = table('products')->filter()->where('project_id', 1)->max('priority');
 ```
 
 ### `min(string $column, ?array $where = null)`
@@ -690,7 +690,7 @@ $peak = table('tasks')->filter()->where('project_id', 1)->max('priority');
 Aggregate minimum on the filtered set.
 
 ```php
-$lowest = table('tasks')->filter()->where('project_id', 1)->min('sort_order');
+$lowest = table('products')->filter()->where('project_id', 1)->min('sort_order');
 ```
 
 ## `Pionia\Porm\Database\Builders\Join`
@@ -713,7 +713,7 @@ Alias of `inner()`.
 
 ```php
 table('tasks', 't')->join()
-    ->innerJoin('team_members', ['t.assignee' => 'email'], 'm')
+    ->innerJoin('customers', ['t.assignee' => 'email'], 'm')
     ->all();
 ```
 
@@ -743,7 +743,7 @@ table('projects', 'p')->join()
 Adds a `RIGHT JOIN`.
 
 ```php
-table('team_members', 'm')->join()
+table('customers', 'm')->join()
     ->right('projects', ['m.project_id' => 'id'], 'p')
     ->all();
 ```
@@ -796,7 +796,7 @@ Fluent or array WHERE on joined queries. Same signatures as Builder `where()`. J
 ```php
 table('tasks', 't')->join()
     ->left('projects', ['t.project_id' => 'id'], 'p')
-    ->where('p.client', 'Northwind')
+    ->where('p.client', 'Pionia Shop')
     ->where('t.status', 'open')
     ->all();
 ```
@@ -830,7 +830,7 @@ All joined rows.
 ```php
 $rows = table('tasks', 't')->join()
     ->inner('projects', ['t.project_id' => 'id'], 'p')
-    ->where('p.slug', 'deskflow-alpha')
+    ->where('p.slug', 'pionia-shop-alpha')
     ->all();
 ```
 
@@ -944,7 +944,7 @@ Multiple AND equalities.
 
 ```php
 table('tasks', 't')->join()
-    ->inner('team_members', JoinOn::maps(['assignee' => 'email', 'project_id' => 'project_id']), 'm')
+    ->inner('customers', JoinOn::maps(['assignee' => 'email', 'project_id' => 'project_id']), 'm')
     ->all();
 ```
 
@@ -953,7 +953,7 @@ table('tasks', 't')->join()
 `USING (column)` form for one or more shared column names.
 
 ```php
-table('tasks')->join()
+table('products')->join()
     ->inner('archived_tasks', JoinOn::using('id'))
     ->all();
 ```
@@ -964,7 +964,7 @@ Raw SQL ON fragment.
 
 ```php
 table('tasks', 't')->join()
-    ->left('projects', JoinOn::expression('t.project_id = p.id AND p.client = \'Northwind\''), 'p')
+    ->left('projects', JoinOn::expression('t.project_id = p.id AND p.client = \'Pionia Shop\''), 'p')
     ->all();
 ```
 
@@ -985,8 +985,8 @@ table('tasks', 't')->join()
 Attaches related rows to each parent in one extra `WHERE IN` query — avoids N+1 when looping tasks and loading projects.
 
 ```php
-$tasks = table('tasks')->where('project_id', 1)->all();
-$tasks = JoinLoader::eager($tasks, 'project_id', 'projects', 'id', 'project');
+$products = table('products')->where('project_id', 1)->all();
+$products = JoinLoader::eager($products, 'project_id', 'projects', 'id', 'project');
 // each $task->project is the matching projects row
 ```
 
@@ -1020,7 +1020,7 @@ Wraps `$clauses` in an OR group.
 
 ```php
 $clause = Where::builder()
-    ->or(['assignee' => 'alex@northwind.studio', 'assignee' => 'sam@northwind.studio'])
+    ->or(['assignee' => 'ada@pionia.shop', 'assignee' => 'sam@northwind.studio'])
     ->build();
 ```
 
@@ -1030,7 +1030,7 @@ Returns the finished Medoo-style WHERE array. Pass to `filter()->where($clause)`
 
 ```php
 $clause = Where::builder()->where('status', 'open')->build();
-$tasks = table('tasks')->filter()->where($clause)->all();
+$products = table('products')->filter()->where($clause)->all();
 ```
 
 ### `where(array|string $column, mixed $operatorOrValue = null, mixed $value = null)`
@@ -1208,7 +1208,7 @@ $expr = Agg::builder()->gt('priority', 2)->build();
 Returns the Medoo-style expression array.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->eq('status', 'open')->build())->all();
+table('products')->filter()->where(Agg::builder()->eq('status', 'open')->build())->all();
 ```
 
 ### `random(string $columnName)`
@@ -1216,7 +1216,7 @@ table('tasks')->filter()->where(Agg::builder()->eq('status', 'open')->build())->
 Select `RAND()` aliased as `$columnName`.
 
 ```php
-table('tasks')->columns(Agg::builder()->random('pick')->build())->limit(1)->all();
+table('products')->columns(Agg::builder()->random('pick')->build())->limit(1)->all();
 ```
 
 ### `sum(string $columnName, string $column)`
@@ -1224,7 +1224,7 @@ table('tasks')->columns(Agg::builder()->random('pick')->build())->limit(1)->all(
 `SUM(column)` with result alias.
 
 ```php
-table('tasks')->columns(Agg::builder()->sum('total_hours', 'estimate_hours')->build())
+table('products')->columns(Agg::builder()->sum('total_hours', 'estimate_hours')->build())
     ->where('project_id', 1)->get();
 ```
 
@@ -1233,7 +1233,7 @@ table('tasks')->columns(Agg::builder()->sum('total_hours', 'estimate_hours')->bu
 `AVG(column)` with alias.
 
 ```php
-table('tasks')->columns(Agg::builder()->avg('avg_pri', 'priority')->build())->get();
+table('products')->columns(Agg::builder()->avg('avg_pri', 'priority')->build())->get();
 ```
 
 ### `max(string $columnName, string $column)`
@@ -1241,7 +1241,7 @@ table('tasks')->columns(Agg::builder()->avg('avg_pri', 'priority')->build())->ge
 `MAX(column)` with alias.
 
 ```php
-table('tasks')->columns(Agg::builder()->max('max_sort', 'sort_order')->build())->get();
+table('products')->columns(Agg::builder()->max('max_sort', 'sort_order')->build())->get();
 ```
 
 ### `now(string $columnName)`
@@ -1249,7 +1249,7 @@ table('tasks')->columns(Agg::builder()->max('max_sort', 'sort_order')->build())-
 `NOW()` timestamp expression.
 
 ```php
-table('tasks')->save(Agg::builder()->now('updated_at')->eq('status', 'open')->build());
+table('products')->save(Agg::builder()->now('updated_at')->eq('status', 'open')->build());
 ```
 
 ### `uuid(string $columnName, ?string $uuidString)`
@@ -1265,7 +1265,7 @@ table('projects')->save(Agg::builder()->uuid('public_id', null)->build());
 `column[<]value` condition.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->lt('priority', 4)->build())->all();
+table('products')->filter()->where(Agg::builder()->lt('priority', 4)->build())->all();
 ```
 
 ### `lte(string $columnName, int $value)`
@@ -1273,7 +1273,7 @@ table('tasks')->filter()->where(Agg::builder()->lt('priority', 4)->build())->all
 `column[<=]value` condition.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->lte('sort_order', 10)->build())->all();
+table('products')->filter()->where(Agg::builder()->lte('sort_order', 10)->build())->all();
 ```
 
 ### `gt(string $columnName, int $value)`
@@ -1281,7 +1281,7 @@ table('tasks')->filter()->where(Agg::builder()->lte('sort_order', 10)->build())-
 `column[>]value` condition.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->gt('priority', 1)->build())->all();
+table('products')->filter()->where(Agg::builder()->gt('priority', 1)->build())->all();
 ```
 
 ### `gte(string $columnName, mixed $value)`
@@ -1289,7 +1289,7 @@ table('tasks')->filter()->where(Agg::builder()->gt('priority', 1)->build())->all
 `column[>=]value` condition.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->gte('estimate_hours', 2)->build())->all();
+table('products')->filter()->where(Agg::builder()->gte('estimate_hours', 2)->build())->all();
 ```
 
 ### `eq(string $columnName, mixed $value)`
@@ -1297,7 +1297,7 @@ table('tasks')->filter()->where(Agg::builder()->gte('estimate_hours', 2)->build(
 Equality expression entry.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->eq('status', 'open')->build())->all();
+table('products')->filter()->where(Agg::builder()->eq('status', 'open')->build())->all();
 ```
 
 ### `neq(string $columnName, mixed $value)`
@@ -1305,7 +1305,7 @@ table('tasks')->filter()->where(Agg::builder()->eq('status', 'open')->build())->
 `column[!]value` inequality.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->neq('status', 'archived')->build())->all();
+table('products')->filter()->where(Agg::builder()->neq('status', 'archived')->build())->all();
 ```
 
 ### `plus(string $columnName, int $value)`
@@ -1313,7 +1313,7 @@ table('tasks')->filter()->where(Agg::builder()->neq('status', 'archived')->build
 Increment column: `column[+]value`.
 
 ```php
-table('tasks')->update(Agg::builder()->plus('sort_order', 1)->build(), 42);
+table('products')->update(Agg::builder()->plus('sort_order', 1)->build(), 42);
 ```
 
 ### `minus(string $columnName, int $value)`
@@ -1321,7 +1321,7 @@ table('tasks')->update(Agg::builder()->plus('sort_order', 1)->build(), 42);
 Decrement column: `column[-]value`.
 
 ```php
-table('tasks')->update(Agg::builder()->minus('estimate_hours', 1)->build(), 42);
+table('products')->update(Agg::builder()->minus('estimate_hours', 1)->build(), 42);
 ```
 
 ### `of(string $columnName, int $value)`
@@ -1329,7 +1329,7 @@ table('tasks')->update(Agg::builder()->minus('estimate_hours', 1)->build(), 42);
 Multiply column: `column[*]value`.
 
 ```php
-table('tasks')->update(Agg::builder()->of('estimate_hours', 2)->build(), 42);
+table('products')->update(Agg::builder()->of('estimate_hours', 2)->build(), 42);
 ```
 
 ### `jsonified(string $columnName, array $value)`
@@ -1337,7 +1337,7 @@ table('tasks')->update(Agg::builder()->of('estimate_hours', 2)->build(), 42);
 JSON-encode a value into a column on write.
 
 ```php
-table('tasks')->update(Agg::builder()->jsonified('meta', ['reviewed' => true])->build(), 42);
+table('products')->update(Agg::builder()->jsonified('meta', ['reviewed' => true])->build(), 42);
 ```
 
 ### `div(string $columnName, int $value)`
@@ -1345,7 +1345,7 @@ table('tasks')->update(Agg::builder()->jsonified('meta', ['reviewed' => true])->
 Divide column: `column[/]value`.
 
 ```php
-table('tasks')->update(Agg::builder()->div('estimate_hours', 2)->build(), 42);
+table('products')->update(Agg::builder()->div('estimate_hours', 2)->build(), 42);
 ```
 
 ### `like(string $columnName, string|array $value)`
@@ -1353,7 +1353,7 @@ table('tasks')->update(Agg::builder()->div('estimate_hours', 2)->build(), 42);
 `column[~]value` LIKE condition.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->like('title', '%wireframe%')->build())->all();
+table('products')->filter()->where(Agg::builder()->like('title', '%wireframe%')->build())->all();
 ```
 
 ### `notLike(string $columnName, string|array $value)`
@@ -1361,7 +1361,7 @@ table('tasks')->filter()->where(Agg::builder()->like('title', '%wireframe%')->bu
 `column[!~]value` negative LIKE.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->notLike('title', '%draft%')->build())->all();
+table('products')->filter()->where(Agg::builder()->notLike('title', '%draft%')->build())->all();
 ```
 
 ### `columnsCompare(string $column, string $comparison, string $otherColumn)`
@@ -1380,7 +1380,7 @@ table('tasks', 't')->join()
 `column[<>]values` BETWEEN.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->between('priority', [1, 3])->build())->all();
+table('products')->filter()->where(Agg::builder()->between('priority', [1, 3])->build())->all();
 ```
 
 ### `notBetween($columnName, array $values)`
@@ -1388,7 +1388,7 @@ table('tasks')->filter()->where(Agg::builder()->between('priority', [1, 3])->bui
 `column[><]values` NOT BETWEEN.
 
 ```php
-table('tasks')->filter()->where(Agg::builder()->notBetween('sort_order', [0, 5])->build())->all();
+table('products')->filter()->where(Agg::builder()->notBetween('sort_order', [0, 5])->build())->all();
 ```
 
 ### `regex($columnName, string $regex)`
@@ -1396,14 +1396,14 @@ table('tasks')->filter()->where(Agg::builder()->notBetween('sort_order', [0, 5])
 `column[REGEXP]regex` condition (MySQL).
 
 ```php
-table('team_members')->filter()
+table('customers')->filter()
     ->where(Agg::builder()->regex('email', '@northwind\\.studio$')->build())
     ->all();
 ```
 
 ## `Pionia\Porm\PaginationCore`
 
-Moonlight list payloads for DeskFlow tables. Reads `limit` / `offset` from request arrays (`PAGINATION`, `pagination`, `SEARCH`, `search`, or top-level keys).
+Moonlight list payloads for Pionia Shop tables. Reads `limit` / `offset` from request arrays (`PAGINATION`, `pagination`, `SEARCH`, `search`, or top-level keys).
 
 ### `__construct(?array $req, string $table, ?int $limit = 10, ?int $offset = 0, ?string $db = null, ?string $alias = null)`
 
@@ -1540,7 +1540,7 @@ $expr = Piql::raw('estimate_hours * :rate', ['rate' => 85]);
 Native insert-or-update on conflict for SQLite, MySQL, and PostgreSQL. Returns `null` when unsupported.
 
 ```php
-table('tasks')->getDatabase()->upsert('tasks', [
+table('products')->getDatabase()->upsert('tasks', [
     'id' => 7,
     'status' => 'done',
 ], 'id');
@@ -1548,11 +1548,11 @@ table('tasks')->getDatabase()->upsert('tasks', [
 
 ### `lastPrepared()`
 
-Returns the last executed statement and placeholder map: `['statement' => '...', 'map' => [...]]`. Pair with `lastQuery()` for debugging DeskFlow queries on port 8000.
+Returns the last executed statement and placeholder map: `['statement' => '...', 'map' => [...]]`. Pair with `lastQuery()` for debugging Pionia Shop queries on port 8000.
 
 ```php
-table('tasks')->where('status', 'open')->all();
-$prepared = table('tasks')->getDatabase()->lastPrepared();
+table('products')->where('status', 'open')->all();
+$prepared = table('products')->getDatabase()->lastPrepared();
 ```
 
 ## Exceptions
@@ -1580,9 +1580,9 @@ Prose guides: [Database index](/documentation/database/).
 
 ## Common mistakes
 
-- **Calling non-terminal methods after `all()` or `count()`** — start a fresh `table('tasks')` chain for the next operation.
+- **Calling non-terminal methods after `all()` or `count()`** — start a fresh `table('products')` chain for the next operation.
 - **Using Builder methods on a bare `Porm` after `join()`** — join chains only expose Join + FilterTrait terminals.
-- **Assuming `saveOrUpdate()` targets joined tables** — writes always hit the base table from `table('tasks')`.
+- **Assuming `saveOrUpdate()` targets joined tables** — writes always hit the base table from `table('products')`.
 - **Looking up deprecated `Porm\Porm` class names** — v3 lives under `Pionia\Porm\` per this reference.
 
 ## What's next

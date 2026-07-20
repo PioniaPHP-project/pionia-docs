@@ -19,7 +19,7 @@ seo:
 
 ## Who this is for
 
-You are planning a **v3 upgrade** for an existing Pionia app or starting fresh with DeskFlow. This page lists platform requirements, breaking changes, and links to detailed guides.
+You are planning a **v3 upgrade** for an existing Pionia app or starting fresh with Pionia Shop. This page lists platform requirements, breaking changes, and links to detailed guides.
 
 ## What you will learn
 
@@ -36,7 +36,7 @@ You are planning a **v3 upgrade** for an existing Pionia app or starting fresh w
 
 ## How it works
 
-v3 preserves the Moonlight contract Northwind clients already know — `{ "service", "action" }` on `/api/v1/` with the same envelope. The **platform underneath** changed: bootstrap, routing, CLI, caching, and deploy tooling are now native to Pionia.
+v3 preserves the Moonlight contract Pionia Shop clients already know — `{ "service", "action" }` on `/api/v1/` with the same envelope. The **platform underneath** changed: bootstrap, routing, CLI, caching, and deploy tooling are now native to Pionia.
 
 Pionia **3.0** is a major release that modernizes the framework kernel, reduces third-party dependencies, and adds first-class tooling for production deployment, persistent workers, and full-stack applications.
 
@@ -270,15 +270,27 @@ See [Exceptions & error handling](/documentation/http/exceptions/).
 
 v3 adds **`Pionia\Security\Security`** — a single cryptography and randomness surface with matching global helpers:
 
-```php
-$token = secure_token();
-$hash  = secure_hash_password('secret');
-$plain = secure_decrypt($cipher);
-```
+| Area | Examples |
+|------|----------|
+| Passwords | `hash_password()`, `verify_password()` |
+| Tokens / OTP | `secure_token()`, `secure_otp()` |
+| Encryption | `encrypt()` / `decrypt()` with `APP_KEY` |
+| **JWT** | `jwt_encode()`, `jwt_decode()`, `jwt_verify()`, built-in `JwtAuthentication` |
+| **Action auth** | `#[Authenticated]`, `#[Can]`, `#[CanAny]` (with service-level `except`) |
 
-Covers CSPRNG tokens, OTPs, ULIDs, password hashing (Argon2id / bcrypt), HMAC, symmetric encryption (libsodium), and hybrid RSA for large payloads. Set `APP_KEY` in `.env` for encryption at rest.
+See [Security utilities](/documentation/security/security-utilities/), [JWT authentication](/documentation/security/jwt-authentication/), and [Protecting actions](/documentation/security/protecting-actions/).
 
-See [Security utilities](/documentation/security/security-utilities/).
+## Database migrations
+
+v3 includes a PHP **migration** system (`Schema` + `Blueprint`) with makers (`make:table`, `make:pivot`, …) and `migrate` / `migrate:rollback` / `migrate:fresh`.
+
+See [Database migrations](/documentation/database/migrations/).
+
+## In-process benchmarking
+
+`php pionia bench` (alias `benchmark`) times warm ping and Moonlight `dispatch` inside the PHP process — useful microbenchmarks, not load tests.
+
+See [In-process benchmarking](/documentation/operations/benchmarking/).
 
 ## Validation
 
@@ -293,7 +305,8 @@ See [Validations](/documentation/building-api/validation/).
 | Feature | Detail |
 |---------|--------|
 | Moonlight OpenAPI | `@moonlight-*` PHPDoc tags → `php pionia api:docs` |
-| Interactive UI | `/docs` (Scalar) when `DOCS_ENABLED` or `DEBUG` |
+| Interactive UI | `/docs` (Scalar) when `DOCS_ENABLED` or `DEBUG`; Try it posts to real `POST /api/v1/` |
+| OpenAPI paths | One path per version (`/api/v1/`); actions are named examples on that POST |
 | JSON catalog | `/api/v1/__catalog` and `php pionia api:catalog` |
 | Request metrics | `/stats`, `/stats.json`, `php pionia stats:view` |
 | Token gates | `DOCS_TOKEN`, `STATS_TOKEN` for staging without `DEBUG` |
@@ -375,7 +388,7 @@ See [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) for a
 | First project | [Introduction](/documentation/getting-started/introduction/) |
 | Folder layout | [Application structure](/documentation/getting-started/application-structure/) |
 | Moonlight model | [Moonlight architecture](/documentation/building-api/moonlight-overview/) |
-| Database | [Porm (database)](/documentation/database/) |
+| Database | [Porm (database)](/documentation/database/) · [Migrations](/documentation/database/migrations/) |
 | Deploy checklist | [Documentation hub — Production checklist](/documentation/) |
 
 ## Getting help
@@ -395,7 +408,7 @@ See [Upgrading from v2](/documentation/getting-started/upgrading-from-v2/) for a
 
 {{< card-grid >}}
 {{< link-card title="Upgrading from v2" description="Step-by-step migration checklist." href="/documentation/getting-started/upgrading-from-v2/" >}}
-{{< link-card title="Introduction" description="Scaffold a fresh v3 DeskFlow app." href="/documentation/getting-started/introduction/" >}}
+{{< link-card title="Introduction" description="Scaffold a fresh v3 Pionia Shop app." href="/documentation/getting-started/introduction/" >}}
 {{< link-card title="RoadRunner" description="Persistent workers in v3." href="/documentation/operations/roadrunner/" >}}
 {{< /card-grid >}}
 

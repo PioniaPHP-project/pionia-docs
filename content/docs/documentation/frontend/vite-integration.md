@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You want DeskFlow's task board UI in `frontend/` — calling `task.list` through Vite's dev proxy and shipping a production build into `public/` beside the Moonlight API.
+You want Pionia Shop's storefront UI in `frontend/` — calling `product.list` through Vite's dev proxy and shipping a production build into `public/` beside the Moonlight API.
 
 ## What you will learn
 
@@ -29,7 +29,7 @@ You want DeskFlow's task board UI in `frontend/` — calling `task.list` through
 ## Before you start
 
 {{< prerequisites >}}
-- Booted DeskFlow API (`php pionia serve` on port **8000**)
+- Booted Pionia Shop API (`php pionia serve` on port **8000**)
 - Node.js 18+ installed
 - [Frontend overview](/documentation/frontend/) — when to add a SPA to an API-first app
 {{< /prerequisites >}}
@@ -94,7 +94,7 @@ Terminal 2 — Vite:
 php pionia frontend:dev
 ```
 
-DeskFlow SPA example — list tasks via relative path (works in dev proxy and production):
+Pionia Shop SPA example — list tasks via relative path (works in dev proxy and production):
 
 ```typescript
 const res = await fetch('/api/v1/', {
@@ -104,7 +104,7 @@ const res = await fetch('/api/v1/', {
 });
 ```
 
-After `member.login`, attach the JWT:
+After `customer.login`, attach the JWT:
 
 ```typescript
 headers: {
@@ -142,7 +142,7 @@ Default scaffold includes `[cors]` for `http://localhost:5173` in `settings.ini`
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Authentication" description="member.login and Bearer tokens in the SPA." href="/documentation/security/security-authentication-and-authorization/" >}}
+{{< link-card title="Authentication" description="customer.login and Bearer tokens in the SPA." href="/documentation/security/security-authentication-and-authorization/" >}}
 {{< link-card title="API path helpers" description="apiPingPath() and apiVersionPath()." href="/documentation/extending/helpers/" >}}
 {{< link-card title="RoadRunner" description="Run API + workers in production." href="/documentation/operations/roadrunner/" >}}
 {{< /card-grid >}}

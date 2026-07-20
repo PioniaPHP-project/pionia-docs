@@ -15,7 +15,7 @@ seo:
   noindex: false
 ---
 
-This guide is for teams shipping DeskFlow to staging and production — **opt-in deploy optimization** that warms OPcache, caches routes, and speeds boot without changing Moonlight services.
+This guide is for teams shipping Pionia Shop to staging and production — **opt-in deploy optimization** that warms OPcache, caches routes, and speeds boot without changing Moonlight services.
 
 ## What you will learn
 
@@ -24,7 +24,7 @@ This guide is for teams shipping DeskFlow to staging and production — **opt-in
 - Stats-driven hybrid preload using `/stats` and worker snapshots
 
 {{< prerequisites >}}
-- DeskFlow deploy target with PHP 8.5+ and Composer
+- Pionia Shop deploy target with PHP 8.5+ and Composer
 - [RoadRunner](/documentation/operations/roadrunner/) or PHP-FPM in production
 - [Developer stats](/documentation/operations/developer-stats/) — OPcache section on `/stats`
 {{< /prerequisites >}}
@@ -38,7 +38,7 @@ flowchart LR
   Optimize --> Gen["storage/bootstrap/preload.php"]
   Optimize --> Cache[routes + providers cache]
   Gen --> FW[vendor framework manifest]
-  Gen --> App["DeskFlow services/switches"]
+  Gen --> App["Pionia Shop services/switches"]
   Restart["Restart FPM / RR workers"] --> Warm[OPcache warm on boot]
 {{< /mermaid >}}
 

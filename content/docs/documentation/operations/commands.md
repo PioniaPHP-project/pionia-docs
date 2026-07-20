@@ -4,7 +4,7 @@ slug: "commands-pionia-cli"
 description: "Guides you on to use Pionia CLI and adding custom commands"
 summary: "Available commands in Pionia CLI and how to add custom commands."
 date: 2024-10-07 19:48:09.318 +0300
-lastmod: 2026-07-04
+lastmod: 2026-07-20
 draft: false
 weight: 3000
 toc: true
@@ -15,17 +15,17 @@ seo:
   noindex: false # false (default) or true
 ---
 
-This reference is for DeskFlow developers who run **`php pionia`** from the project root — same `AppRealm` boot as HTTP, port **8000** by default, logs under `storage/logs/` when using file channels or detached RoadRunner.
+This reference is for Pionia Shop developers who run **`php pionia`** from the project root — same `AppRealm` boot as HTTP, port **8000** by default, logs under `storage/logs/` when using file channels or detached RoadRunner.
 
 ## What you will learn
 
-- Daily commands (`serve`, `make:service`, `cache:clear`) vs deploy-only commands (`optimize`, `runserver`)
+- Daily commands (`serve`, `make:service`, `migrate`, `cache:clear`) vs deploy-only commands (`optimize`, `runserver`)
 - The full built-in command registry and common flags
 - How to scaffold and register a custom command in `commands/`
 
 {{< prerequisites >}}
 - [Introduction](/documentation/getting-started/introduction/) — `composer create-project pionia/pionia-app`
-- DeskFlow app directory with `bootstrap/application.php`
+- Pionia Shop app directory with `bootstrap/application.php`
 {{< /prerequisites >}}
 
 ## How it works
@@ -48,12 +48,14 @@ Custom commands live in `commands/` (generate with `make:command`).
 
 ## Daily workflow
 
-Commands you run most often while building DeskFlow locally:
+Commands you run most often while building Pionia Shop locally:
 
 | Task | Command |
 |------|---------|
 | Start dev server | `php pionia serve` (port **8000** by default) |
-| Scaffold a service | `php pionia make:service task` |
+| Scaffold a service | `php pionia make:service Product` |
+| Create / run migrations | `php pionia make:table` / `php pionia migrate` |
+| Microbenchmark | `php pionia bench` |
 | Scaffold middleware | `php pionia make:middleware RequestId` |
 | Clear cache | `php pionia cache:clear` |
 | Interactive REPL | `php pionia shell` |
@@ -191,6 +193,42 @@ Options: `--json`, `--top=10`, `--reset`
 
 See [Developer stats](/documentation/operations/developer-stats/).
 
+### Database migrations
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `migrate` | — | Run pending migrations |
+| `migrate:status` | — | List applied vs pending |
+| `migrate:rollback` | — | Roll back the last batch |
+| `migrate:fresh` | — | Drop all tables and re-run (use `--force` on MySQL/PostgreSQL) |
+| `make:migration` | `migrate:make` | Blank stub or interactive wizard |
+| `make:table` | `migrate:make-table` | Create-table migration |
+| `make:migration:column` | `migrate:add-column` | Add columns |
+| `make:migration:index` | `migrate:add-index` | Add index / unique |
+| `make:migration:foreign` | `migrate:add-foreign` | Add foreign id |
+| `make:pivot` | `make:migration:pivot` | Many-to-many pivot table |
+
+```bash
+php pionia make:table products --columns="title:string,status:string" --timestamps
+php pionia migrate
+php pionia migrate:status
+```
+
+Full Blueprint guide: **[Database migrations](/documentation/database/migrations/)**.
+
+### Benchmarking
+
+| Command | Aliases | Description |
+|---------|---------|-------------|
+| `bench` | `benchmark` | In-process ping + Moonlight dispatch microbenchmark |
+
+```bash
+php pionia bench --iterations=100 --warmup=10
+php pionia bench --service=task --action=list --json
+```
+
+See [In-process benchmarking](/documentation/operations/benchmarking/).
+
 ### Code generation (`make:`)
 
 | Command | Aliases | Description |
@@ -198,9 +236,11 @@ See [Developer stats](/documentation/operations/developer-stats/).
 | `make:service {name}` | `gen:service`, `g:s`, `service` | Scaffold a service class |
 | `make:switch {name}` | `g:sw`, `switch` | Scaffold an API switch (e.g. `v2`) |
 | `make:middleware {name}` | `gen:middleware`, `g:m` | Scaffold middleware |
-| `make:auth {name}` | `gen:auth`, `g:a` | Scaffold an authentication backend |
+| `make:auth {name}` | `gen:auth`, `g:a` | Scaffold a custom authentication backend |
 | `make:command {name}` | `gen:command`, `g:c`, `command` | Scaffold a custom CLI command |
 | `make:provider {name}` | `gen:provider`, `g:p`, `provider` | Scaffold a service provider |
+
+For **Bearer JWT**, prefer registering `Pionia\Auth\JwtAuthentication` — see [JWT authentication](/documentation/security/jwt-authentication/). Use `make:auth` when you need a custom backend.
 
 Examples:
 
@@ -208,7 +248,7 @@ Examples:
 php pionia make:service todo
 php pionia make:switch v2
 php pionia make:middleware cors
-php pionia make:auth jwt
+php pionia make:auth ApiKey
 php pionia make:command reports:Generate
 ```
 

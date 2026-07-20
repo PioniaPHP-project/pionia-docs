@@ -15,7 +15,7 @@ seo:
   noindex: false # false (default) or true
 ---
 
-This guide explains how DeskFlow clients talk to Pionia over HTTP — ping with **GET**, dispatch actions with **POST**, and read **`returnCode`** plus real status codes like **422**.
+This guide explains how Pionia Shop clients talk to Pionia over HTTP — ping with **GET**, dispatch actions with **POST**, and read **`returnCode`** plus real status codes like **422**.
 
 ## What you will learn
 
@@ -34,7 +34,7 @@ This guide explains how DeskFlow clients talk to Pionia over HTTP — ping with 
 flowchart LR
   Client -->|GET /api/v1/ping| Ping[Health check]
   Client -->|POST JSON| Switch[MainSwitch v1]
-  Switch --> Service[TaskService]
+  Switch --> Service[ProductService]
   Service --> Env["returnCode + returnMessage + returnData"]
   Env --> Client
 {{< /mermaid >}}
@@ -278,7 +278,7 @@ Only `public/static/` is wired to `/static/`. A nested `public/public/static/` f
 {{< card-grid >}}
 {{< link-card title="Collections" description="Typed getters on request data." href="/documentation/http/collections/" >}}
 {{< link-card title="Exceptions" description="Pipeline and debug responses." href="/documentation/http/exceptions/" >}}
-{{< link-card title="Examples" description="Copy-paste DeskFlow curl payloads." href="/documentation/examples/" >}}
+{{< link-card title="Examples" description="Copy-paste Pionia Shop curl payloads." href="/documentation/examples/" >}}
 {{< /card-grid >}}
 
 {{< callout context="note" title="Note" icon="outline/pencil" >}}

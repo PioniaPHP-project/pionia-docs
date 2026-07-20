@@ -16,7 +16,7 @@ seo:
 
 ## Who this is for
 
-You are running DeskFlow (or any Pionia app) and need to **see what happened** — action debug lines, SQL traces, or uncaught errors — without leaking passwords in log output.
+You are running Pionia Shop (or any Pionia app) and need to **see what happened** — action debug lines, SQL traces, or uncaught errors — without leaking passwords in log output.
 
 ## What you will learn
 
@@ -38,7 +38,7 @@ You are running DeskFlow (or any Pionia app) and need to **see what happened** �
 
 {{< mermaid >}}
 flowchart LR
-  Svc[TaskService action] --> Logger[logger]
+  Svc[ProductService action] --> Logger[logger]
   Err[Uncaught throwable] --> Report[report via pipeline]
   Logger --> LM[LogManager]
   Report --> LM
@@ -64,14 +64,14 @@ Older guides referred to a `server.log` file in the project root and a `[SERVER]
 
 ## Step 1 — Log from a service
 
-In DeskFlow's `TaskService`, log when a task is listed:
+In Pionia Shop's `ProductService`, log when a task is listed:
 
 ```php
 protected function listAction(Arrayable $data): ApiResponse
 {
-    logger()->info('task.list', [
+    logger()->info('product.list', [
         'status_filter' => $data->get('status'),
-        'user' => 'alex@northwind.studio',
+        'user' => 'ada@pionia.shop',
     ]);
 
     return response(0, 'OK', ['tasks' => [/* … */]]);
@@ -83,10 +83,10 @@ Available levels (PSR-3): `debug`, `info`, `notice`, `warning`, `error`, `critic
 Example line (TEXT format):
 
 ```text
-[2026-07-04 03:15:02] deskflow-api.info >> task.list  {"status_filter":"open","user":"alex@northwind.studio"}
+[2026-07-04 03:15:02] pionia-shop.info >> product.list  {"status_filter":"open","user":"ada@pionia.shop"}
 ```
 
-The channel prefix (`deskflow-api`) comes from **`APP_NAME`** in `environment/.env`.
+The channel prefix (`pionia-shop`) comes from **`APP_NAME`** in `environment/.env`.
 
 ---
 
@@ -138,7 +138,7 @@ HIDE_SUB=*********
 | `LOG_HANDLERS` | Advanced: extra Monolog handler classes (comma-separated) |
 | `LOG_PROCESSORS` | Advanced: Monolog processor classes |
 
-Redaction applies when you pass context arrays — e.g. `logger()->info('member.login', ['password' => '…'])` masks `password`.
+Redaction applies when you pass context arrays — e.g. `logger()->info('customer.login', ['password' => '…'])` masks `password`.
 
 ### SQL query logging
 

@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This reference is for **DeskFlow** developers who prefer Medoo-style WHERE arrays over fluent `where()` when building `TaskService` filters. Every operator below applies to `tasks`, `projects`, and `team_members` queries on Northwind's port **8000** stack.
+This reference is for **Pionia Shop** developers who prefer Medoo-style WHERE arrays over fluent `where()` when building `ProductService` filters. Every operator below applies to `products`, `projects`, and `customers` queries on the shop's port **8000** stack.
 
 ## What you will learn
 
@@ -35,7 +35,7 @@ This reference is for **DeskFlow** developers who prefer Medoo-style WHERE array
 ```text
 WHERE array  →  Piql parser  →  parameterized SQL + binds
      ↑
-table('tasks')->filter([...])  |  ->where([...])  |  Agg / Where builders
+table('products')->filter([...])  |  ->where([...])  |  Agg / Where builders
 ```
 
 Porm passes WHERE arrays to **Piql**, which implements a [Medoo](https://medoo.in/api/where)-compatible DSL. Use them in `where()`, `filter()`, `all($where)`, `get($where)`, aggregates, and `Agg` / `Where` builders.
@@ -66,7 +66,7 @@ Prefix the column with the operator:
 | `'priority[><]' => [1, 3]` | `NOT BETWEEN` |
 
 ```php
-table('tasks')->filter(['priority[>]' => 2, 'sort_order[<=]' => 100])->all();
+table('products')->filter(['priority[>]' => 2, 'sort_order[<=]' => 100])->all();
 ```
 
 ## LIKE
@@ -127,9 +127,9 @@ On a **Builder** chain, prefer fluent methods. In raw WHERE arrays:
 On the Builder:
 
 ```php
-table('tasks')
+table('products')
     ->filter()
-    ->match('title,description', 'deskflow sprint', 'natural')
+    ->match('title,description', 'pionia-shop sprint', 'natural')
     ->all();
 ```
 
@@ -142,7 +142,7 @@ Select with alias: `'column(alias)'` in `columns()`.
 Cast on read: suffix `[Int]`, `[Bool]`, `[Number]`, `[String]`, `[JSON]`, `[Object]`:
 
 ```php
-table('tasks')->columns(['metadata[JSON]'])->get(1);
+table('products')->columns(['metadata[JSON]'])->get(1);
 ```
 
 {{<callout context="note" icon="outline/information-circle">}}
@@ -161,7 +161,7 @@ $clause = Where::builder()
     ->or(['status' => 'blocked'])
     ->build();
 
-table('tasks')->filter($clause)->all();
+table('products')->filter($clause)->all();
 ```
 
 ### `Agg` builder
@@ -173,7 +173,7 @@ For HAVING-style expressions, comparisons in WHERE, and computed columns — see
 ```php
 use Pionia\Porm\Core\Piql;
 
-table('tasks')->filter([
+table('products')->filter([
     'created_at[>]' => Piql::raw('DATE_SUB(NOW(), INTERVAL 7 DAY)'),
 ])->all();
 ```
@@ -182,9 +182,9 @@ See also [Transactions & raw SQL](/documentation/database/transactions-and-raw-s
 
 ## Common mistakes
 
-- **Passing user search text into `Piql::raw()`** — use bound `where()` or `[~]` LIKE operators for DeskFlow search boxes.
+- **Passing user search text into `Piql::raw()`** — use bound `where()` or `[~]` LIKE operators for Pionia Shop search boxes.
 - **Duplicate keys inside `OR` arrays** — PHP keeps only the last value; nest groups or use `whereIn()`.
-- **Using `[Object]` casts on untrusted columns** — never on client-supplied JSON in Northwind staging data.
+- **Using `[Object]` casts on untrusted columns** — never on client-supplied JSON in Pionia Shop staging data.
 - **Embedding `ORDER`/`LIMIT` in WHERE when a Builder exists** — prefer `orderBy()` / `limit()` on `filter()` chains in services.
 
 ## What's next

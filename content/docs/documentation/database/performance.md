@@ -16,7 +16,7 @@ seo:
   noindex: false
 ---
 
-This guide helps **Northwind Studio** keep **DeskFlow** fast as task volume grows — batch exports, cached pagination totals, and avoiding N+1 queries when listing projects with assignees on port **8000**.
+This guide helps **Pionia Shop** keep **Pionia Shop** fast as task volume grows — batch exports, cached pagination totals, and avoiding N+1 queries when listing projects with assignees on port **8000**.
 
 ## What you will learn
 
@@ -50,8 +50,8 @@ When you already have parent rows and need related data without N+1 queries:
 ```php
 use Pionia\Porm\Database\Builders\JoinLoader;
 
-$tasks = table('tasks')->filter(['status' => 'open'])->all();
-$tasks = JoinLoader::eager($tasks, 'project_id', 'projects', 'id', 'project', 'default');
+$products = table('products')->filter(['status' => 'open'])->all();
+$products = JoinLoader::eager($products, 'project_id', 'projects', 'id', 'project', 'default');
 // each task now has ->project (or ['project'] when rows are arrays)
 ```
 
@@ -62,7 +62,7 @@ One extra `WHERE IN` query loads all related rows and attaches them by foreign k
 Avoid `all()` on huge tables. `chunk()` walks the table in PK order:
 
 ```php
-table('tasks')->chunk(500, function (array $batch, int $page): void {
+table('products')->chunk(500, function (array $batch, int $page): void {
     foreach ($batch as $task) {
         // process
     }
@@ -80,15 +80,15 @@ Each batch is at most `$size` rows. The callback runs until an empty batch is re
 3. Fall back to native `RAND()` if sampling fails or `strategy` is `native`
 
 ```php
-table('tasks')->random(5);                              // sample strategy
-table('tasks')->random(5, ['status' => 'open']);             // may use native when filtered
-table('tasks')->random(5, null, 'id', 'native');      // force ORDER BY RAND()
+table('products')->random(5);                              // sample strategy
+table('products')->random(5, ['status' => 'open']);             // may use native when filtered
+table('products')->random(5, null, 'id', 'native');      // force ORDER BY RAND()
 ```
 
 Joined random:
 
 ```php
-table('tasks')
+table('products')
     ->join()
     ->inner('projects', 'tasks.project_id = projects.id')
     ->random(3);
@@ -97,7 +97,7 @@ table('tasks')
 ## Query plans — `explain()`
 
 ```php
-$plan = table('tasks')->explain(['status' => 'open']);
+$plan = table('products')->explain(['status' => 'open']);
 ```
 
 Use during development to verify index usage before shipping heavy list endpoints.
@@ -107,7 +107,7 @@ Use during development to verify index usage before shipping heavy list endpoint
 MySQL only — suggests an index for the next query on that `Porm` instance:
 
 ```php
-table('tasks')
+table('products')
     ->useIndex('idx_status_created')
     ->filter(['status' => 'open'])
     ->orderBy(['created_at' => 'DESC'])
@@ -118,8 +118,8 @@ table('tasks')
 ## Skip re-fetch after insert
 
 ```php
-table('tasks')->save($row, returnRow: false);
-$id = table('tasks')->lastSaved();
+table('products')->save($row, returnRow: false);
+$id = table('products')->lastSaved();
 ```
 
 ## List caps in services
@@ -137,8 +137,8 @@ Reuse PDO via `connectionManager()` — do not open a new connection per query. 
 ## Debugging slow queries
 
 ```php
-table('tasks')->filter([...])->all();
-logger()->debug(table('tasks')->lastQuery());
+table('products')->filter([...])->all();
+logger()->debug(table('products')->lastQuery());
 ```
 
 Enable `[db] logging = true` or `LOG_QUERIES=true` for Piql-level logs.
@@ -147,10 +147,10 @@ Related: [Making queries](/documentation/database/making-queries/) · [Paginatio
 
 ## Common mistakes
 
-- **Loading every DeskFlow task with `all()` for nightly exports** — use `chunk()` on `tasks` instead.
+- **Loading every Pionia Shop task with `all()` for nightly exports** — use `chunk()` on `products` instead.
 - **Querying `projects` inside a foreach over tasks** — attach with `JoinLoader::eager()` or a single join query.
-- **Running exact `COUNT(*)` on every infinite-scroll fetch** — enable `$approximatePagination` on `TaskService`.
-- **Shipping list endpoints without `explain()`** — verify indexes on `status` and `project_id` before Northwind production cutover.
+- **Running exact `COUNT(*)` on every infinite-scroll fetch** — enable `$approximatePagination` on `ProductService`.
+- **Shipping list endpoints without `explain()`** — verify indexes on `status` and `project_id` before Pionia Shop production cutover.
 
 ## What's next
 

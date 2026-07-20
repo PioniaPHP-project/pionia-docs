@@ -1,7 +1,7 @@
 ---
 title: "Generic services"
 slug: "generic-services"
-description: "CRUD over Porm tables with mixins — less boilerplate for DeskFlow project rows."
+description: "CRUD over Porm tables with mixins — less boilerplate for Pionia Shop project rows."
 summary: "UniversalGenericService ships list, create, update, delete, and random actions out of the box."
 date: 2024-06-29 19:57:09.923 +0300
 lastmod: 2026-07-04
@@ -19,12 +19,12 @@ seo:
 
 ## Who this is for
 
-DeskFlow's `project` table needs list/create/update with little custom logic, while `TaskService` stays hand-written. **Generic services** give you CRUD actions without boilerplate.
+Pionia Shop's `project` table needs list/create/update with little custom logic, while `ProductService` stays hand-written. **Generic services** give you CRUD actions without boilerplate.
 
 ## What you will learn
 
 - Which mixin bundles (`ListMixin`, `CreateMixin`, …) each generic base class includes
-- Configuring `$table`, `$createColumns`, and `$listColumns` for Northwind projects
+- Configuring `$table`, `$createColumns`, and `$listColumns` for Pionia Shop projects
 - Hooks (`preCreate`, `postUpdate`) for side effects without overriding every action
 
 ## Before you start
@@ -38,15 +38,15 @@ DeskFlow's `project` table needs list/create/update with little custom logic, wh
 
 {{< mermaid >}}
 flowchart LR
-  JSON["project.list"] --> Generic[ProjectService]
+  JSON["order.list"] --> Generic[OrderService]
   Generic --> Mixin[ListMixin]
   Mixin --> Porm["table(projects)"]
 {{< /mermaid >}}
 
-**Generic services** extend `Pionia\Http\Services\GenericService` and combine **mixins** (`ListMixin`, `CreateMixin`, …) for standard CRUD. Use them when DeskFlow's `project` table needs list/create/update with little custom logic — keep `TaskService` manual when rules get complex.
+**Generic services** extend `Pionia\Http\Services\GenericService` and combine **mixins** (`ListMixin`, `CreateMixin`, …) for standard CRUD. Use them when Pionia Shop's `project` table needs list/create/update with little custom logic — keep `ProductService` manual when rules get complex.
 
 ```bash
-php pionia make:service project
+php pionia make:service Order
 # Generic → UniversalGenericService, table name: projects
 ```
 
@@ -145,7 +145,7 @@ Remember you still need to register all these service as usual. In your request 
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "random",
   "size": 3
 }
@@ -469,7 +469,7 @@ You can call this action by setting `"action": "custom_action"`:
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "custom_action"
 }
 ```
@@ -676,10 +676,10 @@ This is all to turbocharge your development process which is the main goal of Pi
 
 ## Common mistakes
 
-- **Using generic services for task assignee rules** — override actions or switch to a manual `TaskService` when logic outgrows CRUD.
+- **Using generic services for task assignee rules** — override actions or switch to a manual `ProductService` when logic outgrows CRUD.
 - **Forgetting `$createColumns`** — create actions ignore undeclared columns; required fields must be listed explicitly.
 - **Conflicting custom action names** — a `listAction` override replaces the mixin; name custom actions distinctly (`archiveAction`).
-- **Skipping switch registration** — generic services still need `'project' => ProjectService::class` on `MainSwitch`.
+- **Skipping switch registration** — generic services still need `'project' => OrderService::class` on `MainSwitch`.
 
 ## What's next
 

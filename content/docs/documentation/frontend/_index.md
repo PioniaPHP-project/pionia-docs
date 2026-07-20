@@ -18,7 +18,7 @@ seo:
 
 ## Who this is for
 
-You have DeskFlow's Moonlight API running on port **8000** and want a React or Vue task board that calls `task.list` and `member.login` — same origin in production, proxied `/api` during local dev.
+You have Pionia Shop's Moonlight API running on port **8000** and want a React or Vue storefront that calls `product.list` and `customer.login` — same origin in production, proxied `/api` during local dev.
 
 ## What you will learn
 
@@ -29,19 +29,19 @@ You have DeskFlow's Moonlight API running on port **8000** and want a React or V
 ## Before you start
 
 {{< prerequisites >}}
-- [DeskFlow tutorial Step 1](/documentation/deskflow-tutorial/01-create-project/) — `task.list` returns data on **8000**
+- [Pionia Shop tutorial Step 1](/documentation/shop-tutorial/01-create-project/) — `product.list` returns data on **8000**
 - Node.js 18+ for Vite
-- Optional: [Authentication](/documentation/security/security-authentication-and-authorization/) — Bearer JWT from `member.login` in the SPA
+- Optional: [Authentication](/documentation/security/security-authentication-and-authorization/) — Bearer JWT from `customer.login` in the SPA
 {{< /prerequisites >}}
 
 ## How it works
 
-Pionia ships optional **Vite** scaffolding so DeskFlow can have a React or Vue task board calling `task.list` over the same origin in production.
+Pionia ships optional **Vite** scaffolding so Pionia Shop can have a React or Vue storefront calling `product.list` over the same origin in production.
 
 {{< mermaid >}}
 flowchart LR
   Dev["Vite :5173"] -->|proxy /api| API["Pionia :8000"]
-  API --> Moonlight["POST task.list"]
+  API --> Moonlight["POST product.list"]
   Build["frontend:build"] --> Public["public/index.html + assets"]
   Browser[Production browser] --> Public
   Public --> Moonlight2["same-origin /api/v1/"]

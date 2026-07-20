@@ -20,7 +20,7 @@ You understand HTTP APIs but want to know **why** Pionia uses one URL and a `{ s
 
 ## What you will learn
 
-- How a DeskFlow request travels from curl to `TaskService::listAction`
+- How a Pionia Shop request travels from curl to `ProductService::listAction`
 - The JSON **envelope** every client receives
 - When to add a new **switch** for API versioning
 
@@ -36,22 +36,22 @@ You understand HTTP APIs but want to know **why** Pionia uses one URL and a `{ s
 {{< mermaid >}}
 flowchart LR
   Client["curl / SPA"] --> Switch["/api/v1/ MainSwitch"]
-  Switch --> Service[TaskService]
+  Switch --> Service[ProductService]
   Service --> Action[listAction]
   Action --> Envelope["returnCode + returnData"]
 {{< /mermaid >}}
 
-DeskFlow clients POST to **`http://127.0.0.1:8000/api/v1/`** with lowercase keys:
+Pionia Shop clients POST to **`http://127.0.0.1:8000/api/v1/`** with lowercase keys:
 
 ```json
 {
-  "service": "task",
+  "service": "product",
   "action": "list",
   "status": "open"
 }
 ```
 
-Pionia resolves `task` → `TaskService`, `list` → `listAction()`, and returns:
+Pionia resolves `task` → `ProductService`, `list` → `listAction()`, and returns:
 
 {{< envelope title="Response" >}}
 ```json
@@ -74,7 +74,7 @@ Each **switch** registers services for a version path:
 | `/api/v1/` | `Application\Switches\MainSwitch` |
 | `/api/v2/` | (future) `V2Switch` |
 
-Frontend teams always know the base path; they vary `service` and `action` in the JSON body. See [API versioning](/documentation/building-api/api-versioning/) when Northwind ships breaking changes.
+Frontend teams always know the base path; they vary `service` and `action` in the JSON body. See [API versioning](/documentation/building-api/api-versioning/) when Pionia Shop ships breaking changes.
 
 ## POST for actions, GET for health checks
 
@@ -99,7 +99,7 @@ Authentication runs **before** your action method — like checking the driver's
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Services" description="Create TaskService and register actions." href="/documentation/building-api/services/" >}}
-{{< link-card title="API tutorial" description="Start the DeskFlow tutorial." href="/documentation/deskflow-tutorial/" >}}
+{{< link-card title="Services" description="Create ProductService and register actions." href="/documentation/building-api/services/" >}}
+{{< link-card title="API tutorial" description="Start the Pionia Shop tutorial." href="/documentation/shop-tutorial/" >}}
 {{< link-card title="Requests & responses" description="HTTP status codes and envelopes." href="/documentation/http/requests-and-responses/" >}}
 {{< /card-grid >}}

@@ -17,16 +17,16 @@ seo:
   noindex: false
 ---
 
-This guide is for DeskFlow developers who need **application-level caching** — Moonlight APIs use POST for reads, so HTTP caches do not help; cache expensive `task.list` results in Redis or filesystem instead.
+This guide is for Pionia Shop developers who need **application-level caching** — Moonlight APIs use POST for reads, so HTTP caches do not help; cache expensive `product.list` results in Redis or filesystem instead.
 
 ## What you will learn
 
 - How to pick a cache store in `environment/settings.ini`
 - How to read and write keys from services with `app()->cacheInstance()`
-- When `GenericService` list/retrieve TTL applies to DeskFlow endpoints
+- When `GenericService` list/retrieve TTL applies to Pionia Shop endpoints
 
 {{< prerequisites >}}
-- [Generic services](/documentation/building-api/generic-services/) — DeskFlow `task` service patterns
+- [Generic services](/documentation/building-api/generic-services/) — Pionia Shop `task` service patterns
 - [Commands](/documentation/operations/commands/) — `cache:clear`, `cache:prune`
 {{< /prerequisites >}}
 
@@ -34,7 +34,7 @@ This guide is for DeskFlow developers who need **application-level caching** —
 
 {{< mermaid >}}
 flowchart LR
-  Action["task.list action"] --> CM[CacheManager]
+  Action["product.list action"] --> CM[CacheManager]
   CM --> Hit{Key exists?}
   Hit -->|Yes| Return[Cached JSON rows]
   Hit -->|No| DB[("Porm / tasks table")]
@@ -79,11 +79,11 @@ Aliases: `file`, `memory`, `void`, `db`.
 ## Use in code
 
 ```php
-app()->cacheInstance()->set('deskflow:project:1:tasks', $rows, 300);
-$value = app()->cacheInstance()->get('deskflow:project:1:tasks');
+app()->cacheInstance()->set('pionia-shop:project:1:tasks', $rows, 300);
+$value = app()->cacheInstance()->get('pionia-shop:project:1:tasks');
 
 // Named store
-app()->cache()->store('redis')->set('session:alex@northwind.studio', $payload, 900);
+app()->cache()->store('redis')->set('session:ada@pionia.shop', $payload, 900);
 ```
 
 ## CLI
@@ -125,14 +125,14 @@ Each worker has its own memory. Use **Redis**, **database**, or **filesystem** s
 ## Common mistakes
 
 - **Using array cache with multiple RoadRunner workers** — each worker has isolated memory; use Redis or filesystem.
-- **Caching without invalidation** — call `recached()` after `task.create` / `task.update` or stale lists appear.
+- **Caching without invalidation** — call `recached()` after `product.create` / `product.update` or stale lists appear.
 - **Expecting CDN/browser cache on POST** — only application-level PSR-16 caching applies to Moonlight reads.
 - **Forgetting `cache:clear` after deploy** — old serialized payloads can linger in filesystem/Redis stores.
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Generic services" description="List/retrieve TTL on DeskFlow services." href="/documentation/building-api/generic-services/" >}}
+{{< link-card title="Generic services" description="List/retrieve TTL on Pionia Shop services." href="/documentation/building-api/generic-services/" >}}
 {{< link-card title="Performance (Porm)" description="Query-level optimization." href="/documentation/database/performance/" >}}
 {{< link-card title="RoadRunner" description="Shared cache across workers." href="/documentation/operations/roadrunner/" >}}
 {{< /card-grid >}}

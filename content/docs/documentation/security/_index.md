@@ -1,9 +1,9 @@
 ---
 title: "Security"
-description: "Authentication backends and service-level authorization in Pionia v3."
-summary: "Protect Moonlight actions with backends, can(), and mustAuthenticate()."
+description: "Help Pionia Shop know who is calling — and what they may do."
+summary: "From Ada’s login to protected checkout — a clear path through Pionia security."
 date: 2026-07-01
-lastmod: 2026-07-04
+lastmod: 2026-07-21
 draft: false
 weight: 500
 url: /documentation/security/
@@ -12,93 +12,73 @@ doc_type: topic
 parent: "documentation"
 seo:
   title: "Security"
-  description: "Authentication and authorization guides for Pionia apps."
+  description: "Authentication and authorization for Pionia Shop and other apps."
   noindex: false
 ---
 
 ## Who this is for
 
-You are building DeskFlow (or any Pionia API) and need to know **who** is calling your actions — Alex at Northwind Studio logging in with `member.login`, receiving a JWT, and only editing tasks they are allowed to change.
+You are building **Pionia Shop**. Browsing the catalog can stay public. Creating products, placing orders, and topping up a wallet should only work for the right people. This section teaches that story without jargon piles.
 
 ## What you will learn
 
-- How authentication backends turn a Bearer token into a `ContextUserObject`
-- Where to call `mustAuthenticate()` and `can()` in `TaskService`
-- Which guide to read next for crypto helpers vs switch-level wiring
+- How login turns into a Bearer token Ada can reuse
+- How to lock actions with attributes instead of copy-pasted checks
+- Where secrets belong, and which guide to open next
 
 ## Before you start
 
 {{< prerequisites >}}
-- [DeskFlow tutorial Step 3](/documentation/deskflow-tutorial/03-your-first-service/) — working `task.list` on port **8000**
-- Optional: [Moonlight overview](/documentation/building-api/moonlight-overview/) — how `{ service, action }` reaches your service class
+- [Shop tutorial Step 3](/documentation/shop-tutorial/03-your-first-service/) — working `product.list`
+- Optional: [Moonlight overview](/documentation/building-api/moonlight-overview/)
 {{< /prerequisites >}}
 
-## How it works
+## How a shop request is secured
 
-DeskFlow lets Northwind Studio members log in and only see tasks they are allowed to edit. Pionia handles that with **authentication backends** (who you are) and **authorization** on each action (what you may do).
+1. Ada logs in with email/password → `customer.login` returns a JWT.
+2. Her next call sends `Authorization: Bearer …`.
+3. `JwtAuthentication` attaches her user to the request.
+4. `#[Authenticated]` / `#[Can]` on the action decide if she may continue.
+5. Only then does your method talk to `orders` or `wallets`.
 
 {{< mermaid >}}
 flowchart LR
-  Client["POST member.login"] --> Switch["/api/v1/ MainSwitch"]
-  Switch --> Member[MemberService]
-  Member --> JWT[JWT in returnData]
-  Client2["POST task.create + Bearer"] --> Switch2["/api/v1/"]
-  Switch2 --> Backend[JwtAuthBackend]
-  Backend --> Task[TaskService]
-  Task --> AuthZ["mustAuthenticate() / can()"]
-  AuthZ --> Action[createAction]
+  Login["customer.login"] --> Token[JWT]
+  Token --> Call["order.place + Bearer"]
+  Call --> Jwt[JwtAuthentication]
+  Jwt --> Attr["#[Authenticated] / #[Can]"]
+  Attr --> Work[placeAction]
 {{< /mermaid >}}
 
-## First steps
+## Suggested reading order
 
-If you are following the [DeskFlow tutorial](/documentation/deskflow-tutorial/), [Step 9](/documentation/deskflow-tutorial/09-authentication/) adds `member.login` and protects `task.create`. Start there for a working JWT flow.
+| Step | Guide | Idea |
+|------|-------|------|
+| 1 | [JWT authentication](/documentation/security/jwt-authentication/) | Issue and verify tokens |
+| 2 | [Protecting actions](/documentation/security/protecting-actions/) | `#[Authenticated]`, `#[Can]`, exemptions |
+| 3 | [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Custom backends and secret hygiene |
+| 4 | [Security utilities](/documentation/security/security-utilities/) | Password hashing, OTPs, encryption |
 
-Otherwise, read in this order:
-
-| Step | Guide | What you learn |
-|------|-------|----------------|
-| 1 | [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Backends, `ContextUserObject`, `can()`, `@moonlight-auth` |
-| 2 | [Security utilities](/documentation/security/security-utilities/) | `security()`, tokens, hashing, encryption |
-| 3 | [Validation](/documentation/building-api/validation/) | Reject bad input before auth runs |
-| 4 | [Middleware](/documentation/http/middleware/) | Request pipeline, CORS, request IDs |
-
-## DeskFlow scenario
-
-Alex at `alex@northwind.studio` logs in:
+## A minute with Ada
 
 ```bash
 curl -s -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"member","action":"login","email":"alex@northwind.studio","password":"secret"}'
+  -d '{"service":"customer","action":"login","email":"ada@pionia.shop","password":"secret"}'
 ```
 
-The response includes a JWT. Protected actions send `Authorization: Bearer …` — see [Examples](/documentation/examples/) for the full envelope.
-
-In `TaskService`, actions that change data call `$this->mustAuthenticate()` or `$this->can('task.update')` so anonymous clients get **HTTP 401** with a JSON error envelope.
-
-## Guide map
-
-| Guide | Topic |
-|-------|--------|
-| [Authentication & authorization](/documentation/security/security-authentication-and-authorization/) | Backends, secrets, service-level checks |
-| [Security utilities](/documentation/security/security-utilities/) | OTPs, password hashing, encryption helpers |
-| [Moonlight security model](/documentation/building-api/moonlight-security/) | Switch-level auth wiring |
-| [Middleware](/documentation/http/middleware/) | Global pipeline hooks |
-| [Validations](/documentation/building-api/validation/) | Input validation on actions |
-
-Moonlight actions declare auth with `@moonlight-auth` PHPDoc tags. Export requirements to OpenAPI via [Documenting your API](/documentation/building-api/api-reference/).
+Use the returned token on protected actions. Mark `product.create` or `order.place` with `#[Authenticated]` so anonymous callers never reach your database code.
 
 ## Common mistakes
 
-- Calling `mustAuthenticate()` only in some mutating actions — protect every action that reads or writes sensitive data consistently
-- Storing `JWT_SECRET_KEY` in committed `settings.ini` instead of gitignored `environment/.env`
-- Expecting auth to run inside the action body — backends run **before** your method; use `$this->auth()` to read the result
-- Returning password hashes or raw tokens in API `returnData` after `member.login`
+- Leaving one write action unprotected — prefer `#[Authenticated(except: ['login', 'register'])]` on `CustomerService`
+- Storing `JWT_SECRET` in tracked files — use `.env`
+- Expecting the action body to “notice” auth by itself — checks run before your method
 
 ## What's next
 
 {{< card-grid >}}
-{{< link-card title="Authentication & authorization" description="Scaffold JwtAuthBackend and protect TaskService." href="/documentation/security/security-authentication-and-authorization/" >}}
-{{< link-card title="Security utilities" description="hash_password(), secure_token(), encrypt()." href="/documentation/security/security-utilities/" >}}
-{{< link-card title="Tutorial Step 9 — Authentication" description="DeskFlow login and protected task.create." href="/documentation/deskflow-tutorial/09-authentication/" >}}
+{{< link-card title="JWT authentication" description="Login tokens for customers." href="/documentation/security/jwt-authentication/" >}}
+{{< link-card title="Protecting actions" description="Attributes for catalog and checkout." href="/documentation/security/protecting-actions/" >}}
+{{< link-card title="Tutorial Step 9" description="Wire this into Pionia Shop." href="/documentation/shop-tutorial/09-authentication/" >}}
 {{< /card-grid >}}

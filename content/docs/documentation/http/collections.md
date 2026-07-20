@@ -16,11 +16,11 @@ seo:
   noindex: false
 ---
 
-Every Moonlight action receives request fields as **`Pionia\Collections\Arrayable`** — a typed wrapper around JSON or form data. If you have written `$data['title']` in other PHP projects, this guide shows the DeskFlow way.
+Every Moonlight action receives request fields as **`Pionia\Collections\Arrayable`** — a typed wrapper around JSON or form data. If you have written `$data['title']` in other PHP projects, this guide shows the Pionia Shop way.
 
 ## What you will learn
 
-- Read `title`, `project_id`, and `status` safely in `TaskService`
+- Read `title`, `project_id`, and `status` safely in `ProductService`
 - Use typed getters and `get($key, $default)` instead of raw arrays
 - Chain collection helpers (`map`, `filter`, `only`, `merge`) on payloads and config lists
 - Create collections with `new Arrayable([...])` or the `arr()` helper
@@ -33,7 +33,7 @@ Every Moonlight action receives request fields as **`Pionia\Collections\Arrayabl
 ## How it works
 
 ```text
-POST body (JSON)  →  decode  →  Arrayable $data  →  task.createAction($data)
+POST body (JSON)  →  decode  →  Arrayable $data  →  product.createAction($data)
 ```
 
 Moonlight actions receive request fields as **`Arrayable`** — not a plain PHP `array`. Use `$data->get('key')` or typed getters; never `$data['key']`.

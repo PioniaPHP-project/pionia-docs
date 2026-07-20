@@ -17,7 +17,7 @@ seo:
   noindex: false
 ---
 
-This guide shows **Northwind Studio** how to join **DeskFlow** tables — tasks with projects and assignees from `team_members` — without an ORM relationship graph. Explicit `join()` chains power enriched list responses on port **8000**.
+This guide shows **Pionia Shop** how to join **Pionia Shop** tables — tasks with projects and assignees from `customers` — without an ORM relationship graph. Explicit `join()` chains power enriched list responses on port **8000**.
 
 ## What you will learn
 
@@ -37,7 +37,7 @@ table('tasks', 't')          ← base table (+ optional alias)
   ->columns([...])            ← always qualify columns when joined
   ->join()                     ← enter Join builder (no save/delete on this chain)
     ->left('projects', $on, 'p')
-    ->left('team_members', $on, 'm')
+    ->left('customers', $on, 'm')
     ->where('t.status', 'open')
     ->all();
 ```
@@ -90,8 +90,8 @@ Piql (under the hood) accepts four shapes for the second argument:
 // tasks.project_id → projects.id
 ->left('projects', ['project_id' => 'id'], 'p')
 
-// tasks.assignee_id → team_members.id
-->inner('team_members', ['assignee_id' => 'id'])
+// tasks.assignee_id → customers.id
+->inner('customers', ['assignee_id' => 'id'])
 ```
 
 Use `JoinOn::map('project_id', 'id')` for readability.
@@ -102,7 +102,7 @@ Full `ON` expression as a string (you quote columns / qualify names):
 
 ```php
 ->inner('projects', 'tasks.project_id = projects.id')
-->left('team_members', JoinOn::expression('tasks.assignee_id = team_members.id AND team_members.active = 1'))
+->left('customers', JoinOn::expression('tasks.assignee_id = customers.id AND customers.active = 1'))
 ```
 
 ### 3. `USING` — shared column name(s)
@@ -136,7 +136,7 @@ table('tasks', 't')
         'm.email(assignee_email)',  // AS assignee_email
     ])
     ->join()
-    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
+    ->left('customers', JoinOn::map('assignee_id', 'id'), 'm')
     ->all();
 ```
 
@@ -153,7 +153,7 @@ table('tasks', 't')
     ->join()
     ->inner('projects', JoinOn::map('project_id', 'id'), 'p')
     ->where('t.status', 'open')
-    ->where('p.client', 'Northwind')
+    ->where('p.client', 'Pionia Shop')
     ->orderBy(['t.created_at' => 'DESC'])
     ->limit(20)
     ->all();
@@ -180,11 +180,11 @@ $row = table('tasks', 't')
 ```php
 $total = table('tasks', 't')
     ->join()
-    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
+    ->left('customers', JoinOn::map('assignee_id', 'id'), 'm')
     ->where('t.status', 'open')
     ->count();
 
-$pick = table('tasks')
+$pick = table('products')
     ->join()
     ->inner('projects', JoinOn::map('project_id', 'id'))
     ->random(1, ['tasks.status' => 'open']);
@@ -199,7 +199,7 @@ table('tasks', 't')
     ->columns(['t.title', 'p.name(project_name)', 'm.name(assignee)'])
     ->join()
     ->inner('projects', JoinOn::map('project_id', 'id'), 'p')
-    ->left('team_members', JoinOn::map('assignee_id', 'id'), 'm')
+    ->left('customers', JoinOn::map('assignee_id', 'id'), 'm')
     ->all();
 ```
 
@@ -228,8 +228,8 @@ When you already fetched parent rows (e.g. from a simple `filter()->all()`) and 
 ```php
 use Pionia\Porm\Database\Builders\JoinLoader;
 
-$tasks = table('tasks', 't')->filter()->all();
-$tasks = JoinLoader::eager($tasks, 'project_id', 'projects', 'id', 'project');
+$products = table('tasks', 't')->filter()->all();
+$products = JoinLoader::eager($products, 'project_id', 'projects', 'id', 'project');
 ```
 
 This runs one `WHERE IN` on the related table and attaches each match as `project` on the parent. Pass a connection name as the last argument when not using `default`.
@@ -241,7 +241,7 @@ Declare joins on services extending `GenericService` / `UniversalGenericService`
 ```php
 use Pionia\Http\Services\JoinType;
 
-class TaskService extends UniversalGenericService
+class ProductService extends UniversalGenericService
 {
     public string $table = 'tasks';
     public ?string $baseAlias = 't';
@@ -296,15 +296,15 @@ Related: [WHERE DSL](/documentation/database/where-dsl/) · [API reference](/doc
 
 ## Common mistakes
 
-- **Selecting `*` on joined tasks and projects** — duplicate `id`/`name` columns collide in DeskFlow list JSON.
+- **Selecting `*` on joined tasks and projects** — duplicate `id`/`name` columns collide in Pionia Shop list JSON.
 - **Calling `save()` on a join chain** — writes only hit the base `$table`; update tasks separately from project rows.
 - **Swapping ON map direction** — keys are base-table columns (`project_id`), values are joined-table columns (`id`).
-- **Using FULL JOIN on SQLite for DeskFlow local dev** — prefer LEFT JOIN; SQLite support is limited.
+- **Using FULL JOIN on SQLite for Pionia Shop local dev** — prefer LEFT JOIN; SQLite support is limited.
 
 ## What's next
 
 {{< card-grid >}}
 {{< link-card title="Pagination" description="Paginate joined task lists." href="/documentation/database/pagination/" >}}
 {{< link-card title="Performance" description="JoinLoader vs N+1 queries." href="/documentation/database/performance/" >}}
-{{< link-card title="Advanced generic services" description="Join config on TaskService." href="/documentation/building-api/advanced-generic-services/" >}}
+{{< link-card title="Advanced generic services" description="Join config on ProductService." href="/documentation/building-api/advanced-generic-services/" >}}
 {{< /card-grid >}}

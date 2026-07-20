@@ -16,13 +16,13 @@ seo:
   noindex: false
 ---
 
-This guide covers paginated **DeskFlow** task boards — `list_tasks` with `limit` and `offset` from Moonlight POST bodies on port **8000**. **Northwind Studio** uses `PaginationCore` so alex@northwind.studio's client gets `total_count`, `has_next`, and stable page metadata.
+This guide covers paginated **Pionia Shop** catalogs — `product.list` with `limit` and `offset` from Moonlight POST bodies on port **8000**. Use `PaginationCore` so Ada’s client gets `total_count`, `has_next`, and stable page metadata.
 
 ## What you will learn
 
-- Construct `PaginationCore` for `tasks` and joined lists
+- Construct `PaginationCore` for `products` and joined lists
 - Read limit/offset from API request payloads
-- Enable approximate totals and GenericService caps for large project backlogs
+- Enable approximate totals and GenericService caps for large catalogs
 
 {{< prerequisites >}}
 - [Filtering](/documentation/database/queries-with-filtering/) — `orderBy`, `limit`, and `startAt`
@@ -51,7 +51,7 @@ $req = ['limit' => 10, 'offset' => 0];
 
 $pagination = new PaginationCore(
     reqData: $req,
-    table: 'tasks',
+    table: 'products',
     limit: 10,
     offset: 0,
     db: null,       // connection name or null for default
@@ -59,8 +59,8 @@ $pagination = new PaginationCore(
 );
 
 $page = $pagination
-    ->columns(['id', 'title', 'created_at'])
-    ->where(['status' => 'open'])
+    ->columns(['id', 'name', 'price', 'stock'])
+    ->where(['stock[>]' => 0])
     ->init(fn ($q) => $q->filter()->orderBy(['created_at' => 'DESC']))
     ->paginate();
 ```
@@ -109,10 +109,10 @@ If only `limit` is present, offset defaults to `0`.
 
 ## Joined lists
 
-Pass a table alias when the base table is aliased in joins:
+Pass a table alias when the base table is aliased in joins — for example order lines with product names:
 
 ```php
-new PaginationCore($req, 'tasks', 10, 0, null, 't');
+new PaginationCore($req, 'order_items', 10, 0, null, 'oi');
 ```
 
 The callback can return a join chain:
@@ -120,8 +120,8 @@ The callback can return a join chain:
 ```php
 ->init(function ($q) {
     return $q->join()
-        ->left('projects', 't.project_id = projects.id')
-        ->orderBy(['t.title' => 'ASC']);
+        ->left('products', 'oi.product_id = products.id')
+        ->orderBy(['oi.id' => 'ASC']);
 })
 ```
 
@@ -130,13 +130,13 @@ The callback can return a join chain:
 `GenericService` uses `PaginationCore` for `list_*` actions when the client sends pagination fields. Configure caps and columns on the service:
 
 ```php
-class TaskService extends GenericService
+class ProductService extends GenericService
 {
-    public string $table = 'tasks';
+    public string $table = 'products';
     public int $maxListRows = 500;
     public bool $allowClientFilters = true;   // non-reserved request fields → WHERE
     public bool $allowClientColumns = false; // allow columns/COLUMNS override when true
-    public ?array $sortableColumns = ['created_at', 'title'];
+    public ?array $sortableColumns = ['created_at', 'name', 'price'];
     public bool $approximatePagination = true;   // cached COUNT totals
     public ?int $cacheListTtl = 60;              // optional list response cache
     public ?int $cacheRetrieveTtl = 300;         // optional retrieve cache
@@ -145,15 +145,15 @@ class TaskService extends GenericService
 
 See [Generic services](/documentation/building-api/generic-services/) and [Advanced generic services](/documentation/building-api/advanced-generic-services/).
 
-When `$allowClientFilters = true`, any non-reserved field in the request body is applied as a WHERE clause (e.g. `"status": "open"` filters `status = 'open'`). Combine with `$sortableColumns` for safe `orderBy` from the client.
+When `$allowClientFilters = true`, any non-reserved field in the request body is applied as a WHERE clause (e.g. `"stock[>]": 0` filters in-stock items). Combine with `$sortableColumns` for safe `orderBy` from the client.
 
 ## Builder pagination (manual)
 
 Without `PaginationCore`:
 
 ```php
-$rows = table('tasks')
-    ->filter(['status' => 'open'])
+$rows = table('products')
+    ->filter(['stock[>]' => 0])
     ->orderBy(['id' => 'DESC'])
     ->limit(20)
     ->startAt(40)   // requires limit() first — offset 40
@@ -164,9 +164,9 @@ Related: [Filtering](/documentation/database/queries-with-filtering/) · [Relati
 
 ## Common mistakes
 
-- **Omitting `limit()` before `startAt()`** — manual DeskFlow pages fail without both on the Builder.
-- **Running `COUNT(*)` on every scroll event** — enable `$approximatePagination` for large task backlogs.
-- **Forgetting the base alias on joined lists** — pass `'t'` to `PaginationCore` when tasks are aliased.
+- **Omitting `limit()` before `startAt()`** — manual Pionia Shop pages fail without both on the Builder.
+- **Running `COUNT(*)` on every scroll event** — enable `$approximatePagination` for large catalogs.
+- **Forgetting the base alias on joined lists** — pass `'oi'` to `PaginationCore` when `order_items` is aliased.
 - **Allowing client `orderBy` on any column** — restrict to `$sortableColumns` to avoid SQL injection via sort keys.
 
 ## What's next
@@ -174,5 +174,5 @@ Related: [Filtering](/documentation/database/queries-with-filtering/) · [Relati
 {{< card-grid >}}
 {{< link-card title="Generic services" description="list_* with PaginationCore built in." href="/documentation/building-api/generic-services/" >}}
 {{< link-card title="Performance" description="Approximate counts and chunk()." href="/documentation/database/performance/" >}}
-{{< link-card title="Relationships" description="Paginate joined task + project rows." href="/documentation/database/relationships/" >}}
+{{< link-card title="Relationships" description="Paginate order lines with product names." href="/documentation/database/relationships/" >}}
 {{< /card-grid >}}
