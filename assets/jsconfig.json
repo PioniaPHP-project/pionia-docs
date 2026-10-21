@@ -1,8 +1,15 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "*": ["*", "..\\node_modules\\@hyas\\doks-core\\assets\\*"]
-    }
+ "compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+   "*": [
+    "*",
+    "../node_modules/@hyas/doks-core/assets/*",
+    "../node_modules/@popperjs/core/dist/esm/*",
+    "../node_modules/bootstrap/dist/js/*",
+    "../node_modules/clipboard/dist/*",
+    "../node_modules/flexsearch/dist/*"
+   ]
   }
+ }
 }

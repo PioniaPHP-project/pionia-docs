@@ -1,0 +1,24 @@
+<div class="docs-shell">
+  <aside class="docs-sidebar d-none d-lg-block" aria-label="Documentation navigation">
+    {{ partial "sidebar/section-menu.html" . }}
+  </aside>
+  <main class="docs-content" id="main-content">
+    <header class="article-header">
+      <div class="article-eyebrow"><a href="/documentation/">Documentation</a><span aria-hidden="true">/</span>{{ with .Parent }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}</div>
+      <div class="article-meta">{{ with .Params.doc_type }}<span>{{ . }}</span>{{ end }}<span>Pionia v3</span>{{ if .WordCount }}<span>{{ .ReadingTime }} min read</span>{{ end }}</div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.description }}<p class="article-description">{{ . }}</p>{{ end }}
+      {{ with .Params.tutorial_step }}
+      <div class="tutorial-progress"><span>Step {{ . }} of {{ $.Params.tutorial_total | default 15 }}</span><a href="/documentation/shop-tutorial/">View the learning path <span aria-hidden="true">→</span></a><progress value="{{ . }}" max="{{ $.Params.tutorial_total | default 15 }}" aria-label="Tutorial position">{{ . }}</progress></div>
+      {{ end }}
+    </header>
+    {{ if ne .Params.toc false }}<nav class="toc-mobile d-xl-none" aria-label="On this page">{{ partial "sidebar/docs-toc-mobile.html" . }}</nav>{{ end }}
+    <div class="article-body">{{ if site.Params.doks.headlineHash }}{{ partial "main/headline-hash" .Content }}{{ else }}{{ .Content }}{{ end }}</div>
+    <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+      {{ if site.Params.doks.lastMod }}{{ partial "main/last-modified.html" . }}{{ end }}
+      {{ if site.Params.doks.editPage }}{{ partial "main/edit-page.html" . }}{{ end }}
+    </div>
+    {{ if not .Params.tutorial_step }}{{ partial "main/docs-navigation.html" . }}{{ end }}
+  </main>
+  {{ if ne .Params.toc false }}<aside class="docs-toc d-none d-xl-block" aria-label="On this page">{{ partial "sidebar/docs-toc-desktop.html" . }}<a class="toc-tutorial-link" href="/documentation/shop-tutorial/">Learning Pionia?<br><strong>Build your first API →</strong></a></aside>{{ end }}
+</div>

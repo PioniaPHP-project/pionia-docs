@@ -1,3 +1,4 @@
+{{ if or .IsHome (eq .Section "docs") }}<a class="skip-link" href="#main-content">Skip to content</a>{{ end }}
 {{ if site.Params.doks.alert -}}
   {{ partial "header/alert.html" . }}
 {{ end -}}
@@ -19,7 +20,7 @@
 
     <!-- Site title -->
     <a class="navbar-brand me-auto me-lg-3" href="{{ relLangURL "" }}">
-      {{ .Site.Title }}
+      {{ with resources.Get "favicon.png" }}<img class="brand-logo" src="{{ .RelPermalink }}" alt="Pionia dog mascot" width="40" height="40">{{ end }}{{ .Site.Title }}
       <span class="docs-version-badge">Docs v3</span>
     </a>
 
@@ -143,12 +144,13 @@
         {{ partial "main/showFlexSearch" . }}
         {{ $showFlexSearch := .Scratch.Get "showFlexSearch" -}}
         {{ if $showFlexSearch -}}
-        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-flex search-trigger" aria-label="Search website">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <circle cx="10" cy="10" r="7"></circle>
             <line x1="21" y1="21" x2="15" y2="15"></line>
           </svg>
+          <span>Search docs</span><kbd>/</kbd>
         </button>
         {{ end -}}
 

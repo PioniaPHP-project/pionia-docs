@@ -179,11 +179,6 @@
   status = 301
 
 [[redirects]]
-  from = "/moonlight/*"
-  to = "/documentation/building-api/:splat"
-  status = 301
-
-[[redirects]]
   from = "/moonlight/introduction-to-moonlight-architecture/"
   to = "/documentation/building-api/moonlight-overview/"
   status = 301
@@ -267,3 +262,25 @@
     max-age=60'''
 #    max-age=31536000'''
     Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/moonlight/*"
+  to = "/documentation/building-api/:splat"
+  status = 301
+
+
+[[redirects]]
+  from = "/documentation/operations/commands-pionia-cli/"
+  to = "/documentation/operations/commands/"
+  status = 301
+
+[[redirects]]
+  from = "/documentation/operations/caching-in-pionia/"
+  to = "/documentation/operations/caching/"
+  status = 301
+
+[[redirects]]
+  from = "/introduction-to-moonlight-architecture/"
+  to = "/documentation/building-api/moonlight-overview/"
+  status = 301
+  force = true

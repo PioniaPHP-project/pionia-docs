@@ -26,8 +26,17 @@ You are opening a small online store API called **Pionia Shop**. This step creat
 - Recognize the folders you will use in every later step
 
 {{< prerequisites >}}
-- [Introduction](/documentation/getting-started/introduction/) — PHP 8.5+ and Composer
+- [Set up PHP & Composer](/documentation/getting-started/php-setup/) — install PHP 8.5+, required extensions, and Composer before continuing
 {{< /prerequisites >}}
+
+## Check your tools first
+
+```bash
+php -v
+composer --version
+```
+
+PHP must report **8.5 or newer**. If either command is missing or PHP is older, complete the [setup guide](/documentation/getting-started/php-setup/) first.
 
 ## Create pionia-shop
 
@@ -35,6 +44,7 @@ You are opening a small online store API called **Pionia Shop**. This step creat
 ```bash
 composer create-project pionia/pionia-app pionia-shop
 cd pionia-shop
+composer check-platform-reqs
 ```
 {{< /terminal >}}
 

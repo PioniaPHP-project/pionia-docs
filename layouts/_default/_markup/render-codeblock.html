@@ -1,0 +1,12 @@
+{{- $lang := .Type | default "text" -}}
+{{- $terminal := in (slice "bash" "sh" "shell" "powershell") $lang -}}
+{{- $label := "Code example" -}}
+{{- if $terminal }}{{ $label = "Terminal" }}{{ end -}}
+{{- if eq $lang "text" }}{{ $label = "Output" }}{{ end -}}
+<div class="code-block">
+  <figure class="pionia-code{{ if $terminal }} code-terminal{{ end }} not-content">
+    <figcaption class="code-caption"><span>{{ .Attributes.title | default $label }}</span><span class="code-language">{{ $lang }}</span></figcaption>
+    {{- $result := transform.HighlightCodeBlock . -}}
+    {{ $result.Wrapped }}
+  </figure>
+</div>

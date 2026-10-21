@@ -54,7 +54,7 @@ If the token is missing or invalid, protected actions return **401**. If the tok
 1. Configure a signing secret (`JWT_SECRET`).
 2. Register `JwtAuthentication` so Bearer tokens are read automatically.
 3. Implement `customer.login` to issue a token with `jwt_encode()`.
-4. Mark write actions with `#[Authenticated]` (or `#[Can(...)]` for permissions).
+4. Mark write actions with `#[Can('product.manage')]` for staff-only catalog writes.
 
 ## What you will learn
 
@@ -101,9 +101,26 @@ jwt = "Pionia\Auth\JwtAuthentication"
 This tells Pionia: “on each request, look for a Bearer JWT and attach the user when it is valid.”
 {{< /step >}}
 
-## CustomerService login
+## Create two local accounts
 
-You need a place to store shoppers. Scaffold a `customers` table (email + password_hash), migrate, and store passwords with `hash_password()` when someone registers.
+Create a table with a server-controlled role. A shopper can place orders; staff can also manage the catalog.
+
+```bash
+php pionia make:table customers --columns="email:string:unique,password_hash:string,role:string"
+php pionia migrate
+php pionia shell
+```
+
+Run each of these lines in the Pionia shell, then type `exit`. These accounts are for your local tutorial database only:
+
+```php
+table('customers')->save(['email' => 'ada@pionia.shop', 'password_hash' => hash_password('shopper-local-demo'), 'role' => 'customer']);
+table('customers')->save(['email' => 'staff@pionia.shop', 'password_hash' => hash_password('staff-local-demo'), 'role' => 'staff']);
+```
+
+Run the inserts once: `email` is unique. A future registration action should always assign `customer` on the server. Never accept a role or permission list from a registration or login payload.
+
+## CustomerService login
 
 {{< terminal >}}
 ```bash
@@ -111,12 +128,24 @@ php pionia make:service Customer
 ```
 {{< /terminal >}}
 
-```php
-use Pionia\Auth\Attributes\Authenticated;
+Choose **Basic** when prompted. Replace the generated `services/CustomerService.php` with:
 
-#[Authenticated(except: ['login', 'register'])]
+```php {title="services/CustomerService.php"}
+<?php
+
+namespace Application\Services;
+
+use Pionia\Auth\Attributes\Authenticated;
+use Pionia\Collections\Arrayable;
+use Pionia\Exceptions\UserUnauthenticatedException;
+use Pionia\Http\Response\ApiResponse;
+use Pionia\Http\Services\Service;
+use Pionia\Validations\Attributes\Validated;
+
+#[Authenticated(except: ['login'])]
 class CustomerService extends Service
 {
+    #[Validated(rules: ['email' => 'required|email', 'password' => 'required|string'])]
     protected function loginAction(Arrayable $data): ApiResponse
     {
         $customer = table('customers')
@@ -124,13 +153,17 @@ class CustomerService extends Service
             ->get();
 
         if (!$customer || !verify_password($data->get('password'), $customer->password_hash)) {
-            return response(401, 'Invalid credentials');
+            throw new UserUnauthenticatedException('Invalid credentials');
         }
+
+        $permissions = $customer->role === 'staff'
+            ? ['product.manage', 'order.place']
+            : ['order.place'];
 
         $token = jwt_encode([
             'sub' => $customer->id,
             'email' => $customer->email,
-            'permissions' => ['product.manage', 'order.place'],
+            'permissions' => $permissions,
         ]);
 
         return response(0, 'Logged in', ['token' => $token]);
@@ -138,41 +171,62 @@ class CustomerService extends Service
 }
 ```
 
-Register `'customer' => CustomerService::class` on `MainSwitch`.
+Add `use Application\Services\CustomerService;` to `switches/MainSwitch.php`, then add `'customer' => CustomerService::class` to the array returned by `registerServices()`.
 
-`except: ['login', 'register']` keeps those actions **public** — otherwise Ada could never log in.
+`except: ['login']` keeps login public. Throwing `UserUnauthenticatedException` produces HTTP 401; `response(401, ...)` alone would only set the envelope's `returnCode`. JWT permissions come from the stored role, not the request.
 
 ## Protect catalog writes
 
-```php
-use Pionia\Auth\Attributes\Authenticated;
-// or #[Can('product.manage')] when you care about permissions
+Keep the validation from Step 8 and require the catalog permission. Add these imports once, above the `ProductService` class:
 
-#[Authenticated]
+```php
+use Pionia\Auth\Attributes\Can;
+use Pionia\Validations\Attributes\Validated;
+```
+
+Replace `createAction` with:
+
+```php
+#[Can('product.manage')]
+#[Validated(rules: [
+    'name' => 'required|string|min:2',
+    'price' => 'required|numeric',
+    'stock' => 'integer|min:0',
+])]
 protected function createAction(Arrayable $data): ApiResponse
 {
-    // same save as Step 7–8
+    $product = table('products')->save([
+        'name' => $data->get('name'),
+        'price' => $data->get('price'),
+        'stock' => $data->getInt('stock') ?? 0,
+    ]);
+
+    return response(0, 'Product created', ['id' => $product->id]);
 }
 ```
+
+`#[Can]` also requires authentication: no token produces HTTP 401; a shopper token without `product.manage` produces HTTP 403.
 
 Leave `listAction` without the attribute so guests can still browse.
 
 ## Try the flow
 
 ```bash
-# 1) login
-curl -s -X POST http://127.0.0.1:8000/api/v1/ \
+# 1) log in as staff
+curl -i -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
-  -d '{"service":"customer","action":"login","email":"ada@pionia.shop","password":"secret"}'
+  -d '{"service":"customer","action":"login","email":"staff@pionia.shop","password":"staff-local-demo"}'
 
 # 2) create with token (paste token from step 1)
-curl -s -X POST http://127.0.0.1:8000/api/v1/ \
+curl -i -X POST http://127.0.0.1:8000/api/v1/ \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"service":"product","action":"create","name":"Cap","price":15,"stock":20}'
 ```
 
-Try create **without** the header — you should get **401**.
+Try create **without** the header — you should get HTTP **401**. Then log in with `ada@pionia.shop` and `shopper-local-demo`, and repeat create with Ada's token — expect HTTP **403**. The staff token should succeed with `returnCode: 0` and a scalar `returnData.id`.
+
+Permissions are captured when the token is issued. Changing a stored role does not rewrite existing tokens; sign in again to test role changes. Plan token expiry or revocation before using this pattern in production.
 
 More depth: [JWT authentication](/documentation/security/jwt-authentication/) and [Protecting actions](/documentation/security/protecting-actions/).
 

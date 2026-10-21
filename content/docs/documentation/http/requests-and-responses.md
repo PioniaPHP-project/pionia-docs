@@ -262,7 +262,7 @@ See [Exceptions & error handling](/documentation/http/exceptions/) for status co
 
 SPA client routes (e.g. `/dashboard`) fall back to `index.html` when configured — see [Frontend integration](/documentation/frontend/vite-integration/).
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 Only `public/static/` is wired to `/static/`. A nested `public/public/static/` folder is **not** served unless you add custom routes.
 {{</callout>}}
 

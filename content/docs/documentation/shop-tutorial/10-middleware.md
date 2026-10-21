@@ -100,7 +100,40 @@ That creates a class under `middlewares/` (folder appears on first use).
 {{< /step >}}
 
 {{< step >}}
-**2. Register it**
+**2. Implement the hooks**
+
+Replace the generated class with the following. The generator creates empty hooks; the code below generates a new ID and echoes it on the response.
+
+```php {title="middlewares/RequestIdMiddleware.php"}
+<?php
+
+namespace Application\Middlewares;
+
+use Pionia\Http\Request\Request;
+use Pionia\Http\Response\Response;
+use Pionia\Middlewares\Middleware;
+
+class RequestIdMiddleware extends Middleware
+{
+    public function onRequest(Request $request): void
+    {
+        $request->headers->set('X-Request-Id', bin2hex(random_bytes(16)));
+    }
+
+    public function onResponse(Response $response, Request $request): void
+    {
+        $id = $request->headers->get('X-Request-Id');
+        $response->headers->set('X-Request-Id', $id);
+        logger()->info('HTTP response', ['request_id' => $id]);
+    }
+}
+```
+
+Both hooks receive the same request. The log entry and response header now share an ID. Log output follows your configured channel; use a file channel to search `storage/logs/`.
+{{< /step >}}
+
+{{< step >}}
+**3. Register it**
 
 In `environment/settings.ini`:
 
@@ -113,7 +146,7 @@ request_id = "Application\Middlewares\RequestIdMiddleware"
 {{< /step >}}
 
 {{< step >}}
-**3. Call the catalog and read headers**
+**4. Call the catalog and read headers**
 
 ```bash
 curl -si -X POST http://127.0.0.1:8000/api/v1/ \
@@ -139,7 +172,7 @@ If you put login checks only in middleware, every new action is easy to forget. 
 
 {{< try-it >}}
 1. Hit `product.list` twice — confirm two different request IDs.
-2. Log `X-Request-Id` from the client (or from `curl -si`) and search your `storage/logs/` for the same string after you add `logger()->info(...)` in an action.
+2. Log `X-Request-Id` from the client (or from `curl -si`) and search your `storage/logs/` for the same string when using a file log channel.
 {{< /try-it >}}
 
 ## Common mistakes

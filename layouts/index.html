@@ -1,123 +1,60 @@
 {{ define "main" }}
-<section class="section container-fluid mt-n3 pb-3">
-  <div class="row justify-content-center">
-    <div class="col-lg-10 col-xl-8 text-center">
-      <h1 class="display-5 fw-bold mb-3">{{ .Title }}</h1>
-      <p class="lead text-body-secondary mb-4">{{ .Params.lead | safeHTML }}</p>
-      <a class="btn btn-primary btn-cta rounded-pill btn-lg px-5 mb-4" href="/documentation/getting-started/introduction/#get-started" role="button">Get started</a>
-      <div class="landing-install mx-auto text-start">
-        {{ .Content }}
+<main class="pionia-home" id="main-content">
+  <section class="home-hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <a class="release-link" href="/documentation/getting-started/changelog-v3/"><span class="release-dot" aria-hidden="true"></span> Pionia v3 <span aria-hidden="true">/</span> Built for PHP 8.5+ <span aria-hidden="true">↗</span></a>
+      <h1 id="hero-title">Your next API.<br><span>A little simpler.</span></h1>
+      <p class="hero-description">Build around what your app does. Pionia brings services, data, and authentication together behind a versioned JSON API.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/documentation/shop-tutorial/01-create-project/">Build your first API <span aria-hidden="true">→</span></a>
+        <a class="hero-secondary" href="/documentation/building-api/moonlight-overview/">Meet Moonlight <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-install">
+        <span class="eyebrow">Start with Composer</span>
+        {{ highlight "composer create-project pionia/pionia-app pionia-shop" "bash" "" }}
+        <p>Open source · PHP 8.5+ · Your application, your infrastructure</p>
       </div>
     </div>
-  </div>
-</section>
-{{ end }}
-
-{{ define "sidebar-prefooter" }}
-  {{ if site.Params.doks.backgroundDots -}}
-  <div class="d-flex justify-content-start">
-    <div class="bg-dots"></div>
-  </div>
-  {{ end -}}
-  {{ if eq $.Site.Language.LanguageName "English" }}
-  <section class="section section-md section-features border-top">
-    <div class="container">
-      <div class="text-center mb-4">
-        <h2 class="h3 mb-2">Start building Pionia Shop</h2>
-        <p class="text-body-secondary mb-0">One example store API from install to deploy — pick where to begin.</p>
+    <div class="api-preview" aria-label="Example Moonlight request and response">
+      <div class="preview-heading"><span class="preview-dot" aria-hidden="true"></span> Pionia Shop <span class="preview-caption">The API, at a glance</span></div>
+      <div class="preview-request">
+        <div class="endpoint"><span>POST</span><code>/api/v1/</code><span class="endpoint-format">JSON</span></div>
+        {{ highlight "{\n  \"service\": \"product\",\n  \"action\": \"list\"\n}" "json" "" }}
       </div>
-
-      <div class="row justify-content-center g-3 mb-5">
-        <div class="col-md-4">
-          <a href="/documentation/shop-tutorial/" class="landing-path-card h-100">
-            <span class="landing-path-label">Tutorial</span>
-            <span class="landing-path-title">Build your shop API</span>
-            <span class="landing-path-desc">15 steps from <code>composer create-project</code> to providers and core.</span>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="/documentation/getting-started/changelog-v3/" class="landing-path-card h-100">
-            <span class="landing-path-label">Release notes</span>
-            <span class="landing-path-title">What's new in v3</span>
-            <span class="landing-path-desc">AppRealm, native HTTP stack, RoadRunner, and Moonlight updates.</span>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="/documentation/getting-started/why-pionia/" class="landing-path-card h-100">
-            <span class="landing-path-label">Overview</span>
-            <span class="landing-path-title">Why Pionia?</span>
-            <span class="landing-path-desc">When the Moonlight model fits — and how it compares to REST routing.</span>
-          </a>
-        </div>
+      <div class="preview-flow"><span>Switch</span><span aria-hidden="true">→</span><span>Service</span><span aria-hidden="true">→</span><span>Action</span></div>
+      <div class="preview-response">
+        <div class="response-label"><span class="response-status">200 OK</span><span>Response envelope</span></div>
+        {{ highlight "{\n  \"returnCode\": 0,\n  \"returnMessage\": \"OK\",\n  \"returnData\": {\n    \"products\": [\n      { \"id\": 1, \"name\": \"Ada Mug\" }\n    ]\n  },\n  \"extraData\": null\n}" "json" "" }}
       </div>
-
-      <div class="text-center mb-4">
-        <h2 class="h3 mb-2">Documentation</h2>
-        <p class="text-body-secondary mb-0">Browse by topic — same structure as the docs sidebar.</p>
-      </div>
-
-      <div class="row justify-content-center g-3 px-1">
-        <div class="col-lg-6">
-          <a href="/documentation/getting-started/introduction/" class="landing-topic-card">
-            <span class="landing-topic-title">Getting Started</span>
-            <span class="landing-topic-desc">Install, PHP basics, tutorial, app structure</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/building-api/" class="landing-topic-card">
-            <span class="landing-topic-title">Building your API</span>
-            <span class="landing-topic-desc">Moonlight, services, actions, validation</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/database/" class="landing-topic-card">
-            <span class="landing-topic-title">Database (Porm)</span>
-            <span class="landing-topic-desc">Queries, filters, joins, pagination</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/http/requests-and-responses/" class="landing-topic-card">
-            <span class="landing-topic-title">HTTP & middleware</span>
-            <span class="landing-topic-desc">Envelopes, middleware, exceptions</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/security/" class="landing-topic-card">
-            <span class="landing-topic-title">Security</span>
-            <span class="landing-topic-desc">Authentication, JWT, security utilities</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/frontend/vite-integration/" class="landing-topic-card">
-            <span class="landing-topic-title">Frontend</span>
-            <span class="landing-topic-desc">Vite SPA, dev proxy, production build</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/operations/roadrunner/" class="landing-topic-card">
-            <span class="landing-topic-title">Operations & deploy</span>
-            <span class="landing-topic-desc">RoadRunner, optimize, logging, CLI</span>
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a href="/documentation/extending/" class="landing-topic-card">
-            <span class="landing-topic-title">Extending & reference</span>
-            <span class="landing-topic-desc">Providers, packages, helpers</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="text-center mt-5 pt-4">
-        <p class="text-body-secondary small mb-1">
-          Open source — contributions welcome via
-          <a href="https://github.com/PioniaPHP-project" target="_blank" rel="noopener">GitHub</a>
-          and the <a href="https://oscakampala.org/" target="_blank" rel="noopener">OSCA-Kampala Chapter</a>.
-        </p>
-      </div>
+      <a class="preview-footer" href="/documentation/shop-tutorial/03-your-first-service/">Write the service behind this request <span aria-hidden="true">→</span></a>
     </div>
   </section>
-  {{ end }}
-{{ end }}
 
-{{ define "sidebar-footer" }}
+  <section class="home-paths" aria-labelledby="paths-title">
+    <div class="section-intro"><div><span class="eyebrow">From first request to production</span><h2 id="paths-title">Make something real.</h2></div><p>Follow the Pionia Shop tutorial, or go straight to the guide you need.</p></div>
+    <div class="path-grid">
+      <a class="path-feature" href="/documentation/shop-tutorial/"><span class="eyebrow">01 / Learn by building</span><h3>A small shop.<br>A solid foundation.</h3><p>Create a catalog API, add validation and staff permissions, then prepare it for deployment.</p><span class="path-bottom">Start the 15-part guide <span aria-hidden="true">↗</span></span></a>
+      <a class="path-card" href="/documentation/building-api/"><span class="eyebrow">02 / Build your API</span><h3>Give your app<br>its capabilities.</h3><p>Understand switches, services, and actions. Add validation and document your API.</p><span class="path-bottom">Explore Moonlight <span aria-hidden="true">→</span></span></a>
+      <a class="path-card" href="/documentation/operations/"><span class="eyebrow">03 / Ship with confidence</span><h3>Ready for<br>real requests.</h3><p>Run RoadRunner, configure logging, and prepare your application for production.</p><span class="path-bottom">Deployment guides <span aria-hidden="true">→</span></span></a>
+    </div>
+  </section>
+
+  <section class="home-reference" aria-labelledby="reference-title">
+    <div class="section-intro"><div><span class="eyebrow">Keep moving</span><h2 id="reference-title">Find your next answer.</h2></div><a class="hero-secondary" href="/documentation/">All documentation <span aria-hidden="true">→</span></a></div>
+    <div class="reference-grid">
+      {{ range slice
+        (dict "title" "Database & Porm" "desc" "Migrations, queries, joins, and transactions." "url" "/documentation/database/" "number" "01")
+        (dict "title" "Authentication & permissions" "desc" "JWTs, account identity, and action access." "url" "/documentation/security/" "number" "02")
+        (dict "title" "HTTP & middleware" "desc" "Requests, responses, and shared behavior." "url" "/documentation/http/" "number" "03")
+        (dict "title" "Your frontend" "desc" "Connect a Vite app to your Moonlight API." "url" "/documentation/frontend/vite-integration/" "number" "04")
+        (dict "title" "CLI reference" "desc" "Scaffold, inspect, and operate your app." "url" "/documentation/operations/commands/" "number" "05")
+        (dict "title" "Extend Pionia" "desc" "Providers, packages, and framework helpers." "url" "/documentation/extending/" "number" "06") }}
+      <a class="reference-link" href="{{ .url }}"><span class="reference-number">{{ .number }}</span><span><h3>{{ .title }}</h3><p>{{ .desc }}</p></span><span aria-hidden="true">↗</span></a>
+      {{ end }}
+    </div>
+  </section>
+  <div class="home-community"><span>Built in the open. Better together.</span><a href="https://github.com/PioniaPHP-project/PioniaCore">Explore PioniaCore on GitHub <span aria-hidden="true">↗</span></a></div>
+</main>
 {{ end }}
+{{ define "sidebar-prefooter" }}{{ end }}
+{{ define "sidebar-footer" }}{{ end }}

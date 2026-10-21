@@ -50,7 +50,7 @@ flowchart LR
   ML --> Stats
 {{< /mermaid >}}
 
-{{< callout context="note" title="Not a load test" icon="outline/information-circle" >}}
+{{< callout context="note" title="Not a load test" icon="outline/info-circle" >}}
 This is a **microbenchmark** of a warm PHP process. It does not open sockets, exercise nginx/FPM, or simulate concurrent users. For request metrics under real traffic, use [Developer stats](/documentation/operations/developer-stats/) or an external load tool.
 {{< /callout >}}
 

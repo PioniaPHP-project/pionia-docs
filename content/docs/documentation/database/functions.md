@@ -37,7 +37,7 @@ table('products')  →  count / sum / avg  →  single scalar result
 table('products')  →  filter(Agg::builder()->…->build())  →  rows or aggregates
 ```
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 v3 uses `table()` and namespaces under `Pionia\Porm\`. Examples below use `table('products')` and `table('customers')`.
 {{</callout>}}
 

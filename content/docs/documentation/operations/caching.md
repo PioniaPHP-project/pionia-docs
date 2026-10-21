@@ -1,6 +1,8 @@
 ---
 title: "Caching in Pionia"
-slug: "caching-in-pionia"
+slug: "caching"
+aliases:
+  - /documentation/operations/caching-in-pionia/
 description: "PSR-16 cache layer, stores, and GenericService response caching."
 summary: "Native CacheManager with filesystem, Redis, APCu, database, and array stores."
 date: 2026-07-01

@@ -106,7 +106,7 @@ Keep the first screen tiny:
 
 1. List products from `product.list` (no login).
 2. Login form → store the token (memory or `localStorage` for learning).
-3. “Add product” only when a token exists (calls `product.create` with Bearer).
+3. “Add product” for staff accounts (calls `product.create` with the staff Bearer token from Step 9). The API enforces `product.manage`; hiding the button alone does not protect the action.
 
 You already proved those curls in earlier steps — the UI is only a nicer client.
 

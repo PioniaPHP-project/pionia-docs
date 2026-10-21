@@ -4,7 +4,7 @@ slug: "introduction"
 description: "Install Pionia, create a project, boot the API, and ship your first service."
 summary: "Installation paths, bootstrap, first API call, and where to go next."
 date: 2024-05-24T13:45:48.890Z
-lastmod: 2026-07-04
+lastmod: 2026-10-21
 draft: false
 weight: 101
 doc_type: topic
@@ -23,14 +23,15 @@ You want to **ship a versioned JSON API** with PHP. This page installs Pionia an
 
 ## What you will learn
 
-- Two install paths (`composer create-project` vs existing Pionia tree)
+- Set up PHP 8.5 and Composer before installing Pionia
+- Create an application with `composer create-project`
 - What lands on disk after scaffold (`services/`, `switches/`, `environment/`)
 - How `AppRealm` boots for HTTP and CLI from the same bootstrap file
 
 ## Before you start
 
 {{< prerequisites >}}
-- PHP **8.5+** and [Composer](https://getcomposer.org/)
+- [Set up PHP & Composer](/documentation/getting-started/php-setup/) — start here if PHP 8.5 is not installed
 - Terminal basics (`cd`, `curl`)
 - New to PHP? [PHP basics for Pionia](/documentation/getting-started/php-basics/)
 {{< /prerequisites >}}
@@ -53,24 +54,6 @@ Pionia is a PHP 8.5+ framework for **versioned JSON APIs**. Clients POST `{ "ser
 
 One URL per API version keeps frontends simple and lets you version breaking changes cleanly. Read [Moonlight overview](/documentation/building-api/moonlight-overview/) for the full picture.
 
-## A minimal example {#get-started}
-
-With the server running:
-
-```bash
-curl -s http://127.0.0.1:8000/api/v1/ping
-```
-
-{{< envelope title="Result" >}}
-```json
-{
-  "returnCode": 0,
-  "returnMessage": "OK",
-  "returnData": { "pong": true }
-}
-```
-{{< /envelope >}}
-
 ## What you are building: Pionia Shop
 
 Every hands-on page uses the **same small store** so names stay consistent.
@@ -88,6 +71,12 @@ Every hands-on page uses the **same small store** so names stay consistent.
 
 Tables: `products`, `customers`, `orders`, `order_items`, `wallets`, `wallet_transactions`. Full walkthrough: [Pionia Shop tutorial](/documentation/shop-tutorial/).
 
+## Set up PHP first {#get-started}
+
+Pionia v3 requires **PHP 8.5+**. Before running Composer, follow [Set up PHP & Composer](/documentation/getting-started/php-setup/) for macOS, Linux, or Windows. That guide covers installation, selecting the correct interpreter, and enabling the required extensions and SQLite driver.
+
+Already set up? Run `php -v` and `composer --version` in your terminal, then continue below.
+
 ## Installation
 
 {{< tabs "create-new-project" >}}
@@ -96,17 +85,19 @@ Tables: `products`, `customers`, `orders`, `order_items`, `wallets`, `wallet_tra
 ```bash
 composer create-project pionia/pionia-app pionia-shop
 cd pionia-shop
+composer check-platform-reqs
 php pionia serve
 ```
 
 {{</tab>}}
 {{< tab "Windows" >}}
 
-Install [PHP 8.5+](https://windows.php.net/download/) and [Composer](https://getcomposer.org/download/), then:
+After completing [PHP & Composer setup](/documentation/getting-started/php-setup/), run:
 
 ```powershell
 composer create-project pionia/pionia-app pionia-shop
 cd pionia-shop
+composer check-platform-reqs
 php pionia serve
 ```
 
@@ -114,6 +105,24 @@ php pionia serve
 {{</tabs>}}
 
 Default URL: **http://127.0.0.1:8000/** (`PORT` in `environment/.env`).
+
+## Send your first ping
+
+With the server running:
+
+```bash
+curl -s http://127.0.0.1:8000/api/v1/ping
+```
+
+{{< envelope title="Result" >}}
+```json
+{
+  "returnCode": 0,
+  "returnMessage": "OK",
+  "returnData": { "pong": true }
+}
+```
+{{< /envelope >}}
 
 ## Project layout (what landed on disk)
 
@@ -134,7 +143,7 @@ Default URL: **http://127.0.0.1:8000/** (`PORT` in `environment/.env`).
 
 Set `APP_NAME=Pionia Shop` in `.env` so the welcome page and docs title match your store — see [Welcome page and branding](/documentation/http/welcome-page-and-branding/).
 
-{{< callout context="note" title="Workspace Trust" icon="outline/information-circle" >}}
+{{< callout context="note" title="Workspace Trust" icon="outline/info-circle" >}}
 VS Code and JetBrains may ask you to trust the new folder once. Accept so Composer and the PHP language server work normally.
 {{< /callout >}}
 
@@ -172,7 +181,7 @@ Open `services/ProductService.php`, add an action:
 ```php
 protected function listAction(\Pionia\Collections\Arrayable $data): \Pionia\Http\Response\ApiResponse
 {
-    return response(0, 'OK', ['tasks' => []]);
+    return response(0, 'OK', ['products' => []]);
 }
 ```
 
@@ -181,7 +190,7 @@ Register the service alias in `switches/MainSwitch.php`:
 ```php
 return arr([
     'welcome' => \Application\Services\WelcomeService::class,
-    'task' => \Application\Services\ProductService::class,
+    'product' => \Application\Services\ProductService::class,
 ]);
 ```
 

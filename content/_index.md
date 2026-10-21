@@ -1,13 +1,13 @@
 ---
 title: "Pionia Framework"
 description: ""
-lead: "Build a real JSON API in an afternoon — PHP 8.5+, Moonlight, and optional Vite frontend."
+lead: "Build versioned JSON APIs with services, Porm, authentication, and an optional Vite frontend."
 date: 2023-09-07T16:33:54+02:00
 lastmod: 2026-07-21T00:00:00.000Z
 draft: false
 seo:
   title: "Pionia Framework"
-  description: "PHP Moonlight REST API framework for developers with deadlines"
+  description: "Pionia v3: a PHP 8.5+ framework for versioned JSON APIs, with Porm, JWT authentication, and optional RoadRunner workers."
   canonical: ""
   noindex: false
 ---

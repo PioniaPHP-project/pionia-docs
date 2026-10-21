@@ -56,7 +56,7 @@ $rows = table('products')->filter(['status' => 'open'])->limit(10)->all();
 table('orders', null, 'db_pgsql')->save(['customer_id' => 1, 'status' => 'pending', 'total' => 49.0]);
 ```
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 Porm is built into your Pionia app. Use `table()` or `db()` — not legacy `Porm\Porm::from()` patterns from older tutorials.
 {{</callout>}}
 

@@ -31,7 +31,7 @@ This is **not** a complete PHP course. It is the slice of the language Pionia ac
 ## Before you start
 
 {{< prerequisites >}}
-- PHP **8.5+** (`php -v`)
+- [PHP 8.5+ installed and configured](/documentation/getting-started/php-setup/) (`php -v`)
 - [Composer](https://getcomposer.org/) (`composer -V`)
 - A terminal and an editor (VS Code, Cursor, or PhpStorm)
 {{< /prerequisites >}}
@@ -48,7 +48,7 @@ composer -V
 php -m | grep -i pdo   # database drivers show up here
 ```
 
-Pionia Shop’s default local database is **SQLite**, so you want the `pdo_sqlite` extension enabled. If `php -m` does not list it, install it with your OS package manager (for example `php-sqlite3` on Debian/Ubuntu, or enable it in `php.ini` on Windows).
+Pionia Shop’s default local database is **SQLite**, so you want the `pdo_sqlite` extension enabled. If `php -m` does not list it, follow the extension instructions in [PHP setup](/documentation/getting-started/php-setup/#check-extensions) for your operating system and PHP version.
 
 ## A Pionia service is just a PHP class
 

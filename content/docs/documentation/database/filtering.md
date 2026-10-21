@@ -39,7 +39,7 @@ table('products')
   → all() | count() | first()   (terminal — executes SQL)
 ```
 
-{{<callout context="warning" icon="outline/exclamation-triangle">}}
+{{<callout context="warning" icon="outline/alert-triangle">}}
 `startAt($offset)` requires a prior `limit()` call on the Builder.
 {{</callout>}}
 

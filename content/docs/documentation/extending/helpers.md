@@ -49,7 +49,7 @@ flowchart LR
   L --> Task
 {{< /mermaid >}}
 
-{{< callout context="note" title="Boot timing" icon="outline/information-circle" >}}
+{{< callout context="note" title="Boot timing" icon="outline/info-circle" >}}
 Helpers like `app()`, `realm()`, and `logger()` are not available in `bootstrap/application.php` before `AppRealm::create()` returns. Use [service providers](/documentation/extending/app-providers/) for boot-time wiring.
 {{< /callout >}}
 

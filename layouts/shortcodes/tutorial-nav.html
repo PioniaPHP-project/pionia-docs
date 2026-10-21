@@ -1,19 +1,4 @@
-{{- $prev := .Page.Params.tutorial_prev -}}
-{{- $next := .Page.Params.tutorial_next -}}
-{{- $step := .Page.Params.tutorial_step -}}
-{{- $total := .Page.Params.tutorial_total | default 15 -}}
-<nav class="tutorial-step-nav d-flex flex-wrap justify-content-between align-items-center gap-2 border-top border-bottom py-3 my-4" aria-label="Tutorial navigation">
-  <div class="flex-grow-1">
-    {{- with $prev -}}
-    <a href="{{ . }}" class="btn btn-outline-primary btn-sm">← Previous step</a>
-    {{- end -}}
-  </div>
-  {{- with $step -}}
-  <span class="text-muted small text-center">Step {{ $step }} of {{ $total }}</span>
-  {{- end -}}
-  <div class="flex-grow-1 text-end">
-    {{- with $next -}}
-    <a href="{{ . }}" class="btn btn-primary btn-sm">Next step →</a>
-    {{- end -}}
-  </div>
+<nav class="tutorial-step-nav" aria-label="Tutorial navigation">
+  {{ with .Page.Params.tutorial_prev }}<a href="{{ . }}"><span>← Previous step</span>{{ range where site.RegularPages "RelPermalink" . }}<strong>{{ .Title }}</strong>{{ end }}</a>{{ else }}<a href="/documentation/shop-tutorial/"><span>← Learning path</span><strong>Pionia Shop tutorial</strong></a>{{ end }}
+  {{ with .Page.Params.tutorial_next }}<a class="tutorial-next" href="{{ . }}"><span>Up next →</span>{{ range where site.RegularPages "RelPermalink" . }}<strong>{{ .Title }}</strong>{{ end }}</a>{{ else }}<a class="tutorial-next" href="/documentation/"><span>Keep building →</span><strong>Explore the guides</strong></a>{{ end }}
 </nav>

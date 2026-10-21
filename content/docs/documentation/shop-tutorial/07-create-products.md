@@ -36,15 +36,17 @@ A shop needs new inventory. Add **`product.create`** so staff can insert a row w
 ```php
 protected function createAction(Arrayable $data): ApiResponse
 {
-    $id = table('products')->save([
+    $product = table('products')->save([
         'name' => $data->get('name'),
         'price' => $data->get('price'),
         'stock' => $data->getInt('stock') ?? 0,
     ]);
 
-    return response(0, 'Product created', ['id' => $id]);
+    return response(0, 'Product created', ['id' => $product->id]);
 }
 ```
+
+`save()` returns the saved row as an object. Read its `id` property for the response.
 
 ## Try it
 

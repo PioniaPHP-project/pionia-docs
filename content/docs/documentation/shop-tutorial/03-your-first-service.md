@@ -59,7 +59,7 @@ php pionia make:service Product
 ```
 {{< /terminal >}}
 
-Edit `services/ProductService.php`:
+Choose **Basic** when prompted. Replace the generated `listAction` in `services/ProductService.php`; keep its existing `Arrayable` and `ApiResponse` imports.
 
 ```php
 protected function listAction(Arrayable $data): ApiResponse
@@ -73,7 +73,13 @@ protected function listAction(Arrayable $data): ApiResponse
 }
 ```
 
-Register on `switches/MainSwitch.php`:
+In `switches/MainSwitch.php`, add the import above the class:
+
+```php
+use Application\Services\ProductService;
+```
+
+Add the alias to the array returned by `registerServices()`:
 
 ```php
 'product' => ProductService::class,

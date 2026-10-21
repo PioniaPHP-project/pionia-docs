@@ -1,15 +1,25 @@
-{{- $sidebar := printf "sidebar_%s" .Section }}
-{{- with index site.Menus $sidebar }}
-  {{ partial "sidebar/render-section-menu.html" (dict "currentPage" $ "nodes" .) }}
-{{- else }}
-  {{- $docRoot := site.GetPage "section" "docs/documentation" }}
-  {{- if and $docRoot (eq .Section "docs") }}
-    {{ with $docRoot.Sections }}
-      {{ partial "sidebar/render-section-menu.html" (dict "currentPage" $ "nodes" .) }}
-    {{ end }}
-  {{- else }}
-    {{ with (.Site.GetPage "section" .Section).Sections }}
-      {{ partial "sidebar/render-section-menu.html" (dict "currentPage" $ "nodes" .) }}
-    {{ end }}
-  {{- end }}
-{{- end }}
+{{ $current := . }}
+<nav class="section-nav docs-links" aria-label="Guides">
+  <a class="sidebar-home" href="/documentation/">Pionia documentation <span>v3</span></a>
+  {{ range slice
+    (dict "title" "Start here" "sections" (slice "getting-started" "shop-tutorial"))
+    (dict "title" "Build your API" "sections" (slice "building-api" "database" "http" "security" "frontend"))
+    (dict "title" "Ship & extend" "sections" (slice "operations" "extending" "examples")) }}
+    <div class="sidebar-group"><p class="sidebar-group-title">{{ .title }}</p>
+      {{ range .sections }}
+        {{ with site.GetPage (printf "/docs/documentation/%s" .) }}
+          {{ $active := or ($current.Eq .) ($current.IsDescendant .) }}
+          <details{{ if $active }} open{{ end }}>
+            <summary>{{ .LinkTitle }}</summary>
+            <ul class="list-unstyled list-nested">
+              <li><a href="{{ .RelPermalink }}"{{ if $current.Eq . }} aria-current="page"{{ end }}>Overview</a></li>
+              {{ range .RegularPages.ByWeight }}
+              <li><a href="{{ .RelPermalink }}"{{ if $current.Eq . }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a></li>
+              {{ end }}
+            </ul>
+          </details>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+</nav>

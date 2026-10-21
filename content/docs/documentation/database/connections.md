@@ -55,7 +55,7 @@ Helpers:
 | `disconnect($name?)` | Drop pooled handle(s) — worker shutdown only |
 | `has($name)` | Whether a pool entry exists |
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 Do **not** call `disconnect()` between HTTP requests in FPM or RoadRunner. PDO stays alive for performance; only disconnect on worker shutdown.
 {{</callout>}}
 

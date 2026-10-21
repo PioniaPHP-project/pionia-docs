@@ -19,7 +19,7 @@ seo:
   title: "Pionia Shop tutorial — Step 5"
 ---
 
-Hard-coded mugs disappear when the server restarts. Put the catalog in a **database** so Ada always sees the same products — on your laptop today, on a server tomorrow.
+A hard-coded catalog can only change when you edit PHP. Put the catalog in a **database** so the API can create and update products, and those changes survive server restarts.
 
 ## What is a database migration? (in general)
 

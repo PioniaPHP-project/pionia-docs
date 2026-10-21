@@ -1,6 +1,6 @@
 # Hugo
 title = "Pionia Framework"
-description = "PHP REST Framework for web developers with deadline!"
+description = "Build versioned JSON APIs with Pionia: services, Porm, authentication, and optional RoadRunner workers."
 images = ["favicon.ico", "pionia.png", "favicon.png"]
 
 # mainSections
@@ -18,7 +18,7 @@ colorModeToggler = true # true (default) or false (this setting is only relevant
 
 # Navbar
 navbarSticky = true        # true (default) or false
-containerBreakpoint = "sm" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
+containerBreakpoint = "fluid" # "", "sm", "md", "lg" (default), "xl", "xxl", or "fluid"
 
 ## Button
 navBarButton = true                                          # false (default) or true
@@ -65,8 +65,8 @@ docsVersioning = false # false (default) or true
 docsVersion = "3.0"
 
 # UX
-headerBar = true      # true (default) or false
-backgroundDots = true # true (default) or false
+headerBar = false      # true (default) or false
+backgroundDots = false # true (default) or false
 
 # Homepage
 sectionFooter = false # false (default) or true

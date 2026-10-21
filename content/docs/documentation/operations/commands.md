@@ -1,6 +1,8 @@
 ---
 title: "Commands (Pionia CLI)"
-slug: "commands-pionia-cli"
+slug: "commands"
+aliases:
+  - /documentation/operations/commands-pionia-cli/
 description: "Guides you on to use Pionia CLI and adding custom commands"
 summary: "Available commands in Pionia CLI and how to add custom commands."
 date: 2024-10-07 19:48:09.318 +0300
@@ -484,7 +486,7 @@ To pass the length of the password, you can use the `--length` option:
 php pionia gen-pwd --length=20
 ```
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 The sections below walk through building this command step by step. For the full built-in command reference, see [Built-in commands (v3)](#built-in-commands-v3) above.
 {{</callout>}}
 

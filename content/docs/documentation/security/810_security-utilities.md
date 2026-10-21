@@ -52,7 +52,7 @@ $token = security()->token();
 $token = secure_token(); // same result
 ```
 
-{{< callout context="note" title="Boot required" icon="outline/information-circle" >}}
+{{< callout context="note" title="Boot required" icon="outline/info-circle" >}}
 Helpers like `security()` require a booted application (`bootstrap/application.php`). For one-off scripts, call `AppRealm::create()` first or use the class directly: `(new Security())->token()`.
 {{< /callout >}}
 

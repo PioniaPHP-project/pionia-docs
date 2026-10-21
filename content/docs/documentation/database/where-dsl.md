@@ -118,7 +118,7 @@ On a **Builder** chain, prefer fluent methods. In raw WHERE arrays:
 | `GROUP` | `['GROUP' => 'project_id']` |
 | `HAVING` | `['HAVING' => ['count[>]' => 5]]` |
 
-{{<callout context="warning" icon="outline/exclamation-triangle">}}
+{{<callout context="warning" icon="outline/alert-triangle">}}
 `startAt($offset)` on the Builder requires a prior `limit()` call — it maps to `LIMIT [$offset, $limit]`.
 {{</callout>}}
 
@@ -145,7 +145,7 @@ Cast on read: suffix `[Int]`, `[Bool]`, `[Number]`, `[String]`, `[JSON]`, `[Obje
 table('products')->columns(['metadata[JSON]'])->get(1);
 ```
 
-{{<callout context="note" icon="outline/information-circle">}}
+{{<callout context="note" icon="outline/info-circle">}}
 `[Object]` uses PHP `unserialize()` — only use with trusted database content.
 {{</callout>}}
 
